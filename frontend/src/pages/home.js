@@ -1,0 +1,330 @@
+import { navigateTo } from "../routes/router.js";
+export function home() {
+    return `
+    
+     <header
+      class=" NAVEGACION  font-sans text-blue-950 flex items-center justify-between h-20 pl-4 sm:pl-6 md:pl-10 pr-2 sm:pr-4 md:pr-8 bg-gray-50"
+    >
+      <figure class="w-60 flex items-center gap-4">
+        <h1 class="text-3xl font-bold">Barranquilla</h1>
+        <img class="w-32" src="/src/assets/img/logo.png" alt="Logo" />
+      </figure>
+      <nav class="">
+        <ul class="flex gap-4 font-medium">
+          <li><a href="">Inicio</a></li>
+          <li><a href="">Destinos</a></li>
+          <li><a href="">Eventos</a></li>
+          <li><a href="">Nosotros</a></li>
+
+          <li>
+            <i class="fas fa-check-circle"></i> <a href="">Iniciar Sesión</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+
+    <main class="w-full flex flex-col gap-4 font-sans">
+      <section class="  HERO      w-full h-120 relative">
+        <img
+          class="w-full h-full object-cover"
+          src="/src/assets/img/hero3.png"
+          alt="Hero Image"
+        />
+        <p class="absolute bottom-1/2 left-1/9 text-blue-950">
+          <span class="font-medium text-5xl"> Descubre la magia. </span><br />
+          <span class="font-extralight text-lg">
+            Explora, vive y disfruta todo lo que <br />
+            nuestra ciudad tiene <b>para ti</b>.
+          </span>
+        </p>
+      </section>
+
+      <section class="   IZQUIERDOYDERECHA        flex max-w-full gap-4 p-2 ml-10 mr-10">
+        <aside class="  IZQUIERDO   h-70 w-1/2 bg-blue-100">
+          <figure class="flex items-center gap-3">
+            <div
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700"
+            >
+              <img
+                class="h-5 w-5"
+                src="/src/assets/img/location.svg"
+                alt="Icono de sitios destacados"
+              />
+            </div>
+
+            <figcaption>
+              <h2 class="text-2xl font-bold text-blue-700">
+                Sitios Destacados
+              </h2>
+            </figcaption>
+          </figure>
+        </aside>
+
+        <aside class="  DERECHA    h-70 w-1/2 bg-orange-100">
+          <figure class="flex items-center gap-3">
+            <div
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
+            >
+              <img
+                class="h-5 w-5"
+                src="/src/assets/img/calendar.svg"
+                alt="Icono de eventos destacados"
+              />
+            </div>
+
+            <figcaption>
+              <h2 class="text-2xl font-bold text-red-500">
+                Eventos Destacados
+              </h2>
+            </figcaption>
+          </figure>
+        </aside>
+      </section>
+
+      <section
+        class="     INFOICONS     max-w-full p-2 ml-10 mr-10 bg-gray-50 border border-gray-200 rounded-3xl text-blue-900 font-medium text-sm"
+      >
+        <h2 class="font-medium text-2xl text-blue-900 pl-5">
+          ¿Por qué usar Barranquilla explora?
+        </h2>
+        <figure class="flex gap-4 items-center p-2">
+
+          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-blue-600"
+            >
+              <img
+                src="/src/assets/img/places.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+            <p>
+              Descubre lugares icónicos y también menos visibles.
+            </p>
+          </article>
+
+         <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-red-500"
+            >
+              <img
+                src="/src/assets/img/music.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+
+            <p>
+              Consulta eventos culturales, gastronómicos y deportivos.
+            </p>
+          </article>
+
+
+          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-yellow-500"
+            >
+              <img
+                src="/src/assets/img/safe.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+
+            <p>
+              Encuentra información confiable y actualizada.
+            </p>
+          </article>
+
+
+          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-green-500"
+            >
+              <img
+                src="/src/assets/img/heart.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+
+            <p>
+              Planifica y guarda tus itinerarios.
+            </p>
+          </article>
+
+
+          <article class="flex gap-2 items-center bg-white  p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-purple-500"
+            >
+              <img
+                src="/src/assets/img/people.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+
+            <p>
+              Conecta con experiencias locales auténticas y memorables.
+            </p>
+          </article>
+
+
+          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+            <div
+              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-orange-500"
+            >
+              <img
+                src="/src/assets/img/shop.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+
+            <p>
+              Impulsa el turismo local y la visibilidad de emprendimientos.
+            </p>
+            
+          </article>
+
+        </figure>
+      </section>
+
+
+
+
+
+
+
+     <section
+        class="  INFOICONS2       max-w-full  ml-8 mr-8 text-blue-900 font-medium text-sm"
+      >
+        
+        <figure class="flex gap-4 items-center p-2">
+
+
+          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+            <div
+              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-amber-100"
+            >
+              <img
+                src="/src/assets/img/store.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+            <div>
+            <h2 class="font-bold"> Apoya negocios locales </h2>
+            <p>
+              Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.
+            </p>
+            </div>
+            <img
+                src="/src/assets/img/negocios_locales.webp"
+                alt="Sitios destacados"
+                class="size-26 object-cover rounded-xl"
+              />
+          </article>
+
+         <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+            <div
+              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-blue-200"
+            >
+              <img
+                src="/src/assets/img/people2.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+            <div>
+            <h2 class="font-bold"> Reseñas de usuarios </h2>
+            <p>
+              Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.
+            </p>
+            </div>
+            <img
+                src="/src/assets/img/estrella2.png"
+                alt="Sitios destacados"
+                class="size-26 object-contain rounded-xl"
+              />
+          </article>
+
+
+
+
+          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+            <div
+              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-green-200"
+            >
+              <img
+                src="/src/assets/img/location2.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+            <div>
+            <h2 class="font-bold"> Itinerarios sugeridos </h2>
+            <p>
+              Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.
+            </p>
+            </div>
+            <img
+                src="/src/assets/img/itinerario.webp"
+                alt="Sitios destacados"
+                class="size-26 object-cover rounded-xl"
+              />
+          </article>
+
+
+
+
+          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+            <div
+              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-purple-200"
+            >
+              <img
+                src="/src/assets/img/family.svg"
+                alt="Sitios destacados"
+                class="w-8 h-8"
+              />
+            </div>
+            <div>
+            <h2 class="font-bold"> Experiencias para todos </h2>
+            <p>
+              Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!
+            </p>
+            </div>
+            <img
+                src="/src/assets/img/familias.webp"
+                alt="Sitios destacados"
+                class="size-26 object-cover rounded-xl"
+              />
+          </article>
+
+
+          
+
+        </figure>
+      </section>
+
+
+
+    <section class="text-blue-900 font-medium text-2xl p-2 ml-10 mr-10 flex justify-center"> 
+        <img class="w-16 mb-4" src="/src/assets/img/chispitas2.png" alt="Icono de corazón" />
+        Barranquilla te espera.&nbsp; <b> Explora, vive <span class="text-red-600"> y comparte</span> </b> lo mejor de nuestra ciudad.
+        <img class="w-16 mb-4" src="/src/assets/img/chispitas_derecho.png" alt="Icono de corazón" />
+    </section>
+
+
+
+
+    </main>
+
+    <footer></footer>
+    `;
+}
+
+export function homeEvents() { }

@@ -1,4 +1,5 @@
 import './style.css'
-import { initApp } from "./app";
+import { router } from "./routes/router.js";
 
-initApp();
+router();
+

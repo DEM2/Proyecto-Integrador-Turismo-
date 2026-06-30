@@ -1,9 +1,13 @@
+
+import { home, homeEvents } from "../pages/home.js";
+
+
+
 export const routes = {
+  "/": {
+    render: home,
+    events: homeEvents,
+    guestOnly: true
+  }
+};
 
-    "/": "home",
-    "/login": "login",
-    "/register": "register",
-    "/events": "events",
-    "/places": "places"
-
-}
