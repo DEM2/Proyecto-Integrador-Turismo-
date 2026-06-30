@@ -10,7 +10,7 @@ export function home() {
         <img class="w-32" src="/src/assets/img/logo.png" alt="Logo" />
       </figure>
       <nav class="">
-        <ul class="flex gap-4 font-medium">
+        <ul class="flex gap-4 font-medium  max-md:hidden ">
           <li><a href="">Inicio</a></li>
           <li><a href="">Destinos</a></li>
           <li><a href="">Eventos</a></li>
@@ -40,8 +40,8 @@ export function home() {
         </p>
       </section>
 
-      <section class="   IZQUIERDOYDERECHA        flex max-w-full gap-4 p-2 ml-10 mr-10">
-        <aside class="  IZQUIERDO   h-70 w-1/2 bg-blue-100">
+      <section class="   IZQUIERDOYDERECHA     pl-10 pr-10   xl:h-70 lg: h-150   items-stretch grid grid-cols-1 xl:grid-cols-2  gap-4">
+        <aside class="  IZQUIERDO    bg-blue-100">
           <figure class="flex items-center gap-3">
             <div
               class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700"
@@ -61,7 +61,7 @@ export function home() {
           </figure>
         </aside>
 
-        <aside class="  DERECHA    h-70 w-1/2 bg-orange-100">
+        <aside class="  DERECHA    bg-orange-100">
           <figure class="flex items-center gap-3">
             <div
               class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
@@ -312,9 +312,11 @@ export function home() {
 
 
 
-    <section class="text-blue-900 font-medium text-2xl p-2 ml-10 mr-10 flex justify-center"> 
+    <section class="text-blue-900 font-medium xl:text-2xl  p-2 ml-10 mr-10 flex justify-center"> 
         <img class="w-16 mb-4" src="/src/assets/img/chispitas2.png" alt="Icono de corazón" />
+        <p>
         Barranquilla te espera.&nbsp; <b> Explora, vive <span class="text-red-600"> y comparte</span> </b> lo mejor de nuestra ciudad.
+        </p>
         <img class="w-16 mb-4" src="/src/assets/img/chispitas_derecho.png" alt="Icono de corazón" />
     </section>
 
