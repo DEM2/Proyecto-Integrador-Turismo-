@@ -88,9 +88,9 @@ export function home() {
         <h2 class="font-medium text-2xl text-blue-900 pl-5">
           ¿Por qué usar Barranquilla explora?
         </h2>
-        <figure class="flex gap-4 items-center p-2">
+        <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2">
 
-          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-blue-600"
             >
@@ -105,7 +105,7 @@ export function home() {
             </p>
           </article>
 
-         <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+         <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-red-500"
             >
@@ -122,7 +122,7 @@ export function home() {
           </article>
 
 
-          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-yellow-500"
             >
@@ -139,7 +139,7 @@ export function home() {
           </article>
 
 
-          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-green-500"
             >
@@ -156,7 +156,7 @@ export function home() {
           </article>
 
 
-          <article class="flex gap-2 items-center bg-white  p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+          <article class="flex items-center gap-3 bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-purple-500"
             >
@@ -173,7 +173,7 @@ export function home() {
           </article>
 
 
-          <article class="flex gap-2 items-center bg-white p-5 w-1/6 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50">
+          <article class="flex items-center gap-3 bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full bg-orange-500"
             >
@@ -203,10 +203,10 @@ export function home() {
         class="  INFOICONS2       max-w-full  ml-8 mr-8 text-blue-900 font-medium text-sm"
       >
         
-        <figure class="flex gap-4 items-center p-2">
+        <figure class="items-stretch grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-2">
 
 
-          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+          <article class="flex gap-2 items-center bg-gray-50 p-2 rounded-lg">
             <div
               class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-amber-100"
             >
@@ -229,7 +229,7 @@ export function home() {
               />
           </article>
 
-         <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+         <article class="flex gap-2 items-center bg-gray-50 p-2 rounded-lg">
             <div
               class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-blue-200"
             >
@@ -255,7 +255,7 @@ export function home() {
 
 
 
-          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+          <article class="flex gap-2 items-center bg-gray-50 p-2  rounded-lg">
             <div
               class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-green-200"
             >
@@ -281,7 +281,7 @@ export function home() {
 
 
 
-          <article class="flex gap-2 items-center bg-gray-50 p-2 w-1/4 rounded-lg">
+          <article class="flex gap-2 items-center bg-gray-50 p-2  rounded-lg">
             <div
               class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-purple-200"
             >
