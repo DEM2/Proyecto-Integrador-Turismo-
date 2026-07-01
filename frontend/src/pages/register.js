@@ -1,49 +1,38 @@
 export function Register() {
-  return `
+    return `
 
-        <main class="relative w-screen h-screen overflow-hidden">
+        <main class="relative w-full min-h-screen 2xl:h-screen 2xl:overflow-hidden bg-[#1B2E6B]">
 
-            <!-- HERO — Full-bleed background image -->
+            <!-- HERO — Full-bleed background image (visible at every breakpoint) -->
             <img
                 src="/images/register-hero.png"
                 alt="Barranquilla al atardecer"
                 class="absolute inset-0 w-full h-full object-cover object-center"
             />
 
-            <!-- Hero overlay gradient — left side legibility -->
-            <div class="absolute inset-0 bg-gradient bg-white/6 "></div>
+            <!-- Hero overlay gradient — legibility for text/card on top of the photo -->
+            <div class="absolute inset-0 bg-gradient bg-white/6"></div>
+            <div class="absolute inset-0 bg-[#1B2E6B]/20 2xl:hidden"></div>
 
             <!-- ============================================================
-                 HERO CONTENT — Logo + headline + tagline + footer badge
+                 HERO CONTENT — Logo + headline (top-left) and tagline badge
+                 (bottom-left), floating over the full-bleed photo.
+                 Hidden below xl; replaced by the compact mobile/tablet header.
             ============================================================ -->
 
-            <section class="absolute inset-0 flex flex-col p-10 pointer-events-none lg:w-[58%]">
+            <section class="hidden 2xl:flex absolute inset-0 z-10 flex-col p-10 pointer-events-none">
 
                 <!-- HEADER — Logo -->
-                <header class="flex items-center gap-3 p">
-                 <p class="text-blue-950 font-bold text-3xl tracking-wide drop-shadow-md">Barranquilla</p>
-                    <img src="/images/Logo.png" alt="Barranquilla Explora" class="h-12 w-auto drop-shadow-lg" />
+                <header class="flex items-center gap-3">
+                    <p class="text-blue-950 font-bold text-4xl tracking-wide drop-shadow-md">Barranquilla</p>
+                    <img src="/images/Logo.png" alt="Barranquilla Explora" class="h-18 w-auto drop-shadow-lg" />
                 </header>
-
-                <!-- HEADLINE — Pegado al logo -->
-                <article class="space-y-3 max-w-md mt-6">
-                    <p class="text-sm font-semibold tracking-[0.25em] uppercase text-[#E8961E]">
-                        Turismo · Cultura · Experiencias
-                    </p>
-
-                    <h1 class="text-6xl font-black leading-tight text-white drop-shadow-md">
-                        Descubre la magia de la
-                        <span class="block text-6xl italic text-blue-950 ">
-                            Costa Caribe
-                        </span>
-                    </h1>
-                </article>
 
                 <!-- Spacer — empuja el badge al fondo -->
                 <div class="flex-1"></div>
 
                 <!-- FOOTER BADGE -->
-                <footer class="hidden md:flex items-center gap-4 bg-[#1B2E6B]/70 backdrop-blur-sm rounded-2xl px-5 py-4 max-w-sm border border-white/10">
+                <footer class="flex items-center gap-4 bg-[#1B2E6B]/70 backdrop-blur-sm rounded-2xl px-5 py-4 max-w-sm border border-white/10">
                     <img src="/Logo.png" alt="" class="h-10 w-auto opacity-90" aria-hidden="true" />
                     <div>
                         <p class="text-white font-bold text-sm">Tu aventura comienza aquí</p>
@@ -56,30 +45,42 @@ export function Register() {
 
             </section>
 
+            <!-- ============================================================
+                 MOBILE / TABLET HEADER — Compact logo shown below xl,
+                 since the full hero headline/badge layout is hidden there
+            ============================================================ -->
+
+            <header class="relative z-10 flex 2xl:hidden items-center justify-center gap-3 pt-10 pb-2 px-6">
+                <p class="text-blue-950 font-bold text-2xl sm:text-3xl tracking-wide drop-shadow-md">Barranquilla</p>
+                <img src="/images/Logo.png" alt="Barranquilla Explora" class="h-10 sm:h-12 w-auto drop-shadow-lg" />
+            </header>
 
             <!-- ============================================================
-                 REGISTER CARD — Floating over the hero
+                 REGISTER CARD — Centered over the full viewport on xl+ (via
+                 flex centering, not fixed width/margin math, so it stays
+                 centered at any desktop width); stacks in normal document
+                 flow, full-width, on mobile/tablet.
             ============================================================ -->
 
             <aside class="
-                absolute inset-y-0 right-0
-                w-full xl:w-[46%]
+                relative z-10
+                w-full 2xl:absolute 2xl:inset-0
                 flex items-center justify-center
-                px-5 py-6 lg:px-10
-                overflow-y-auto
+                px-4 py-6 sm:px-8 2xl:px-10
+                2xl:overflow-y-auto
             ">
 
                 <article class="
                     w-full max-w-xl
                     bg-white rounded-3xl
                     shadow-[0_32px_80px_-8px_rgba(27,46,107,0.28)]
-                    px-8 py-8
+                    px-6 py-8 sm:px-8
                     space-y-6
                 ">
 
                     <!-- CARD HEADER -->
                     <header class="space-y-1">
-                        <h2 class="text-3xl font-black text-[#1B2E6B] leading-tight">Crea tu cuenta</h2>
+                        <h2 class="text-2xl sm:text-3xl font-black text-[#1B2E6B] leading-tight">Crea tu cuenta</h2>
                         <p class="text-sm text-gray-500">Únete a Barranquilla Explora</p>
                     </header>
 
@@ -88,7 +89,7 @@ export function Register() {
                     <form class="space-y-4" novalidate>
 
                         <!-- Nombre + Apellido -->
-                        <fieldset class="grid grid-cols-2 gap-3">
+                        <fieldset class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <legend class="sr-only">Nombre completo</legend>
 
                             <div class="space-y-1">
@@ -171,7 +172,7 @@ export function Register() {
                         </div>
 
                         <!-- Contraseña + Confirmar -->
-                        <fieldset class="grid grid-cols-2 gap-3">
+                        <fieldset class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <legend class="sr-only">Contraseña</legend>
 
                             <div class="space-y-1">
@@ -213,21 +214,7 @@ export function Register() {
                             </div>
                         </fieldset>
 
-                        <!-- CHECKBOX — Términos -->
-                        <label for="terms" class="flex items-start gap-2.5 cursor-pointer group">
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                name="terms"
-                                class="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#1B2E6B] accent-[#1B2E6B] shrink-0"
-                            />
-                            <span class="text-xs text-gray-500 leading-snug">
-                                Acepto los
-                                <a href="#" class="text-[#E8961E] font-semibold hover:underline">Términos y Condiciones</a>
-                                y la
-                                <a href="#" class="text-[#E8961E] font-semibold hover:underline">Política de Privacidad</a>
-                            </span>
-                        </label>
+
 
                         <!-- SUBMIT BUTTON -->
                         <button
@@ -249,7 +236,7 @@ export function Register() {
                             <span class="flex-1 h-px bg-gray-200"></span>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="grid grid-cols-1">
 
                             <button type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 active:scale-95 transition text-xs font-medium text-gray-700">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -261,19 +248,6 @@ export function Register() {
                                 Google
                             </button>
 
-                            <button type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 active:scale-95 transition text-xs font-medium text-gray-700">
-                                <svg class="w-4 h-4 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                </svg>
-                                Facebook
-                            </button>
-
-                            <button type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 active:scale-95 transition text-xs font-medium text-gray-700">
-                                <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
-                                </svg>
-                                Apple
-                            </button>
 
                         </div>
 
@@ -292,7 +266,7 @@ export function Register() {
 
                 </article>
 
-            </aside>
+                </aside>
 
         </main>
 
