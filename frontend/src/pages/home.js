@@ -6,11 +6,17 @@ export function home() {
       class=" NAVEGACION  font-sans text-blue-950 flex items-center justify-between h-20 pl-4 sm:pl-6 md:pl-10 pr-2 sm:pr-4 md:pr-8 bg-gray-50"
     >
       <figure class="w-60 flex items-center gap-4">
-        <h1 class="text-3xl font-bold">Barranquilla</h1>
-        <img class="w-32" src="/src/assets/img/logo.png" alt="Logo" />
+        <h1 class="text-3xl font-bold max-md:text-2xl">Barranquilla</h1>
+        <img class="w-32 max-md:w-28" src="/src/assets/img/logo.png" alt="Logo">
       </figure>
       <nav class="">
-        <ul class="flex gap-4 font-medium  max-md:hidden ">
+      <img 
+          id="boton_menu"
+          class="  size-8 cursor-pointer max-md:block hidden"
+          src="/src/assets/img/menu.svg">
+        <ul 
+        id="navegacion"
+        class="flex gap-4 font-medium  max-md:hidden ">
           <li><a href="">Inicio</a></li>
           <li><a href="">Destinos</a></li>
           <li><a href="">Eventos</a></li>
@@ -329,4 +335,23 @@ export function home() {
     `;
 }
 
-export function homeEvents() { }
+export function homeEvents() {
+
+
+  //Mostrar menú de navegación en versión móvil
+  const boton = document.getElementById("boton_menu");
+  const navegacion = document.getElementById("navegacion");
+  boton.addEventListener("click", ()=>{
+    navegacion.classList.toggle("active")
+    if(navegacion.classList.contains("active")){
+      navegacion.classList.remove("max-md:hidden")
+    }else{
+      navegacion.classList.add("max-md:hidden")
+    }
+  });
+
+} 
+  
+
+
+
