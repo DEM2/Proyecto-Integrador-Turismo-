@@ -1,4 +1,4 @@
-import { router } from "./router/router";
+import { router } from "./routes/router";
 
 export function navigateTo(url) {
     history.pushState({}, "", url);
