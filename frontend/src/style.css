@@ -4,6 +4,7 @@
 
 #navegacion.active {
   display: flex;
+  position: fixed;
   position: absolute;
   top: 0px;
   right: 0;
