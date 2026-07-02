@@ -3,7 +3,7 @@ export function register() {
   return `
 
         <!-- LADO DERECHO / REGISTER -->
-<main class="relative z-10 flex items-center justify-center px-8 py-12 min-h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
+<main class="relative z-10 flex items-center justify-center px-8 py-12 min-h-screen ">
 
   <section class="w-full max-w-180 bg-white/95 rounded-4xl shadow-2xl px-10 py-10 backdrop-blur-sm">
 
