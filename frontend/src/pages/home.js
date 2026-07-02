@@ -23,16 +23,16 @@ export function home() {
           class="  size-8 cursor-pointer hidden max-lg:block "
           src="/src/assets/img/equis.svg">
 
-          <li><a class="hover:text-blue-800" href="">Inicio</a></li>
-          <li><a class="hover:text-blue-800" href="">Destinos</a></li>
-          <li><a class="hover:text-blue-800" href="">Eventos</a></li>
-          <li><a class="hover:text-blue-800" href="">Nosotros</a></li>
+          <li><a class="hover:text-blue-800 cursor-pointer" >Inicio</a></li>
+          <li><a class="hover:text-blue-800 cursor-pointer" >Destinos</a></li>
+          <li><a class="hover:text-blue-800 cursor-pointer" >Eventos</a></li>
+          <li><a class="hover:text-blue-800 cursor-pointer" >Nosotros</a></li>
 
           <li>
-             <a class="hover:text-blue-800" href="">Iniciar Sesión</a>
+             <a id="boton_iniciarsesion" class="hover:text-blue-800 cursor-pointer" >Iniciar Sesión</a>
           </li>
           <li >
-             <a class="border-2 border-blue-900  rounded-lg p-1.5 pl-4 pr-4  hover:bg-blue-900 hover:text-white " href="">Registrarse</a>
+             <a id="boton_registrarse" class="border-2 border-blue-900  rounded-lg p-1.5 pl-4 pr-4 cursor-pointer hover:bg-blue-900 hover:text-white " >Registrarse</a>
           </li>
         </ul>
       </nav>
@@ -363,6 +363,17 @@ export function homeEvents() {
     if (window.innerWidth > 768) {
       navegacion.classList.remove("active");
     }
+  });
+  //FINNN menú de navegación en versión móvil
+
+  const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
+  const botonRegistrarse = document.getElementById("boton_registrarse");
+  botonIniciarSesion.addEventListener("click", () => {
+    navigateTo("/login");
+  });
+
+  botonRegistrarse.addEventListener("click", () => {
+    navigateTo("/register");
   });
 
 }
