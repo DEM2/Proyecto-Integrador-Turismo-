@@ -5,7 +5,7 @@ export function register() {
         <!-- LADO DERECHO / REGISTER -->
 <main class="relative z-10 flex items-center justify-center px-8 py-12">
 
-  <section class="w-full max-w-[720px] bg-white/95 rounded-4xl shadow-2xl px-10 py-10 backdrop-blur-sm">
+  <section class="w-full max-w-180 bg-white/95 rounded-4xl shadow-2xl px-10 py-10 backdrop-blur-sm">
 
     <!-- Marca superior -->
     <header id="title-login" class="mb-6 flex items-center justify-center gap-3 cursor-pointer">
