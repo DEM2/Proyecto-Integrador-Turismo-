@@ -23,16 +23,16 @@ export function home() {
           class="  size-8 cursor-pointer hidden max-lg:block "
           src="/src/assets/img/equis.svg">
 
-          <li><a href="">Inicio</a></li>
-          <li><a href="">Destinos</a></li>
-          <li><a href="">Eventos</a></li>
-          <li><a href="">Nosotros</a></li>
+          <li><a class="hover:text-blue-800" href="">Inicio</a></li>
+          <li><a class="hover:text-blue-800" href="">Destinos</a></li>
+          <li><a class="hover:text-blue-800" href="">Eventos</a></li>
+          <li><a class="hover:text-blue-800" href="">Nosotros</a></li>
 
           <li>
-             <a href="">Iniciar Sesión</a>
+             <a class="hover:text-blue-800" href="">Iniciar Sesión</a>
           </li>
-          <li class="border-2 border-blue-900  rounded-lg p-2 hover:bg-blue-900 hover:text-white ">
-             <a href="">Registrarse</a>
+          <li >
+             <a class="border-2 border-blue-900  rounded-lg p-1.5 pl-4 pr-4  hover:bg-blue-900 hover:text-white " href="">Registrarse</a>
           </li>
         </ul>
       </nav>
