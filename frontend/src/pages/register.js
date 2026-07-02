@@ -81,7 +81,7 @@ export function register() {
 
                     <!-- CARD HEADER -->
                     <header class="space-y-1">
-                        <h2 class="text-2xl sm:text-3xl font-black text-[#1B2E6B] leading-tight">Crea tu cuenta</h2>
+                        <h2 class="text-2xl sm:text-3xl font-black text-blue-950 leading-tight">Crea tu cuenta</h2>
                         <p class="text-sm text-gray-500">Únete a Barranquilla Explora</p>
                     </header>
 

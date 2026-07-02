@@ -1,6 +1,7 @@
 
 import { home, homeEvents } from "../pages/home.js";
 import { register, registerEvents } from "../pages/register.js";
+import { login, loginEvents } from "../pages/login.js";
 
 
 
@@ -13,6 +14,11 @@ export const routes = {
   "/register": {
     render: register,
     events: registerEvents,
+    guestOnly: true
+  },
+  "/login": {
+    render : login,
+    events : loginEvents,
     guestOnly: true
   }
 };
