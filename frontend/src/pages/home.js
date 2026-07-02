@@ -12,15 +12,15 @@ export function home() {
       <nav class="">
       <img 
           id="boton_menu"
-          class="  size-8 cursor-pointer max-md:block hidden"
+          class="  size-8 cursor-pointer max-lg:block hidden"
           src="/src/assets/img/menu.svg">
           
         <ul 
         id="navegacion"
-        class="flex gap-4 font-medium  max-md:hidden ">
+        class="flex items-center gap-4 font-medium  max-lg:hidden">
           <img 
           id="boton_equis"
-          class="  size-8 cursor-pointer max-md:block hidden"
+          class="  size-8 cursor-pointer hidden max-lg:block "
           src="/src/assets/img/equis.svg">
 
           <li><a href="">Inicio</a></li>
@@ -29,7 +29,10 @@ export function home() {
           <li><a href="">Nosotros</a></li>
 
           <li>
-            <i class="fas fa-check-circle"></i> <a href="">Iniciar Sesión</a>
+             <a href="">Iniciar Sesión</a>
+          </li>
+          <li class="border-2 border-blue-900  rounded-lg p-2 hover:bg-blue-900 hover:text-white ">
+             <a href="">Registrarse</a>
           </li>
         </ul>
       </nav>

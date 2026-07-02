@@ -25,7 +25,7 @@ export function register() {
 
                 <!-- HEADER — Logo -->
                 <header class="flex items-center gap-3">
-                    <p class="text-blue-950 font-bold text-4xl tracking-wide drop-shadow-md">Barranquilla</p>
+                    <p class="cursor-pointer text-blue-950 font-bold text-4xl tracking-wide drop-shadow-md ">Barranquilla</p>
                     <img src="/images/Logo.png" alt="Barranquilla Explora" class="h-18 w-auto drop-shadow-lg" />
                 </header>
 
