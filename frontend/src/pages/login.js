@@ -24,7 +24,7 @@ export function login() {
         <article class="w-full max-w-110 bg-white/95 rounded-4xl shadow-2xl px-10 py-12 backdrop-blur-sm">
 
           <!-- Marca superior -->
-          <header id="title-login" class="mb-8 flex items-center justify-center gap-3 cursor-pointer">
+          <header id="title-login" class="mb-8 flex items-center justify-center gap-3 cursor-pointer hover:border-b border-blue-200 rounded-xl">
             <h1 class="text-2xl font-sans font-bold text-blue-950">Barranquilla</h1>
             <img
               src="/images/Logo.png"
