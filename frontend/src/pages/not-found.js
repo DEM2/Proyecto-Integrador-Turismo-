@@ -1,8 +1,8 @@
-import { navigateTo } from "../routes/router.js";
+import { navigateTo } from "../router/router";
 export function notFound() {
   return `
   <main class="flex min-h-screen items-center justify-center px-6 py-10">
-      <section class="w-full max-w-2xl rounded-[2rem] border border-blue-100 bg-white p-10 text-center shadow-xl shadow-blue-100/70">
+      <section class="w-full max-w-2xl rounded-4xl border border-blue-100 bg-white p-10 text-center shadow-xl shadow-blue-100/70">
         <p class="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">Error de navegacion</p>
         <h1 class="mt-4 text-6xl font-black tracking-tight text-slate-900">404</h1>
         <p class="mt-4 text-lg text-slate-600">La vista que intentas abrir no existe o todavia no esta disponible dentro del proyecto.</p>
