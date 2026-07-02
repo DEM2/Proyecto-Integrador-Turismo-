@@ -6,7 +6,7 @@ export function login() {
     
 
   <!-- CONTENIDO PRINCIPAL -->
-  <main class="hero-bg h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
+  <main class="hero-bg min-h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
 
     <section class="relative grid grid-cols-1 lg:grid-cols-[58%_42%]  overflow-hidden">
 
