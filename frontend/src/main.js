@@ -1,5 +1,5 @@
 import './style.css'
-import { router } from "./routes/router.js";
+import { router } from './router/router';
 
 router();
 

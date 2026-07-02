@@ -1,4 +1,4 @@
-import { navigateTo } from "../routes/router.js";
+import { navigateTo } from "../router/router";
 export function notFound() {
   return `
   <main class="flex min-h-screen items-center justify-center px-6 py-10">

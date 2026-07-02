@@ -1,4 +1,4 @@
-import { navigateTo } from "../routes/router.js";
+import { navigateTo } from "../router/router";
 export function register() {
     return `
 
