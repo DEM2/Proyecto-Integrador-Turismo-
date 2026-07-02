@@ -1,0 +1,12 @@
+\i database/schemas/roles.sql
+\i database/schemas/users.sql
+\i database/schemas/categories.sql
+\i database/schemas/events.sql
+\i database/schemas/places.sql
+\i database/schemas/events_images.sql
+\i database/schemas/events_reviews.sql
+\i database/schemas/places_images.sql
+\i database/schemas/places_reviews.sql
+\i database/schemas/itineraries.sql
+\i database/schemas/itinerary_events.sql
+\i database/schemas/itinerary_places.sql
