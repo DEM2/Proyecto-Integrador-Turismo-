@@ -23,7 +23,7 @@ export function home() {
           class="  size-8 cursor-pointer hidden max-lg:block "
           src="/src/assets/img/equis.svg">
 
-          <li><a class="hover:text-blue-800 cursor-pointer" >Inicio</a></li>
+          <li><a id="nav-inicio" class="hover:text-blue-800 cursor-pointer" >Inicio</a></li>
           <li><a class="hover:text-blue-800 cursor-pointer" >Destinos</a></li>
           <li><a class="hover:text-blue-800 cursor-pointer" >Eventos</a></li>
           <li><a class="hover:text-blue-800 cursor-pointer" >Nosotros</a></li>
@@ -368,6 +368,12 @@ export function homeEvents() {
 
   const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
   const botonRegistrarse = document.getElementById("boton_registrarse");
+  const navInicio = document.getElementById("nav-inicio");
+
+  navInicio.addEventListener("click", () => {
+    navigateTo("/");
+  });
+
   botonIniciarSesion.addEventListener("click", () => {
     navigateTo("/login");
   });
@@ -375,6 +381,8 @@ export function homeEvents() {
   botonRegistrarse.addEventListener("click", () => {
     navigateTo("/register");
   });
+
+
 
 }
 
