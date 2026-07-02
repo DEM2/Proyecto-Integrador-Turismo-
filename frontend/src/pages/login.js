@@ -12,20 +12,19 @@ export function login() {
 
 
       <!-- LADO IZQUIERDO -->
-      <div class="relative z-10 flex items-center px-16 py-12 overflow-hidden">
+      <aside class="relative z-10 flex items-center px-16 py-12 overflow-hidden">
 
           <!-- Tarjeta flotante -->
           
-          </div>
-        </div>
+          </aside>
 
       <!-- LADO DERECHO / LOGIN -->
-      <div class="relative z-10 flex items-center justify-center px-8 py-12">
+      <section class="relative z-10 flex items-center justify-center px-8 py-12">
 
-        <div class="w-full max-w-110 bg-white/95 rounded-4xl shadow-2xl px-10 py-12 backdrop-blur-sm">
+        <article class="w-full max-w-110 bg-white/95 rounded-4xl shadow-2xl px-10 py-12 backdrop-blur-sm">
 
           <!-- Marca superior -->
-          <div id="title-login" class="mb-8 flex items-center justify-center gap-3 cursor-pointer">
+          <header id="title-login" class="mb-8 flex items-center justify-center gap-3 cursor-pointer">
             <h1 class="text-2xl font-sans font-bold text-blue-950">Barranquilla</h1>
             <img
               src="/images/Logo.png"
@@ -33,17 +32,17 @@ export function login() {
               class="h-10 w-auto object-contain"
               
             />
-          </div>
+          </header>
 
           <!-- Icono usuario -->
-          <div class="flex justify-center mb-6">
-            <div class="h-20 w-20 rounded-full bg-blue-50 flex items-center justify-center">
+          <figure class="flex justify-center mb-6">
+            <span class="h-20 w-20 rounded-full bg-blue-50 flex items-center justify-center">
               <svg class="h-10 w-10 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M20 21a8 8 0 0 0-16 0"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-            </div>
-          </div>
+            </span>
+          </figure>
 
           <h2 class="text-3xl font-extrabold text-center mb-3  text-blue-950">
             Inicia sesión
@@ -58,7 +57,7 @@ export function login() {
           <form class="space-y-5">
 
             <!-- Correo -->
-            <div>
+            <fieldset>
               <label class="block font-bold text-sm mb-2">
                 Correo electrónico
               </label>
@@ -70,10 +69,10 @@ export function login() {
                   class="w-full h-12 border border-slate-200 rounded-xl pl-12 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
                 />
               </div>
-            </div>
+            </fieldset>
 
             <!-- Contraseña -->
-            <div>
+            <fieldset>
               <label class="block font-bold text-sm mb-2">
                 Contraseña
               </label>
@@ -87,7 +86,7 @@ export function login() {
                 />
 
               </div>
-            </div>
+            </fieldset>
 
             <!-- Botón ingresar -->
             <button
@@ -98,11 +97,11 @@ export function login() {
             </button>
 
             <!-- Recuperar contraseña -->
-            <div class="text-center">
+            <p class="text-center">
               <a href="#" class="text-blue-600 font-semibold text-sm hover:underline">
                 Recuperar contraseña
               </a>
-            </div>
+            </p>
 
             <hr class="border-slate-200">
 
@@ -115,8 +114,8 @@ export function login() {
             </p>
 
           </form>
-        </div>
-      </div>
+        </article>
+      </section>
     </section>
 
    
