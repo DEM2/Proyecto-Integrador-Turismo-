@@ -3,20 +3,21 @@ import { postUser } from "../services/users.service";
 import { NAV_BAR } from "../components/nav_bar.js";
 
 export function event() {
-  return `
+    return `
   ${NAV_BAR()}
-    <main class="w-full flex flex-col gap-4 font-sans">
-      <section class="  HERO      w-full h-120 relative">
+    <main class="w-full flex flex-col gap-4 font-sans ">
+      <section class="  HERO w-full h-120 relative">
         <img
-          class="w-full h-full object-cover"
-          src="/src/assets/img/hero3.png"
+          class="absolute w-full h-50 object-center object-cover top-0.5 "
+          src="/src/assets/img/Rueda_Hero.png"
           alt="Hero Image"
         />
-        <p class="absolute bottom-1/2 left-1/9 text-blue-950">
-          <span class="font-medium text-5xl"> Descubre la magia. </span><br />
-          <span class="font-extralight text-lg">
-            Explora, vive y disfruta todo lo que <br />
-            nuestra ciudad tiene <b>para ti</b>.
+        <p class="absolute top-8 left-6 text-blue-950">
+          <span class="font-medium text-5xl"> Eventos En Barranquilla. </span><br />
+          <span class="font-extralight text-lg mb-2">
+          <br />
+            Descubre todos los eventos, festivales  actividades <br />
+            que hacen vibrar a nuestra ciudad.  
           </span>
         </p>
       </section>
@@ -26,26 +27,23 @@ export function event() {
 }
 
 export function eventEvents() {
-  
-  const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
-  const botonRegistrarse = document.getElementById("boton_registrarse");
-  const navInicio = document.getElementById("nav-inicio");
-  const navEventos = document.getElementById("nav-eventos");
-  
+    const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
+    const botonRegistrarse = document.getElementById("boton_registrarse");
+    const navInicio = document.getElementById("nav-inicio");
+    const navEventos = document.getElementById("nav-eventos");
 
-  navInicio.addEventListener("click", () => {
-    navigateTo("/");
-  });
+    navInicio.addEventListener("click", () => {
+        navigateTo("/");
+    });
 
-  botonIniciarSesion.addEventListener("click", () => {
-    navigateTo("/login");
-  });
+    botonIniciarSesion.addEventListener("click", () => {
+        navigateTo("/login");
+    });
 
-  botonRegistrarse.addEventListener("click", () => {
-    navigateTo("/register");
-  });
-  navEventos.addEventListener("click", () => {
-    navigateTo("/event");
-  });
-
+    botonRegistrarse.addEventListener("click", () => {
+        navigateTo("/register");
+    });
+    navEventos.addEventListener("click", () => {
+        navigateTo("/event");
+    });
 }
