@@ -249,7 +249,7 @@ export function registerEvents() {
       const response = await postUser(user)
       if(response){
         alert("Usuario registrado exitosamente");
-        navigateTo("/dashboard");
+       // navigateTo("/dashboard");
       }
     } catch (error) {
       alert(error.message);
