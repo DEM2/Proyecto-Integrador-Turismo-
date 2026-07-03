@@ -58,7 +58,30 @@ export function INFO_ICONS_HOME2(svg,titulo, parrafo,bgcolor,img, img_contain="o
 export function SITIOS_DESTACADOS() {
   return `
 
+        <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
 
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
 
           `
 
@@ -68,7 +91,30 @@ export function SITIOS_DESTACADOS() {
 export function EVENTOS_DESTACADOS() {
   return `
 
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
 
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
 
           `
 
