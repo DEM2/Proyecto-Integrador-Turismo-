@@ -1,6 +1,6 @@
 import { navigateTo } from "../router/router";
 import { postUser } from "../services/users.service";
-import { NAV_BAR } from "../components/nav_bar.js";
+import { NAV_BAR } from "../components/nav_bar.component.js";
 
 export function event() {
   return `

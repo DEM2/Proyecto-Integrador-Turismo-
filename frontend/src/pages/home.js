@@ -1,9 +1,9 @@
 import { navigateTo } from "../router/router";
-import { NAV_BAR } from "../components/nav_bar.js";
+import { NAV_BAR } from "../components/nav_bar.component.js";
+import { INFO_ICONS_HOME, INFO_ICONS_HOME2 } from "../components/info_icons_home.component.js";
 export function home() {
   return `
     ${NAV_BAR()}
-     
 
 
     <main class="w-full flex flex-col gap-4 font-sans">
@@ -70,109 +70,28 @@ export function home() {
         <h2 class="font-medium text-2xl text-blue-900 pl-5">
           ¿Por qué usar Barranquilla explora?
         </h2>
+
         <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2">
 
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-blue-600"
-            >
-              <img
-                src="/src/assets/img/places.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <p>
-              Descubre lugares icónicos y también menos visibles.
-            </p>
-          </article>
-
-         <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-red-500"
-            >
-              <img
-                src="/src/assets/img/music.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Consulta eventos culturales, gastronómicos y deportivos.
-            </p>
-          </article>
+        ${INFO_ICONS_HOME("places.svg", "Descubre lugares icónicos y también menos visibles.","bg-blue-600")}
 
 
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-yellow-500"
-            >
-              <img
-                src="/src/assets/img/safe.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
+        ${INFO_ICONS_HOME("music.svg", "Consulta eventos culturales, gastronómicos y deportivos.","bg-red-500")}
+          
 
-            <p>
-              Encuentra información confiable y actualizada.
-            </p>
-          </article>
+        ${INFO_ICONS_HOME("safe.svg", "Encuentra información confiable y actualizada.","bg-yellow-500")}
 
 
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-green-500"
-            >
-              <img
-                src="/src/assets/img/heart.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Planifica y guarda tus itinerarios.
-            </p>
-          </article>
+        ${INFO_ICONS_HOME("heart.svg", "Planifica y guarda tus itinerarios.","bg-green-500")}
 
 
-          <article class="flex items-center gap-3 bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-purple-500"
-            >
-              <img
-                src="/src/assets/img/people.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Conecta con experiencias locales auténticas y memorables.
-            </p>
-          </article>
+        ${INFO_ICONS_HOME("people.svg", "Conecta con experiencias locales auténticas y memorables.","bg-purple-500")}
 
 
-          <article class="flex items-center gap-3 bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-orange-500"
-            >
-              <img
-                src="/src/assets/img/shop.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Impulsa el turismo local y la visibilidad de emprendimientos.
-            </p>
-            
-          </article>
+        ${INFO_ICONS_HOME("shop.svg", "Impulsa el turismo local y la visibilidad de emprendimientos.","bg-orange-500")}
 
         </figure>
+
       </section>
 
 
@@ -187,109 +106,17 @@ export function home() {
         
         <figure class="items-stretch grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-2">
 
+        ${INFO_ICONS_HOME2("store.svg","Apoya negocios locales", "Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.","bg-amber-100","negocios_locales.webp")}
 
-          <article class="flex gap-2 items-center bg-gray-50 p-2 rounded-lg">
-            <div
-              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-amber-100"
-            >
-              <img
-                src="/src/assets/img/store.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <div>
-            <h2 class="font-bold"> Apoya negocios locales </h2>
-            <p>
-              Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.
-            </p>
-            </div>
-            <img
-                src="/src/assets/img/negocios_locales.webp"
-                alt="Sitios destacados"
-                class="size-26 object-cover rounded-xl"
-              />
-          </article>
-
-         <article class="flex gap-2 items-center bg-gray-50 p-2 rounded-lg">
-            <div
-              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-blue-200"
-            >
-              <img
-                src="/src/assets/img/people2.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <div>
-            <h2 class="font-bold"> Reseñas de usuarios </h2>
-            <p>
-              Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.
-            </p>
-            </div>
-            <img
-                src="/src/assets/img/estrella2.png"
-                alt="Sitios destacados"
-                class="size-26 object-contain rounded-xl"
-              />
-          </article>
-
-
-
-
-          <article class="flex gap-2 items-center bg-gray-50 p-2  rounded-lg">
-            <div
-              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-green-200"
-            >
-              <img
-                src="/src/assets/img/location2.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <div>
-            <h2 class="font-bold"> Itinerarios sugeridos </h2>
-            <p>
-              Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.
-            </p>
-            </div>
-            <img
-                src="/src/assets/img/itinerario.webp"
-                alt="Sitios destacados"
-                class="size-26 object-cover rounded-xl"
-              />
-          </article>
-
-
-
-
-          <article class="flex gap-2 items-center bg-gray-50 p-2  rounded-lg">
-            <div
-              class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full bg-purple-200"
-            >
-              <img
-                src="/src/assets/img/family.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <div>
-            <h2 class="font-bold"> Experiencias para todos </h2>
-            <p>
-              Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!
-            </p>
-            </div>
-            <img
-                src="/src/assets/img/familias.webp"
-                alt="Sitios destacados"
-                class="size-26 object-cover rounded-xl"
-              />
-          </article>
-
-
+        ${INFO_ICONS_HOME2("people2.svg","Reseñas de usuarios", "Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.","bg-blue-200","estrella2.png","object-contain")}
           
 
+        ${INFO_ICONS_HOME2("location2.svg","Itinerarios sugeridos", "Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.","bg-green-200","itinerario.webp")}
+
+        ${INFO_ICONS_HOME2("family.svg","Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!","bg-purple-200","familias.webp")}
+
         </figure>
+        
       </section>
 
 
