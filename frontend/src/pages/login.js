@@ -3,8 +3,6 @@ import { navigateTo } from "../router/router";
 export function login() {
   return `
     
-    
-
   <!-- CONTENIDO PRINCIPAL -->
   <main class="hero-bg min-h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
 
