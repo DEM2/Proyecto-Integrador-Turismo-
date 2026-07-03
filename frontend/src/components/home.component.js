@@ -53,3 +53,23 @@ export function INFO_ICONS_HOME2(svg,titulo, parrafo,bgcolor,img, img_contain="o
           `
 
 }
+
+
+export function SITIOS_DESTACADOS() {
+  return `
+
+
+
+          `
+
+}
+
+
+export function EVENTOS_DESTACADOS() {
+  return `
+
+
+
+          `
+
+}

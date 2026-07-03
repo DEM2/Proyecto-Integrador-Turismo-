@@ -1,6 +1,6 @@
 import { navigateTo } from "../router/router";
 import { NAV_BAR } from "../components/nav_bar.component.js";
-import { INFO_ICONS_HOME, INFO_ICONS_HOME2 } from "../components/info_icons_home.component.js";
+import { INFO_ICONS_HOME, INFO_ICONS_HOME2 } from "../components/home.component.js";
 export function home() {
   return `
     ${NAV_BAR()}
@@ -116,7 +116,7 @@ export function home() {
         ${INFO_ICONS_HOME2("family.svg","Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!","bg-purple-200","familias.webp")}
 
         </figure>
-        
+
       </section>
 
 
