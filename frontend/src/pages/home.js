@@ -46,7 +46,7 @@ export function home() {
           <figure class="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
 
           <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
-          hover:translate-x-2 hover:translate-y  ">
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
             
               <img
                 src="/src/assets/img/hero.png"
@@ -71,7 +71,8 @@ export function home() {
           </article>
 
 
-           <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+           <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
             
               <img
                 src="/src/assets/img/hero.png"
@@ -96,7 +97,8 @@ export function home() {
           </article>
 
 
-          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
             
               <img
                 src="/src/assets/img/hero.png"
@@ -148,7 +150,8 @@ export function home() {
 
 <figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
 
-          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out">
             
               <img
                 src="/src/assets/img/hero.png"
