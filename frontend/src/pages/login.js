@@ -63,7 +63,7 @@ export function login() {
               </label>
 
               <div>
-                <input
+                <input required
                   type="email"
                   placeholder="Correo electrónico"
                   class="w-full h-12 border border-slate-200 rounded-xl pl-12 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -79,7 +79,7 @@ export function login() {
 
               <div class="relative">
 
-                <input
+                <input required
                   type="password"
                   placeholder="Contraseña"
                   class="w-full h-12 border border-slate-200 rounded-xl pl-12 pr-12 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -90,7 +90,7 @@ export function login() {
 
             <!-- Botón ingresar -->
             <button
-              type="button"
+              type="submit"
               class="w-full h-12 bg-blue-950 text-white rounded-xl font-bold hover:bg-blue-900 cursor-pointer transition shadow-lg shadow-blue-600/30"
             >
               Ingresar

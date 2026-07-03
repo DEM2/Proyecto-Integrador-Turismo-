@@ -77,7 +77,7 @@ export function register() {
             Nombre
           </label>
 
-          <input
+          <input required
             type="text"
             placeholder="Tu nombre"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -89,7 +89,7 @@ export function register() {
             Apellido
           </label>
 
-          <input
+          <input required
             type="text"
             placeholder="Tu apellido"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -105,7 +105,7 @@ export function register() {
           Correo electrónico
         </label>
 
-        <input
+        <input required
           type="email"
           placeholder="ejemplo@correo.com"
           class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -122,7 +122,7 @@ export function register() {
             Contraseña
           </label>
 
-          <input
+          <input required
             type="password"
             placeholder="Crea una contraseña"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -136,7 +136,7 @@ export function register() {
             Confirmar contraseña
           </label>
 
-          <input
+          <input required
             type="password"
             placeholder="Repite tu contraseña"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -149,7 +149,7 @@ export function register() {
       <!-- Botón -->
 
       <button
-        type="button"
+        type="submit"
         class="w-full h-12 bg-blue-950 text-white rounded-xl font-bold hover:bg-blue-900 cursor-pointer transition shadow-lg shadow-blue-600/30"
       >
         Crear cuenta
