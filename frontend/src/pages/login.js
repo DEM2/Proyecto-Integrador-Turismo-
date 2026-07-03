@@ -54,7 +54,7 @@ export function login() {
           </p>
 
           <!-- Formulario -->
-          <form class="space-y-5">
+          <form id="login-form" class="space-y-5">
 
             <!-- Correo -->
             <fieldset>
@@ -63,7 +63,7 @@ export function login() {
               </label>
 
               <div>
-                <input required
+                <input required id="login-email"
                   type="email"
                   placeholder="Correo electrónico"
                   class="w-full h-12 border border-slate-200 rounded-xl pl-12 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -79,7 +79,7 @@ export function login() {
 
               <div class="relative">
 
-                <input required
+                <input required id="login-password"
                   type="password"
                   placeholder="Contraseña"
                   class="w-full h-12 border border-slate-200 rounded-xl pl-12 pr-12 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -133,4 +133,10 @@ export function loginEvents() {
   register.addEventListener("click", () => {
     navigateTo("/register")
   });
+
+
+  const form = document.getElementById("login-form");
+  const email = document.getElementById("login-email");
+  const password = document.getElementById("login-password");
+  
 }

@@ -1,21 +1,16 @@
-import * as userRepository from "../querys/user.query.js";
 
+import pool from "../config/db.js";
 export async function register(userData) {
 
-    const userExists = await userRepository.findByEmail(userData.email);
+     const [result] = await pool.query(`insert into users (name, last_name, email, password,id_role, is_active)
+                    values(?,?,?,?,?,?)`, [userData.name, userData.last_name, userData.email, userData.password, 1, 1]);
 
-    if(userExists){
-
-        throw new Error("El correo ya está registrado.");
-
-    }
 
     // Aquí después iría bcrypt
 
     // Aquí después iría JWT
 
-    const user = await userRepository.create(userData);
 
-    return user;
+    return result;
 
 }

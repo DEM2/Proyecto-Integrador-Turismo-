@@ -1,4 +1,7 @@
+// Funcion para registrar un nuevo usuario
 export async function postUser(user) {
+  console.log("hola");
+  
   const response = await fetch("http://localhost:3000/users", {
     method: "POST",
     headers: {
@@ -13,6 +16,7 @@ export async function postUser(user) {
   return await response.json();
 }
 
+// Funcion para obtener todos los usuarios
 export async function getUsers() {
   const response = await fetch("http://localhost:3000/users");
   if (!response.ok) {
@@ -21,6 +25,7 @@ export async function getUsers() {
   return await response.json();
 }
 
+// Funcion para obtener un usuario por su email
 export async function getUserByEmail(email) {
   const response = await fetch(`http://localhost:3000/users?userEmail=${email}`);
     if (!response.ok) {

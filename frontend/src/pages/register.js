@@ -1,4 +1,5 @@
 import { navigateTo } from "../router/router";
+import { postUser } from "../services/users.service";
 export function register() {
   return `
 
@@ -67,7 +68,7 @@ export function register() {
       Únete a Barranquilla Explora y descubre lo mejor de la ciudad.
     </p>
 
-    <form class="space-y-5">
+    <form id="register-form" class="space-y-5">
 
       <!-- Nombre / Apellido -->
       <fieldset class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -77,7 +78,7 @@ export function register() {
             Nombre
           </label>
 
-          <input required
+          <input required id="register-name"
             type="text"
             placeholder="Tu nombre"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -89,7 +90,7 @@ export function register() {
             Apellido
           </label>
 
-          <input required
+          <input required id="register-lastname"
             type="text"
             placeholder="Tu apellido"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -105,7 +106,7 @@ export function register() {
           Correo electrónico
         </label>
 
-        <input required
+        <input required id="register-email"
           type="email"
           placeholder="ejemplo@correo.com"
           class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -122,7 +123,7 @@ export function register() {
             Contraseña
           </label>
 
-          <input required
+          <input required id="register-password"
             type="password"
             placeholder="Crea una contraseña"
             class="w-full h-12 border border-slate-200 rounded-xl pl-4 pr-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
@@ -216,6 +217,7 @@ export function register() {
 }
 
 export function registerEvents() {
+
   const title = document.getElementById("title-register")
   const login = document.getElementById("boton-iniciarsesion")
   title.addEventListener("click", () => {
@@ -224,5 +226,35 @@ export function registerEvents() {
   login.addEventListener("click", () => {
     navigateTo("/login")
   });
+
+  //Funcionalidad de registrar usuarios
+
+    const form = document.getElementById("register-form");
+  
+    const name = document.getElementById("register-name");
+    const lastname = document.getElementById("register-lastname");
+    const email = document.getElementById("register-email");
+    const password = document.getElementById("register-password");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const user = {
+      name: name.value,
+      lastname: lastname.value,
+      email: email.value,
+      password: password.value
+    };
+
+   const response = await postUser(user)
+    if(response){
+      alert("Usuario registrado exitosamente");
+      navigateTo("/dashboard");
+    } else {
+      alert("Error al registrar el usuario");
+    }
+
+  });
+  // FINNNNNN Funcionalidad de registrar usuarios
+
 }
 
