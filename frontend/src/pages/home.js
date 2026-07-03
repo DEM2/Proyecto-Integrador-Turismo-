@@ -22,44 +22,208 @@ export function home() {
         </p>
       </section>
 
-      <section class="   IZQUIERDOYDERECHA     pl-10 pr-10   xl:h-70 lg: h-150   items-stretch grid grid-cols-1 xl:grid-cols-2  gap-4">
-        <aside class="  IZQUIERDO    bg-blue-100">
-          <figure class="flex items-center gap-3">
-            <div
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700"
-            >
+      <section class="   IZQUIERDOYDERECHA pl-10 pr-10  items-stretch grid grid-cols-1 xl:grid-cols-2  gap-4">
+
+
+        <aside class="  IZQUIERDO   ">
+        <section class="flex gap-2 items-center h-10">
+          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700">
               <img
                 class="h-5 w-5"
                 src="/src/assets/img/location.svg"
                 alt="Icono de sitios destacados"
               />
+              
             </div>
-
-            <figcaption>
-              <h2 class="text-2xl font-bold text-blue-700">
+               <h2 class="text-2xl font-bold text-blue-700">
                 Sitios Destacados
               </h2>
-            </figcaption>
+              
+          </section>
+          
+
+
+          <figure class="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
+
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden cursor-pointer 
+          hover:translate-x-2 hover:translate-y  ">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+
+           <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+
+
+          
+
           </figure>
+
         </aside>
 
-        <aside class="  DERECHA    bg-orange-100">
-          <figure class="flex items-center gap-3">
-            <div
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
-            >
+        <aside class="  DERECHA  ">
+
+        <section class="flex gap-2 items-center h-10">
+          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500">
               <img
                 class="h-5 w-5"
                 src="/src/assets/img/calendar.svg"
                 alt="Icono de eventos destacados"
               />
+              
             </div>
-
-            <figcaption>
-              <h2 class="text-2xl font-bold text-red-500">
+               <h2 class="text-2xl font-bold text-red-500">
                 Eventos Destacados
               </h2>
-            </figcaption>
+              
+          </section>
+
+
+<figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
+
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+          <article class="flex flex-col gap-2  bg-gray-50  rounded-xl border border-gray-300 shadow-lg shadow-gray-200 overflow-hidden">
+            
+              <img
+                src="/src/assets/img/hero.png"
+                alt="Sitios destacados"
+                class="w-full max-h-2/3"
+              />
+
+            <div class="pl-2 text-blue-950">
+            <h2 class="font-bold"> Gran Malecón del Río  </h2>
+            <p class="text-xs text-gray-700">
+                Paseo turístico a orillas del río Magdalena.
+            </p>
+            </div>
+            <div class=" flex items-center pl-2 text-xs text-gray-700">
+            <img
+                src="/src/assets/img/location3.svg"
+                alt="Sitios destacados"
+                class="w-5 h-5"
+              />
+            Riomar
+            </div>
+          </article>
+
+
+
+          
+
           </figure>
         </aside>
       </section>
@@ -73,22 +237,22 @@ export function home() {
 
         <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2">
 
-        ${INFO_ICONS_HOME("places.svg", "Descubre lugares icónicos y también menos visibles.","bg-blue-600")}
+        ${INFO_ICONS_HOME("places.svg", "Descubre lugares icónicos y también menos visibles.", "bg-blue-600")}
 
 
-        ${INFO_ICONS_HOME("music.svg", "Consulta eventos culturales, gastronómicos y deportivos.","bg-red-500")}
+        ${INFO_ICONS_HOME("music.svg", "Consulta eventos culturales, gastronómicos y deportivos.", "bg-red-500")}
           
 
-        ${INFO_ICONS_HOME("safe.svg", "Encuentra información confiable y actualizada.","bg-yellow-500")}
+        ${INFO_ICONS_HOME("safe.svg", "Encuentra información confiable y actualizada.", "bg-yellow-500")}
 
 
-        ${INFO_ICONS_HOME("heart.svg", "Planifica y guarda tus itinerarios.","bg-green-500")}
+        ${INFO_ICONS_HOME("heart.svg", "Planifica y guarda tus itinerarios.", "bg-green-500")}
 
 
-        ${INFO_ICONS_HOME("people.svg", "Conecta con experiencias locales auténticas y memorables.","bg-purple-500")}
+        ${INFO_ICONS_HOME("people.svg", "Conecta con experiencias locales auténticas y memorables.", "bg-purple-500")}
 
 
-        ${INFO_ICONS_HOME("shop.svg", "Impulsa el turismo local y la visibilidad de emprendimientos.","bg-orange-500")}
+        ${INFO_ICONS_HOME("shop.svg", "Impulsa el turismo local y la visibilidad de emprendimientos.", "bg-orange-500")}
 
         </figure>
 
@@ -106,14 +270,14 @@ export function home() {
         
         <figure class="items-stretch grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-2">
 
-        ${INFO_ICONS_HOME2("store.svg","Apoya negocios locales", "Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.","bg-amber-100","negocios_locales.webp")}
+        ${INFO_ICONS_HOME2("store.svg", "Apoya negocios locales", "Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.", "bg-amber-100", "negocios_locales.webp")}
 
-        ${INFO_ICONS_HOME2("people2.svg","Reseñas de usuarios", "Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.","bg-blue-200","estrella2.png","object-contain")}
+        ${INFO_ICONS_HOME2("people2.svg", "Reseñas de usuarios", "Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.", "bg-blue-200", "estrella2.png", "object-contain")}
           
 
-        ${INFO_ICONS_HOME2("location2.svg","Itinerarios sugeridos", "Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.","bg-green-200","itinerario.webp")}
+        ${INFO_ICONS_HOME2("location2.svg", "Itinerarios sugeridos", "Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.", "bg-green-200", "itinerario.webp")}
 
-        ${INFO_ICONS_HOME2("family.svg","Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!","bg-purple-200","familias.webp")}
+        ${INFO_ICONS_HOME2("family.svg", "Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!", "bg-purple-200", "familias.webp")}
 
         </figure>
 
@@ -164,7 +328,7 @@ export function homeEvents() {
   const botonRegistrarse = document.getElementById("boton_registrarse");
   const navInicio = document.getElementById("nav-inicio");
   const navEventos = document.getElementById("nav-eventos");
-  
+
 
   navInicio.addEventListener("click", () => {
     navigateTo("/");
