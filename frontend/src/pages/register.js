@@ -240,17 +240,19 @@ export function registerEvents() {
     e.preventDefault();
     const user = {
       name: name.value,
-      lastname: lastname.value,
+      last_name: lastname.value,
       email: email.value,
       password: password.value
     };
 
-   const response = await postUser(user)
-    if(response){
-      alert("Usuario registrado exitosamente");
-      navigateTo("/dashboard");
-    } else {
-      alert("Error al registrar el usuario");
+    try {
+      const response = await postUser(user)
+      if(response){
+        alert("Usuario registrado exitosamente");
+        navigateTo("/dashboard");
+      }
+    } catch (error) {
+      alert(error.message);
     }
 
   });

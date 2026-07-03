@@ -1,31 +1,20 @@
-import pool from "../config/db";
+import pool from "../config/db.js";
 
-export function validateRegister(req, res, next) {
+export async function validateRegister(req, res, next) {
+    try {
+        const coder = req.body;
 
-    
-    const coder = req.body;
+        const result = await pool.query(
+            "SELECT id FROM users WHERE email = $1",
+            [coder.email]
+        );
 
+        if (result.rows.length) {
+            return res.status(409).json({ message: `el correo ${coder.email} ya se encuentra registrado` });
+        }
 
-    const [coderExists] = await pool.query('select * from usuarios where email = ?', [coder.email]);
-
-    if (coderExists.length) {
-        return res.status(409).json({ message: `el correo ${coder.email} ya se encuentra registrado` });
+        next();
+    } catch (error) {
+        next(error);
     }
-    next();
-    const [result] = await pool.query(`insert into usuarios (nombre, apellido, email, edad, telefono, id_clan)
-                    values(?,?,?,?,?,?)`, [coder.nombre, coder.apellido, coder.email, coder.edad, coder.telefono, coder.id_clan]);
-
-
-    await pool.end();
-
-    res.json({ message: 'se ha creado el coder exitosamente' });
-
-    // Validaciones
-
-    // if(...)
-
-    // return res.status(...)
-
-    next();
-
 }

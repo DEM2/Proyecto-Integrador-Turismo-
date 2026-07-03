@@ -2,8 +2,12 @@
 import pool from "../config/db.js";
 export async function register(userData) {
 
-     const [result] = await pool.query(`insert into users (name, last_name, email, password,id_role, is_active)
-                    values(?,?,?,?,?,?)`, [userData.name, userData.last_name, userData.email, userData.password, 1, 1]);
+     const result = await pool.query(
+        `INSERT INTO users (name, last_name, email, password, id_role, is_active)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         RETURNING id, name, last_name, email, id_role, is_active, created_at`,
+        [userData.name, userData.last_name, userData.email, userData.password, 1, true]
+     );
 
 
     // Aquí después iría bcrypt
@@ -11,6 +15,6 @@ export async function register(userData) {
     // Aquí después iría JWT
 
 
-    return result;
+    return result.rows[0];
 
 }
