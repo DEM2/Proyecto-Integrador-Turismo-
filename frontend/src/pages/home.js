@@ -1,6 +1,6 @@
 import { navigateTo } from "../router/router";
 import { NAV_BAR } from "../components/nav_bar.component.js";
-import { INFO_ICONS_HOME, INFO_ICONS_HOME2, SITIOS_DESTACADOS } from "../components/home.component.js";
+import { EVENTOS_DESTACADOS, INFO_ICONS_HOME, INFO_ICONS_HOME2, SITIOS_DESTACADOS } from "../components/home.component.js";
 export function home() {
   return `
     ${NAV_BAR()}
@@ -43,15 +43,11 @@ export function home() {
           
 
 
-          <figure class="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
+          <figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
 
           ${SITIOS_DESTACADOS()}
           ${SITIOS_DESTACADOS()}
           ${SITIOS_DESTACADOS()}
-
-
-
-          
 
           </figure>
 
@@ -77,9 +73,9 @@ export function home() {
 
 <figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
 
-          ${SITIOS_DESTACADOS()}
-          ${SITIOS_DESTACADOS()}
-          ${SITIOS_DESTACADOS()}
+          ${EVENTOS_DESTACADOS()}
+          ${EVENTOS_DESTACADOS()}
+          ${EVENTOS_DESTACADOS()}
 
 
 
