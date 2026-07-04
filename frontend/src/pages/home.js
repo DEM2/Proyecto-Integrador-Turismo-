@@ -1,6 +1,8 @@
 import { navigateTo } from "../router/router";
 import { NAV_BAR } from "../components/nav_bar.component.js";
 import { EVENTOS_DESTACADOS, INFO_ICONS_HOME, INFO_ICONS_HOME2, SITIOS_DESTACADOS } from "../components/home.component.js";
+import { getEventosDestacados, getSitiosDestacados } from "../services/destacados.service.js";
+
 export function home() {
   return `
     ${NAV_BAR()}
@@ -159,7 +161,7 @@ export function home() {
     `;
 }
 
-export function homeEvents() {
+export async function homeEvents() {
 
 
   //Mostrar menú de navegación en versión móvil
@@ -202,6 +204,25 @@ export function homeEvents() {
     navigateTo("/event");
   });
 
+  // Funcionalidad para mostrar los destacados de sitios y eventos en la página de inicio
+
+  try {
+        const response = await getSitiosDestacados();
+        if(response){
+          alert("Sitios destacados obtenidos exitosamente");
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+
+      try {
+        const response = await getEventosDestacados();
+        if(response){
+          alert("Eventos destacados obtenidos exitosamente");
+        }
+      } catch (error) {
+        alert(error.message);
+      }
 
 
 }
