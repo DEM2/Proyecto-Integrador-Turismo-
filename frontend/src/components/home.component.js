@@ -55,7 +55,7 @@ export function INFO_ICONS_HOME2(svg,titulo, parrafo,bgcolor,img, img_contain="o
 }
 
 
-export function SITIOS_DESTACADOS() {
+export function SITIOS_DESTACADOS(sitio) {
   return `
 
     <article
@@ -112,7 +112,7 @@ export function SITIOS_DESTACADOS() {
 }
 
 
-export function EVENTOS_DESTACADOS() {
+export function EVENTOS_DESTACADOS(evento) {
   return `
 
     <article

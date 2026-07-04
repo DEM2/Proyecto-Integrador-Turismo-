@@ -4,7 +4,7 @@ import pool from "../config/db.js";
 export async function obtenerSitiosDestacadosQ(){
 
     const sql = `
-        SELECT *
+        SELECT name, description, address
         FROM places
         WHERE featured = true
         LIMIT 3
@@ -20,7 +20,7 @@ export async function obtenerSitiosDestacadosQ(){
 export async function obtenerEventosDestacadosQ(){
     
     const sql = `
-        SELECT *
+        SELECT name, description, address, start_date, end_date
         FROM events
         WHERE featured = true
         LIMIT 3

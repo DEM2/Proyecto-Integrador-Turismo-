@@ -1,7 +1,15 @@
 import { navigateTo } from "../router/router";
 import { NAV_BAR } from "../components/nav_bar.component.js";
-import { EVENTOS_DESTACADOS, INFO_ICONS_HOME, INFO_ICONS_HOME2, SITIOS_DESTACADOS } from "../components/home.component.js";
-import { getEventosDestacados, getSitiosDestacados } from "../services/destacados.service.js";
+import {
+  EVENTOS_DESTACADOS,
+  INFO_ICONS_HOME,
+  INFO_ICONS_HOME2,
+  SITIOS_DESTACADOS,
+} from "../components/home.component.js";
+import {
+  getEventosDestacados,
+  getSitiosDestacados,
+} from "../services/destacados.service.js";
 
 export function home() {
   return `
@@ -24,10 +32,10 @@ export function home() {
         </p>
       </section>
 
-      <section class="   IZQUIERDOYDERECHA pl-10 pr-10  items-stretch grid grid-cols-1 xl:grid-cols-2  gap-4">
+      <section class="   SITIOSYEVENTOSDESTACADOS pl-10 pr-10  items-stretch grid grid-cols-1 xl:grid-cols-2  gap-4">
 
 
-        <aside class="  IZQUIERDO   ">
+        <aside class="  IZQUIERDO-SITIOSDESTACADOS   ">
         <section class="flex gap-2 items-center h-10">
           <div class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700">
               <img
@@ -45,17 +53,14 @@ export function home() {
           
 
 
-          <figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
-
-          ${SITIOS_DESTACADOS()}
-          ${SITIOS_DESTACADOS()}
+          <figure id="sitios-destacados" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
           ${SITIOS_DESTACADOS()}
 
           </figure>
 
         </aside>
 
-        <aside class="  DERECHA  ">
+        <aside class="  DERECHA-EVENTOSDESTACADOS  ">
 
         <section class="flex gap-2 items-center h-10">
           <div class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500">
@@ -73,10 +78,8 @@ export function home() {
           </section>
 
 
-<figure class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
+<figure id="eventos-destacados" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 gap-4 p-2">
 
-          ${EVENTOS_DESTACADOS()}
-          ${EVENTOS_DESTACADOS()}
           ${EVENTOS_DESTACADOS()}
 
 
@@ -162,8 +165,6 @@ export function home() {
 }
 
 export async function homeEvents() {
-
-
   //Mostrar menú de navegación en versión móvil
   const boton = document.getElementById("boton_menu");
   const navegacion = document.getElementById("navegacion");
@@ -181,13 +182,14 @@ export async function homeEvents() {
       navegacion.classList.remove("active");
     }
   });
-  //FINNN menú de navegación en versión móvil
+  // FIN
+
+  // Funcionalidad de navegación entre páginas
 
   const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
   const botonRegistrarse = document.getElementById("boton_registrarse");
   const navInicio = document.getElementById("nav-inicio");
   const navEventos = document.getElementById("nav-eventos");
-
 
   navInicio.addEventListener("click", () => {
     navigateTo("/");
@@ -203,30 +205,32 @@ export async function homeEvents() {
   navEventos.addEventListener("click", () => {
     navigateTo("/event");
   });
+  // FIN
+
 
   // Funcionalidad para mostrar los destacados de sitios y eventos en la página de inicio
+  const sitiosContainer = document.getElementById("sitios-destacados");
+  const eventosContainer = document.getElementById("eventos-destacados");
 
   try {
-        const response = await getSitiosDestacados();
-        if(response){
-          alert("Sitios destacados obtenidos exitosamente");
-        }
-      } catch (error) {
-        alert(error.message);
-      }
+    const sitios = await getSitiosDestacados();
+    if (sitios) {
+      alert("Sitios destacados obtenidos exitosamente");
+      sitiosContainer.innerHTML = sitios.map(sitio => SITIOS_DESTACADOS(sitio)).join("");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
 
-      try {
-        const response = await getEventosDestacados();
-        if(response){
-          alert("Eventos destacados obtenidos exitosamente");
-        }
-      } catch (error) {
-        alert(error.message);
-      }
+  try {
+    const eventos = await getEventosDestacados();
+    if (eventos) {
+      alert("Eventos destacados obtenidos exitosamente");
+      eventosContainer.innerHTML = eventos.map(evento => EVENTOS_DESTACADOS(evento)).join("");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
 
-
+  // FIN
 }
-
-
-
-
