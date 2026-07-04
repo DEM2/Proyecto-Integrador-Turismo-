@@ -89,19 +89,19 @@ export function SITIOS_DESTACADOS(sitio) {
       
 
       <div class="pl-2 text-blue-950">
-        <h2 class="font-bold">Gran Malecón del Río</h2>
+        <h2 class="font-bold">${sitio?.name}</h2>
         <p class="text-xs text-gray-700">
-          Paseo turístico a orillas del río Magdalena.
+          ${sitio?.description}
         </p>
       </div>
 
       <div class="flex items-center pl-2 text-xs text-gray-700">
         <img
           src="/src/assets/img/location3.svg"
-          alt="Sitios destacados"
+          alt="location_icon"
           class="w-5 h-5"
         />
-        Riomar
+        ${sitio?.location}
       </div>
       <br />
     </article>
@@ -148,15 +148,15 @@ export function EVENTOS_DESTACADOS(evento) {
       <div
         class="FECHA bg-white w-12 h-15 absolute top-3 left-3 rounded-lg flex flex-col items-center justify-center text-blue-950"
       >
-        <h2 class="font-bold">12</h2>
-        <span class="text-xs font-medium"> FEB </span>
+        <h2 class="font-bold">${evento?.start_date}</h2>
+        <span class="text-xs font-medium"> ${evento?.start_date} </span>
       </div>
       
 
       <div class="pl-2 text-blue-950">
-        <h2 class="font-bold">Gran Malecón del Río</h2>
+        <h2 class="font-bold">${evento?.name}</h2>
         <p class="text-xs text-gray-700">
-          Paseo turístico a orillas del río Magdalena.
+          ${evento?.description}
         </p>
       </div>
 
@@ -166,7 +166,7 @@ export function EVENTOS_DESTACADOS(evento) {
           alt="Sitios destacados"
           class="w-5 h-5"
         />
-        Riomar
+        ${evento?.location}
       </div>
       <br />
     </article>
