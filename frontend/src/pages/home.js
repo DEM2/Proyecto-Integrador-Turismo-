@@ -90,12 +90,10 @@ export function home() {
           class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2"
         >
           ${INFO_ICONS_HOME("places.svg", "Descubre lugares icónicos y también menos visibles.", "bg-blue-600")} 
-          ${INFO_ICONS_HOME("music.svg",
-          "Consulta eventos culturales, gastronómicos y deportivos.",
-          "bg-red-500")} 
-          ${INFO_ICONS_HOME("safe.svg", "Encuentra información confiable y actualizada.", "bg-yellow-500")}
-          ${INFO_ICONS_HOME("heart.svg", "Planifica y guarda tus itinerarios.",
-          "bg-green-500")} ${INFO_ICONS_HOME("people.svg", "Conecta con experiencias locales auténticas y memorables.", "bg-purple-500")}
+          ${INFO_ICONS_HOME("music.svg", "Consulta eventos culturales, gastronómicos y deportivos.", "bg-red-500")} 
+          ${INFO_ICONS_HOME("safe.svg", "Encuentra información confiable y actualizada","bg-yellow-500")}
+          ${INFO_ICONS_HOME("heart.svg", "Planifica y guarda tus itinerarios.","bg-green-500")} 
+          ${INFO_ICONS_HOME("people.svg", "Conecta con experiencias locales auténticas y memorables.", "bg-purple-500")}
           ${INFO_ICONS_HOME("shop.svg", "Impulsa el turismo local y la visibilidad de emprendimientos.", "bg-orange-500")}
         </figure>
       </section>
@@ -109,9 +107,8 @@ export function home() {
           ${INFO_ICONS_HOME2("store.svg", "Apoya negocios locales", "Con cada visita y recomendación impulsas a emprendedores y comercios de nuestra ciudad.", "bg-amber-100", "negocios_locales.webp")}
           ${INFO_ICONS_HOME2("people2.svg", "Reseñas de usuarios", "Conoce opiniones reales de viajeros y locales para tomar mejores decisiones.", "bg-blue-200", "estrella2.png", "object-contain")}
           ${INFO_ICONS_HOME2("location2.svg", "Itinerarios sugeridos", "Rutas listas para que disfrutes lo mejor de Barranquilla en poco tiempo.",
-          "bg-green-200", "itinerario.webp")} ${INFO_ICONS_HOME2("family.svg",
-          "Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!", "bg-purple-200",
-          "familias.webp")}
+          "bg-green-200", "itinerario.webp")} 
+          ${INFO_ICONS_HOME2("family.svg","Experiencias para todos", "Planes para parejas, familia, amigos y aventureros. ¡Tú eliges cómo vivir la ciudad!","bg-purple-200","familias.webp")}
         </figure>
       </section>
 
