@@ -19,3 +19,23 @@ export async function validateRegister(req, res, next) {
         next(error);
     }
 }
+
+//Validamos que el correo esté registrado en nuestra db
+export async function validateLogin(req, res, next) {
+    const {email, password} = req.body;
+
+    if(!email || !password){
+        return res.status(400).json({
+            ok: false,
+            message: "Email y password obligatorios"
+        });
+    }
+
+    if(!email.includes("@")){
+        return res.status(400).json({
+            ok: false,
+            message: "El email no tiene un formato valido."
+        })
+    }
+    next();
+}

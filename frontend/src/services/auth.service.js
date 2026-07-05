@@ -15,13 +15,4 @@ export function clearSession(){
     localStorage.removeItem(llave);
 }
 
-export async function login(email, password){
-    const user = await getUserByEmail(email);
-    if (user?.password == password){
-        createSession(user);
-        return user;
-    } else {
-        alert("Credenciales incorrectas");
-        throw new Error("Credenciales incorrectas");
-    }
-}
+//
