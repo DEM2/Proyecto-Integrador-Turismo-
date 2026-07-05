@@ -52,7 +52,6 @@ export function home() {
             id="sitios-destacados"
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2"
           >
-            ${SITIOS_DESTACADOS()}
           </figure>
         </aside>
 

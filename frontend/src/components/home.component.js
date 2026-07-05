@@ -61,11 +61,11 @@ export function SITIOS_DESTACADOS(sitio) {
     <article
       class="flex flex-col gap-2 relative bg-gray-50 rounded-xl border border-gray-300 shadow-lg shadow-sky-50 overflow-hidden cursor-pointer hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out"
     >
-      <div class="h-2/3 group/mostraropcionesyopacidad">
+      <div class="group/mostraropcionesyopacidad">
         <img
           src="/src/assets/img/hero.png"
           alt="Sitios destacados"
-          class="w-full h-full group-hover/mostraropcionesyopacidad:opacity-80"
+          class="w-full h-full object-cover group-hover/mostraropcionesyopacidad:opacity-60"
         />
         <div
           class="absolute top-3 right-3  opacity-0 max-lg:opacity-100 max-lg:bg-amber-50 rounded-lg group-hover/mostraropcionesyopacidad:opacity-100"
@@ -101,7 +101,7 @@ export function SITIOS_DESTACADOS(sitio) {
           alt="location_icon"
           class="w-5 h-5"
         />
-        ${sitio?.location}
+        ${sitio?.address}
       </div>
       <br />
     </article>

@@ -1,7 +1,7 @@
 import { obtenerSitiosDestacadosQ, obtenerEventosDestacadosQ } from "../querys/destacados.query.js";
 
 export async function obtenerSitiosDestacados(req, res) {
-
+    
     try {
 
         const sitiosDestacados = await obtenerSitiosDestacadosQ();
@@ -15,7 +15,7 @@ export async function obtenerSitiosDestacados(req, res) {
 }
 
 export async function obtenerEventosDestacados(req, res) {
-
+    
     try {
 
         const eventosDestacados = await obtenerEventosDestacadosQ();
