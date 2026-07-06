@@ -155,7 +155,7 @@ export function loginEvents() {
       if (responseUser) {
         createSession(responseUser);
         alert("Login exitoso.")
-        navigateTo("/")
+        navigateTo("/event")
       }
     } catch (error) {
       alert("Error al ingresar")
