@@ -1,21 +1,41 @@
-export function validateRegister(req, res, next) {
+import pool from "../config/db.js";
 
-    const {
+ //Validamos que el correo no esté registrado en nuestra db
+export async function validateRegister(req, res, next) {
+    try {
+        const user = req.body;
+       
+        const result = await pool.query(
+            "SELECT id FROM users WHERE email = $1",
+            [user.email]
+        );
+        
+        if (result.rows.length) {
+            return res.status(409).json({ message: `el correo ${user.email} ya se encuentra registrado` });
+        }
 
-        nombre,
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
 
-        email,
+//Validamos que el correo esté registrado en nuestra db
+export async function validateLogin(req, res, next) {
+    const {email, password} = req.body;
 
-        password
+    if(!email || !password){
+        return res.status(400).json({
+            ok: false,
+            message: "Email y password obligatorios"
+        });
+    }
 
-    } = req.body;
-
-    // Validaciones
-
-    // if(...)
-
-    // return res.status(...)
-
+    if(!email.includes("@")){
+        return res.status(400).json({
+            ok: false,
+            message: "El email no tiene un formato valido."
+        })
+    }
     next();
-
 }

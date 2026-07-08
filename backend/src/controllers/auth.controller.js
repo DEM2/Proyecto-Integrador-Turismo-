@@ -17,3 +17,23 @@ export async function register(req, res) {
     }
 
 }
+
+export async function login(req, res) {
+    try{
+
+        const credentials = req.body;
+
+        const loginResult = await authService.loginUserService(credentials)
+
+        res.status(200).json({
+            ok: true,
+            message: "Login Exitoso",
+            data: loginResult,
+        });
+    }catch (error){
+        return res.status(500).json({
+            ok: false,
+            message: "Error intero del servidor",
+        })
+    }
+}
