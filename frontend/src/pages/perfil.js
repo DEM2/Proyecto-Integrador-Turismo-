@@ -6,12 +6,13 @@ export function perfil() {
   return `
   ${NAV_BAR()}
     <main> 
-      <section class="h-48 grid lg:grid-cols-2 lg:grid-rows-1 grid-cols-1 grid-rows-2 ">
+      <section class="h-48 grid lg:grid-cols-3 lg:grid-rows-1 grid-cols-1 grid-rows-2 ">
 
-      <aside class="bg-amber-50 flex gap-1">
+      
+      <aside class="bg-amber-50 flex gap-1 pl-2  ">
         <img
             src="/src/assets/img/familias.webp"
-            class="max-h-full rounded-full border-4 border-amber-50  object-cover"
+            class="size-48 rounded-full shrink-0 border-4 border-white  object-cover "
             alt=""
           />
           <article class="w-full">
@@ -25,7 +26,7 @@ export function perfil() {
 
         <img
           src="/src/assets/img/hero3.png"
-          class="w-full max-h-full object-cover"
+          class="w-full h-full object-cover lg:col-span-2 "
           alt=""
         />
       </section>
