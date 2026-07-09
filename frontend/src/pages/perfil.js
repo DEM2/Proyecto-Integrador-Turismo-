@@ -6,24 +6,29 @@ export function perfil() {
   return `
   ${NAV_BAR()}
     <main> 
-        <section class="imagen h-48 relative"> 
-            <img
-          class="w-full h-full object-cover "
-          src="/src/assets/img/hero3.png"
-          alt="Hero Image"
-        />
+      <section class="h-48 grid lg:grid-cols-2 lg:grid-rows-1 grid-cols-1 grid-rows-2 ">
 
-
-    <img
-          class="size-32 object-cover rounded-full border-4 border-amber-50 absolute top-40 left-10 "
-          src="/src/assets/img/familias.webp"
-          alt="Hero Image"
-        />
-        </section>
-
-        <section>
+      <aside class="bg-amber-50 flex gap-1">
+        <img
+            src="/src/assets/img/familias.webp"
+            class="max-h-full rounded-full border-4 border-amber-50  object-cover"
+            alt=""
+          />
+          <article class="w-full">
+          <h2>
+            Mateo Mercado
+          </h2>
+          <spam class="text-green-600">Explorador 🌴</spam>
+          </article>
+      </aside>
         
-        </section>
+
+        <img
+          src="/src/assets/img/hero3.png"
+          class="w-full max-h-full object-cover"
+          alt=""
+        />
+      </section>
     
     </main>
   
