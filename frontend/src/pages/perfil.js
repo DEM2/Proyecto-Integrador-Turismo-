@@ -15,12 +15,20 @@ export function perfil() {
             class="size-48 rounded-full shrink-0 border-4 border-white  object-cover "
             alt=""
           />
-          <article class="w-full">
-          <h2>
+          <aside class="bg-amber-100 rounded-2xl p-2 cursor-pointer hover:bg-amber-200 text-center"> Instagram <br> Facebook <br> Tiktok</aside>
+          <article class="w-full flex flex-col items-center justify-center">
+          
+          <h2 class="text-lg font-medium ">
             Mateo Mercado
+            <span class="text-xs block font-normal text-center">@Matooo_23432
+            
+            </span>
           </h2>
-          <spam class="text-green-600">Explorador 🌴</spam>
+          <span class="text-green-600 font-medium ">Explorador 🌴</span>
           </article>
+
+          <aside class="bg-amber-100 rounded-2xl p-2 cursor-pointer hover:bg-amber-200 text-center "> Seguir </aside>
+         
       </aside>
         
 
