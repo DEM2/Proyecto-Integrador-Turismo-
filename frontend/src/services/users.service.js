@@ -1,8 +1,7 @@
 // Funcion para registrar un nuevo usuario
 export async function postUser(user) {
-  console.log("hola");
   
-  const response = await fetch("http://localhost:3000/users", {
+  const response = await fetch("http://localhost:3000/api/register", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -11,14 +10,15 @@ export async function postUser(user) {
   });
 
   if (!response.ok) {
-    throw new Error("Error al crear el usuario");
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al crear el usuario");
   }
   return await response.json();
 }
 
 // Funcion para obtener todos los usuarios
 export async function getUsers() {
-  const response = await fetch("http://localhost:3000/users");
+  const response = await fetch("http://localhost:3000/api/users");
   if (!response.ok) {
     throw new Error("Error al obtener los usuarios");
   }
@@ -27,7 +27,7 @@ export async function getUsers() {
 
 // Funcion para obtener un usuario por su email
 export async function getUserByEmail(email) {
-  const response = await fetch(`http://localhost:3000/users?userEmail=${email}`);
+  const response = await fetch(`http://localhost:3000/api/users?userEmail=${email}`);
     if (!response.ok) {
         throw new Error("Error al obtener el usuario por email");
     }

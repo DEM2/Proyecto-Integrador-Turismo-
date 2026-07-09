@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const { Pool } = pg;
-
+// Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,

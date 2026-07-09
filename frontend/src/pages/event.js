@@ -1,6 +1,7 @@
 import { navigateTo } from "../router/router";
 import { postUser } from "../services/users.service";
-import { NAV_BAR } from "../components/nav_bar.js";
+import { NAV_BAR } from "../components/nav_bar.component.js";
+import { EVENT_FILTER } from "../components/event_filter.component.js";
 
 export function event() {
     return `
@@ -24,107 +25,18 @@ export function event() {
       </header>
       </section>
     
-      <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2">
+      <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-9 gap-4 p-2">
 
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full relative bottom-75">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-blue-600"
-            >
-              <img
-                src="/src/assets/img/places.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-            <p>
-              Descubre lugares icónicos y también menos visibles.
-            </p>
-          </article>
-
-         <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full relative bottom-75">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-red-500"
-            >
-              <img
-                src="/src/assets/img/music.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Consulta eventos culturales, gastronómicos y deportivos.
-            </p>
-          </article>
-
-
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200 hover:bg-sky-50 h-full relative bottom-75">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-yellow-500 "
-            >
-              <img
-                src="/src/assets/img/safe.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Encuentra información confiable y actualizada.
-            </p>
-          </article>
-
-
-          <article class="flex items-center gap-3 bg-white p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-green-500"
-            >
-              <img
-                src="/src/assets/img/heart.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Planifica y guarda tus itinerarios.
-            </p>
-          </article>
-
-
-          <article class="flex items-center gap-3  bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-purple-500"
-            >
-              <img
-                src="/src/assets/img/people.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Conecta con experiencias locales auténticas y memorables.
-            </p>
-          </article>
-
-
-          <article class="flex items-center gap-3 top-3 bg-white  p-5 rounded-3xl shadow-lg shadow-gray-200  hover:bg-sky-50 h-full">
-            <div
-              class="flex items-center justify-center size-15 shrink-0 rounded-full bg-orange-500"
-            >
-              <img
-                src="/src/assets/img/shop.svg"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
-            </div>
-
-            <p>
-              Impulsa el turismo local y la visibilidad de emprendimientos.
-            </p>
-            
-          </article>
+          ${EVENT_FILTER("Todos")}
+          ${EVENT_FILTER("Festivales")}
+          ${EVENT_FILTER("Conciertos")}
+          ${EVENT_FILTER("Cultura")}
+          ${EVENT_FILTER("Deportes")}
+          ${EVENT_FILTER("Gastronomía")}
+          ${EVENT_FILTER("Ferias")}
+          ${EVENT_FILTER("Teatro")}
+          ${EVENT_FILTER("Infantiles")}
+          
 
         </figure>
       
