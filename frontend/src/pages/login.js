@@ -1,3 +1,4 @@
+import { chatbot, chatbotEvents } from "../components/chatbot/chatbot";
 import { navigateTo } from "../router/router";
 
 export function login() {
@@ -115,10 +116,10 @@ export function login() {
         </article>
       </section>
     </section>
+    
+    </main>
+    ${chatbot()}
 
-   
-
-  </main>
     `;
 }
 
@@ -132,6 +133,7 @@ export function loginEvents() {
     navigateTo("/register")
   });
 
+  chatbotEvents();
 
   const form = document.getElementById("login-form");
   const email = document.getElementById("login-email");
