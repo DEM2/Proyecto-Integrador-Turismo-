@@ -22,6 +22,7 @@ export async function validateRegister(req, res, next) {
 
 //Validamos que el correo esté registrado en nuestra db
 export async function validateLogin(req, res, next) {
+    
     const {email, password} = req.body;
 
     if(!email || !password){

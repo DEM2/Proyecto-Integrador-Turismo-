@@ -23,9 +23,7 @@ export async function register(userData) {
 //Login
 export async function loginUserService(credentials) {
     const { email, password } = credentials;
-
     const user = await findByEmail(email);
-
     if (!user) {
         const error = new Error("Credenciales invalidas.")
         error.statusCode = 401;
@@ -33,6 +31,7 @@ export async function loginUserService(credentials) {
     }
     // Aquí después iría bcrypt 
     const isPasswordValid = await bcrypt.compare(password, user.password)
+    console.log(isPasswordValid)
     if (!isPasswordValid) {
         const error = new Error("Contraseña invalida.")
         error.statusCode = 401;
@@ -59,6 +58,6 @@ export async function loginUserService(credentials) {
             email: user.email,
             role_id: user.id_role
         },
-        token,
+      
     };
 }

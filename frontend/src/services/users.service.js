@@ -43,11 +43,8 @@ export async function getUserByEmail(email) {
 
 //LOGIN
 
-const URL = "http://localhost:3000"
-const AUTH = `${URL}/api`
-
 export async function loginUser(email, password) {
-  const response = await fetch(`${AUTH}/login`,{
+  const response = await fetch(`http://localhost:3000/api/login`,{
     method: "POST",
     headers: {
       "Content-Type": "application/json",
