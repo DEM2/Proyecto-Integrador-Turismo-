@@ -1,5 +1,5 @@
 
-export const NAV_BAR = () => {
+export function NAV_BAR() {
   return `
     <header
       class=" NAVEGACION  font-sans text-blue-950 flex items-center justify-between h-20 pl-4 sm:pl-6 md:pl-10 pr-2 sm:pr-4 md:pr-8 bg-gray-50"

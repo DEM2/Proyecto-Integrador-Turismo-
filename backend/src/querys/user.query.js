@@ -4,7 +4,7 @@ export async function findByEmail(email){
 
     const sql = `
         SELECT *
-        FROM usuario
+        FROM users
         WHERE email = $1
     `;
 
@@ -14,7 +14,7 @@ export async function findByEmail(email){
 
     const result = await pool.query(sql,values);
 
-    return result.rows[0];
+    return result.rows[0] || null;
 
 }
 
@@ -22,7 +22,7 @@ export async function create(user){
 
     const sql = `
 
-        INSERT INTO usuario
+        INSERT INTO users
         (
             nombre,
             email,

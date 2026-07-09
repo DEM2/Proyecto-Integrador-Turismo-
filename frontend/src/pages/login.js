@@ -1,5 +1,7 @@
 import { chatbot, chatbotEvents } from "../components/chatbot/chatbot";
 import { navigateTo } from "../router/router";
+import { loginUser } from "../services/users.service.js";
+import { createSession } from "../services/auth.service.js";
 
 export function login() {
   return `
@@ -138,5 +140,32 @@ export function loginEvents() {
   const form = document.getElementById("login-form");
   const email = document.getElementById("login-email");
   const password = document.getElementById("login-password");
-  
+
+  if (!form) {
+    return
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault()
+
+    const userLogin = {
+      email: email.value.trim(),
+      password: password.value.trim()
+    }
+
+    try {
+      const responseUser = await loginUser(userLogin.email, userLogin.password)
+      if (responseUser) {
+        createSession(responseUser);
+        alert("Login exitoso.")
+        navigateTo("/event")
+      }
+    } catch (error) {
+      alert("Error al ingresar")
+    }
+
+
+
+  })
+
 }
