@@ -13,13 +13,13 @@ CREATE TABLE places_reviews (
 
     is_active BOOLEAN DEFAULT TRUE,
 
-    id_places INT NOT NULL,
+    id_place INT NOT NULL,
 
     CONSTRAINT fk_places_review_user
         FOREIGN KEY(id_user)
         REFERENCES users(id),
 
     CONSTRAINT fk_places_review_place
-        FOREIGN KEY(id_places)
+        FOREIGN KEY(id_place)
         REFERENCES places(id)
 );
