@@ -1,3 +1,4 @@
+import pool from "../config/db.js"
 
 //Consulta para eventos
 
@@ -11,6 +12,7 @@ export async function getEventById(id_event) {
             e.description,
             e.start_date,
             e.end_date,
+            e.start_time,
             e.price,
             e.address,
             e.image_main,
@@ -25,17 +27,17 @@ export async function getEventById(id_event) {
 
     const result = await pool.query(sql, values);
     //La consulta devuelve un objeto completo con varias propeidades, entonces
-    //la información real esta dentro de result.rows, por lo general es una lista
+    //la información real de la db esta dentro de result.rows, por lo general es una lista
     //con una sola posición
     return result.rows[0] || null;
 
 };
 
-export async function getEventAgendaByID(id_event) {
+export async function getEventAgendaById(id_event) {
 
     const sql = `
         SELECT * FROM events_agenda
-        WHERE id = 1;
+        WHERE id_event = $1;
     `
     const values = [
         id_event
