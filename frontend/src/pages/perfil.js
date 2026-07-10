@@ -7,7 +7,7 @@ export function perfil() {
   ${NAV_BAR()}
     <main class="relative w-full h-60">
   <!-- Hero principal -->
-  <section class="relative w-full h-full">
+  <section class="relative w-full h-60">
     <img 
       src="/src/assets/img/hero3.png" 
       alt="Imagen principal" 
@@ -15,7 +15,7 @@ export function perfil() {
     />
 
     <!-- Perfil superpuesto -->
-    <div class="absolute bottom-4 left-20 flex items-center gap-4">
+    <div class="absolute bottom-4 left-20 flex items-center gap-4 h-60">
       <img 
         src="/src/assets/img/familias.webp" 
         alt="Foto de perfil" 
@@ -29,7 +29,9 @@ export function perfil() {
     </div>
 
     <!-- Información del usuario -->
-    <article class="absolute top-13 left-69 w-1/3 p-3 rounded-3xl bg-black/50 text-white">
+    <article class="absolute top-0 left-0 w-full h-60  bg-black/50 text-white">
+    <div class=" absolute top-16 left-71">
+    
       <div class="flex items-center">
         <h2 class="font-bold text-2xl pr-3">Mateo Mercado</h2>
         <span class="bg-green-600 font-bold text-xs rounded-4xl px-3 py-1">
@@ -42,7 +44,7 @@ export function perfil() {
       </p>
 
       <!-- Redes sociales -->
-      <ul class="flex gap-2 mt-3 bg-black/50 rounded-2xl items-center justify-center p-2">
+      <ul class="flex gap-2 mt-3 ">
         <li>
           <a href="#" class="flex items-center gap-1 text-xs hover:bg-black/20 hover:rounded-2xl p-1 ">
             <img src="/src/assets/img/instagram.svg" alt="Instagram" class="size-5 object-cover" />
@@ -62,6 +64,7 @@ export function perfil() {
           </a>
         </li>
       </ul>
+      </div>
     </article>
   </section>
 
