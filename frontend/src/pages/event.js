@@ -25,9 +25,9 @@ export function event() {
       </header>
       </section>
     
-      <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-9 gap-4 p-2">
+      <figure class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-10 gap-4 p-2">
 
-          ${EVENT_FILTER("Todos")}
+          ${EVENT_FILTER("Todos","all_black.svg")}
           ${EVENT_FILTER("Festivales")}
           ${EVENT_FILTER("Conciertos")}
           ${EVENT_FILTER("Cultura")}
@@ -36,9 +36,47 @@ export function event() {
           ${EVENT_FILTER("Ferias")}
           ${EVENT_FILTER("Teatro")}
           ${EVENT_FILTER("Infantiles")}
-          
+          ${EVENT_FILTER("Otros")}
 
         </figure>
+
+    <section
+      class="SITIOSYEVENTOSDESTACADOS pl-10 pr-10 items-stretch grid grid-cols-1 xl:grid-cols-2 gap-4 relative bottom-60"
+      >
+      <aside class="IZQUIERDO-SITIOSDESTACADOS">
+          <section class="flex gap-2 items-center h-10">
+            <div
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700"
+            >
+              <img
+                class="h-5 w-5"
+                src="/src/assets/img/location.svg"
+                alt="Icono de sitios destacados"
+              />
+            </div>
+            <h2 class="text-2xl font-bold text-blue-700">Sitios Destacados</h2>
+          </section>
+
+          <figure
+            id="sitios-destacados"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2"
+          >
+          </figure>
+        </aside>
+        
+          <aside class="DERECHA-EVENTOSDESTACADOS">
+          <section class="flex gap-2 items-center h-10">
+            <div
+              class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
+            >
+              <img
+                class="h-5 w-5"
+                src="/src/assets/img/calendar.svg"
+                alt="Icono de eventos destacados"
+              />
+            </div>
+            <h2 class="text-2xl font-bold text-red-500">Eventos Destacados</h2>
+    </section>
       
     </main>
 
