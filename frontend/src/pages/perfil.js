@@ -31,7 +31,8 @@ export function perfil() {
 
     <!-- Información del usuario -->
     <article class="absolute top-0 left-0 w-full h-60  bg-black/50 text-white">
-    <div class=" absolute max-sm:top-1 left-51 top-8 md:top-16 md:left-71 right-0">
+
+    <div class=" absolute max-[500px]:top-1 left-51 top-8 md:top-16 md:left-71 right-0">
     
       <div class="flex flex-wrap md:flex-nowrap items-center ">
         <h2 class="font-bold text-xl md:text-2xl md:pr-3">Mateo Mercado</h2>
@@ -68,7 +69,9 @@ export function perfil() {
   </section>
 
   <!-- Sección inferior -->
-  <section class="absolute -bottom-10 md:left-50 md:right-0 w-2/3 h-20 bg-white rounded-2xl shadow-sm text-center flex items-center justify-center">
+  <section class="absolute md:-bottom-10 md:left-50 right-0 w-full -bottom-20 md:w-2/3 h-20 bg-white rounded-2xl shadow-sm text-center flex items-center justify-center
+  
+  ">
     <ul class="flex  gap-2 md:gap-5 lg:gap-20 xl:gap-30 2xl:gap-40">
       <li class="flex gap-2 items-center cursor-pointer">
         <img src="/src/assets/img/seguidores.svg" alt="Seguidores" class="size-6 object-cover hidden md:inline" />
