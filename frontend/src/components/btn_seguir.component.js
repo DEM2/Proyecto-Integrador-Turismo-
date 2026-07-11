@@ -2,7 +2,7 @@
 export function FollowButton() {
   const button = document.createElement("button");
   button.className =
-    "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+    "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
   button.textContent = "Seguir";
 
   let state = "follow";
@@ -11,11 +11,11 @@ export function FollowButton() {
     state = newState;
     if (state === "follow") {
       button.className =
-        "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+        "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
       button.textContent = "Seguir";
     } else if (state === "following") {
       button.className =
-        "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+        "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
       button.textContent = "Siguiendo";
     }
   }
@@ -43,7 +43,7 @@ export function FollowButton() {
   button.addEventListener("mouseleave", () => {
     if (state === "following") {
       button.className =
-        "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+        "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
       button.textContent = "Siguiendo";
     }
   });

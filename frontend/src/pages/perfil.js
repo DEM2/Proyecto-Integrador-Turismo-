@@ -74,7 +74,7 @@ export function perfil() {
   ">
     <ul class="flex  gap-2 md:gap-5 lg:gap-20 xl:gap-30 2xl:gap-40">
       <li class="flex gap-2 items-center cursor-pointer">
-        <img src="/src/assets/img/seguidores.svg" alt="Seguidores" class="size-6 object-cover hidden md:inline" />
+        <img src="/src/assets/img/seguidores.svg" alt="Seguidores" class="size-6 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">1000</h2>
         Seguidores
@@ -82,20 +82,20 @@ export function perfil() {
         
       </li>
       <li class="flex gap-2 items-center cursor-pointer">
-        <img src="/src/assets/img/seguidos.svg" alt="Seguidos" class="size-6 object-cover hidden md:inline" />
+        <img src="/src/assets/img/seguidos.svg" alt="Seguidos" class="size-6 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">1000</h2>
         Seguidos
         </div>
       </li>
       <li class="flex gap-2 items-center cursor-pointer">
-        <img src="/src/assets/img/reseñas.svg" alt="Reseñas" class="size-8 object-cover hidden md:inline" />
+        <img src="/src/assets/img/reseñas.svg" alt="Reseñas" class="size-8 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">10</h2>
         Reseñas
         </div>
       <li class="flex gap-2 items-center cursor-pointer">
-        <img src="/src/assets/img/itinerarios.svg" alt="Itinerarios" class="size-8 object-cover hidden md:inline" />
+        <img src="/src/assets/img/itinerarios.svg" alt="Itinerarios" class="size-8 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">5</h2>
         Itinerarios
