@@ -371,3 +371,17 @@ Each layer has one responsibility:
 * **Querys**→ Execute SQL queries.
 * **Config** → Configure the application.
 * **Database** → Store and manage application data.
+
+# Ai integration 
+
+routes/ai.routes.js
+    defines the route
+
+controllers/ai.controller.js
+    receives the message and responds
+
+services/deepseek.service.js
+    calls DeepSeek
+
+utils/deepseek-error.js
+    translates technical errors

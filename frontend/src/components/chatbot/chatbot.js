@@ -1,3 +1,5 @@
+import { getMessageFromAi } from "../../services/chat.service";
+
 export function chatbot(){
     const BOT_ICON = `
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -171,151 +173,152 @@ function minimizeChat(){
 
 
 // pinta de azul el botón de enviar cuando hay texto en el textarea, y lo desactiva cuando no hay texto
-function updateSendButton(enabled){
-    const sendButton = document.getElementById("chatbot-send");
+    function updateSendButton(enabled){
+        const sendButton = document.getElementById("chatbot-send");
 
-    if(enabled){
-        sendButton.classList.remove("bg-gray-300");
-        sendButton.classList.add("bg-blue-950");
-        sendButton.disabled = false;
-    }else{
-        sendButton.classList.remove("bg-blue-950");
-        sendButton.classList.add("bg-gray-300");
-        sendButton.disabled = true;
-    }
-
-}
-export function toggleSendButton(){
-    const input = document.getElementById('chatbot-input');
-
-    input.addEventListener('input', () => {
-        const hasText = input.value.trim().length > 0;
-        updateSendButton(hasText);
-
-    });
-
-}
-function handleInputKeyboard() {
-
-    const input = document.getElementById("chatbot-input");
-
-    input.addEventListener("keydown", (event) => {
-        // Enter = enviar
-        // Shift + Enter = nueva línea
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            document.getElementById("chatbot-form").requestSubmit();
+        if(enabled){
+            sendButton.classList.remove("bg-gray-300");
+            sendButton.classList.add("bg-blue-950");
+            sendButton.disabled = false;
+        }else{
+            sendButton.classList.remove("bg-blue-950");
+            sendButton.classList.add("bg-gray-300");
+            sendButton.disabled = true;
         }
 
-    });
+    }
+    export function toggleSendButton(){
+        const input = document.getElementById('chatbot-input');
 
-}
-function scrollToBottom(){
-    const body = document.getElementById("chatbot-body");
-    body.scrollTop = body.scrollHeight;
-}
+        input.addEventListener('input', () => {
+            const hasText = input.value.trim().length > 0;
+            updateSendButton(hasText);
+
+        });
+
+    }
+    function handleInputKeyboard() {
+
+        const input = document.getElementById("chatbot-input");
+
+        input.addEventListener("keydown", (event) => {
+            // Enter = enviar
+            // Shift + Enter = nueva línea
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                document.getElementById("chatbot-form").requestSubmit();
+            }
+
+        });
+
+    }
+    function scrollToBottom(){
+        const body = document.getElementById("chatbot-body");
+        body.scrollTop = body.scrollHeight;
+    }
 
 
-const botResponses = [
-    
-    "¡Hola! 👋 ¿En qué puedo ayudarte?",
-    "Con gusto puedo ayudarte a descubrir Barranquilla.",
-    "¿Quieres recomendaciones de restaurantes?",
-    "También puedo ayudarte con eventos y lugares turísticos.",
-    "Estoy listo para ayudarte 😊"
+    // const botResponses = [
+        
+    //     "¡Hola! 👋 ¿En qué puedo ayudarte?",
+    //     "Con gusto puedo ayudarte a descubrir Barranquilla.",
+    //     "¿Quieres recomendaciones de restaurantes?",
+    //     "También puedo ayudarte con eventos y lugares turísticos.",
+    //     "Estoy listo para ayudarte 😊"
+    // ];
 
-];
-function sendMessage() {
+    function sendMessage() {
 
-    const form = document.getElementById("chatbot-form");
-    const input = document.getElementById("chatbot-input");
+        const form = document.getElementById("chatbot-form");
+        const input = document.getElementById("chatbot-input");
 
-    form.addEventListener("submit", (event) => {
+        form.addEventListener("submit", async (event) => {
 
-        event.preventDefault();
-        const message = input.value.trim();
-        if (message === "") return;
+            event.preventDefault();
+            const message = input.value.trim();
+            if (message === "") return;
 
-        // Pintamos el mensaje del usuario
-        addUserMessage(message);
-        // Bajamos automáticamente
-        scrollToBottom();
-        // Limpiamos el textarea
-        input.value = "";
-        // El botón vuelve a gris
-        updateSendButton(false);
-        // Simulamos la respuesta de la IA
-        setTimeout(() => {
+            // Pintamos el mensaje del usuario
+            addUserMessage(message);
+            // Bajamos automáticamente
+            scrollToBottom();
+            // Limpiamos el textarea
+            input.value = "";
+            // El botón vuelve a gris
+            updateSendButton(false);
+            
+            try {
 
-            const randomResponse = botResponses[
-                Math.floor(Math.random() * botResponses.length)
-            ];
+                const response = await getMessageFromAi(message);
+                console.log("Respuesta IA:", response);
+                addBotMessage(response.data.reply);
 
-            addBotMessage(randomResponse);
+            } catch (error) {
+                console.error("Error al obtener la respuesta del chatbot:", error);
+                addBotMessage("Lo siento, ocurrió un error al responder.");
+            }
 
             scrollToBottom();
 
-        }, 1000);
+        });
 
-    });
+    }
 
-}
+    function addUserMessage(message) {
 
-function addUserMessage(message) {
+        const messages = document.getElementById("chatbot-messages");
+        const messageContainer = document.createElement("div");
+        messageContainer.className = "flex justify-end items-start gap-3";
 
-    const messages = document.getElementById("chatbot-messages");
-    const messageContainer = document.createElement("div");
-    messageContainer.className = "flex justify-end items-start gap-3";
+        messageContainer.innerHTML = `
+            <div class=" bg-blue-950 text-white rounded-3xl rounded-tr-sm px-4 py-2 max-w-[280px] break-words shadow">
+                ${message}
+            </div>
+            <div class=" w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center shrink-0">
+                👤
+            </div>
+        `;
 
-    messageContainer.innerHTML = `
-        <div class=" bg-blue-950 text-white rounded-3xl rounded-tr-sm px-4 py-2 max-w-[280px] break-words shadow">
-            ${message}
-        </div>
-        <div class=" w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center shrink-0">
-            👤
-        </div>
-    `;
-
-    messages.appendChild(messageContainer);
-}
+        messages.appendChild(messageContainer);
+    }
 
 
-function addBotMessage(message) {
+    function addBotMessage(message) {
 
-    const messages = document.getElementById("chatbot-messages");
-    const messageContainer = document.createElement("div");
+        const messages = document.getElementById("chatbot-messages");
+        const messageContainer = document.createElement("div");
 
-    messageContainer.className = "flex items-start gap-3";
-    messageContainer.innerHTML = `
-        <!-- Avatar -->
+        messageContainer.className = "flex items-start gap-3";
+        messageContainer.innerHTML = `
+            <!-- Avatar -->
 
-        <div
-            class=" w-10 h-10 rounded-full bg-blue-950 text-white flex items-center justify-center shrink-0">
-            🤖
-        </div>
+            <div
+                class=" w-10 h-10 rounded-full bg-blue-950 text-white flex items-center justify-center shrink-0">
+                🤖
+            </div>
 
-        <!-- Mensaje -->
+            <!-- Mensaje -->
 
-        <div
-            class=" bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[280px] shadow-sm break-words">
-            ${message}
-        </div>
+            <div
+                class=" bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[280px] shadow-sm break-words">
+                ${message}
+            </div>
 
-    `;
+        `;
 
-    messages.appendChild(messageContainer);
+        messages.appendChild(messageContainer);
 
-}
+    }
 
-export function chatbotEvents(){
+    export function chatbotEvents(){
 
-    openChat();
-    closeChat();
-    minimizeChat();
-    toggleSendButton()
-    handleInputKeyboard();
-    sendMessage();
-}
+        openChat();
+        closeChat();
+        minimizeChat();
+        toggleSendButton()
+        handleInputKeyboard();
+        sendMessage();
+    }
 
 
 /* <button id="chatbot-button"class=" w-16 h-16 rounded-full bg-blue-950 shadow-xl shadow-blue-900/40 flex items-center justify-center cursor-pointer hover:scale-110 hover:bg-blue-900 active:scale-95 transition duration-300">
