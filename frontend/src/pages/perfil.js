@@ -1,6 +1,7 @@
 import { navigateTo } from "../router/router";
 import { postUser } from "../services/users.service";
 import { NAV_BAR, NavbarEvents } from "../components/nav_bar.component.js";
+import { FollowButton } from "../components/btn_seguir.component.js";
 
 export function perfil() {
   return `
@@ -15,7 +16,7 @@ export function perfil() {
     />
 
     <!-- Perfil superpuesto -->
-    <div class="absolute bottom-4 md:left-20 md:right-0 flex items-center gap-4 h-60">
+    <div class="absolute bottom-3 md:left-20 md:right-0 flex items-center gap-4 h-60">
       <img 
         src="/src/assets/img/familias.webp" 
         alt="Foto de perfil" 
@@ -30,13 +31,11 @@ export function perfil() {
 
     <!-- Información del usuario -->
     <article class="absolute top-0 left-0 w-full h-60  bg-black/50 text-white">
-    <div class=" absolute top-8 left-51 md:top-16 md:left-71 right-0">
+    <div class=" absolute max-sm:top-1 left-51 top-8 md:top-16 md:left-71 right-0">
     
       <div class="flex flex-wrap md:flex-nowrap items-center ">
         <h2 class="font-bold text-xl md:text-2xl md:pr-3">Mateo Mercado</h2>
-        <span class="bg-green-600 font-bold text-xs rounded-4xl px-3 py-1">
-          Explorador ✧
-        </span>
+        <span id="btn-follow"></span>
       </div>
       <p class="text-xs mt-1">@Matero123_sew</p>
       <p class="text-xs mt-2 max-w-70">
@@ -70,7 +69,36 @@ export function perfil() {
 
   <!-- Sección inferior -->
   <section class="absolute -bottom-10 md:left-50 md:right-0 w-2/3 h-20 bg-white rounded-2xl shadow-sm text-center flex items-center justify-center">
-    <p class="text-sm">nsknsdf</p>
+    <ul class="flex  gap-2 md:gap-5 lg:gap-20 xl:gap-30 2xl:gap-40">
+      <li class="flex gap-2 items-center cursor-pointer">
+        <img src="/src/assets/img/seguidores.svg" alt="Seguidores" class="size-6 object-cover hidden md:inline" />
+        <div>
+        <h2 class="font-bold">1000</h2>
+        Seguidores
+        </div>
+        
+      </li>
+      <li class="flex gap-2 items-center cursor-pointer">
+        <img src="/src/assets/img/seguidos.svg" alt="Seguidos" class="size-6 object-cover hidden md:inline" />
+        <div>
+        <h2 class="font-bold">1000</h2>
+        Seguidos
+        </div>
+      </li>
+      <li class="flex gap-2 items-center cursor-pointer">
+        <img src="/src/assets/img/reseñas.svg" alt="Reseñas" class="size-8 object-cover hidden md:inline" />
+        <div>
+        <h2 class="font-bold">10</h2>
+        Reseñas
+        </div>
+      <li class="flex gap-2 items-center cursor-pointer">
+        <img src="/src/assets/img/itinerarios.svg" alt="Itinerarios" class="size-8 object-cover hidden md:inline" />
+        <div>
+        <h2 class="font-bold">5</h2>
+        Itinerarios
+        </div>
+      </li>
+    </ul>
   </section>
 </main>
 
@@ -84,6 +112,9 @@ export function perfilEvents() {
 //Mostrar menú de navegación en versión móvil
   NavbarEvents()
   // FIN
+
+  const placeholder = document.getElementById("btn-follow");
+  placeholder.replaceWith(FollowButton());
 
 
 }
