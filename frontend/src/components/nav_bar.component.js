@@ -38,3 +38,24 @@ export function NAV_BAR() {
     </header>
   `;
 };
+
+export function NavbarEvents(){
+
+  const boton = document.getElementById("boton_menu");
+  const navegacion = document.getElementById("navegacion");
+  const equis = document.getElementById("boton_equis");
+
+  boton.addEventListener("click", funcionMenu);
+  equis.addEventListener("click", funcionMenu);
+
+  function funcionMenu() {
+    navegacion.classList.toggle("active");
+  }
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      navegacion.classList.remove("active");
+    }
+  });
+  // FIN
+}

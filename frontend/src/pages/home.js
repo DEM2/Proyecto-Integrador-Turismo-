@@ -1,5 +1,5 @@
 import { navigateTo } from "../router/router";
-import { NAV_BAR } from "../components/nav_bar.component.js";
+import { NAV_BAR, NavbarEvents } from "../components/nav_bar.component.js";
 import {
   EVENTOS_DESTACADOS,
   INFO_ICONS_HOME,
@@ -14,6 +14,8 @@ import {
 export function home() {
   return `
     ${NAV_BAR()}
+    
+
 
         <main class="w-full flex flex-col gap-4 font-sans">
       <section class="HERO w-full h-120 relative">
@@ -140,22 +142,7 @@ export function home() {
 
 export async function homeEvents() {
   //Mostrar menú de navegación en versión móvil
-  const boton = document.getElementById("boton_menu");
-  const navegacion = document.getElementById("navegacion");
-  const equis = document.getElementById("boton_equis");
-
-  boton.addEventListener("click", funcionMenu);
-  equis.addEventListener("click", funcionMenu);
-
-  function funcionMenu() {
-    navegacion.classList.toggle("active");
-  }
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      navegacion.classList.remove("active");
-    }
-  });
+  NavbarEvents()
   // FIN
 
   // Funcionalidad de navegación entre páginas
