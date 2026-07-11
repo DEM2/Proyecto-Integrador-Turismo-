@@ -25,7 +25,7 @@ VALUES
 'Vía 40 #79B-06, Barranquilla',
 TRUE,
  1,
- 7
+ 1
 ),
 (
 'Ventana al Mundo',
@@ -33,7 +33,7 @@ TRUE,
 'Glorieta de la Vía 40 con Circunvalar, Barranquilla',
 TRUE,
  1,
- 7
+ 1
 ),
 (
 'Museo del Carnaval',
@@ -41,7 +41,7 @@ TRUE,
 'Cra. 54 #49B-39, Barrio Abajo, Barranquilla',
 TRUE,
  1,
- 7
+ 1
 ),
 (
 'Ecoparque Ciénaga de Mallorquín',
@@ -49,7 +49,7 @@ TRUE,
 'Vía 40, Sector Mallorquín, Barranquilla',
 FALSE,
  1,
- 7
+ 1
 ),
 (
 'Plaza de la Paz',
@@ -57,7 +57,7 @@ FALSE,
 'Calle 53 con Carrera 46, Barranquilla',
 FALSE,
  1,
- 7
+ 1
 ),
 (
 'Castillo de Salgar',
@@ -65,5 +65,5 @@ FALSE,
 'Puerto Colombia, Atlántico',
 FALSE,
  1,
- 7
+ 1
 );
