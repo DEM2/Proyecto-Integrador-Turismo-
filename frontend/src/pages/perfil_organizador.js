@@ -74,7 +74,7 @@ export function perfilOrganizador() {
           <button
             type="button"
             id="btn-follow"
-            class="cursor-pointer rounded-full bg-green-500 px-5 py-2 text-sm font-bold text-white transition hover:bg-green-600"
+            class="cursor-pointer rounded-full bg-purple-500 px-5 py-2 text-sm font-bold text-white transition hover:bg-purple-600"
           >
             Seguir
           </button>
@@ -618,14 +618,9 @@ export function perfilOrganizadorEvents() {
   // FIN
 
   const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(FollowButton());
+  placeholder.replaceWith(FollowButton('purple'));
 
 
-  const reseñasContainer = document.getElementById("reseñas");
-  reseñasContainer.innerHTML=cardReseña()
-
-   const itinerariosContainer = document.getElementById("itinerarios");
-  itinerariosContainer.innerHTML=cadItinerario()
 
 
 

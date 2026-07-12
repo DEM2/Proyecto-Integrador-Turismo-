@@ -342,7 +342,7 @@ export function perfilExploradorEvents() {
   // FIN
 
   const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(FollowButton());
+  placeholder.replaceWith(FollowButton('green'));
 
 
   const reseñasContainer = document.getElementById("reseñas");

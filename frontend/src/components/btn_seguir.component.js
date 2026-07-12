@@ -1,8 +1,20 @@
 // Componente FollowButton
-export function FollowButton() {
+export function FollowButton(color) {
+  const colorClasses = {
+    green: {
+      default: "bg-green-500",
+      active: "bg-green-900",
+    },
+    purple: {
+      default: "bg-purple-500",
+      active: "bg-purple-900",
+    },
+  };
+
+  const selectedColor = colorClasses[color] || colorClasses.green;
+
   const button = document.createElement("button");
-  button.className =
-    "bg-green-500 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+  button.className = `${selectedColor.default} font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer`;
   button.textContent = "Seguir";
 
   let state = "follow";
@@ -10,12 +22,10 @@ export function FollowButton() {
   function updateState(newState) {
     state = newState;
     if (state === "follow") {
-      button.className =
-        "bg-green-500 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+      button.className = `${selectedColor.default} font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer`;
       button.textContent = "Seguir";
     } else if (state === "following") {
-      button.className =
-        "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+      button.className = `${selectedColor.active} font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer`;
       button.textContent = "Siguiendo";
     }
   }
@@ -42,8 +52,7 @@ export function FollowButton() {
   // Al salir del hover, volver a "Siguiendo"
   button.addEventListener("mouseleave", () => {
     if (state === "following") {
-      button.className =
-        "bg-green-900 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+      button.className = `${selectedColor.active} font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer`;
       button.textContent = "Siguiendo";
     }
   });
