@@ -1,5 +1,7 @@
 import { getEventDetail } from "../services/event.service"
 
+let currentEvent = null
+
 function numericDayDate(eventDate) {
   const currentDate = new Date(eventDate)
 
@@ -41,12 +43,12 @@ function textDayDate(eventDate) {
   return resultDate
 }
 function formatAgendaTime(eventTime) {
-  const [hours, minutes] = agendaTime.split(":")
+  const [hours, minutes] = eventTime.split(":")
 
   const currentDate = new Date()
   currentDate.setHours(Number(hours), Number(minutes), 0, 0)
 
-  const resultDate = currentDate.toLocaleDateString("en-US", {
+  const resultDate = currentDate.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
     hour12: true
@@ -57,24 +59,24 @@ function formatAgendaTime(eventTime) {
 
 
 export async function renderViewDetailEvent() {
+  try {
+    const id = 1
 
-  const id = 1
+    currentEvent = await getEventDetail(id)
 
-  const eventDetail = await getEventDetail(id)
+    if (!currentEvent) {
+      alert("Error de servidor")
+      return
+    }
+    const eventDetail = currentEvent
 
-  renderEventAgenda(eventDetail.agenda)
 
-  if (!eventDetail) {
-    alert("Error de servidor")
-    return
-  }
+    const startDate = numericDayDate(eventDetail.start_date)
+    const endDate = numericDayDate(eventDetail.end_date)
+    const textMonth = textMonthDate(eventDetail.start_date)
+    const yearDate = numericYearDate(eventDetail.start_date)
 
-  const startDate = numericDayDate(eventDetail.start_date)
-  const endDate = numericDayDate(eventDetail.end_date)
-  const textMonth = textMonthDate(eventDetail.start_date)
-  const yearDate = numericYearDate(eventDetail.start_date)
-
-  return `
+    return `
         <!-- VISTA DETALLE DE EVENTO -->
 <main class="min-h-screen bg-slate-50 text-blue-950">
 
@@ -179,7 +181,7 @@ export async function renderViewDetailEvent() {
         >
           <span class="block text-2xl">${startDate} - ${endDate}</span>
           <span class="block text-sm text-slate-500">${textMonth}</span>
-          <span class="block text-sm text-slate-500">2027${yearDate}</span>
+          <span class="block text-sm text-slate-500">${yearDate}</span>
         </time>
 
         <!-- Botones flotantes -->
@@ -233,45 +235,14 @@ export async function renderViewDetailEvent() {
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">🎟️</span>
-            <span>${Number(eventDetail.price) === 0 ? "Evento gratiuto" :
-      `Precio: $${Number(eventDetail.price).toLocaleString("es-CO")}`}</span>
+            <span>${Number(eventDetail.price) === 0 ? "Evento gratuito" :
+        `Precio: $${Number(eventDetail.price).toLocaleString("es-CO")}`}</span>
           </li>
 
         </ul>
       </article>
 
     </header>
-
-    <!-- TABS -->
-    <nav class="mt-6 rounded-2xl bg-white p-2 shadow-sm">
-      <ul class="grid grid-cols-2 gap-2 text-sm font-bold md:grid-cols-4">
-
-        <li>
-          <a href="#informacion" class="block rounded-xl bg-blue-600 px-4 py-3 text-center text-white">
-            Información
-          </a>
-        </li>
-
-        <li>
-          <a href="#agenda" class="block rounded-xl px-4 py-3 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">
-            Agenda
-          </a>
-        </li>
-
-        <li>
-          <a href="#ubicacion" class="block rounded-xl px-4 py-3 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">
-            Ubicación
-          </a>
-        </li>
-
-        <li>
-          <a href="#comentarios" class="block rounded-xl px-4 py-3 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">
-            Comentarios
-          </a>
-        </li>
-
-      </ul>
-    </nav>
 
     <!-- CUERPO PRINCIPAL -->
     <section class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
@@ -466,7 +437,7 @@ export async function renderViewDetailEvent() {
               <span class="text-blue-600">🕘</span>
               <p>
                 <strong class="block text-blue-950">Horario</strong>
-                Desde ${eventDetail.start_time} AM
+                Desde ${formatAgendaTime(eventDetail.start_time)} AM
               </p>
             </li>
 
@@ -483,7 +454,7 @@ export async function renderViewDetailEvent() {
               <p>
                 <strong class="block text-blue-950">Entrada</strong>
                 ${Number(eventDetail.price) === 0 ? "Evento gratiuto" :
-      `Evento pago`}
+        `Evento pago`}
               </p>
             </li>
 
@@ -492,7 +463,7 @@ export async function renderViewDetailEvent() {
               <p>
                 <strong class="block text-blue-950">Precio</strong>
                 ${Number(eventDetail.price) === 0 ? "Gratis" :
-      `$ ${Number(eventDetail.price).toLocaleString("es-CO")}`}
+        `$ ${Number(eventDetail.price).toLocaleString("es-CO")}`}
               </p>
             </li>
 
@@ -512,11 +483,22 @@ export async function renderViewDetailEvent() {
     </section>
   </section>
 </main>
-    `
+ `
+  } catch (error) {
+    console.log(error)
+
+    currentEvent = null
+
+    return
+  }
 }
 
 export function eventViewDetailEvent() {
-  return null
+  console.log("Agenda recibida:", currentEvent.agenda)
+  if (!currentEvent) {
+    return
+  }
+  renderEventAgenda(currentEvent.agenda)
 }
 
 
@@ -530,8 +512,9 @@ function groupAgenda(eventAgenda) {
     const date = activity.activity_date.slice(0, 10)
 
     if (!groupAgenda[date]) {
-      groupAgenda[date].push(activity)
+      groupAgenda[date] = []
     }
+    groupAgenda[date].push(activity)
   }
 
   return groupAgenda
@@ -542,7 +525,7 @@ function renderDayAgenda(dayActivities) {
   let html = ""
 
   for (const activity of dayActivities) {
-       html += `
+    html += `
           <li>
                   <time class="block font-bold text-blue-950">${formatAgendaTime(activity.activity_time)}</time>
                   <span class="text-slate-600">${activity.title}</span>
@@ -554,33 +537,34 @@ function renderDayAgenda(dayActivities) {
 
 }
 
-function renderEventAgenda(eventAgenda){
+function renderEventAgenda(eventAgenda) {
   const agendaContainer = document.getElementById("event-agenda")
 
-  if(!agendaContainer){
+  if (!agendaContainer) {
     return
   }
 
-  if(!eventAgenda || eventAgenda.length === 0){
+  if (!eventAgenda || eventAgenda.length === 0) {
     agendaContainer.innerHTML = `
       <p class="text-slate-500">
         Evento general.
       </p>
     `
+    return
   }
-  return
 
-  const groupAgenda = groupAgenda(eventAgenda)
+
+  const groupedAgenda = groupAgenda(eventAgenda)
 
   let html = ""
 
-  for (const key in groupAgenda) {
-    const dayActivities = groupAgenda[key]
+  for (const key in groupedAgenda) {
+    const dayActivities = groupedAgenda[key]
 
     html += `
       <article class="rounded-2xl border border-slate-200 p-4">
-              <h3 class="mb-1 text-lg font-black text-blue-950">${numericDayDate(date)} ${textDayDate(date).toUpperCase()}</h3>
-              <p class="mb-4 text-sm text-slate-500">${textDayDate(date)}</p>
+              <h3 class="mb-1 text-lg font-black text-blue-950">${numericDayDate(key)} ${textMonthDate(key).toUpperCase()}</h3>
+              <p class="mb-4 text-sm text-slate-500">${textDayDate(key)}</p>
 
               <ul class="space-y-3 text-sm">
                 ${renderDayAgenda(dayActivities)}
