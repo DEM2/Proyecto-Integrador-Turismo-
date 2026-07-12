@@ -1,9 +1,17 @@
 import { navigateTo } from "../router/router";
 import { NAV_BAR } from "../components/nav_bar.component.js";
-import { EVENT_FILTER } from "../components/event_filter.component.js";
+import { filterCard } from "../components/filterCard.component.js";
 import { CALENDAR } from "../components/calendar.component.js";
 import { EVENTOS_DESTACADOS } from "../components/home.component.js";
 import { getEventosDestacados } from "../services/destacados.service.js";
+import {
+    House,
+    Landmark,
+    Trees,
+    UtensilsCrossed,
+    Hotel,
+    ShoppingBag
+} from "lucide";
 
 export function event() {
   return `
@@ -38,25 +46,13 @@ export function event() {
         </header>
       </section>
 
-      <!-- FILTROS -->
-      <section class="px-10 py-6">
+         <!-- Categorías -->
+            <section
+                id="filters_container"
+                class="mt-6 mb-8 flex gap-4 overflow-x-auto pb-2">
 
-        <figure
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-9 gap-4">
+            </section>
 
-          ${EVENT_FILTER("Todos","all_black.svg")}
-          ${EVENT_FILTER("Festivales","firework.svg")}
-          ${EVENT_FILTER("Conciertos","concert.svg")}
-          ${EVENT_FILTER("Cultura","cultura.svg")}
-          ${EVENT_FILTER("Deportes","soccer.svg")}
-          ${EVENT_FILTER("Gastronomía","food.svg")}
-          ${EVENT_FILTER("Ferias","park.svg")}
-          ${EVENT_FILTER("Teatro","theater.svg")}
-          ${EVENT_FILTER("Infantiles","kids.svg")}
-
-        </figure>
-
-      </section>
 
       <!-- CONTENIDO -->
       <section
@@ -141,5 +137,57 @@ export async function eventEvents() {
   } catch (error) {
     alert(error.message);
   }
-    
+
+  const categories = [
+
+        {
+            name: "Todos",
+            description: "Explora todo",
+            icon: House,
+            color: "bg-blue-600"
+        },
+
+        {
+            name: "Cultura",
+            description: "Historia y tradición",
+            icon: Landmark,
+            color: "bg-pink-500"
+        },
+
+        {
+            name: "Naturaleza",
+            description: "Parques y playas",
+            icon: Trees,
+            color: "bg-green-500"
+        },
+
+        {
+            name: "Restaurantes",
+            description: "Sabores locales",
+            icon: UtensilsCrossed,
+            color: "bg-orange-500"
+        },
+
+        {
+            name: "Hoteles",
+            description: "Hospedajes",
+            icon: Hotel,
+            color: "bg-cyan-500"
+        },
+
+        {
+            name: "Compras",
+            description: "Centros comerciales",
+            icon: ShoppingBag,
+            color: "bg-purple-500"
+        }
+
+    ];
+
+    filters_container.innerHTML = categories
+        .map(category => filterCard(category))
+        .join("");
+
 }
+    
+

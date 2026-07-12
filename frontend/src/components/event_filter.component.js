@@ -1,15 +1,37 @@
-export function EVENT_FILTER(PARRAFO, img) {
-  return `
-     <article class="flex items-center gap-3  bg-white rounded-2xl px-6 py-5 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all
-      cursor-pointer">
-      <img
-        src="/src/assets/img/${img}"
-        class="w-6 h-6"
-      >
-      <p class="font-medium text-slate-800">
-        ${PARRAFO}
-      </p>
+import { iconSVG } from "../utils/icons.js";
 
-    </article>
-  `;
+export function filterCard(category) {
+
+    return `
+    <button data-category="${category.name}" class="destination-filter flex min-w-56.25 items-center gap-3 rounded-2xl
+           border border-gray-200
+           bg-white px-4 py-3
+           shadow-sm
+           transition-all duration-300
+           hover:border-blue-600 hover:shadow-md">
+    <span class="flex h-11 w-11 items-center justify-center rounded-full ${category.color} text-white">
+
+        ${iconSVG(category.icon,{
+        width:22,
+        height:22,
+        strokeWidth:2
+        })}
+
+    </span>
+
+    <div class="text-left">
+
+        <h3 class="font-semibold">
+            ${category.name}
+        </h3>
+
+        <p class="text-xs text-gray-500">
+            ${category.description}
+        </p>
+
+    </div>
+
+</button>
+    `;
 }
+

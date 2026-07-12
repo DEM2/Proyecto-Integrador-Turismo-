@@ -164,6 +164,7 @@ export async function homeEvents() {
   const botonRegistrarse = document.getElementById("boton_registrarse");
   const navInicio = document.getElementById("nav-inicio");
   const navEventos = document.getElementById("nav-eventos");
+  const navDestinos = document.getElementById("nav-destinos");
 
   navInicio.addEventListener("click", () => {
     navigateTo("/");
@@ -176,6 +177,9 @@ export async function homeEvents() {
   botonRegistrarse.addEventListener("click", () => {
     navigateTo("/register");
   });
+  navDestinos.addEventListener("click", ()=>{
+    navigateTo("/destinos")
+  })
   navEventos.addEventListener("click", () => {
     navigateTo("/event");
   });
