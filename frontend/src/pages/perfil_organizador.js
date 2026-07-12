@@ -53,7 +53,7 @@ export function perfilOrganizador() {
           class="absolute -bottom-2 right-1 flex items-center justify-center rounded-full "
         >
           <img
-            src="/src/assets/img/explore2.png"
+            src="/src/assets/img/explorer_morado.png"
             alt=""
             class="size-15 object-contain "
           />
@@ -61,9 +61,9 @@ export function perfilOrganizador() {
       </figure>
 
       <!-- Datos del perfil -->
-      <section class="max-w-xl" aria-label="Información del usuario">
+      <section class="max-w-xl" >
 
-        <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-start">
+        <section class="flex flex-wrap items-center gap-2 sm:gap-3 md:justify-start">
           <h2
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
@@ -159,7 +159,7 @@ export function perfilOrganizador() {
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
             <img
-              src="/src/assets/img/seguidores.svg"
+              src="/src/assets/img/seguidores_morado.svg"
               alt=""
               class="size-8"
               aria-hidden="true"
@@ -185,7 +185,7 @@ export function perfilOrganizador() {
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
             <img
-              src="/src/assets/img/seguidos.svg"
+              src="/src/assets/img/seguidos_morado.svg"
               alt=""
               class="size-8"
               aria-hidden="true"
@@ -513,7 +513,7 @@ export function perfilOrganizador() {
         </button>
       </header>
 
-      <article class="rounded-[28px] border border-slate-200 bg-white px-7 shadow-sm">
+      <article class="rounded-2xl border border-slate-200 bg-white px-7 shadow-sm">
 
         <!-- RESEÑA 1 -->
         <article class="flex gap-5 border-b border-slate-200 py-7">
@@ -529,6 +529,9 @@ export function perfilOrganizador() {
               Laura Gómez
             </figcaption>
           </figure>
+
+
+
 
           <section class="flex-1">
 
