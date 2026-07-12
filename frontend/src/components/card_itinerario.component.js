@@ -31,7 +31,7 @@ export function cadItinerario(){
 
     <!-- Botón -->
     <button
-      class="mt-3 bg-sky-600 text-white text-xs font-semibold px-3 py-1 rounded-lg hover:bg-sky-700 transition"
+      class="mt-3 cursor-pointer bg-sky-600 text-white text-xs font-semibold px-3 py-1 rounded-lg hover:bg-sky-700 transition"
     >
       Ver itinerario
     </button>
