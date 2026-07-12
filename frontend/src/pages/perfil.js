@@ -104,11 +104,30 @@ export function perfil() {
   </section>
 </main>
 
-<footer class="w-full h-full">
-<section class="w-full mt-15 h-full border">
-  Actividad reciente
-  </section>
+<footer class="w-full h-full mt-25">
+  <!-- Contenedor de secciones -->
+  <div class="grid grid-cols-1 gap-8 md:ml-50 md:w-2/3">
+    
+    <section class="bg-white shadow-md rounded-lg p-6 flex gap-2 items-center">
+       <img src="/src/assets/img/star.svg" alt="Reseñas" class="size-6 object-cover" />
+      <h2 class="text-xl font-bold">Reseñas recientes</h2>
+      <!-- Aquí van las tarjetas de itinerarios -->
+
+
+    </section>
+
+    <section class="bg-white shadow-md rounded-lg p-6 flex gap-2 items-center">
+    <img src="/src/assets/img/map.svg" alt="Mapas" class="size-6 object-cover" />
+      <h2 class="text-xl font-bold">Itinerarios recientes</h2>
+      <!-- Aquí van las tarjetas de reseñas -->
+
+      
+    </section>
+
+  </div>
 </footer>
+
+
   
 
     `;

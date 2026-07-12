@@ -2,7 +2,7 @@
 export function FollowButton() {
   const button = document.createElement("button");
   button.className =
-    "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+    "bg-green-500 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
   button.textContent = "Seguir";
 
   let state = "follow";
@@ -11,7 +11,7 @@ export function FollowButton() {
     state = newState;
     if (state === "follow") {
       button.className =
-        "bg-green-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+        "bg-green-500 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
       button.textContent = "Seguir";
     } else if (state === "following") {
       button.className =
@@ -34,7 +34,7 @@ export function FollowButton() {
   button.addEventListener("mouseenter", () => {
     if (state === "following") {
       button.className =
-        "bg-red-600 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
+        "bg-red-500 font-bold text-xs rounded-4xl px-3 py-1 transition cursor-pointer";
       button.textContent = "Dejar de seguir";
     }
   });
