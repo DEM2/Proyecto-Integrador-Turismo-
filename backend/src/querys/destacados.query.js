@@ -20,10 +20,20 @@ export async function obtenerSitiosDestacadosQ(){
 export async function obtenerEventosDestacadosQ(){
     
     const sql = `
-        SELECT name, description, address, start_date, end_date
+        SELECT
+            id,
+            name,
+            description,
+            location,
+            address,
+            start_date,
+            end_date,
+            start_time,
+            price,
+            image_main
         FROM events
-        WHERE featured = true
-        LIMIT 3
+        WHERE featured = TRUE
+        LIMIT 3;
     `;
 
     const result = await pool.query(sql);
