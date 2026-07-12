@@ -25,12 +25,12 @@ export function destinationCard(destino) {
 
         <!-- Botón opciones -->
         <div
-            class="absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-lg:opacity-100">
+            class="absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-lg:opacity-100 border-none">
 
             <button
                 type="button"
                 aria-label="Opciones"
-                class="peer flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow transition hover:scale-110">
+                class="peer flex h-8 w-8 items-center justify-center rounded-full  hover:scale-110 border-0 outline-none ring-0 shadow-none ">
 
                 <svg
                     class="h-5 w-5 text-[#12293F]"

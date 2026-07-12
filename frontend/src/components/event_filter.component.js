@@ -3,9 +3,9 @@ import { iconSVG } from "../utils/icons.js";
 export function filterCard(category) {
 
     return `
-    <button data-category="${category.name}" class="destination-filter flex min-w-56.25 items-center gap-3 rounded-2xl
+    <button data-category="${category.name}" class="destination-filter flex min-w-30 items-center gap-3 rounded-2xl
            border border-gray-200
-           bg-white px-4 py-3
+           bg-white px-3 py-2
            shadow-sm
            transition-all duration-300
            hover:border-blue-600 hover:shadow-md">

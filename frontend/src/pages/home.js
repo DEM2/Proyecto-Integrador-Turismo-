@@ -1,5 +1,5 @@
 import { navigateTo } from "../router/router";
-import { NAV_BAR } from "../components/nav_bar.component.js";
+import { NAV_BAR, NavbarEvents } from "../components/nav_bar.component.js";
 import {
   EVENTOS_DESTACADOS,
   INFO_ICONS_HOME,
@@ -140,50 +140,10 @@ export function home() {
 
 export async function homeEvents() {
   //Mostrar menú de navegación en versión móvil
-  const boton = document.getElementById("boton_menu");
-  const navegacion = document.getElementById("navegacion");
-  const equis = document.getElementById("boton_equis");
-
-  boton.addEventListener("click", funcionMenu);
-  equis.addEventListener("click", funcionMenu);
-
-  function funcionMenu() {
-    navegacion.classList.toggle("active");
-  }
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      navegacion.classList.remove("active");
-    }
-  });
+    // Funcionalidad de navegación entre páginas
+  NavbarEvents()
   // FIN
 
-  // Funcionalidad de navegación entre páginas
-
-  const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
-  const botonRegistrarse = document.getElementById("boton_registrarse");
-  const navInicio = document.getElementById("nav-inicio");
-  const navEventos = document.getElementById("nav-eventos");
-  const navDestinos = document.getElementById("nav-destinos");
-
-  navInicio.addEventListener("click", () => {
-    navigateTo("/");
-  });
-
-  botonIniciarSesion.addEventListener("click", () => {
-    navigateTo("/login");
-  });
-
-  botonRegistrarse.addEventListener("click", () => {
-    navigateTo("/register");
-  });
-  navDestinos.addEventListener("click", ()=>{
-    navigateTo("/destinos")
-  })
-  navEventos.addEventListener("click", () => {
-    navigateTo("/event");
-  });
-  // FIN
 
 
   // Funcionalidad para mostrar los destacados de sitios y eventos en la página de inicio
@@ -193,7 +153,6 @@ export async function homeEvents() {
   try {
     const sitios = await getSitiosDestacados();
     if (sitios) {
-      
       sitiosContainer.innerHTML = sitios.map(sitio => SITIOS_DESTACADOS(sitio)).join("");
     }
   } catch (error) {
@@ -203,7 +162,6 @@ export async function homeEvents() {
   try {
     const eventos = await getEventosDestacados();
     if (eventos) {
-      
       eventosContainer.innerHTML = eventos.map(evento => EVENTOS_DESTACADOS(evento)).join("");
     }
   } catch (error) {

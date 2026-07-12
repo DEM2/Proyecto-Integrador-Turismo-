@@ -1,4 +1,4 @@
-import { NAV_BAR } from "../components/nav_bar.component.js";
+import { NAV_BAR,NavbarEvents} from "../components/nav_bar.component.js";
 import { getDestinations } from "../services/destination.service.js";
 import { destinationCard } from "../components/destinationCard.component.js";
 import { filterCard } from "../components/filterCard.component.js";
@@ -21,25 +21,22 @@ export function destination(params) {
 
             <!-- Imagen de fondo -->
             <figure class="absolute inset-0">
-                <video class="absolute inset-0 block w-full h-full object-cover" autoplay muted loop playsinline>
-
-                    <source src="/src/assets/video/ventana_mundo.mp4" type="video/mp4">
-
-                    Tu navegador no soporta videos HTML5.
-
-                </video>
+                <img src="/src/assets/img/hero3.png" class="absolute inset-0 block w-full h-full object-cover" alt="Fondo"/>
             </figure>
 
             <!-- Degradado -->
-            <span aria-hidden="true" class="absolute inset-0 z-10 bg-linear-to-r
-               from-white
-               via-white
-                 via-40%
-                 to-transparent">
+            <span
+                aria-hidden="true"
+                class="absolute inset-0 z-10 bg-linear-to-r
+                    from-white
+                    via-white
+                    via-40%
+                    to-65%">
             </span>
 
             <!-- Contenido -->
-            <section class="relative z-40 flex h-full items-start pt-16 px-16">
+            <section class="relative z-20 flex h-full items-start pt-16 px-16 w-3xl ">
+
 
                 <article class="max-w-2xl">
 
@@ -111,7 +108,7 @@ export function destination(params) {
 
 
 export async function destiation_event() {
-
+     NavbarEvents()
     const destination_container = document.getElementById("destination_container")
     const destination_count = document.getElementById("destination_count");
     const filters_container = document.getElementById("filters_container");

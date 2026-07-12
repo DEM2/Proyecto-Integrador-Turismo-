@@ -1,16 +1,19 @@
 import { navigateTo } from "../router/router";
-import { NAV_BAR } from "../components/nav_bar.component.js";
+import { NAV_BAR,NavbarEvents } from "../components/nav_bar.component.js";
 import { filterCard } from "../components/filterCard.component.js";
 import { CALENDAR } from "../components/calendar.component.js";
 import { EVENTOS_DESTACADOS } from "../components/home.component.js";
 import { getEventosDestacados } from "../services/destacados.service.js";
 import {
     House,
+    CalendarDays,
+    Music,
     Landmark,
-    Trees,
+    Trophy,
     UtensilsCrossed,
-    Hotel,
-    ShoppingBag
+    Store,
+    Drama,
+    Baby
 } from "lucide";
 
 export function event() {
@@ -48,9 +51,8 @@ export function event() {
 
          <!-- Categorías -->
             <section
-                id="filters_container"
-                class="mt-6 mb-8 flex gap-4 overflow-x-auto pb-2">
-
+              id="filters_container"
+              class="mt-6 mb-8 flex justify-center gap-4  px-10">
             </section>
 
 
@@ -108,28 +110,12 @@ export function event() {
 }
 
 export async function eventEvents() {
-    const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
-    const botonRegistrarse = document.getElementById("boton_registrarse");
-    const navInicio = document.getElementById("nav-inicio");
-    const navEventos = document.getElementById("nav-eventos");
-    const eventosContainer = document.getElementById("eventos-destacados");
-
-    navInicio.addEventListener("click", () => {
-        navigateTo("/");
-    });
-
-    botonIniciarSesion.addEventListener("click", () => {
-        navigateTo("/login");
-    });
-
-    botonRegistrarse.addEventListener("click", () => {
-        navigateTo("/register");
-    });
-    navEventos.addEventListener("click", () => {
-        navigateTo("/event");
-    });
+  
+    NavbarEvents()
+   
       
  try {
+    const eventosContainer = document.getElementById("eventos-destacados");
     const eventos = await getEventosDestacados();
     if (eventos) {   
       eventosContainer.innerHTML = eventos.map(evento => EVENTOS_DESTACADOS(evento)).join("");
@@ -138,51 +124,72 @@ export async function eventEvents() {
     alert(error.message);
   }
 
-  const categories = [
+ const categories = [
 
-        {
-            name: "Todos",
-            description: "Explora todo",
-            icon: House,
-            color: "bg-blue-600"
-        },
+    {
+        name: "Todos",
+        description: "Explora todos los eventos",
+        icon: House,
+        color: "bg-blue-600"
+    },
 
-        {
-            name: "Cultura",
-            description: "Historia y tradición",
-            icon: Landmark,
-            color: "bg-pink-500"
-        },
+    {
+        name: "Festival",
+        description: "Celebraciones y festivales",
+        icon: CalendarDays,
+        color: "bg-red-500"
+    },
 
-        {
-            name: "Naturaleza",
-            description: "Parques y playas",
-            icon: Trees,
-            color: "bg-green-500"
-        },
+    {
+        name: "Concierto",
+        description: "Música en vivo",
+        icon: Music,
+        color: "bg-purple-500"
+    },
 
-        {
-            name: "Restaurantes",
-            description: "Sabores locales",
-            icon: UtensilsCrossed,
-            color: "bg-orange-500"
-        },
+    {
+        name: "Cultura",
+        description: "Arte y patrimonio",
+        icon: Landmark,
+        color: "bg-pink-500"
+    },
 
-        {
-            name: "Hoteles",
-            description: "Hospedajes",
-            icon: Hotel,
-            color: "bg-cyan-500"
-        },
+    {
+        name: "Deportes",
+        description: "Eventos deportivos",
+        icon: Trophy,
+        color: "bg-green-600"
+    },
 
-        {
-            name: "Compras",
-            description: "Centros comerciales",
-            icon: ShoppingBag,
-            color: "bg-purple-500"
-        }
+    {
+        name: "Gastronomía",
+        description: "Sabores del Caribe",
+        icon: UtensilsCrossed,
+        color: "bg-orange-500"
+    },
 
-    ];
+    {
+        name: "Feria",
+        description: "Exposiciones y negocios",
+        icon: Store,
+        color: "bg-cyan-500"
+    },
+
+    {
+        name: "Teatro",
+        description: "Obras y espectáculos",
+        icon: Drama,
+        color: "bg-indigo-500"
+    },
+
+    {
+        name: "Infantil",
+        description: "Diversión para niños",
+        icon: Baby,
+        color: "bg-yellow-500"
+    }
+
+];
 
     filters_container.innerHTML = categories
         .map(category => filterCard(category))
