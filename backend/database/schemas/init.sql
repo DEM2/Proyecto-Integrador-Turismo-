@@ -7,6 +7,6 @@
 \i database/schemas/events_reviews.sql
 \i database/schemas/places_images.sql
 \i database/schemas/places_reviews.sql
-\i database/schemas/intineraries.sql
+\i database/schemas/itineraries.sql
 \i database/schemas/itinerary_events.sql
 \i database/schemas/itinerary_places.sql

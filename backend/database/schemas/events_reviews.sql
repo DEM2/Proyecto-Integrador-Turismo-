@@ -5,9 +5,7 @@ CREATE TABLE events_reviews (
     id_user INT NOT NULL,
 
     comments VARCHAR(500),
-
     score DECIMAL(2,1),
-
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

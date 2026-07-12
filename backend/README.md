@@ -304,12 +304,13 @@ Example:
 
 ```text
 PORT=3000
-
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=tourism_db
+DB_NAME=tourism_baq
 DB_USER=postgres
 DB_PASSWORD=password
+JWT_SECRET=mi_clave_secreta_para_firmar_tokens
+JWT_EXPIRES_IN=1h
 ```
 
 This file should never be uploaded to GitHub.

@@ -1,4 +1,8 @@
 // Funcion para registrar un nuevo usuario
+
+import { createSession } from "./auth.service";
+
+
 export async function postUser(user) {
   
   const response = await fetch("http://localhost:3000/api/register", {
@@ -35,3 +39,33 @@ export async function getUserByEmail(email) {
     return users.length > 0 ? users[0] : null;
     
 }
+
+
+//LOGIN
+
+export async function loginUser(email, password) {
+  const response = await fetch(`http://localhost:3000/api/login`,{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    })
+  })
+  const data = await response.json();
+
+  if(!response.ok){
+    throw new Error("Error al iniciar sección")
+  }
+
+  const sessionData = {
+    user: data.data.user,
+    //token: data.data.token,
+  };
+
+  return sessionData;
+}
+
+
