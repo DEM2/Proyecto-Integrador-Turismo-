@@ -14,6 +14,7 @@ export async function getEventService(id_event) {
     
     return {
         id: event.id,
+        name: event.name,
         id_category: event.id_category,
         location : event.location,
         description : event.description,

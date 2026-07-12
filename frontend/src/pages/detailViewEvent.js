@@ -1,7 +1,80 @@
+import { getEventDetail } from "../services/event.service"
 
-export function renderViewDetailEvent(){
+function numericDayDate(eventDate) {
+  const currentDate = new Date(eventDate)
 
-    return `
+  const resultDate = currentDate.toLocaleDateString("es-CO", {
+    day: "numeric",
+    timeZone: "America/Bogota"
+  })
+
+  return resultDate
+}
+function textMonthDate(eventDate) {
+  const currentDate = new Date(eventDate)
+
+  const resultDate = currentDate.toLocaleDateString("es-CO", {
+    month: "long",
+    timeZone: "America/Bogota"
+  })
+
+  return resultDate
+}
+function numericYearDate(eventDate) {
+  const currentDate = new Date(eventDate)
+
+  const resultDate = currentDate.toLocaleDateString("es-CO", {
+    year: "numeric",
+    timeZone: "America/Bogota"
+  })
+
+  return resultDate
+}
+function textDayDate(eventDate) {
+  const currentDate = new Date(eventDate)
+
+  const resultDate = currentDate.toLocaleDateString("es-CO", {
+    weekday: "long",
+    timeZone: "America/Bogota"
+  })
+
+  return resultDate
+}
+function formatAgendaTime(eventTime) {
+  const [hours, minutes] = agendaTime.split(":")
+
+  const currentDate = new Date()
+  currentDate.setHours(Number(hours), Number(minutes), 0, 0)
+
+  const resultDate = currentDate.toLocaleDateString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  })
+
+  return resultDate
+}
+
+
+export async function renderViewDetailEvent() {
+
+  const id = 1
+
+  const eventDetail = await getEventDetail(id)
+
+  renderEventAgenda(eventDetail.agenda)
+
+  if (!eventDetail) {
+    alert("Error de servidor")
+    return
+  }
+
+  const startDate = numericDayDate(eventDetail.start_date)
+  const endDate = numericDayDate(eventDetail.end_date)
+  const textMonth = textMonthDate(eventDetail.start_date)
+  const yearDate = numericYearDate(eventDetail.start_date)
+
+  return `
         <!-- VISTA DETALLE DE EVENTO -->
 <main class="min-h-screen bg-slate-50 text-blue-950">
 
@@ -81,7 +154,7 @@ export function renderViewDetailEvent(){
         <li>/</li>
 
         <li class="font-semibold text-blue-950">
-          Carnaval de Barranquilla 2027
+          ${eventDetail.name}
         </li>
       </ol>
     </nav>
@@ -92,8 +165,8 @@ export function renderViewDetailEvent(){
       <figure class="relative h-[360px] w-full">
 
         <img
-          src="/images/carnaval-detalle.jpg"
-          alt="Carnaval de Barranquilla"
+          src="${eventDetail.image_main}"
+          alt="${eventDetail.name}"
           class="h-full w-full object-cover"
         />
 
@@ -104,9 +177,9 @@ export function renderViewDetailEvent(){
           datetime="2027-02-14"
           class="absolute bottom-10 left-8 rounded-2xl bg-white px-5 py-4 text-center font-black text-blue-950 shadow-xl"
         >
-          <span class="block text-2xl">14 - 17</span>
-          <span class="block text-sm text-slate-500">FEB</span>
-          <span class="block text-sm text-slate-500">2027</span>
+          <span class="block text-2xl">${startDate} - ${endDate}</span>
+          <span class="block text-sm text-slate-500">${textMonth}</span>
+          <span class="block text-sm text-slate-500">2027${yearDate}</span>
         </time>
 
         <!-- Botones flotantes -->
@@ -130,7 +203,7 @@ export function renderViewDetailEvent(){
       <article class="-mt-20 ml-8 mr-8 mb-6 relative rounded-[24px] bg-white p-6 shadow-2xl">
 
         <h1 class="mb-3 text-4xl font-black text-blue-950">
-          Carnaval de Barranquilla 2027
+          ${eventDetail.name}
         </h1>
 
         <!-- Rating -->
@@ -145,22 +218,23 @@ export function renderViewDetailEvent(){
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">📅</span>
-            <span>14 - 17 Febrero 2027</span>
+            <span>${startDate} - ${endDate} ${textMonth} ${yearDate}</span>
           </li>
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">📍</span>
-            <span>Vía 40 y distintos escenarios</span>
+            <span>${eventDetail.address}</span>
           </li>
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">🕘</span>
-            <span>Desde 8:00 AM</span>
+            <span>Desde ${eventDetail.start_time} AM</span>
           </li>
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">🎟️</span>
-            <span>Evento gratuito</span>
+            <span>${Number(eventDetail.price) === 0 ? "Evento gratiuto" :
+      `Precio: $${Number(eventDetail.price).toLocaleString("es-CO")}`}</span>
           </li>
 
         </ul>
@@ -213,9 +287,7 @@ export function renderViewDetailEvent(){
           </h2>
 
           <p class="mb-5 leading-relaxed text-slate-600">
-            El Carnaval de Barranquilla es la fiesta cultural más grande de Colombia
-            y una de las más importantes del mundo. Disfruta de desfiles, música,
-            danzas, disfraces y toda la alegría que caracteriza a nuestra gente.
+            ${eventDetail.description}
           </p>
 
           <ul class="grid grid-cols-1 gap-3 text-sm text-slate-600 md:grid-cols-2">
@@ -273,75 +345,7 @@ export function renderViewDetailEvent(){
             </a>
           </header>
 
-          <section class="grid grid-cols-1 gap-4 md:grid-cols-4">
-
-            <article class="rounded-2xl border border-slate-200 p-4">
-              <h3 class="mb-1 text-lg font-black text-blue-950">14 FEB</h3>
-              <p class="mb-4 text-sm text-slate-500">Sábado</p>
-
-              <ul class="space-y-3 text-sm">
-                <li>
-                  <time class="block font-bold text-blue-950">8:00 AM</time>
-                  <span class="text-slate-600">Batalla de Flores</span>
-                </li>
-
-                <li>
-                  <time class="block font-bold text-blue-950">3:00 PM</time>
-                  <span class="text-slate-600">Conciertos en la Vía 40</span>
-                </li>
-              </ul>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 p-4">
-              <h3 class="mb-1 text-lg font-black text-blue-950">15 FEB</h3>
-              <p class="mb-4 text-sm text-slate-500">Domingo</p>
-
-              <ul class="space-y-3 text-sm">
-                <li>
-                  <time class="block font-bold text-blue-950">9:00 AM</time>
-                  <span class="text-slate-600">Gran Parada de Tradición</span>
-                </li>
-
-                <li>
-                  <time class="block font-bold text-blue-950">4:00 PM</time>
-                  <span class="text-slate-600">Festival de Orquestas</span>
-                </li>
-              </ul>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 p-4">
-              <h3 class="mb-1 text-lg font-black text-blue-950">16 FEB</h3>
-              <p class="mb-4 text-sm text-slate-500">Lunes</p>
-
-              <ul class="space-y-3 text-sm">
-                <li>
-                  <time class="block font-bold text-blue-950">9:00 AM</time>
-                  <span class="text-slate-600">Gran Parada de Comparsas</span>
-                </li>
-
-                <li>
-                  <time class="block font-bold text-blue-950">7:00 PM</time>
-                  <span class="text-slate-600">Noche de Orquestas</span>
-                </li>
-              </ul>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 p-4">
-              <h3 class="mb-1 text-lg font-black text-blue-950">17 FEB</h3>
-              <p class="mb-4 text-sm text-slate-500">Martes</p>
-
-              <ul class="space-y-3 text-sm">
-                <li>
-                  <time class="block font-bold text-blue-950">10:00 AM</time>
-                  <span class="text-slate-600">Desfile de Joselito Carnaval</span>
-                </li>
-
-                <li>
-                  <time class="block font-bold text-blue-950">6:00 PM</time>
-                  <span class="text-slate-600">Concierto de cierre</span>
-                </li>
-              </ul>
-            </article>
+          <section id="event-agenda" class="grid grid-cols-1 gap-4 md:grid-cols-4">
 
           </section>
 
@@ -355,13 +359,13 @@ export function renderViewDetailEvent(){
           </h2>
 
           <address class="mb-5 not-italic text-slate-600">
-            Vía 40 y distintos escenarios de Barranquilla, Atlántico.
+            ${eventDetail.address} de ${eventDetail.location}.
           </address>
 
           <figure class="h-64 overflow-hidden rounded-2xl border border-slate-200 bg-blue-50">
             <img
               src="/images/mapa-evento.jpg"
-              alt="Mapa de ubicación del Carnaval de Barranquilla"
+              alt="Mapa de ubicación del ${eventDetail.name}"
               class="h-full w-full object-cover"
             />
           </figure>
@@ -454,7 +458,7 @@ export function renderViewDetailEvent(){
               <span class="text-blue-600">📅</span>
               <p>
                 <strong class="block text-blue-950">Fecha</strong>
-                14 - 17 Febrero 2027
+                ${startDate} - ${endDate} ${textMonth} ${yearDate}
               </p>
             </li>
 
@@ -462,7 +466,7 @@ export function renderViewDetailEvent(){
               <span class="text-blue-600">🕘</span>
               <p>
                 <strong class="block text-blue-950">Horario</strong>
-                Desde 8:00 AM
+                Desde ${eventDetail.start_time} AM
               </p>
             </li>
 
@@ -470,7 +474,7 @@ export function renderViewDetailEvent(){
               <span class="text-blue-600">📍</span>
               <p>
                 <strong class="block text-blue-950">Lugar</strong>
-                Vía 40 y distintos escenarios Barranquilla, Atlántico
+                ${eventDetail.address} ${eventDetail.location}
               </p>
             </li>
 
@@ -478,7 +482,8 @@ export function renderViewDetailEvent(){
               <span class="text-blue-600">🎟️</span>
               <p>
                 <strong class="block text-blue-950">Entrada</strong>
-                Evento gratuito
+                ${Number(eventDetail.price) === 0 ? "Evento gratiuto" :
+      `Evento pago`}
               </p>
             </li>
 
@@ -486,7 +491,8 @@ export function renderViewDetailEvent(){
               <span class="text-blue-600">💰</span>
               <p>
                 <strong class="block text-blue-950">Precio</strong>
-                Gratis
+                ${Number(eventDetail.price) === 0 ? "Gratis" :
+      `$ ${Number(eventDetail.price).toLocaleString("es-CO")}`}
               </p>
             </li>
 
@@ -509,6 +515,80 @@ export function renderViewDetailEvent(){
     `
 }
 
-export function  eventViewDetailEvent() {
-    return null
+export function eventViewDetailEvent() {
+  return null
+}
+
+
+
+
+function groupAgenda(eventAgenda) {
+  const groupAgenda = {}
+
+  for (const activity of eventAgenda) {
+    //Guardamos los primeros 10 valores de la fecha del subevento
+    const date = activity.activity_date.slice(0, 10)
+
+    if (!groupAgenda[date]) {
+      groupAgenda[date].push(activity)
+    }
+  }
+
+  return groupAgenda
+}
+
+function renderDayAgenda(dayActivities) {
+
+  let html = ""
+
+  for (const activity of dayActivities) {
+       html += `
+          <li>
+                  <time class="block font-bold text-blue-950">${formatAgendaTime(activity.activity_time)}</time>
+                  <span class="text-slate-600">${activity.title}</span>
+                </li>
+    `
+  }
+
+  return html
+
+}
+
+function renderEventAgenda(eventAgenda){
+  const agendaContainer = document.getElementById("event-agenda")
+
+  if(!agendaContainer){
+    return
+  }
+
+  if(!eventAgenda || eventAgenda.length === 0){
+    agendaContainer.innerHTML = `
+      <p class="text-slate-500">
+        Evento general.
+      </p>
+    `
+  }
+  return
+
+  const groupAgenda = groupAgenda(eventAgenda)
+
+  let html = ""
+
+  for (const key in groupAgenda) {
+    const dayActivities = groupAgenda[key]
+
+    html += `
+      <article class="rounded-2xl border border-slate-200 p-4">
+              <h3 class="mb-1 text-lg font-black text-blue-950">${numericDayDate(date)} ${textDayDate(date).toUpperCase()}</h3>
+              <p class="mb-4 text-sm text-slate-500">${textDayDate(date)}</p>
+
+              <ul class="space-y-3 text-sm">
+                ${renderDayAgenda(dayActivities)}
+              </ul>
+            </article>
+    `
+  }
+
+  agendaContainer.innerHTML = html
+
 }
