@@ -142,31 +142,10 @@ export function home() {
 
 export async function homeEvents() {
   //Mostrar menú de navegación en versión móvil
+    // Funcionalidad de navegación entre páginas
   NavbarEvents()
   // FIN
 
-  // Funcionalidad de navegación entre páginas
-
-  const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
-  const botonRegistrarse = document.getElementById("boton_registrarse");
-  const navInicio = document.getElementById("nav-inicio");
-  const navEventos = document.getElementById("nav-eventos");
-
-  navInicio.addEventListener("click", () => {
-    navigateTo("/");
-  });
-
-  botonIniciarSesion.addEventListener("click", () => {
-    navigateTo("/login");
-  });
-
-  botonRegistrarse.addEventListener("click", () => {
-    navigateTo("/register");
-  });
-  navEventos.addEventListener("click", () => {
-    navigateTo("/event");
-  });
-  // FIN
 
 
   // Funcionalidad para mostrar los destacados de sitios y eventos en la página de inicio

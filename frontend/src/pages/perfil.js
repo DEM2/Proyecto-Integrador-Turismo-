@@ -69,11 +69,10 @@ export function perfil() {
   </section>
 
   <!-- Sección inferior -->
-  <section class="absolute md:-bottom-10 md:left-50 right-0 w-full -bottom-20 md:w-2/3 h-20 bg-white rounded-2xl shadow-sm text-center flex items-center justify-center
-  
+  <section class="absolute md:-bottom-10 md:left-50 right-0 w-full -bottom-20 md:w-2/3 h-20 bg-white rounded-2xl shadow-sm text-center flex items-center justify-center overflow-hidden
   ">
-    <ul class="flex  gap-2 md:gap-5 lg:gap-20 xl:gap-30 2xl:gap-40">
-      <li class="flex gap-2 items-center cursor-pointer">
+    <ul class="flex  gap-2 w-full h-full items-center  justify-center ">
+      <li class="flex gap-2 items-center justify-center cursor-pointer h-full w-full hover:bg-gray-100  ">
         <img src="/src/assets/img/seguidores.svg" alt="Seguidores" class="size-6 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">1000</h2>
@@ -81,20 +80,20 @@ export function perfil() {
         </div>
         
       </li>
-      <li class="flex gap-2 items-center cursor-pointer">
+      <li class="flex gap-2 items-center justify-center cursor-pointer h-full w-full hover:bg-gray-100 ">
         <img src="/src/assets/img/seguidos.svg" alt="Seguidos" class="size-6 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">1000</h2>
         Seguidos
         </div>
       </li>
-      <li class="flex gap-2 items-center cursor-pointer">
+      <li class="flex gap-2 items-center justify-center cursor-pointer h-full w-full hover:bg-gray-100">
         <img src="/src/assets/img/reseñas.svg" alt="Reseñas" class="size-8 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">10</h2>
         Reseñas
         </div>
-      <li class="flex gap-2 items-center cursor-pointer">
+      <li class="flex gap-2 items-center justify-center cursor-pointer h-full w-full hover:bg-gray-100 ">
         <img src="/src/assets/img/itinerarios.svg" alt="Itinerarios" class="size-8 object-cover hidden sm:inline" />
         <div>
         <h2 class="font-bold">5</h2>
@@ -105,6 +104,11 @@ export function perfil() {
   </section>
 </main>
 
+<footer class="w-full h-full">
+<section class="w-full mt-15 h-full border">
+  Actividad reciente
+  </section>
+</footer>
   
 
     `;

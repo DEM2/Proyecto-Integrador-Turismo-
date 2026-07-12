@@ -1,3 +1,4 @@
+import { navigateTo } from "../router/router";
 
 export function NAV_BAR() {
   return `
@@ -40,7 +41,7 @@ export function NAV_BAR() {
 };
 
 export function NavbarEvents(){
-
+   //Mostrar menú de navegación en versión móvil
   const boton = document.getElementById("boton_menu");
   const navegacion = document.getElementById("navegacion");
   const equis = document.getElementById("boton_equis");
@@ -58,4 +59,27 @@ export function NavbarEvents(){
     }
   });
   // FIN
+
+  // Funcionalidad de navegación entre páginas
+  
+    const botonIniciarSesion = document.getElementById("boton_iniciarsesion");
+    const botonRegistrarse = document.getElementById("boton_registrarse");
+    const navInicio = document.getElementById("nav-inicio");
+    const navEventos = document.getElementById("nav-eventos");
+  
+    navInicio.addEventListener("click", () => {
+      navigateTo("/");
+    });
+  
+    botonIniciarSesion.addEventListener("click", () => {
+      navigateTo("/login");
+    });
+  
+    botonRegistrarse.addEventListener("click", () => {
+      navigateTo("/register");
+    });
+    navEventos.addEventListener("click", () => {
+      navigateTo("/event");
+    });
+    // FIN
 }
