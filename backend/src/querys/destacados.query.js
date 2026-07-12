@@ -21,19 +21,22 @@ export async function obtenerEventosDestacadosQ(){
     
     const sql = `
         SELECT
-            id,
-            name,
-            description,
-            location,
-            address,
-            start_date,
-            end_date,
-            start_time,
-            price,
-            image_main
-        FROM events
-        WHERE featured = TRUE
-        LIMIT 3;
+        e.id,
+        e.name,
+        e.description,
+        e.location,
+        e.address,
+        e.start_date,
+        e.end_date,
+        e.start_time,
+        e.price,
+        e.image_main,
+        c.name AS category
+    FROM events e
+    INNER JOIN categories c
+    ON e.id_category = c.id
+    WHERE e.featured = TRUE
+    LIMIT 3;
     `;
 
     const result = await pool.query(sql);
