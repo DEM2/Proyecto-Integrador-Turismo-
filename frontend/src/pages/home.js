@@ -189,7 +189,7 @@ export async function homeEvents() {
   try {
     const sitios = await getSitiosDestacados();
     if (sitios) {
-      alert("Sitios destacados obtenidos exitosamente");
+      
       sitiosContainer.innerHTML = sitios.map(sitio => SITIOS_DESTACADOS(sitio)).join("");
     }
   } catch (error) {
@@ -199,7 +199,7 @@ export async function homeEvents() {
   try {
     const eventos = await getEventosDestacados();
     if (eventos) {
-      alert("Eventos destacados obtenidos exitosamente");
+      
       eventosContainer.innerHTML = eventos.map(evento => EVENTOS_DESTACADOS(evento)).join("");
     }
   } catch (error) {
