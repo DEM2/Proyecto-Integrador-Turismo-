@@ -1,5 +1,6 @@
 import { navigateTo } from "../router/router";
-import { postUser } from "../services/users.service";
+import { postUser } from "../services/register.service";
+
 export function register() {
   return `
 
@@ -215,6 +216,7 @@ export function register() {
 </main>
     `;
 }
+
 
 export function registerEvents() {
 

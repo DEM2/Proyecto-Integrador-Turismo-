@@ -1,6 +1,5 @@
 import { navigateTo } from "../router/router";
-import { loginUser } from "../services/users.service.js";
-import { createSession } from "../services/auth.service.js";
+import { loginUser,  createSession  } from "../services/auth.service.js";
 
 export function login() {
   return `
@@ -160,8 +159,6 @@ export function loginEvents() {
     } catch (error) {
       alert("Error al ingresar")
     }
-
-
 
   })
 

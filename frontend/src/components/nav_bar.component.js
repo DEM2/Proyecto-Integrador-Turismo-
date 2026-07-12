@@ -66,6 +66,7 @@ export function NavbarEvents(){
     const botonRegistrarse = document.getElementById("boton_registrarse");
     const navInicio = document.getElementById("nav-inicio");
     const navEventos = document.getElementById("nav-eventos");
+    const navDestinos = document.getElementById("nav-destinos");
   
     navInicio.addEventListener("click", () => {
       navigateTo("/");
@@ -80,6 +81,9 @@ export function NavbarEvents(){
     });
     navEventos.addEventListener("click", () => {
       navigateTo("/event");
+    });
+    navDestinos.addEventListener("click", () => {
+      navigateTo("/destinos");
     });
     // FIN
 }

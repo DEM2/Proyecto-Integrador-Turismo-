@@ -1,5 +1,4 @@
 import { navigateTo } from "../router/router.js";
-import { postUser } from "../services/users.service.js";
 import { NAV_BAR, NavbarEvents } from "../components/nav_bar.component.js";
 import { FollowButton } from "../components/btn_seguir.component.js";
 import { cardReseña } from "../components/card_reseña.component.js";

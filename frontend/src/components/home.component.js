@@ -86,8 +86,6 @@ export function SITIOS_DESTACADOS(sitio) {
         </div>
       </div>
 
-      
-
       <div class="pl-2 text-blue-950">
         <h2 class="font-bold">${sitio?.name}</h2>
         <p class="text-xs text-gray-700">
@@ -113,19 +111,45 @@ export function SITIOS_DESTACADOS(sitio) {
 
 
 export function EVENTOS_DESTACADOS(evento) {
+
+  const fecha = new Date(evento?.start_date);
+
+  const dia = fecha.getDate();
+
+  const mes = fecha.toLocaleString("es-CO", {
+    month: "short"
+  }).toUpperCase();
+
   return `
 
-    <article
-      class="flex flex-col gap-2 relative bg-gray-50 rounded-xl border border-gray-300 shadow-lg shadow-sky-50 overflow-hidden cursor-pointer hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out"
+   <article
+    class="flex flex-col gap-2 relative bg-gray-50 rounded-xl border border-gray-300 shadow-lg shadow-sky-50 overflow-hidden cursor-pointer hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out min-h-[310px]"
     >
-      <div class="h-2/3 group/mostraropcionesyopacidad">
+
+      <div class="relative group/mostraropcionesyopacidad">
+
         <img
-          src="/src/assets/img/hero.png"
-          alt="Sitios destacados"
-          class="w-full h-full group-hover/mostraropcionesyopacidad:opacity-80"
+          src="/src/assets/img/hero.png"}"
+          alt="${evento?.name}"
+          class="w-full h-full object-cover group-hover/mostraropcionesyopacidad:opacity-60"
         />
+
+        <!-- Fecha -->
         <div
-          class="absolute top-3 right-3  opacity-0 max-lg:opacity-100 max-lg:bg-amber-50 rounded-lg group-hover/mostraropcionesyopacidad:opacity-100"
+          class="absolute bottom-3 left-3 bg-white rounded-2xl shadow-lg w-12 h-12 flex flex-col items-center justify-center"
+        >
+          <h2 class="text-1xl font-bold text-blue-950">
+            ${dia}
+          </h2>
+
+          <span class="text-xs font-semibold text-gray-500 uppercase">
+            ${mes}
+          </span>
+        </div>
+
+        <!-- Opciones -->
+        <div
+          class="absolute top-3 right-3 opacity-0 max-lg:opacity-100 max-lg:bg-amber-50 rounded-lg group-hover/mostraropcionesyopacidad:opacity-100"
         >
           <button class="flex cursor-pointer items-center justify-center hover:scale-110 peer">
             <img
@@ -141,39 +165,42 @@ export function EVENTOS_DESTACADOS(evento) {
             Opciones
           </span>
         </div>
+
       </div>
-
-
-
-      <div
-        class="FECHA bg-white w-12 h-15 absolute top-3 left-3 rounded-lg flex flex-col items-center justify-center text-blue-950"
-      >
-        <h2 class="font-bold">${evento?.start_date}</h2>
-        <span class="text-xs font-medium"> ${evento?.start_date} </span>
-      </div>
-      
 
       <div class="pl-2 text-blue-950">
-        <h2 class="font-bold">${evento?.name}</h2>
+
+        <h2 class="font-bold">
+          ${evento?.name}
+        </h2>
+
         <p class="text-xs text-gray-700">
           ${evento?.description}
         </p>
+
       </div>
 
       <div class="flex items-center pl-2 text-xs text-gray-700">
+
         <img
           src="/src/assets/img/location3.svg"
-          alt="Sitios destacados"
+          alt="Ubicación"
           class="w-5 h-5"
         />
+
         ${evento?.location}
+
       </div>
-      <br />
+
+      <div class="pl-2 pb-3">
+
+        <span class="bg-pink-100 text-pink-600 text-xs px-3 py-1 rounded-full">
+          ${evento?.category}
+        </span>
+
+      </div>
+
     </article>
 
-
-          `
-
+  `;
 }
-
-
