@@ -2,6 +2,9 @@ import { home, homeEvents } from "../pages/home.js";
 import { register, registerEvents } from "../pages/register.js";
 import { login, loginEvents } from "../pages/login.js";
 import { event,eventEvents} from "../pages/event.js";
+import { perfilExplorador, perfilExploradorEvents } from "../pages/perfil_explorador.js";
+import { perfilOrganizador, perfilOrganizadorEvents } from "../pages/perfil_organizador.js";
+
 import { destiation_event, destination } from "../pages/destination_view.js";
 
 
@@ -28,6 +31,16 @@ export const routes = {
   "/event": {
     render: event,
     events: eventEvents,
+    guestOnly: false
+  },
+  "/perfilorganizador": {
+    render: perfilOrganizador,
+    events: perfilOrganizadorEvents,
+    guestOnly: false
+  },
+  "/perfilexplorador": {
+    render: perfilExplorador,
+    events: perfilExploradorEvents,
     guestOnly: false
   }
 };

@@ -15,6 +15,8 @@ import { placeCard } from "../components/placeCard.component.js";
 export function home() {
   return `
     ${NAV_BAR()}
+    
+
 
         <main class="w-full flex flex-col gap-4 font-sans">
       <section class="HERO w-full h-120 relative">
