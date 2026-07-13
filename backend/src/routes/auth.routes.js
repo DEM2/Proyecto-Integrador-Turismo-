@@ -3,6 +3,7 @@ import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
 import { destinations } from "../controllers/destinations.controller.js";
+import { getEventController } from "../controllers/event.controller.js";
 
 const router = Router();
 
@@ -23,6 +24,14 @@ router.post(
     validateLogin,
     login
 )
+
+//EVENTS
+
+router.get(
+    "/events/:id_event",
+    getEventController
+)
+
 
 router.get(
     "/destacados/sitios",

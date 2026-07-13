@@ -4,6 +4,7 @@ import { login, loginEvents } from "../pages/login.js";
 import { event,eventEvents} from "../pages/event.js";
 import { perfilExplorador, perfilExploradorEvents } from "../pages/perfil_explorador.js";
 import { perfilOrganizador, perfilOrganizadorEvents } from "../pages/perfil_organizador.js";
+import { eventViewDetailEvent, renderViewDetailEvent } from "../pages/detailViewEvent.js";
 
 import { destiation_event, destination } from "../pages/destination_view.js";
 
@@ -41,6 +42,11 @@ export const routes = {
   "/perfilexplorador": {
     render: perfilExplorador,
     events: perfilExploradorEvents,
+  //Se añadio ruta de detalle de eventos
+  },
+  "/detailEvent": {
+    render: renderViewDetailEvent,
+    events: eventViewDetailEvent,
     guestOnly: false
   }
 };

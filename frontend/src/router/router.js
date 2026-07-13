@@ -3,7 +3,7 @@ import { notFound, notFoundEvents } from "../pages/not-found.js";
 import { getSession } from "../services/auth.service.js";
 import { authMiddleware, guestMiddleware, roleMiddleware } from "../middleware/middleware.js";
 
-export function router() {
+export async function router() {
   const app = document.getElementById("app");
   const path = window.location.pathname;
   const route = routes[path];
@@ -29,7 +29,7 @@ export function router() {
     }
 
     // Si todos los middleware pasaron, renderizar
-    app.innerHTML = route.render();
+    app.innerHTML = await route.render();
     route.events();
   }
 }
