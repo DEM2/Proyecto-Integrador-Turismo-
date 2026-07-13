@@ -13,7 +13,6 @@ export const routes = {
   "/": {
     render: home,
     events: homeEvents,
-    guestOnly: true
   },
   "/register": {
     render: register,
@@ -32,12 +31,10 @@ export const routes = {
   "/event": {
     render: event,
     events: eventEvents,
-    guestOnly: false
   },
   "/perfilorganizador": {
     render: perfilOrganizador,
     events: perfilOrganizadorEvents,
-    guestOnly: false
   },
   "/perfilexplorador": {
     render: perfilExplorador,
@@ -47,7 +44,6 @@ export const routes = {
   "/detailEvent": {
     render: renderViewDetailEvent,
     events: eventViewDetailEvent,
-    guestOnly: false
   }
 };
 
