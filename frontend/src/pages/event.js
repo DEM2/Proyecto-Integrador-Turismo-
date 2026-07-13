@@ -22,32 +22,115 @@ export function event() {
 
     <main class="w-full flex flex-col font-sans bg-slate-50">
 
-      <!-- HERO -->
-      <section class="relative">
-        <header class="relative h-72 overflow-hidden">
-          <img
-            src="/src/assets/img/Rueda_Hero.png"
-            alt="Hero"
-            class="absolute inset-0 w-full h-full object-cover"
-          />
+    <!-- HERO -->
+<section class="relative overflow-hidden bg-white" aria-labelledby="hero-title">
 
-          <div class="absolute inset-0 bg-linear-to-r from-white via-white/30 to-transparent"></div>
+  <div class="relative h-[420px]">
 
-          <div class="absolute left-10 top-12 text-blue-950">
-            <div class="w-12 h-1 bg-yellow-400 rounded-full mb-6"></div>
+   <!-- Capa de fondo: imagen + degradado -->
+<div class="absolute inset-0 z-0" aria-hidden="true">
+  <img
+    src="/src/assets/img/ff.jpg"
+    alt=""
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-r
+    from-white
+    via-white/95
+    via-30%
+    to-70%">
+  </div>
+</div>
 
-            <h1 class="text-6xl font-bold mb-4">
-              Eventos en Barranquilla
-            </h1>
+    <!-- Círculo decorativo -->
+    <div
+      class="absolute right-32 top-16
+      w-72 h-72
+      rounded-full
+      bg-blue-600/15
+      blur-3xl
+      z-10"
+      aria-hidden="true">
+    </div>
 
-            <p class="text-xl text-slate-700">
-              Descubre todos los eventos, festivales y actividades
-              <br>
-              que hacen vibrar a nuestra ciudad.
-            </p>
-          </div>
-        </header>
-      </section>
+    <!-- Olas decorativas (fondo, detrás del texto) -->
+    <div class="absolute inset-0 z-10" aria-hidden="true">
+
+      <!-- Ola amarilla transparente (solo lado derecho) -->
+      <svg
+        class="absolute bottom-0 left-0 w-full"
+        viewBox="0 0 1440 220"
+        preserveAspectRatio="none">
+        <path
+          fill="#fa2c15"
+          fill-opacity="0.35"
+          d="M850,220
+             C1000,40
+             1250,220
+             1440,30
+             L1440,220
+             L850,220
+             Z"/>
+      </svg>
+
+      <!-- Ola blanca -->
+      <svg
+        class="absolute bottom-0 left-0 w-full"
+        viewBox="0 0 1440 170"
+        preserveAspectRatio="none">
+        <path
+          fill="white"
+          d="M0,140
+             C250,20
+             450,240
+             720,130
+             C980,20
+             1190,170
+             1440,90
+             L1440,170
+             L0,170
+             Z"/>
+      </svg>
+
+    </div>
+
+    <!-- Contenido: texto principal (siempre por encima de olas) -->
+    <div
+      class="absolute
+      left-12
+      top-1/2
+      -translate-y-1/2
+      z-20
+      max-w-xl">
+
+      <div class="w-14 h-1 bg-yellow-400 rounded-full mb-8" aria-hidden="true"></div>
+
+      <h1
+        id="hero-title"
+        class="text-6xl
+        font-extrabold
+        leading-tight
+        text-blue-950">
+        Eventos que <br>
+        hacen vibrar <br>
+        Barranquilla
+      </h1>
+
+      <p
+        class="mt-6
+        text-xl
+        leading-8
+        text-slate-600">
+        Conciertos, festivales, ferias y actividades
+        para disfrutar lo mejor de nuestra ciudad.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
 
          <!-- Categorías -->
             <section

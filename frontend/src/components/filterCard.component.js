@@ -3,7 +3,7 @@ import { iconSVG } from "../utils/icons.js";
 export function filterCard(category) {
 
     return `
-    <button data-category="${category.name}" class="destination-filter flex min-w-30 items-center gap-3 rounded-3xl
+    <button data-category="${category.name}" class="destination-filter flex w-3xl items-center gap-3 rounded-3xl
            border border-gray-200
            bg-white px-3 py-2
            shadow-sm
@@ -25,10 +25,7 @@ export function filterCard(category) {
             ${category.name}
         </h3>
 
-        <p class="text-xs text-gray-500">
-            ${category.description}
-        </p>
-
+       
     </div>
 
 </button>

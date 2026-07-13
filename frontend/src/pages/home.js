@@ -10,6 +10,7 @@ import {
   getEventosDestacados,
   getSitiosDestacados,
 } from "../services/destacados.service.js";
+import { placeCard } from "../components/placeCard.component.js";
 
 export function home() {
   return `
@@ -144,16 +145,15 @@ export async function homeEvents() {
   NavbarEvents()
   // FIN
 
-
-
   // Funcionalidad para mostrar los destacados de sitios y eventos en la página de inicio
   const sitiosContainer = document.getElementById("sitios-destacados");
   const eventosContainer = document.getElementById("eventos-destacados");
 
   try {
     const sitios = await getSitiosDestacados();
+    console.log(sitios)
     if (sitios) {
-      sitiosContainer.innerHTML = sitios.map(sitio => SITIOS_DESTACADOS(sitio)).join("");
+      sitiosContainer.innerHTML = sitios.map(sitio => placeCard(sitio)).join("");
     }
   } catch (error) {
     alert(error.message);

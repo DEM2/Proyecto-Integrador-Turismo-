@@ -1,6 +1,6 @@
 import { NAV_BAR,NavbarEvents} from "../components/nav_bar.component.js";
 import { getDestinations } from "../services/destination.service.js";
-import { destinationCard } from "../components/destinationCard.component.js";
+import {placeCard } from "../components/placeCard.component.js";
 import { filterCard } from "../components/filterCard.component.js";
 import {
     House,
@@ -21,7 +21,7 @@ export function destination(params) {
 
             <!-- Imagen de fondo -->
             <figure class="absolute inset-0">
-                <img src="/src/assets/img/hero3.png" class="absolute inset-0 block w-full h-full object-cover" alt="Fondo"/>
+                <img src="/src/assets/img/auduana2.jpg" class="absolute inset-0 block w-full h-full object-cover" alt="Fondo"/>
             </figure>
 
             <!-- Degradado -->
@@ -35,18 +35,18 @@ export function destination(params) {
             </span>
 
             <!-- Contenido -->
-            <section class="relative z-20 flex h-full items-start pt-16 px-16 w-3xl ">
+            <section class="relative z-50 flex h-full items-start pt-16 px-12 w-3xl ">
 
 
                 <article class="max-w-2xl">
 
-                    <h1 class="text-5xl font-extrabold leading-tight text-[#0B2E69]">
+                    <h1 class="text-6xl font-extrabold leading-tight text-[#0B2E69]">
                         Descubre los mejores
                         <br>
                         lugares de Barranquilla
                     </h1>
 
-                    <p class="mt-5 text-lg leading-8 text-gray-600">
+                    <p class="mt-5 text-xl leading-8  text-gray-700">
                         Explora la historia, la cultura, la naturaleza y los rincones
                         únicos que hacen de Barranquilla una ciudad inolvidable.
                     </p>
@@ -73,7 +73,7 @@ export function destination(params) {
             </svg>
 
         </header>
-        <main class="mx-20  px-1 py-8">
+        <main class=" px-12 py-8">
             <!-- Categorías -->
             <section
                 id="filters_container"
@@ -84,11 +84,11 @@ export function destination(params) {
                 <!-- Encabezado -->
                 <section class="mb-8">
 
-                    <h2 class="text-2xl font-bold text-[#0B2E69]">
+                    <h2 class=" font-semibold text-[#0B2E69] text-3xl">
 
                         <span id="destination_count">245</span>
-                        <span class="text-lg font-semibold text-[#0B2E69]">
-                            destinos encontrados
+                        <span class="   text-3xl">
+                            Destinos encontrados
                         </span>
 
                     </h2>
@@ -116,7 +116,7 @@ export async function destiation_event() {
     const destinations = await getDestinations();
     destination_count.textContent = destinations.length;
 
-    destination_container.innerHTML = destinations.map(d => destinationCard(d)).join("")
+    destination_container.innerHTML = destinations.map(d => placeCard(d)).join("")
 
     const categories = [
 

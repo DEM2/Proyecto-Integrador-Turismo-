@@ -4,9 +4,10 @@ import pool from "../config/db.js";
 export async function obtenerSitiosDestacadosQ(){
 
     const sql = `
-        SELECT name, description, address
-        FROM places
-        WHERE featured = true
+        SELECT p.name as place, p.description, p.address , c.name as category
+        FROM places p
+        join categories c on c.id = p.id_category
+        WHERE p.featured = true
         LIMIT 3
 
     `;
