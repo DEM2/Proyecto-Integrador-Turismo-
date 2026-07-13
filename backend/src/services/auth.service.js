@@ -29,11 +29,12 @@ export async function loginUserService(credentials) {
         error.statusCode = 401;
         throw error;
     }
+    
     // Aquí después iría bcrypt 
     const isPasswordValid = await bcrypt.compare(password, user.password)
-    console.log(isPasswordValid)
+
     if (!isPasswordValid) {
-        const error = new Error("Contraseña invalida.")
+        const error = new Error("Credenciales invalidas.")
         error.statusCode = 401;
         throw error;
     }
@@ -43,20 +44,20 @@ export async function loginUserService(credentials) {
         {
             id: user.id,
             email: user.email,
-            role_id: user.id_role
+            role: user.role
         },
         process.env.JWT_SECRET,
         {
             expiresIn: process.env.JWT_EXPIRES_IN || "1h"
         }
     )
-
+   
     return {
         user: {
             id: user.id,
             name: user.name,
             email: user.email,
-            role_id: user.id_role
+            role: user.role
         },
       
     };

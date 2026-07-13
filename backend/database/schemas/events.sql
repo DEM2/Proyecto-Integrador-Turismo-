@@ -1,27 +1,22 @@
 CREATE TABLE events (
 
     id SERIAL PRIMARY KEY,
-
     name VARCHAR(150) NOT NULL,
-    -- 1. Se añadira información adicional al esquema de eventos para la pag
-    description TEXT, -- texto sobre el evento
-    start_date DATE, -- fecha inicial del evento
-    end_date DATE, -- fecha final del evento
-    start_time TIME, -- hora inicial del evento
-    price DECIMAL(10,2) DEFAULT 0, -- valor de la entrada del evento
-    address VARCHAR(500) -- dirección del evento
-    image_main VARCHAR(500), -- ruta de la imagen de prueba
-
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    start_time TIME,
+    price DECIMAL(10,2) DEFAULT 0,
+    address VARCHAR(500),
+    image_main VARCHAR(500),
     is_active BOOLEAN DEFAULT TRUE,
-
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_category INT NOT NULL,
-
-    location VARCHAR(255),
-
     id_user INT NOT NULL,
+
+    CONSTRAINT chk_event_dates
+        CHECK (end_date IS NULL OR end_date >= start_date),
 
     CONSTRAINT fk_events_category
         FOREIGN KEY(id_category)

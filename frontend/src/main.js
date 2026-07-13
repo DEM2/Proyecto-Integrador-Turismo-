@@ -1,4 +1,4 @@
-import './style.css'
-import { initApp } from './app';
+import "./styles/global.css";
+import { initializeApplication } from "./app/initializeApplication.js";
 
-initApp();
+initializeApplication();
