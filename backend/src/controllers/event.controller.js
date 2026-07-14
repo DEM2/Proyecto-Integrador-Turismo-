@@ -10,8 +10,6 @@ export async function getEventController(req, res) {
     
     try{
         const { id_event } = req.params;
-        
-
 
         const eventDetail = await authEvent.getEventService(id_event)
         

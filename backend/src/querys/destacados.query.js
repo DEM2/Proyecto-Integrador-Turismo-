@@ -7,7 +7,7 @@ export async function obtenerSitiosDestacadosQ(){
         SELECT p.name as place, p.description, p.address , c.name as category
         FROM places p
         join categories c on c.id = p.id_category
-        WHERE p.featured = true
+        WHERE p.is_featured = true
         LIMIT 3
 
     `;
@@ -25,7 +25,6 @@ export async function obtenerEventosDestacadosQ(){
         e.id,
         e.name,
         e.description,
-        e.location,
         e.address,
         e.start_date,
         e.end_date,
@@ -36,7 +35,7 @@ export async function obtenerEventosDestacadosQ(){
     FROM events e
     INNER JOIN categories c
     ON e.id_category = c.id
-    WHERE e.featured = TRUE
+    WHERE e.is_featured = TRUE
     LIMIT 3;
     `;
 

@@ -2,8 +2,21 @@ import { renderMainNavigation, initializeMainNavigationEvents } from "../../comp
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { renderReviewCard } from "../../components/cards/ReviewCard.js";
 import { renderPublicItineraryCard } from "../../components/cards/PublicItineraryCard.js";
+import { getSession } from "../../services/authService.js";
+import { getReviews } from "../../services/reviews.service.js";
+import { renderIconSvg } from "../../utils/renderIcon.js";
+import {
+    Users,
+    UserRoundPlus,
+    MessageSquareText,
+    Map
+} from "lucide";
 
 export function renderExplorerProfilePage() {
+  const session = getSession();
+  const user = session.user;
+  const inicial = user?.name ? user.name.trim().charAt(0).toUpperCase() : "U";
+
   return `
   ${renderMainNavigation()}
 
@@ -66,7 +79,7 @@ export function renderExplorerProfilePage() {
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
           >
-            Mateo Mercado
+            ${user.name}
           </h2>
 
           <button
@@ -78,8 +91,8 @@ export function renderExplorerProfilePage() {
           </button>
         </section>
 
-        <p class="mt-1 text-sm font-semibold sm:text-base">
-          @Matero123_sew
+        <p class="mt-1 text-sm font-light sm:text-2xl">
+          ${user.email}
         </p>
 
         <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
@@ -156,15 +169,12 @@ export function renderExplorerProfilePage() {
             data-profile-section="followers"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/seguidores.svg"
-              alt=""
-              class="size-8"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(Users, {
+                class: "size-8 text-green-600"
+            })}
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
+              <strong class="block text-2xl font-semibold text-blue-950">
                 1000
               </strong>
 
@@ -182,15 +192,12 @@ export function renderExplorerProfilePage() {
             data-profile-section="following"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/seguidos.svg"
-              alt=""
-              class="size-8"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(UserRoundPlus, {
+                class: "size-8 text-blue-900"
+            })}
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
+              <strong class="block text-2xl font-semibold text-blue-950">
                 1000
               </strong>
 
@@ -207,16 +214,14 @@ export function renderExplorerProfilePage() {
             type="button"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/reseñas.svg"
-              alt=""
-              class="size-10"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(MessageSquareText, {
+              class: "size-8 text-blue-900",
+              "stroke-width": 1.5
+          })}
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
-                10
+              <strong id="reviews-count" class="block text-2xl font-semibold text-blue-950">
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -233,15 +238,13 @@ export function renderExplorerProfilePage() {
             data-profile-section="places"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/itinerarios.svg"
-              alt=""
-              class="size-10"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(Map, {
+                class: "size-8 text-purple-600",
+                "stroke-width": 1.5
+            })}
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
+              <strong class="block text-2xl font-semibold text-blue-950">
                 18
               </strong>
 
@@ -264,34 +267,28 @@ export function renderExplorerProfilePage() {
     aria-live="polite"
   >
 
-    <!-- RESEÑAS -->
-    <section >
+      <!-- RESEÑAS -->
+    <header class="mb-6 flex items-center justify-between">
+      <h2
+        id="reviews-title"
+        class="text-2xl font-black text-blue-950"
+      >
+        Reseñas
+      </h2>
 
-      <header class="mb-6 flex items-center justify-between">
-        <h2
-          id="created-events-title"
-          class="text-2xl font-black text-blue-950"
-        >
-          Reseñas
-        </h2>
+      <button
+        id="btn-show-more-reviews"
+        type="button"
+        class="hidden cursor-pointer font-bold text-blue-600 hover:underline"
+      >
+        Ver más
+      </button>
+    </header>
 
-        <a
-          href="/eventos"
-          class="cursor-pointer font-bold text-blue-600 hover:underline"
-        >
-          Ver todos
-        </a>
-      </header>
-
-      <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-        <!-- RESEÑA 1 -->
-        <article id="reseñas"
-          class="cursor-pointer"
-        >
-        </article>
-
-      </section>
+    <section
+      id="reviews-container"
+      class="grid grid-cols-1 gap-6 md:grid-cols-2"
+    >
     </section>
 
     <!-- ITINERARIOS CREADOS -->
@@ -328,14 +325,13 @@ export function renderExplorerProfilePage() {
 
 </main>
 
-  
-
     `;
 }
 
-export function initializeExplorerProfilePageEvents() {
-
-//Mostrar menú de navegación en versión móvil
+export async function initializeExplorerProfilePageEvents() {
+  const session = getSession();
+  const user = session.user;
+  //Mostrar menú de navegación en versión móvil
   initializeMainNavigationEvents()
   // FIN
 
@@ -343,14 +339,33 @@ export function initializeExplorerProfilePageEvents() {
   placeholder.replaceWith(createFollowButton('green'));
 
 
-  const reseñasContainer = document.getElementById("reseñas");
-  reseñasContainer.innerHTML=renderReviewCard()
+  const reviews = await getReviews(user.id);
+  const container = document.getElementById("reviews-container");
+  const button = document.getElementById("btn-show-more-reviews");
+  document.getElementById("reviews-count").textContent =
+  reviews.data.length;
+  // Mostrar inicialmente solo 4
+  container.innerHTML = reviews.data.slice(0, 4)
+    .map(review => renderReviewCard(review))
+    .join("");
 
-   const itinerariosContainer = document.getElementById("itinerarios");
-  itinerariosContainer.innerHTML=renderPublicItineraryCard()
+  // Mostrar el botón solo si hay más de 4 reseñas
+  if (reviews.data.length > 4) {
 
+    button.classList.remove("hidden");
 
+    button.addEventListener("click", () => {
 
+      container.innerHTML = reviews.data
+        .map(review => renderReviewCard(review))
+        .join("");
 
+      button.classList.add("hidden");
+
+    });
+
+  }
+  const itinerariosContainer = document.getElementById("itinerarios");
+  itinerariosContainer.innerHTML = renderPublicItineraryCard()
 
 }
