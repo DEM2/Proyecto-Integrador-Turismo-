@@ -3,6 +3,9 @@ import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
 import { destinations } from "../controllers/destinations.controller.js";
+import { getEventController } from "../controllers/event.controller.js";
+import { getReviewsByUser } from "../querys/reviews.query.js";
+import { getReviewsController } from "../controllers/reviews.controller.js";
 
 const router = Router();
 
@@ -24,6 +27,14 @@ router.post(
     login
 )
 
+//EVENTS
+
+router.get(
+    "/events/:id_event",
+    getEventController
+)
+
+
 router.get(
     "/destacados/sitios",
     obtenerSitiosDestacados
@@ -37,6 +48,13 @@ router.get(
 router.get(
     "/destinations",
     destinations
-) 
+); 
+
+//REVIEWS
+
+router.get(
+    "/reviews/:id",
+    getReviewsController
+);
 
 export default router;
