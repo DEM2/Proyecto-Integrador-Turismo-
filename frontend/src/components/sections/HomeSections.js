@@ -112,7 +112,7 @@ export function renderFeaturedPlaceCard(site) {
 
 export function renderFeaturedEventCard(featuredEvent) {
 
-  const eventDate = new Date(featuredEvent?.start_date);
+  const eventDate = new Date(featuredEvent.start_date);
 
   const day = eventDate.getDate();
 
@@ -123,7 +123,8 @@ export function renderFeaturedEventCard(featuredEvent) {
   return `
 
    <article
-    class="flex flex-col gap-2 relative bg-gray-50 rounded-xl border border-gray-300 shadow-lg shadow-sky-50 overflow-hidden cursor-pointer hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out min-h-[310px]"
+      data-event-id="${featuredEvent.id}"
+      class="featured-event-card flex flex-col gap-2 relative bg-gray-50 rounded-xl border border-gray-300 shadow-lg shadow-sky-50 overflow-hidden cursor-pointer hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform duration-100 ease-out min-h-[310px]"
     >
 
       <div class="relative group/mostraropcionesyopacidad">
@@ -174,9 +175,7 @@ export function renderFeaturedEventCard(featuredEvent) {
           ${featuredEvent?.name}
         </h2>
 
-        <p class="text-xs text-gray-700">
-          ${featuredEvent?.description}
-        </p>
+        
 
       </div>
 
@@ -188,7 +187,7 @@ export function renderFeaturedEventCard(featuredEvent) {
           class="w-5 h-5"
         />
 
-        ${featuredEvent?.location}
+        ${featuredEvent?.address}
 
       </div>
 

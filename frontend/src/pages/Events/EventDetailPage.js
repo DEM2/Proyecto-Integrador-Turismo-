@@ -1,4 +1,6 @@
 import { getEventDetail } from "../../services/eventService.js"
+import { renderMainNavigation,initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
+
 
 let currentEvent = null
 
@@ -60,14 +62,10 @@ function formatAgendaTime(eventTime) {
 
 export async function renderEventDetailPage() {
   try {
-    const id = 1
+  const id = Number(localStorage.getItem("selectedEventId")) || 1;
 
-    currentEvent = await getEventDetail(id)
-
-    if (!currentEvent) {
-      alert("Error de servidor")
-      return
-    }
+  currentEvent = await getEventDetail(id);
+   
     const eventDetail = currentEvent
 
 
@@ -79,64 +77,10 @@ export async function renderEventDetailPage() {
     return `
         <!-- VISTA DETALLE DE EVENTO -->
 <main class="min-h-screen bg-slate-50 text-blue-950">
+  ${renderMainNavigation()}
 
   <!-- HEADER PRINCIPAL -->
-  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 px-8 py-4 shadow-sm backdrop-blur-sm">
-
-    <nav class="mx-auto flex max-w-7xl items-center justify-between">
-
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-3">
-        <strong class="text-2xl font-bold text-blue-950">Barranquilla</strong>
-
-        <img
-          src="/images/Logo.png"
-          alt="Barranquilla Explora"
-          class="h-9 w-auto object-contain"
-        />
-      </a>
-
-      <!-- Menú -->
-      <ul class="hidden items-center gap-8 text-sm font-semibold md:flex">
-        <li>
-          <a href="/" class="hover:text-blue-600">Explorar</a>
-        </li>
-
-        <li>
-          <a href="/experiencias" class="hover:text-blue-600">Experiencias</a>
-        </li>
-
-        <li>
-          <a href="/destinos" class="hover:text-blue-600">Destinos</a>
-        </li>
-
-        <li>
-          <a href="/eventos" class="text-blue-600">Eventos</a>
-        </li>
-
-        <li>
-          <a href="/guia" class="hover:text-blue-600">Guía</a>
-        </li>
-      </ul>
-
-      <!-- Acciones -->
-      <ul class="flex items-center gap-3">
-        <li>
-          <button class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-blue-950 shadow-sm hover:bg-blue-50">
-            ♡
-          </button>
-        </li>
-
-        <li>
-          <button class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-blue-950 shadow-sm hover:bg-blue-50">
-            👤
-          </button>
-        </li>
-      </ul>
-
-    </nav>
-  </header>
-
+  
   <!-- CONTENIDO -->
   <section class="mx-auto max-w-7xl px-6 py-8">
 
@@ -330,7 +274,7 @@ export async function renderEventDetailPage() {
           </h2>
 
           <address class="mb-5 not-italic text-slate-600">
-            ${eventDetail.address} de ${eventDetail.location}.
+          ${eventDetail.address}
           </address>
 
           <figure class="h-64 overflow-hidden rounded-2xl border border-slate-200 bg-blue-50">
@@ -444,8 +388,8 @@ export async function renderEventDetailPage() {
             <li class="flex items-start gap-3">
               <span class="text-blue-600">📍</span>
               <p>
-                <strong class="block text-blue-950">Lugar</strong>
-                ${eventDetail.address} ${eventDetail.location}
+                  <strong class="block text-blue-950">Lugar</strong>
+                  ${eventDetail.address}
               </p>
             </li>
 
@@ -535,6 +479,7 @@ function renderDayAgenda(dayActivities) {
 }
 
 function renderEventAgenda(eventAgenda) {
+  initializeMainNavigationEvents()
   const agendaContainer = document.getElementById("event-agenda")
 
   if (!agendaContainer) {
