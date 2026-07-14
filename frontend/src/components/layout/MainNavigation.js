@@ -1,5 +1,7 @@
 import { navigateTo } from "../../router/AppRouter.js";
 import { clearSession, getSession } from "../../services/authService.js";
+import { openCreateItineraryModal } from "./IntineraryModal.js";
+
 
 export function renderMainNavigation() {
   const session = getSession();
@@ -150,7 +152,9 @@ export function initializeMainNavigationEvents() {
 
     document.getElementById("menu_itinerario").addEventListener("click", () => {
       menuPerfil.classList.add("hidden");
-      navigateTo("/itinerario");
+
+     openCreateItineraryModal()
+      
     });
 
     document.getElementById("menu_perfil_link").addEventListener("click", () => {
