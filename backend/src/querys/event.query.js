@@ -47,3 +47,49 @@ export async function getEventAgendaById(id_event) {
 
     return result.rows || null
 };
+
+
+//Consulta para crear evento
+// Se implementa consulta para la creación de eventos a partir de un evento 
+// de tipo insertar.
+export async function createEventByUser(eventData) {
+    
+    const sql = `
+    INSERT INTO events(
+        name,
+        description,
+        start_date,
+        end_date,
+        start_time,
+        price,
+        address,
+        image_main,
+        id_category,
+        location,
+        id_user
+    ) VALUES (
+        $1, $2, $3, $4, $5, $6,
+        $7, $8, $9, $10, $11  
+    )
+    RETURNING *
+    `;
+
+    const values = [
+        eventData.name,
+        eventData.description,
+        eventData.start_date,
+        eventData.end_date,
+        eventData.start_time,
+        eventData.price,
+        eventData.address,
+        eventData.image_main,
+        eventData.id_category,
+        eventData.location,
+        eventData.id_user
+    ]
+
+    const result = await pool.query(sql,values)
+
+    return result.rows[0]
+
+}

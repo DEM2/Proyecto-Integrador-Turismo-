@@ -3,7 +3,8 @@ import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
 import { destinations } from "../controllers/destinations.controller.js";
-import { getEventController } from "../controllers/event.controller.js";
+import { createEventController, getEventController } from "../controllers/event.controller.js";
+import { validateCreateEvent } from "../validators/event.validator.js";
 
 const router = Router();
 
@@ -30,6 +31,14 @@ router.post(
 router.get(
     "/events/:id_event",
     getEventController
+)
+
+//Create events
+
+router.post(
+    "/organizer/createEvent",
+    validateCreateEvent,
+    createEventController
 )
 
 

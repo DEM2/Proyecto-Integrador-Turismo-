@@ -36,3 +36,21 @@ export async function getEventController(req, res) {
     }
 }
 
+export async function createEventController(req, res) {
+    try{
+        const eventData = req.body;
+
+        const newEvent = await authEvent.createEventService(eventData)
+
+        return res.status(201).json({
+            ok: true,
+            message: "Evento creado correctamente",
+            data: newEvent,
+        })
+    }catch(error){
+        return res.status(error.statusCode || 500).json({
+            ok: false,
+            message: error.message || "Error interno del servidor"
+        })
+    }
+}

@@ -286,11 +286,13 @@ export function perfilOrganizador() {
   </section>
 
   <!-- CONTENIDO DEL PERFIL -->
+  
   <section
     id="profile-content"
     class="mx-auto mt-20 max-w-7xl space-y-12 px-6 pb-16"
     aria-live="polite"
   >
+  
 
     <!-- EVENTOS CREADOS -->
     <section aria-labelledby="created-events-title">
@@ -302,13 +304,17 @@ export function perfilOrganizador() {
         >
           Eventos creados
         </h2>
-
-        <a
-          href="/eventos"
-          class="cursor-pointer font-bold text-blue-600 hover:underline"
+        
+        
+        <button
+          id="btn-create-event"
+          type="button"
+          data-organizer-view="create-event"
+          class="inline-flex items-center gap-2 rounded-xl bg-blue-950 px-6 py-3 font-bold text-white shadow-lg shadow-blue-950/20 transition hover:-translate-y-0.5 hover:bg-blue-900"
         >
-          Ver todos
-        </a>
+          <span aria-hidden="true">＋</span>
+          Crear evento
+        </button>
       </header>
 
       <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -605,7 +611,7 @@ export function perfilOrganizador() {
     </section>
 
   </section>
-
+  
 </main>
 
   

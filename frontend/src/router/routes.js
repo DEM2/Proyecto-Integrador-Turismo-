@@ -7,6 +7,7 @@ import { perfilOrganizador, perfilOrganizadorEvents } from "../pages/perfil_orga
 import { eventViewDetailEvent, renderViewDetailEvent } from "../pages/detailViewEvent.js";
 
 import { destiation_event, destination } from "../pages/destination_view.js";
+import { organizerCreateEvents, organizerCreateView } from "../pages/organizer_create_event.js";
 
 
 export const routes = {
@@ -36,6 +37,12 @@ export const routes = {
     render: perfilOrganizador,
     events: perfilOrganizadorEvents,
   },
+  //Sección crear evento por el organizador
+  "/perfilorganizador/createEvent": {
+    render: organizerCreateView,
+    events: organizerCreateEvents,
+  },
+  
   "/perfilexplorador": {
     render: perfilExplorador,
     events: perfilExploradorEvents,
