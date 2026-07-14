@@ -2,6 +2,7 @@
 \i database/schemas/users.sql
 \i database/schemas/categories.sql
 \i database/schemas/events.sql
+\i database/schemas/events_agenda.sql
 \i database/schemas/places.sql
 \i database/schemas/events_images.sql
 \i database/schemas/events_reviews.sql

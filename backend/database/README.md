@@ -31,7 +31,7 @@ database/
 Run the schema file:
 
 ```bash
-psql -U postgres -d tourism_db -f database/schemas/init.sql
+psql -U postgres -d tourism_baq -f database/schemas/init.sql
 ```
 
 ---
