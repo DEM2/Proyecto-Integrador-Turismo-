@@ -62,7 +62,7 @@ export function perfilOrganizador() {
       <!-- Datos del perfil -->
       <section class="max-w-xl" >
 
-        <section class="flex flex-wrap items-center gap-2 sm:gap-3 md:justify-start">
+        <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-start">
           <h2
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
