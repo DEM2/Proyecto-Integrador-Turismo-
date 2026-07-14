@@ -1,12 +1,12 @@
 import pool from "../config/db.js";
 
  //Validamos que el correo no esté registrado en nuestra db
-export async function validateRegister(req, res, next, pramOf) {
+export async function validateRegister(req, res, next) {
     try {
         const user = req.body;
        
         const result = await pool.query(
-            `SELECT ${pram}`,
+            `SELECT * FROM users WHERE email = $1`,
             [user.email]
         );
         

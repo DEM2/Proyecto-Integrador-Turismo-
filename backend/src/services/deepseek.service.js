@@ -1,33 +1,9 @@
+import { buildSystemPrompt } from "../prompts/tourism.prompt.js";
 import { mapDeepSeekError } from "../utils/deepseek.error.js";
 
 // URL del endpoint de DeepSeek para chat.
 const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
 
-// Este prompt define cómo debe comportarse la IA.
-// Es como las instrucciones base del chatbot.
-function buildSystemPrompt() {
-    return `
-Eres un asistente turístico para una aplicación de turismo en Barranquilla, Colombia.
-
-Tu objetivo es ayudar al usuario con:
-- Recomendaciones de lugares, eventos, restaurantes y hospedajes.
-- Itinerarios personalizados.
-- Presupuestos de viaje.
-- Consejos generales de seguridad para turistas.
-Estilo de respuesta:
-- Responde en el idioma en que te pregunten.
-- Sé claro, amable y directo.
-- Usa un tono turístico, pero sin exagerar.
-- No finjas ser una persona local ni digas que un lugar es "tu casa".
-- No respondas demasiado largo si el usuario no lo pide.
-
-Reglas importantes:
-- No inventes precios, horarios, direcciones, eventos ni disponibilidad.
-- Si no tienes información suficiente, dilo y pide el dato que falta.
-- Si das recomendaciones generales sin base de datos, aclara que son sugerencias generales.
-- Si el usuario pregunta por una emergencia real, recomienda contactar autoridades, línea de emergencia o personal oficial.
-`;
-}
 
 // Esta función recibe el mensaje del usuario
 // y se encarga de llamar a DeepSeek.
@@ -67,8 +43,7 @@ export async function askDeepSeek(message) {
             // 0.4 está bien para recomendaciones útiles sin tanta locura.
             temperature: 0.4,
 
-            // Subimos el límite de respuesta.
-            // Antes estaba en 700 y se cortó.
+            // Limite de tokens para la respuesta.
             max_tokens: 1200
         })
     });

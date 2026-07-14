@@ -384,5 +384,8 @@ controllers/ai.controller.js
 services/deepseek.service.js
     calls DeepSeek
 
+prompts/tourism.prompt.js
+   Ai's prompt for the context 
+
 utils/deepseek-error.js
     translates technical errors

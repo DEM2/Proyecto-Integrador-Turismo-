@@ -1,4 +1,6 @@
 import { getMessageFromAi } from "../../services/chat.service";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 export function chatbot(){
     const BOT_ICON = `
@@ -284,30 +286,32 @@ function minimizeChat(){
 
 
     function addBotMessage(message) {
-
         const messages = document.getElementById("chatbot-messages");
         const messageContainer = document.createElement("div");
 
+        const htmlMessage = DOMPurify.sanitize(
+            marked.parse(message),
+            {
+                USE_PROFILES: {
+                    html: true
+                }
+            }
+        );
+
         messageContainer.className = "flex items-start gap-3";
         messageContainer.innerHTML = `
-            <!-- Avatar -->
-
             <div
-                class=" w-10 h-10 rounded-full bg-blue-950 text-white flex items-center justify-center shrink-0">
+                class="w-10 h-10 rounded-full bg-blue-950 text-white flex items-center justify-center shrink-0">
                 🤖
             </div>
 
-            <!-- Mensaje -->
-
             <div
-                class=" bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[280px] shadow-sm break-words">
-                ${message}
+                class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[280px] shadow-sm break-words">
+                ${htmlMessage}
             </div>
-
         `;
 
         messages.appendChild(messageContainer);
-
     }
 
     export function chatbotEvents(){
