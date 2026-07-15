@@ -13,7 +13,7 @@ async function startserver(){
     console.log("Hora de PostgreSQL:", result.rows[0].now);
 
     app.listen(PORT, ()=>{
-      console.log(`Servidor ejecutandose en http://localhost:${PORT}`)
+      console.log(`Servidor ejecutandose en el puerto ${PORT}`)
       
     } );
   }catch (error) {
@@ -39,7 +39,7 @@ async function startServer() {
     console.log(" PostgreSQL conectado.");
 
     app.listen(PORT, () => {
-      console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+      console.log(`Servidor ejecutándose en el puerto ${PORT}`);
     });
   } catch (error) {
     console.error(" Error al conectar con la base de datos:", error);

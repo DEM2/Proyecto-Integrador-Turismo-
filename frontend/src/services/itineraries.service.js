@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:3000/api/itineraries";
+import { apiUrl } from "./apiConfig.js";
+
+const API_URL = apiUrl("/api/itineraries");
 
 /**
  * Obtiene todos los itinerarios del usuario autenticado
