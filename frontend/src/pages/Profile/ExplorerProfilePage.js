@@ -6,9 +6,9 @@ import { getSession } from "../../services/authService.js";
 import { getReviews } from "../../services/reviews.service.js";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import {
-    Users,
     UserRoundPlus,
-    MessageSquareText,
+    UserRound,
+    Star,
     Map
 } from "lucide";
 
@@ -169,12 +169,12 @@ export function renderExplorerProfilePage() {
             data-profile-section="followers"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(Users, {
-                class: "size-8 text-green-600"
+            ${renderIconSvg(UserRound, {
+                class: "size-9 text-green-600"
             })}
 
             <span>
-              <strong class="block text-2xl font-semibold text-blue-950">
+              <strong class="block text-2xl font-bold text-blue-950">
                 1000
               </strong>
 
@@ -193,11 +193,11 @@ export function renderExplorerProfilePage() {
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
             ${renderIconSvg(UserRoundPlus, {
-                class: "size-8 text-blue-900"
+                class: "size-9 text-green-600"
             })}
 
             <span>
-              <strong class="block text-2xl font-semibold text-blue-950">
+              <strong class="block text-2xl font-bold text-blue-950">
                 1000
               </strong>
 
@@ -214,13 +214,13 @@ export function renderExplorerProfilePage() {
             type="button"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(MessageSquareText, {
-              class: "size-8 text-blue-900",
-              "stroke-width": 1.5
+            ${renderIconSvg(Star, {
+              class: "size-9 text-yellow-600",
+              "stroke-width": 1.8
           })}
 
             <span>
-              <strong id="reviews-count" class="block text-2xl font-semibold text-blue-950">
+              <strong id="reviews-count" class="block text-2xl font-bold text-blue-950">
                 0
               </strong>
 
@@ -239,12 +239,12 @@ export function renderExplorerProfilePage() {
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
             ${renderIconSvg(Map, {
-                class: "size-8 text-purple-600",
-                "stroke-width": 1.5
+                class: "size-9 text-violet-700",
+                "stroke-width": 1.8
             })}
 
             <span>
-              <strong class="block text-2xl font-semibold text-blue-950">
+              <strong class="block text-2xl font-bold text-blue-950">
                 18
               </strong>
 

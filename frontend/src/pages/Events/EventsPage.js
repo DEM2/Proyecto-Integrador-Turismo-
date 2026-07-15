@@ -214,7 +214,7 @@ export async function initializeEventsPageEvents() {
               .forEach((card) => {
 
                   card.addEventListener("click", () => {
-
+                  console.log("Click");
                   const id = card.dataset.eventId;
 
                   console.log("ID seleccionado:", id);

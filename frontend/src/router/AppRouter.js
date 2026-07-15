@@ -33,6 +33,7 @@ export async function renderCurrentRoute() {
 }
 
 export function navigateTo(path) {
+  if (window.location.pathname === path) return;
   history.pushState({}, "", path);
   renderCurrentRoute();
 }
