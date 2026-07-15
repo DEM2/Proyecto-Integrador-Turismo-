@@ -5,22 +5,24 @@ import pool from "../config/db.js"
 export async function getEventById(id_event) {
 
     const sql = `
-        SELECT e.id,
-            e.name,
-            e.id_category,
-            e.location,
-            e.description,
-            e.start_date,
-            e.end_date,
-            e.start_time,
-            e.price,
-            e.address,
-            e.image_main,
-            c.name AS category_name
-            FROM events e
-            INNER JOIN categories c
-            ON e.id_category = c.id WHERE e.id = $1;
-    `
+    SELECT
+        e.id,
+        e.name,
+        e.id_category,
+        e.description,
+        e.start_date,
+        e.end_date,
+        e.start_time,
+        e.price,
+        e.address,
+        e.image_main,
+        e.is_featured,
+        c.name AS category_name
+    FROM events e
+    INNER JOIN categories c
+        ON e.id_category = c.id
+    WHERE e.id = $1;
+`;
     const values = [
         id_event
     ]

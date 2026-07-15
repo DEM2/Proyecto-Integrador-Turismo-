@@ -1,6 +1,8 @@
+import { apiUrl } from "./apiConfig.js";
+
 export async function postUser(user) {
   
-  const response = await fetch("http://localhost:3000/api/register", {
+  const response = await fetch(apiUrl("/api/register"), {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -17,7 +19,7 @@ export async function postUser(user) {
 
 // Funcion para obtener todos los usuarios
 export async function getUsers() {
-  const response = await fetch("http://localhost:3000/api/users");
+  const response = await fetch(apiUrl("/api/users"));
   if (!response.ok) {
     throw new Error("Error al obtener los usuarios");
   }
@@ -26,7 +28,7 @@ export async function getUsers() {
 
 // Funcion para obtener un usuario por su email
 export async function getUserByEmail(email) {
-  const response = await fetch(`http://localhost:3000/api/users?userEmail=${email}`);
+  const response = await fetch(apiUrl(`/api/users?userEmail=${email}`));
     if (!response.ok) {
         throw new Error("Error al obtener el usuario por email");
     }
