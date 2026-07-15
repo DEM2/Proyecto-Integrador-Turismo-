@@ -13,6 +13,7 @@ import {
     Drama,
     Baby
 } from "lucide";
+import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 
 export function renderTouristPlacesPage() {
     return `
@@ -116,8 +117,8 @@ export async function initializeTouristPlacesPageEvents() {
     const destinations = await getDestinations();
     destination_count.textContent = destinations.length;
 
-    destination_container.innerHTML = destinations.map(d => renderTouristPlaceCard(d)).join("")
-
+    destination_container.innerHTML = destinations.map(d => renderTouristPlaceCard(d)).join("");
+    initializeItineraryMenus()
     const categories = [
 
     {

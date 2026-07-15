@@ -1,5 +1,7 @@
 import { Route, X, Info, CalendarDays } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
+import { createItinerary } from "../../services/itineraries.service.js";
+import { getSession } from "../../services/authService.js";
 
 export function renderCreateItineraryModal() {
   return `
@@ -266,6 +268,10 @@ function initializeCreateItineraryModalEvents() {
   document
     .getElementById("btn-cancel-itinerary")
     .addEventListener("click", closeCreateItineraryModal);
+  
+  document
+  .getElementById("btn-save-itinerary")
+  .addEventListener("click", handleCreateItinerary);
 
   // Cerrar haciendo clic en el fondo oscuro
   modal.addEventListener("click", () => {
@@ -276,4 +282,69 @@ function initializeCreateItineraryModalEvents() {
   article.addEventListener("click", (event) => {
     event.stopPropagation();
   });
+}
+
+async function handleCreateItinerary() {
+  const session = getSession();
+
+  const name = document
+    .getElementById("itinerary-name")
+    .value
+    .trim();
+
+  const description = document
+    .getElementById("itinerary-description")
+    .value
+    .trim();
+
+  const start_date = document.getElementById(
+    "itinerary-start-date"
+  ).value;
+
+  const closing_date = document.getElementById(
+    "itinerary-end-date"
+  ).value;
+
+  const visibility = document.querySelector(
+    'input[name="visibility"]:checked'
+  ).value;
+
+  // Validaciones
+
+  if (!name) {
+    alert("Ingrese un nombre");
+    return;
+  }
+
+  if (!start_date) {
+    alert("Seleccione la fecha de inicio");
+    return;
+  }
+
+  if (!closing_date) {
+    alert("Seleccione la fecha de finalización");
+    return;
+  }
+  const is_public = visibility === "public";
+  try {
+
+ await createItinerary({
+    name,
+    description,
+    start_date,
+    closing_date,
+    is_public,
+    id_user: session.user.id
+});
+
+    alert("Itinerario creado");
+
+    closeCreateItineraryModal();
+
+  } catch (error) {
+
+    alert(error.message);
+
+  }
+
 }
