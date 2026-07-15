@@ -82,7 +82,6 @@ router.post(
 
 router.post(
     "/itineraries/:id/places",
-    authMiddleware,
     addPlaceToItinerary
 );
 
