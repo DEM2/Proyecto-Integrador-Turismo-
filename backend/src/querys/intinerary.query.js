@@ -66,7 +66,7 @@ export async function getUserItinerariesQ(id_user) {
 
 /* Agregar lugar */
 export async function addPlaceToItineraryQ(
-  id_itinerary,
+id_itinerary,
   id_place
 ) {
 

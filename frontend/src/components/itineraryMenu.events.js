@@ -1,110 +1,135 @@
 import { renderItineraryOptionsMenu } from "./layout/ItineraryOptionsMenu.js";
 import { getUserItineraries, addPlaceToItinerary } from "../services/itineraries.service.js";
 import { openCreateItineraryModal } from "./layout/IntineraryModal.js";
+import { getSession } from "../services/authService.js";
 
 export function initializeItineraryMenus() {
 
-  const buttons = document.querySelectorAll(".options-toggle-btn");
+  const session = getSession()
 
-  buttons.forEach((button) => {
+  document.querySelectorAll(".options-toggle-btn")
+    .forEach(button => {
 
-    button.addEventListener("click", async (event) => {
+      button.addEventListener("click", async (e) => {
 
-      event.stopPropagation();
+        e.stopPropagation();
 
-      const menu = button.parentElement.querySelector(".options-menu");
+        removeCurrentMenu();
 
-      // cerrar cualquier otro menú abierto
-      document.querySelectorAll(".options-menu").forEach((m) => {
-        if (m !== menu) {
-          m.classList.add("hidden");
-        }
-      });
+        const placeId = button.dataset.placeId;
+        console.log("hola",placeId)
+        const placeName = button.dataset.placeName;
 
-      // ocultar si ya estaba abierto
-      if (!menu.classList.contains("hidden")) {
-        menu.classList.add("hidden");
-        return;
-      }
+        const menu = document.createElement("div");
 
-      const placeId = button.dataset.placeId;
-      const placeName = button.dataset.placeName;
+        menu.id = "itinerary-floating-menu";
 
-      menu.innerHTML = `<p class="px-4 py-3 text-sm">Cargando...</p>`;
-      menu.classList.remove("hidden");
-
-      try {
-
-        const response = await getUserItineraries();
-
-        const itineraries = response.data;
-
-        menu.innerHTML = renderItineraryOptionsMenu(itineraries);
-
-        initializeMenuEvents(menu, placeId, placeName);
-
-      } catch (error) {
+        menu.className = "fixed z-[9999]";
 
         menu.innerHTML = `
-          <p class="px-4 py-3 text-red-500">
-            Error al cargar itinerarios
-          </p>
-        `;
+                <div class="rounded-2xl bg-white shadow-2xl border p-5">
+                    Cargando...
+                </div>
+            `;
 
-      }
+        document.body.appendChild(menu);
+        menu.addEventListener("click", (e) => {
+
+          e.stopPropagation();
+
+        });
+
+        //-------------------------------------
+
+        const rect = button.getBoundingClientRect();
+
+        const menuWidth = 288;
+        const margin = 12;
+
+        let left = rect.right - menuWidth;
+
+        if (left < margin) {
+
+          left = margin;
+
+        }
+
+        if (left + menuWidth > window.innerWidth - margin) {
+
+          left = window.innerWidth - menuWidth - margin;
+
+        }
+
+        let top = rect.bottom + 10;
+
+        menu.style.left = `${left}px`;
+        menu.style.top = `${top}px`;
+
+        //-------------------------------------
+
+        try {
+
+          const response = await getUserItineraries(session.user.id);
+
+          menu.innerHTML = renderItineraryOptionsMenu(response.data);
+
+          initializeMenuEvents(menu, placeId, placeName);
+
+        } catch {
+
+          menu.innerHTML = `
+                    <div class="rounded-xl bg-white shadow-xl border p-4 text-red-500">
+                        Error cargando itinerarios
+                    </div>
+                `;
+
+        }
+
+      });
 
     });
 
-  });
+  document.addEventListener("click", removeCurrentMenu);
 
-  // cerrar al hacer click fuera
-  document.addEventListener("click", () => {
+}
 
-    document.querySelectorAll(".options-menu").forEach((menu) => {
-      menu.classList.add("hidden");
-    });
+function removeCurrentMenu() {
 
-  });
+  document
+    .getElementById("itinerary-floating-menu")
+    ?.remove();
 
 }
 
 function initializeMenuEvents(menu, placeId, placeName) {
 
-  const createButton = menu.querySelector("#create-itinerary-option");
+  menu
+    .querySelectorAll(".itinerary-option")
+    .forEach(button => {
 
-  if (createButton) {
+      button.addEventListener("click", async () => {
 
-    createButton.addEventListener("click", () => {
-
-      menu.classList.add("hidden");
-      openCreateItineraryModal();
-
-    });
-
-  }
-
-  menu.querySelectorAll("[data-itinerary-id]").forEach((button) => {
-
-    button.addEventListener("click", async () => {
-
-      const itineraryId = button.dataset.itineraryId;
-
-      try {
+        const itineraryId = button.dataset.itineraryId;
+        console.log("inti",itineraryId)
 
         await addPlaceToItinerary(itineraryId, placeId);
 
-        menu.classList.add("hidden");
+        removeCurrentMenu();
 
-        alert(`"${placeName}" agregado al itinerario.`);
+        alert(`${placeName} agregado correctamente.`);
 
-      } catch (error) {
-
-        alert("No fue posible agregar el lugar.");
-
-      }
+      });
 
     });
 
-  });
+  menu
+    .querySelector("#btn-create-itinerary-menu")
+    ?.addEventListener("click", () => {
+
+      removeCurrentMenu();
+
+      openCreateItineraryModal();
+
+    });
 
 }

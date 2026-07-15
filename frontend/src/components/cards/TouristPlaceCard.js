@@ -18,21 +18,19 @@ function getCategoryStyle(category = "") {
 export function renderTouristPlaceCard(destination) {
 
     const { bg, text, icon } = getCategoryStyle(destination.category);
-
+    console.log(destination)
     const session = getSession();
     const isExplorer = session?.user?.role === "explorador" || session?.role === "explorador";
     const placeId = destination.id ?? destination._id ?? "";
 
    const optionsButton = isExplorer
   ? `
-    <div class="relative">
-
       <button
         type="button"
         aria-label="Agregar a itinerario"
         data-place-id="${placeId}"
         data-place-name="${destination.place}"
-        class="options-toggle-btn flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer"
+        class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
       >
 
         ${renderIconSvg(Ellipsis,{
@@ -41,14 +39,7 @@ export function renderTouristPlaceCard(destination) {
         })}
 
       </button>
-
-      <!-- Aquí se renderizará el menú -->
-      <div
-        class="options-menu hidden absolute top-11 right-0 z-50"
-      ></div>
-
-    </div>
-  `
+    `
   : "";
 
     return `
@@ -56,7 +47,7 @@ export function renderTouristPlaceCard(destination) {
     class="group overflow-hidden rounded-2xl border border-[#E7E1D6] bg-white shadow-sm transition-shadow hover:shadow-lg">
 
     <!-- Imagen -->
-    <figure class="relative h-44 overflow-hidden">
+   <figure class="relative h-44 overflow-hidden">
 
         <!-- Imagen -->
         <img
@@ -74,13 +65,10 @@ export function renderTouristPlaceCard(destination) {
 
         </figcaption>
 
-        <!-- Botón opciones -->
-        <div
-            class="absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-lg:opacity-100 border-none">
+        
 
             ${optionsButton}
 
-        </div>
 
     </figure>
 

@@ -5,12 +5,10 @@ const API_URL = apiUrl("/api/itineraries");
 /**
  * Obtiene todos los itinerarios del usuario autenticado
  */
-export async function getUserItineraries() {
+export async function getUserItineraries(userId) {
 
-  const response = await fetch(API_URL, {
-    credentials: "include"
-  });
-
+   
+  const response = await fetch(`${API_URL}/${userId}`);
   const data = await response.json();
 
   if (!response.ok) {
@@ -46,7 +44,8 @@ export async function createItinerary(itinerary) {
  * Agrega un lugar a un itinerario
  */
 export async function addPlaceToItinerary(itineraryId, placeId) {
-
+  console.log(itineraryId)
+  console.log(placeId)
   const response = await fetch(
     `${API_URL}/${itineraryId}/places`,
     {
@@ -54,9 +53,8 @@ export async function addPlaceToItinerary(itineraryId, placeId) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({
-        place_id: placeId,
+        id_place: placeId,
       }),
     }
   );
