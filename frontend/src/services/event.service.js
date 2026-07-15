@@ -19,3 +19,21 @@ export async function getEventDetail(id_event) {
 
     return eventDetail.data
 }
+
+export async function postEvent(event) {
+    const response = await fetch(`http://localhost:3000/api/organizer/createEvent`, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(event)
+    });
+
+    const result = await response.json()
+
+    if(!response.ok){
+        throw new Error("Error al crear el evento")
+    }
+
+    return result;
+}

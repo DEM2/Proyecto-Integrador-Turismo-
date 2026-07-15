@@ -1,9 +1,11 @@
 import { NAV_BAR } from "../components/nav_bar.component"
+import { getSession } from "../services/auth.service"
+import { postEvent } from "../services/event.service"
 
 
-export function organizerCreateView(){
+export function organizerCreateView() {
 
-    return `
+  return `
     ${NAV_BAR()}
     <main class="min-h-screen text-blue-950 font-sans bg-gray-50">
 
@@ -596,7 +598,12 @@ export function organizerCreateView(){
                       image_main.
                     </small>
                   </label>
-
+                  <button id="save-event-change"
+                    type="button"
+                    class="h-12 w-full rounded-xl bg-blue-950 font-bold text-white shadow-lg shadow-blue-950/20 transition hover:-translate-y-0.5 hover:bg-blue-900"
+                  >
+                    Guardar cambios
+                  </button>
                 </section>
               </fieldset>
 
@@ -607,7 +614,7 @@ export function organizerCreateView(){
                 role="status"
                 aria-live="polite"
               ></p>
-
+              
             </section>
 
             <!-- =====================================================
@@ -769,7 +776,159 @@ export function organizerCreateView(){
     `
 }
 
-export function organizerCreateEvents(){
+export function organizerCreateEvents() {
 
+  const formCreateEvent = document.getElementById("create-event-form")
+  const saveChangesButton = document.getElementById("save-event-change")
+  if (!formCreateEvent) {
     return
+  }
+  if (!saveChangesButton) {
+    return
+  }
+
+
+
+
+  saveChangesButton.addEventListener("click", function (event) {
+    event.preventDefault()
+
+    const eventCreated = getEventData()
+
+    const validationResult = validateEventForm(eventCreated)
+
+    if (validationResult !== true) {
+      alert(validationResult)
+      return
+    }
+
+    udapteEventPreview(eventCreated)
+
+  })
+
+  formCreateEvent.addEventListener("submit", async function (event) {
+    event.preventDefault()
+
+    const eventCreated = getEventData()
+
+    const validationResult = validateEventForm(eventCreated);
+
+    if (validationResult !== true) {
+      alert(validationResult);
+      return;
+    }
+
+    //Esta seguro de los cambios?
+    
+      const result = await postEvent(eventCreated)
+      alert("Evento publicado correctamente.")
+
+      formCreateEvent.reset()
+
+    
+  })
+}
+
+function getEventData() {
+
+  const name = document.getElementById("event-name")//
+  const id_category = document.getElementById("event-category")//
+  const description = document.getElementById("event-description")//
+  const start_date = document.getElementById("event-start-date")//
+  const end_date = document.getElementById("event-end-date")//
+  const start_time = document.getElementById("event-start-time")//
+  const price = document.getElementById("event-price")//
+  const address = document.getElementById("event-address")//
+  const image_main = document.getElementById("event-image")//
+  const location = document.getElementById("event-location")//
+  //id_user
+  const session = getSession()
+  const idUser = session.user.id
+
+  return {
+    name: name.value.trim(),
+    id_category: Number(id_category.value),
+    location: location.value.trim(),
+    description: description.value,
+    start_date: start_date.value,
+    end_date: end_date.value,
+    start_time: start_time.value,
+    price: Number(price.value),
+    address: address.value,
+    image_main: image_main.value,
+    id_user: idUser
+  }
+}
+
+function udapteEventPreview(eventCreated) {
+
+  const { name, location, description, start_date,
+    end_date, start_time, price, address, image_main
+  } = eventCreated
+
+  const eventNamePreview = document.getElementById("event-name-preview")
+  const eventDescriptionPreview = document.getElementById("event-description-preview")
+  const eventDatePreview = document.getElementById("event-date-preview")
+  const eventTimePreview = document.getElementById("event-time-preview")
+  const eventLocationPreview = document.getElementById("event-location-preview")
+  const eventPricePreview = document.getElementById("event-price-preview")
+  const eventImagePreview = document.getElementById("event-image-preview")
+
+  eventNamePreview.textContent = name
+  eventDescriptionPreview.textContent = description
+  eventDatePreview.textContent = start_date === end_date ? start_date : `${start_date} - ${end_date}`
+  eventTimePreview.textContent = start_time
+  eventLocationPreview.textContent = location
+  eventPricePreview.textContent = Number(price) === 0 ? "Evento gratuito" : `$${price.toLocaleString("es-CO")}`
+  eventImagePreview.src = image_main
+
+
+}
+
+function validateEventForm(eventCreated) {
+
+  const { name, id_category, start_date, end_date, price } = eventCreated
+
+
+  if (!name) {
+    return "El nombre del evento es obligatorio"
+  } else if (name.length < 3) {
+    return "El nombre debe tener minimo 3 caracteres"
+  } else if (name.length > 150) {
+    return "El nombre no puede superar los 150 caracteres"
+  }
+
+  if (id_category <= 0 || !id_category) {
+    return "Seleccione una categoria"
+  }
+
+  if (!start_date) {
+    return "La fecha inicial es obligatoria"
+  }
+
+  if (!end_date) {
+    return "La fecha de finalización es obligatoria"
+  }
+
+  const starDate = new Date(start_date)
+  const endDate = new Date(end_date)
+  const currentDate = new Date()
+
+  if (starDate > endDate) {
+    return "La fecha final no puede ser anterior a la fecha inicial"
+  } else if (starDate < currentDate || endDate < currentDate) {
+    return "Las fechas del evento deben ser superior a la fecha actual"
+  }
+
+  const numberPrice = Number(price)
+
+  if (price === "") {
+    return "El precio es obligatorio"
+  } else if (Number(price) < 0) {
+    return "El precio no puede ser negativo"
+  } else if (!Number(numberPrice)) {
+    return "El precio tiene que ser un número"
+  }
+
+  return true
 }
