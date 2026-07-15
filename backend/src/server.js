@@ -17,9 +17,7 @@ async function startserver(){
       
     } );
   }catch (error) {
-  console.error("=================================");
-  console.error(error);
-  console.error("=================================");
+ 
 }
 }
 
