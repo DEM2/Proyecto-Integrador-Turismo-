@@ -85,11 +85,11 @@ export function chatbot(){
                                     <h4 class="font-semibold text-xs text-blue-950">Restaurantes</h4>
                                     <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">Dónde comer.</p>
                                 </button>
-                                <!-- Lodging -->
+                                <!-- Itineraries -->
                                 <button id="card-hoteles" class="bg-white border border-slate-200 rounded-2xl p-3 text-left shadow-[0_8px_20px_rgba(7,30,99,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(7,30,99,0.25)] active:scale-95 cursor-pointer">
-                                    <div class="text-2xl mb-1">🛏</div>
-                                    <h4 class="font-semibold text-xs text-blue-950">Hospedajes</h4>
-                                    <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">Hoteles cercanos.</p>
+                                    <div class="text-2xl mb-1">🗺</div>
+                                    <h4 class="font-semibold text-xs text-blue-950">Itinerarios</h4>
+                                    <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">Planifica tu viaje.</p>
                                 </button>
                                 <!-- Events -->
                                 <button id="card-eventos" class="bg-white border border-slate-200 rounded-2xl p-3 text-left shadow-[0_8px_20px_rgba(7,30,99,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(7,30,99,0.25)] active:scale-95 cursor-pointer">
@@ -140,7 +140,6 @@ export function chatbot(){
 }
 
 /* <span class="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-[#F5B400] shadow-[0_0_12px_rgba(245,180,0,0.9)]"></span>  */
-// hover:bg-blue-900
 
 
 // Open, close and minimize chatbot modal
@@ -219,15 +218,6 @@ function minimizeChat(){
         body.scrollTop = body.scrollHeight;
     }
 
-
-    // const botResponses = [
-        
-    //     "¡Hola! 👋 ¿En qué puedo ayudarte?",
-    //     "Con gusto puedo ayudarte a descubrir Barranquilla.",
-    //     "¿Quieres recomendaciones de restaurantes?",
-    //     "También puedo ayudarte con eventos y lugares turísticos.",
-    //     "Estoy listo para ayudarte 😊"
-    // ];
 
     function sendMessage() {
 
