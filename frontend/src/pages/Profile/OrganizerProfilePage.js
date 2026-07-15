@@ -4,7 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
-import { getReviewsOrganizador } from "../../services/reviews.service.js";
+import { countReviewsOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
 import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
@@ -558,6 +558,8 @@ export function renderOrganizerProfilePage() {
 
   try {
     const reviews = await getReviewsOrganizador(sesion.user.id);
+    const totalreviews = await countReviewsOrganizador(sesion.user.id);
+    console.log(totalreviews);
     
     
     const container = document.getElementById("reviews-container");

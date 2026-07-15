@@ -25,3 +25,22 @@ export async function getReviewsByUserOrganizador(id_user) {
 
   return result.rows || null;
 }
+
+export async function countReviewsByUserOrganizador(id_user) {
+    
+    
+  const sql = `
+                SELECT COUNT(*) AS total_reviews
+                FROM places_reviews
+                INNER JOIN places
+                    ON places_reviews.id_place = places.id
+                WHERE places.id_user = $1;
+;
+    `;
+  const values = [id_user];
+
+  const result = await pool.query(sql, values);
+  
+
+  return result.rows || null;
+}
