@@ -4,11 +4,6 @@ import dotenv from "dotenv"
 dotenv.config()
 
 
-console.log("HOST:", process.env.DB_HOST);
-console.log("PORT:", process.env.DB_PORT);
-console.log("DATABASE:", process.env.DB_NAME);
-console.log("USER:", process.env.DB_USER);
-
 const { Pool } = pg;
 
 const pool = new Pool({
