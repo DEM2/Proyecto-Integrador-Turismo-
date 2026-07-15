@@ -63,8 +63,7 @@ router.get(
 //ITINERARIES
 
 router.get(
-    "/itineraries",
-    authMiddleware,
+    "/itineraries/:id",
     getUserItineraries
 );
 

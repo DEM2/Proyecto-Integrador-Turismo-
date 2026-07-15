@@ -46,12 +46,12 @@ export async function createItinerary(req, res) {
 
 /* Obtener itinerarios */
 export async function getUserItineraries(req, res) {
-
+  
   try {
 
-    const id_user = req.user.id;
-
-    const itineraries = await getUserItinerariesQ(id_user);
+    const { id } = req.params;
+    
+    const itineraries = await getUserItinerariesQ(id);
 
     return res.json({
       ok: true,
