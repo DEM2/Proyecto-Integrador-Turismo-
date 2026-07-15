@@ -72,7 +72,7 @@ export function renderExplorerProfilePage() {
       </figure>
 
       <!-- Datos del perfil -->
-      <section class="max-w-xl" aria-label="Información del usuario">
+      <section class="max-w-xl">
 
         <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-start">
           <h2

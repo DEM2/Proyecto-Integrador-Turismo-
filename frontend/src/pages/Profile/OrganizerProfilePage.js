@@ -1,5 +1,11 @@
-import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
+import {
+  renderMainNavigation,
+  initializeMainNavigationEvents,
+} from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
+import { getSession } from "../../services/authService.js";
+import { countReviewsOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
+import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
   return `
@@ -59,7 +65,7 @@ export function renderOrganizerProfilePage() {
       <!-- Datos del perfil -->
       <section class="max-w-xl" >
 
-        <section class="flex flex-wrap items-center gap-2 sm:gap-3 md:justify-start">
+        <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-start">
           <h2
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
@@ -76,11 +82,11 @@ export function renderOrganizerProfilePage() {
           </button>
         </section>
 
-        <p class="mt-1 text-sm font-semibold sm:text-base">
+        <p id="user-name" class="mt-1 text-sm font-semibold sm:text-base">
           @Matero123_sew
         </p>
 
-        <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
+        <p id="description" class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
           Lorem Ipsum es simplemente el texto de relleno de las imprentas y
           archivos de texto...
         </p>
@@ -493,14 +499,17 @@ export function renderOrganizerProfilePage() {
     <section aria-labelledby="received-reviews-title">
 
       <header class="mb-6 flex items-center justify-between">
+      
         <h2
           id="received-reviews-title"
           class="text-2xl font-black text-blue-950"
         >
           Reseñas recibidas
         </h2>
+        
 
         <button
+        id="btn-show-more-reviews"
           type="button"
           data-profile-section="reviews"
           class="cursor-pointer font-bold text-blue-600 hover:underline"
@@ -509,94 +518,8 @@ export function renderOrganizerProfilePage() {
         </button>
       </header>
 
-      <article class="rounded-2xl border border-slate-200 bg-white px-7 shadow-sm">
+      <article  id="reviews-container" class="rounded-2xl border border-slate-200 bg-white px-7 shadow-sm">
 
-        <!-- RESEÑA 1 -->
-        <article class="flex gap-5 border-b border-slate-200 py-7">
-
-          <figure class="shrink-0">
-            <img
-              src="/src/assets/images/familias.webp"
-              alt="Foto de Laura Gómez"
-              class="size-16 rounded-full object-cover"
-            />
-
-            <figcaption class="sr-only">
-              Laura Gómez
-            </figcaption>
-          </figure>
-
-
-
-
-          <section class="flex-1">
-
-            <header class="flex flex-wrap items-center gap-3">
-              <h3 class="text-xl font-black text-blue-950">
-                Laura Gómez
-              </h3>
-
-              <p class="text-yellow-400" aria-label="Calificación: cinco estrellas">
-                ★★★★★
-              </p>
-
-              <time
-                datetime="2025-04-20"
-                class="text-sm text-slate-500"
-              >
-                20 abr 2025
-              </time>
-            </header>
-
-            <p class="mt-2 leading-relaxed text-slate-600">
-              Los eventos de Carlos siempre superan las expectativas.
-              Organización impecable y experiencias únicas.
-            </p>
-          </section>
-
-        </article>
-
-        <!-- RESEÑA 2 -->
-        <article class="flex gap-5 py-7">
-
-          <figure class="shrink-0">
-            <img
-              src="/src/assets/images/familias.webp"
-              alt="Foto de Andrés Silva"
-              class="size-16 rounded-full object-cover"
-            />
-
-            <figcaption class="sr-only">
-              Andrés Silva
-            </figcaption>
-          </figure>
-
-          <section class="flex-1">
-
-            <header class="flex flex-wrap items-center gap-3">
-              <h3 class="text-xl font-black text-blue-950">
-                Andrés Silva
-              </h3>
-
-              <p class="text-yellow-400" aria-label="Calificación: cinco estrellas">
-                ★★★★★
-              </p>
-
-              <time
-                datetime="2025-03-15"
-                class="text-sm text-slate-500"
-              >
-                15 mar 2025
-              </time>
-            </header>
-
-            <p class="mt-2 leading-relaxed text-slate-600">
-              El Carnaval organizado por Carlos fue increíble, cada detalle
-              hizo que todo fuera perfecto. ¡Gracias!
-            </p>
-          </section>
-
-        </article>
 
       </article>
     </section>
@@ -610,14 +533,46 @@ export function renderOrganizerProfilePage() {
     `;
 }
 
-export function initializeOrganizerProfilePageEvents() {
-
-//Mostrar menú de navegación en versión móvil
-  initializeMainNavigationEvents()
+  export async function initializeOrganizerProfilePageEvents() {
+  //Mostrar menú de navegación en versión móvil
+  initializeMainNavigationEvents();
   // FIN
 
+
+  //Hacemos dinamico la informacion del perfil
   const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(createFollowButton('purple'));
+  placeholder.replaceWith(createFollowButton("purple"));
+  const nombreUsuario = document.getElementById("profile-name");
+  const username = document.getElementById("user-name");
+  const description = document.getElementById("description");
+
+  const sesion = getSession();
+  nombreUsuario.innerText = sesion.user.name;
+  ((username.innerText = "@"), sesion.user.username);
+  description.innerText = sesion.user.description;
+  //FINN
+
+
+
+  // LAS REVIEWS
+
+  try {
+    const reviews = await getReviewsOrganizador(sesion.user.id);
+    const totalreviews = await countReviewsOrganizador(sesion.user.id);
+    console.log(totalreviews);
+    
+    
+    const container = document.getElementById("reviews-container");
+    const button = document.getElementById("btn-show-more-reviews");
+
+    container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
+  
+  
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
 
 
 }

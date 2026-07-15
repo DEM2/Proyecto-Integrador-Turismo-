@@ -1,7 +1,7 @@
 import pool from "../config/db.js";
 
 export async function getReviewsByUser(id_user) {
-    const sql = `
+  const sql = `
             SELECT
             'event' AS review_type,
             ev.name AS target_name,
@@ -27,12 +27,11 @@ export async function getReviewsByUser(id_user) {
         WHERE p.id_user = $1
 
         ORDER BY created_at DESC;
-    `
-    const values = [
-        id_user
-    ];
+    `;
+  const values = [id_user];
 
-    const result = await pool.query(sql, values);
+  const result = await pool.query(sql, values);
 
-    return result.rows || null
+  return result.rows || null;
 }
+
