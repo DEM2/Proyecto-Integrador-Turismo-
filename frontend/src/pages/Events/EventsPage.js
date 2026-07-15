@@ -3,6 +3,7 @@ import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterC
 import { renderEventCalendar } from "../../components/common/EventCalendar.js";
 import { renderFeaturedEventCard } from "../../components/sections/HomeSections.js";
 import { getEventosDestacados } from "../../services/featuredContentService.js";
+import { navigateTo } from "../../router/AppRouter.js";
 import {
     House,
     CalendarDays,
@@ -196,16 +197,44 @@ export async function initializeEventsPageEvents() {
     initializeMainNavigationEvents()
    
       
- try {
-    const eventosContainer = document.getElementById("eventos-destacados");
-    const eventos = await getEventosDestacados();
-    if (eventos) {   
-      eventosContainer.innerHTML = eventos.map(evento => renderFeaturedEventCard(evento)).join("");
-    }
-  } catch (error) {
-    alert(error.message);
-  }
+  try {
 
+      const eventosContainer = document.getElementById("eventos-destacados");
+
+      const eventos = await getEventosDestacados();
+
+      if (eventos) {
+
+          eventosContainer.innerHTML = eventos
+              .map(evento => renderFeaturedEventCard(evento))
+              .join("");
+
+          document
+              .querySelectorAll(".featured-event-card")
+              .forEach((card) => {
+
+                  card.addEventListener("click", () => {
+
+                  const id = card.dataset.eventId;
+
+                  console.log("ID seleccionado:", id);
+
+                  localStorage.setItem("selectedEventId", id);
+
+                  console.log("Guardado:", localStorage.getItem("selectedEventId"));
+
+                  navigateTo("/detailEvent");
+
+
+                  });
+
+              });
+
+      }
+
+  } catch (error) {
+      alert(error.message);
+  }
  const categories = [
 
     {
@@ -280,5 +309,7 @@ export async function initializeEventsPageEvents() {
         .join("");
 
 }
+
+
     
 

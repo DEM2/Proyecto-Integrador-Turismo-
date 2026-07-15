@@ -16,9 +16,9 @@ async function startserver(){
       console.log(`Servidor ejecutandose en http://localhost:${PORT}`)
       
     } );
-  }catch{
-    console.error("Error al conectar PostgresSQL")
-  }
+  }catch (error) {
+  console.error(" Error al conectar con la base de datos:", error);
+}
 }
 
 startserver()
