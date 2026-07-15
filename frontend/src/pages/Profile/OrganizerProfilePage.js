@@ -220,7 +220,7 @@ export function renderOrganizerProfilePage() {
             />
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
+              <strong id="treview" class="block text-2xl font-black text-blue-950">
                 10
               </strong>
 
@@ -559,11 +559,14 @@ export function renderOrganizerProfilePage() {
   try {
     const reviews = await getReviewsOrganizador(sesion.user.id);
     const totalreviews = await countReviewsOrganizador(sesion.user.id);
-    console.log(totalreviews);
+    const totalr=totalreviews.data[0].total_reviews;
+
     
     
     const container = document.getElementById("reviews-container");
     const button = document.getElementById("btn-show-more-reviews");
+    const containerTotalR= document.getElementById("treview")
+    containerTotalR.innerText= totalr
 
     container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
   

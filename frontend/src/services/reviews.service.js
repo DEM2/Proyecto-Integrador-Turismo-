@@ -27,6 +27,7 @@ export async function getReviewsOrganizador(userId) {
 export async function countReviewsOrganizador(userId) {
     
     const response = await fetch(apiUrl(`/api/countreviewsorganizador/${userId}`));
+    
     if (!response.ok) {
         
     const error = await response.json().catch(() => null);
