@@ -1,83 +1,86 @@
-import { getEventDetail } from "../../services/eventService.js"
-import { renderMainNavigation,initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
+import { getEventDetail } from "../../services/eventService.js";
+import {
+    renderMainNavigation,
+    initializeMainNavigationEvents,
+} from "../../components/layout/MainNavigation.js";
+import { RenderCommentary } from "../../components/cards/commentary.card.js";
+import { RenderCommentariesModal } from "../../components/layout/commentaryModal.js";
 
-
-let currentEvent = null
+let currentEvent = null;
 
 function numericDayDate(eventDate) {
-  const currentDate = new Date(eventDate)
+    const currentDate = new Date(eventDate);
 
-  const resultDate = currentDate.toLocaleDateString("es-CO", {
-    day: "numeric",
-    timeZone: "America/Bogota"
-  })
+    const resultDate = currentDate.toLocaleDateString("es-CO", {
+        day: "numeric",
+        timeZone: "America/Bogota",
+    });
 
-  return resultDate
+    return resultDate;
 }
 function textMonthDate(eventDate) {
-  const currentDate = new Date(eventDate)
+    const currentDate = new Date(eventDate);
 
-  const resultDate = currentDate.toLocaleDateString("es-CO", {
-    month: "long",
-    timeZone: "America/Bogota"
-  })
+    const resultDate = currentDate.toLocaleDateString("es-CO", {
+        month: "long",
+        timeZone: "America/Bogota",
+    });
 
-  return resultDate
+    return resultDate;
 }
 function numericYearDate(eventDate) {
-  const currentDate = new Date(eventDate)
+    const currentDate = new Date(eventDate);
 
-  const resultDate = currentDate.toLocaleDateString("es-CO", {
-    year: "numeric",
-    timeZone: "America/Bogota"
-  })
+    const resultDate = currentDate.toLocaleDateString("es-CO", {
+        year: "numeric",
+        timeZone: "America/Bogota",
+    });
 
-  return resultDate
+    return resultDate;
 }
 function textDayDate(eventDate) {
-  const currentDate = new Date(eventDate)
+    const currentDate = new Date(eventDate);
 
-  const resultDate = currentDate.toLocaleDateString("es-CO", {
-    weekday: "long",
-    timeZone: "America/Bogota"
-  })
+    const resultDate = currentDate.toLocaleDateString("es-CO", {
+        weekday: "long",
+        timeZone: "America/Bogota",
+    });
 
-  return resultDate
+    return resultDate;
 }
 function formatAgendaTime(eventTime) {
-  const [hours, minutes] = eventTime.split(":")
+    const [hours, minutes] = eventTime.split(":");
 
-  const currentDate = new Date()
-  currentDate.setHours(Number(hours), Number(minutes), 0, 0)
+    const currentDate = new Date();
+    currentDate.setHours(Number(hours), Number(minutes), 0, 0);
 
-  const resultDate = currentDate.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true
-  })
+    const resultDate = currentDate.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+    });
 
-  return resultDate
+    return resultDate;
 }
 
-
 export async function renderEventDetailPage() {
-  try {
-  const id = Number(localStorage.getItem("selectedEventId")) || 1;
+    try {
+        const id = Number(localStorage.getItem("selectedEventId")) || 1;
 
-  currentEvent = await getEventDetail(id);
-   
-    const eventDetail = currentEvent
+        currentEvent = await getEventDetail(id);
 
+        const eventDetail = currentEvent;
 
-    const startDate = numericDayDate(eventDetail.start_date)
-    const endDate = numericDayDate(eventDetail.end_date)
-    const textMonth = textMonthDate(eventDetail.start_date)
-    const yearDate = numericYearDate(eventDetail.start_date)
+        const startDate = numericDayDate(eventDetail.start_date);
+        const endDate = numericDayDate(eventDetail.end_date);
+        const textMonth = textMonthDate(eventDetail.start_date);
+        const yearDate = numericYearDate(eventDetail.start_date);
 
-    return `
+        return `
         <!-- VISTA DETALLE DE EVENTO -->
 <main class="min-h-screen bg-slate-50 text-blue-950">
   ${renderMainNavigation()}
+    
 
   <!-- HEADER PRINCIPAL -->
   
@@ -179,8 +182,11 @@ export async function renderEventDetailPage() {
 
           <li class="flex items-center gap-2">
             <span class="text-blue-600">🎟️</span>
-            <span>${Number(eventDetail.price) === 0 ? "Evento gratuito" :
-        `Precio: $${Number(eventDetail.price).toLocaleString("es-CO")}`}</span>
+            <span>${
+                Number(eventDetail.price) === 0
+                    ? "Evento gratuito"
+                    : `Precio: $${Number(eventDetail.price).toLocaleString("es-CO")}`
+            }</span>
           </li>
 
         </ul>
@@ -296,60 +302,16 @@ export async function renderEventDetailPage() {
               <span class="text-base text-slate-400">(2.356)</span>
             </h2>
 
-            <button class="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700">
+            <button id = "read_comentaries" class="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700">
               Escribir comentario
             </button>
           </header>
 
           <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
 
-            <article class="rounded-2xl border border-slate-200 p-5">
-              <header class="mb-3 flex items-center gap-3">
-                <img
-                  src="/src/assets/images/familias.webp"
-                  alt="Foto de María Torres"
-                  class="h-11 w-11 rounded-full object-cover"
-                />
+            ${RenderCommentary()}
 
-                <p>
-                  <strong class="block text-blue-950">María Torres</strong>
-                  <span class="text-xs text-slate-500">Hace 3 horas</span>
-                </p>
-              </header>
-
-              <p class="text-sm text-slate-600">
-                ¿Habrá parqueaderos disponibles cerca de la Vía 40?
-              </p>
-
-              <footer class="mt-4 flex gap-4 text-xs font-semibold text-blue-600">
-                <button>Me gusta</button>
-                <button>Responder</button>
-              </footer>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 p-5">
-              <header class="mb-3 flex items-center gap-3">
-                <img
-                  src="/src/assets/images/familias.webp"
-                  alt="Foto de Organización Carnaval"
-                  class="h-11 w-11 rounded-full object-cover"
-                />
-
-                <p>
-                  <strong class="block text-blue-950">Organización Carnaval</strong>
-                  <span class="text-xs text-slate-500">Hace 2 horas</span>
-                </p>
-              </header>
-
-              <p class="text-sm text-slate-600">
-                ¡Hola! Sí, tendremos varios parqueaderos habilitados. Te recomendamos llegar temprano.
-              </p>
-
-              <footer class="mt-4 flex gap-4 text-xs font-semibold text-blue-600">
-                <button>Me gusta</button>
-                <button>Responder</button>
-              </footer>
-            </article>
+            
 
           </section>
 
@@ -397,8 +359,11 @@ export async function renderEventDetailPage() {
               <span class="text-blue-600">🎟️</span>
               <p>
                 <strong class="block text-blue-950">Entrada</strong>
-                ${Number(eventDetail.price) === 0 ? "Evento gratiuto" :
-        `Evento pago`}
+                ${
+                    Number(eventDetail.price) === 0
+                        ? "Evento gratiuto"
+                        : `Evento pago`
+                }
               </p>
             </li>
 
@@ -406,8 +371,11 @@ export async function renderEventDetailPage() {
               <span class="text-blue-600">💰</span>
               <p>
                 <strong class="block text-blue-950">Precio</strong>
-                ${Number(eventDetail.price) === 0 ? "Gratis" :
-        `$ ${Number(eventDetail.price).toLocaleString("es-CO")}`}
+                ${
+                    Number(eventDetail.price) === 0
+                        ? "Gratis"
+                        : `$ ${Number(eventDetail.price).toLocaleString("es-CO")}`
+                }
               </p>
             </li>
 
@@ -427,83 +395,78 @@ export async function renderEventDetailPage() {
     </section>
   </section>
 </main>
- `
-  } catch (error) {
-    currentEvent = null
+ `;
+    } catch (error) {
+        currentEvent = null;
 
-    return
-  }
+        return;
+    }
 }
 
 export function initializeEventDetailPageEvents() {
-  if (!currentEvent) {
-    return
-  }
-  renderEventAgenda(currentEvent.agenda)
+    if (!currentEvent) {
+        return;
+    }
+    renderEventAgenda(currentEvent.agenda);
+    create_commentaries();
 }
 
-
-
-
 function groupAgenda(eventAgenda) {
-  const groupAgenda = {}
+    const groupAgenda = {};
 
-  for (const activity of eventAgenda) {
-    //Guardamos los primeros 10 valores de la fecha del subevento
-    const date = activity.activity_date.slice(0, 10)
+    for (const activity of eventAgenda) {
+        //Guardamos los primeros 10 valores de la fecha del subevento
+        const date = activity.activity_date.slice(0, 10);
 
-    if (!groupAgenda[date]) {
-      groupAgenda[date] = []
+        if (!groupAgenda[date]) {
+            groupAgenda[date] = [];
+        }
+        groupAgenda[date].push(activity);
     }
-    groupAgenda[date].push(activity)
-  }
 
-  return groupAgenda
+    return groupAgenda;
 }
 
 function renderDayAgenda(dayActivities) {
+    let html = "";
 
-  let html = ""
-
-  for (const activity of dayActivities) {
-    html += `
+    for (const activity of dayActivities) {
+        html += `
           <li>
                   <time class="block font-bold text-blue-950">${formatAgendaTime(activity.activity_time)}</time>
                   <span class="text-slate-600">${activity.title}</span>
                 </li>
-    `
-  }
+    `;
+    }
 
-  return html
-
+    return html;
 }
 
 function renderEventAgenda(eventAgenda) {
-  initializeMainNavigationEvents()
-  const agendaContainer = document.getElementById("event-agenda")
+    initializeMainNavigationEvents();
+    const agendaContainer = document.getElementById("event-agenda");
 
-  if (!agendaContainer) {
-    return
-  }
+    if (!agendaContainer) {
+        return;
+    }
 
-  if (!eventAgenda || eventAgenda.length === 0) {
-    agendaContainer.innerHTML = `
+    if (!eventAgenda || eventAgenda.length === 0) {
+        agendaContainer.innerHTML = `
       <p class="text-slate-500">
         Evento general.
       </p>
-    `
-    return
-  }
+    `;
+        return;
+    }
 
+    const groupedAgenda = groupAgenda(eventAgenda);
 
-  const groupedAgenda = groupAgenda(eventAgenda)
+    let html = "";
 
-  let html = ""
+    for (const key in groupedAgenda) {
+        const dayActivities = groupedAgenda[key];
 
-  for (const key in groupedAgenda) {
-    const dayActivities = groupedAgenda[key]
-
-    html += `
+        html += `
       <article class="rounded-2xl border border-slate-200 p-4">
               <h3 class="mb-1 text-lg font-black text-blue-950">${numericDayDate(key)} ${textMonthDate(key).toUpperCase()}</h3>
               <p class="mb-4 text-sm text-slate-500">${textDayDate(key)}</p>
@@ -512,9 +475,20 @@ function renderEventAgenda(eventAgenda) {
                 ${renderDayAgenda(dayActivities)}
               </ul>
             </article>
-    `
-  }
+    `;
+    }
 
-  agendaContainer.innerHTML = html
+    agendaContainer.innerHTML = html;
+}
+function create_commentaries() {
+    const bottonCommentary = document.getElementById("read_comentaries");
+    console.log(bottonCommentary);
 
+    bottonCommentary.addEventListener("click", () => {
+         document.body.insertAdjacentHTML(
+             "beforeend",
+             RenderCommentariesModal()
+             
+           );
+    });
 }

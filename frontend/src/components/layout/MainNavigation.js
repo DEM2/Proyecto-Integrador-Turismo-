@@ -152,7 +152,7 @@ export function initializeMainNavigationEvents() {
 
     document.getElementById("menu_itinerario").addEventListener("click", () => {
       menuPerfil.classList.add("hidden");
-
+ 
      openCreateItineraryModal()
       
     });
