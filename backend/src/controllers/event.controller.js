@@ -9,6 +9,7 @@ import * as authEvent from "../services/event.service.js";
 export async function getEventController(req, res) {
     
     try{
+        console.log(req.params);
         const { id_event } = req.params;
 
         const eventDetail = await authEvent.getEventService(id_event)

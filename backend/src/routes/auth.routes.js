@@ -6,6 +6,8 @@ import { destinations } from "../controllers/destinations.controller.js";
 import { getEventController } from "../controllers/event.controller.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 import { getReviewsController } from "../controllers/reviews.controller.js";
+import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
+import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
 
 const router = Router();
 
@@ -55,6 +57,32 @@ router.get(
 router.get(
     "/reviews/:id",
     getReviewsController
+);
+
+
+//ITINERARIES
+
+router.get(
+    "/itineraries",
+    authMiddleware,
+    getUserItineraries
+);
+
+router.post(
+    "/itineraries",
+    createItinerary
+);
+
+router.post(
+    "/itineraries/:id/places",
+    authMiddleware,
+    addPlaceToItinerary
+);
+
+router.post(
+    "/itineraries/:id/events",
+    authMiddleware,
+    addEventToItinerary
 );
 
 export default router;
