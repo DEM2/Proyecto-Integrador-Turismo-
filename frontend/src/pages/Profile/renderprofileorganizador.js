@@ -1,7 +1,8 @@
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
+import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 import { getSession } from "../../services/authService.js";
 
-import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador, getSitesOrganizador } from "../../services/reviews.service.js";
+import { getOrganizerProfileSummary } from "../../services/reviews.service.js";
 
 
 
@@ -211,7 +212,7 @@ export function renderProfileInfo() {
 
             <span>
               <strong id="treview" class="block text-2xl font-black text-blue-950">
-                Cargando...
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -237,7 +238,7 @@ export function renderProfileInfo() {
 
             <span>
               <strong id="container-sites" class="block text-2xl font-black text-blue-950">
-                Cargando...
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -263,7 +264,7 @@ export function renderProfileInfo() {
 
             <span>
               <strong id="container-events" class="block text-2xl font-black text-blue-950">
-                Cargando...
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -313,56 +314,42 @@ export async function renderProfileInfoEvents(){
       const containersites = document.getElementById("container-sites");
       const containerevents = document.getElementById("container-events");
     
-      // LAS REVIEWS SITES & EVENTS
       if (sesion?.user) {
         try {
-          const reviews = await getReviewsOrganizador(sesion.user.id);
-          if (reviewsContainer && reviews?.data) {
-            reviewsContainer.innerHTML = reviews.data
-              .map((review) => renderReviewCardOrganizador(review))
-              .join("");
+          const profileData = await getOrganizerProfileSummary(sesion.user.id);
+
+          if (reviewsContainer) {
+            if (profileData?.reviews?.length) {
+              reviewsContainer.innerHTML = profileData.reviews
+                .map((review) => renderReviewCardOrganizador(review))
+                .join("");
+            } else {
+              reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No hay reseñas aún.</p>';
+            }
+          }
+
+          if (containerTotalR) {
+            containerTotalR.innerText = profileData?.counts?.reviews ?? 0;
+          }
+
+          if (containersites) {
+            containersites.innerText = profileData?.counts?.sites ?? 0;
+          }
+
+          if (containerevents) {
+            containerevents.innerText = profileData?.counts?.events ?? 0;
           }
         } catch (error) {
-          console.error("No se pudieron cargar las reseñas del organizador:", error);
+          console.error("No se pudo cargar el perfil del organizador:", error);
           if (reviewsContainer) {
             reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No se pudieron cargar las reseñas.</p>';
           }
-        }
-    
-        try {
-          const totalreviews = await countReviewsOrganizador(sesion.user.id);
-          const totalr = totalreviews?.data?.[0]?.total_reviews ?? 0;
-          if (containerTotalR) {
-            containerTotalR.innerText = totalr;
-          }
-        } catch (error) {
-          console.error("No se pudo cargar el total de reseñas:", error);
           if (containerTotalR) {
             containerTotalR.innerText = "0";
           }
-        }
-    
-        try {
-          const totalsites = await countSitesOrganizador(sesion.user.id);
-          const totals = totalsites?.data?.[0]?.total_sites ?? 0;
-          if (containersites) {
-            containersites.innerText = totals;
-          }
-        } catch (error) {
-          console.error("No se pudo cargar el total de sitios:", error);
           if (containersites) {
             containersites.innerText = "0";
           }
-        }
-    
-        try {
-          const totalevents = await countEventsOrganizador(sesion.user.id);
-          const totale = totalevents?.data?.[0]?.total_events ?? 0;
-          if (containerevents) {
-            containerevents.innerText = totale;
-          }
-        } catch (error) {
-          console.error("No se pudo cargar el total de eventos:", error);
           if (containerevents) {
             containerevents.innerText = "0";
           }

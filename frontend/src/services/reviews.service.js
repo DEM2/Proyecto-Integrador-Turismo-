@@ -1,5 +1,6 @@
 
 import { apiUrl } from "./apiConfig.js";
+import { createSessionStorageData, getSessionStorageData } from "./authService.js";
 
 export async function getReviews(userId) {
     const response = await fetch(apiUrl(`/api/reviews/${userId}`));
@@ -73,4 +74,43 @@ export async function countEventsOrganizador(userId) {
     }
 
    return await response.json()
+}
+
+
+export async function getOrganizerProfileSummary(userId) {
+    if (!userId) {
+        return {
+            reviews: [],
+            counts: {
+                reviews: 0,
+                sites: 0,
+                events: 0,
+            },
+        };
+    }
+
+    const cached = getSessionStorageData(userId);
+
+    if (cached) {
+        return cached;
+    }
+
+    const response = await fetch(apiUrl(`/api/organizer-profile/${userId}`));
+    if (!response.ok) {
+        const error = await response.json().catch(() => null);
+        throw new Error(error?.message || "Error al obtener el perfil del organizador");
+    }
+
+    const payload = await response.json();
+    const profileData = payload?.data ?? {
+        reviews: [],
+        counts: {
+            reviews: 0,
+            sites: 0,
+            events: 0,
+        },
+    };
+
+    createSessionStorageData(userId, profileData);
+    return profileData;
 }

@@ -6,7 +6,7 @@ import { destinations } from "../controllers/destinations.controller.js";
 import { createEventController, getEventController } from "../controllers/event.controller.js";
 import { validateCreateEvent } from "../validators/event.validator.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
-import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
+import { countReviewsControllerOrganizador, getOrganizerProfileController, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
 import { addEventToItinerary, addPlaceToItinerary, createItinerary, deleteItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
 import { getSitesController } from "../controllers/sitesprofile.controller.js";
@@ -73,23 +73,13 @@ router.get(
     "/reviews/:id",
     getReviewsController
 );
+//Sites and Events and more
 router.get(
-    "/reviewsorganizador/:id",
-    getReviewsControllerOrganizador
+    "/organizer-profile/:id",
+    getOrganizerProfileController
 );
-router.get(
-    "/countreviewsorganizador/:id",
-    countReviewsControllerOrganizador
-);
-//Sites and Events
-router.get(
-    "/countsites/:id",
-    getSitesController
-);
-router.get(
-    "/countevents/:id",
-    getEventsController
-);
+
+//
 
 
 //ITINERARIES
