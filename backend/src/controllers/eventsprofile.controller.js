@@ -1,4 +1,4 @@
-import { countEventsByUserOrganizador } from "../querys/perfilOrganizador.query";
+import { countEventsByUserOrganizador } from "../querys/perfilOrganizador.query.js";
 
 
 export async function getEventsController(req, res) {
