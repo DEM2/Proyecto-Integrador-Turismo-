@@ -1,4 +1,7 @@
-import { renderMainNavigation,initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
+import {
+    renderMainNavigation,
+    initializeMainNavigationEvents,
+} from "../../components/layout/MainNavigation.js";
 import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterCard.js";
 import { renderEventCalendar } from "../../components/common/EventCalendar.js";
 import { renderFeaturedEventCard } from "../../components/sections/HomeSections.js";
@@ -13,12 +16,15 @@ import {
     UtensilsCrossed,
     Store,
     Drama,
-    Baby
+    Baby,
 } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
+import { serchBar } from "../../components/layout/serchbar.component.js";
+import { getAllEvent } from "../../services/eventService.js";
+import { applyFilters } from "../../components/Filter/filter.component.js";
 
 export function renderEventsPage() {
-  return `
+    return `
     ${renderMainNavigation()}
 
     <main class="w-full flex flex-col font-sans bg-slate-50">
@@ -109,24 +115,24 @@ export function renderEventsPage() {
 
       <h1
         id="hero-title"
-        class="text-6xl
+        class="text-5xl
         font-extrabold
         leading-tight
         text-blue-950">
-        Eventos que <br>
-        hacen vibrar <br>
+        Eventos que
+        hacen vibrar 
         Barranquilla
       </h1>
 
       <p
         class="mt-6
-        text-xl
+        text-2xl
         leading-8
         text-slate-600">
         Conciertos, festivales, ferias y actividades
         para disfrutar lo mejor de nuestra ciudad.
       </p>
-
+      ${serchBar()}
     </div>
 
   </div>
@@ -194,123 +200,141 @@ export function renderEventsPage() {
 }
 
 export async function initializeEventsPageEvents() {
-  
-    initializeMainNavigationEvents()
-   
-      
-  try {
-
-      const eventosContainer = document.getElementById("eventos-destacados");
-
-      const eventos = await getEventosDestacados();
-
-      if (eventos) {
-
-          eventosContainer.innerHTML = eventos
-              .map(evento => renderFeaturedEventCard(evento))
-              .join("");
-
-          document
-              .querySelectorAll(".featured-event-card")
-              .forEach((card) => {
-
-                  card.addEventListener("click", () => {
-                  console.log("Click");
-                  const id = card.dataset.eventId;
-
-                  console.log("ID seleccionado:", id);
-
-                  localStorage.setItem("selectedEventId", id);
-
-                  console.log("Guardado:", localStorage.getItem("selectedEventId"));
-
-                  navigateTo("/detailEvent");
-
-
-                  });
-
-              });
-           initializeItineraryMenus()
-      }
-
-  } catch (error) {
-      alert(error.message);
-  }
- const categories = [
-
-    {
-        name: "Todos",
-        description: "Explora todos los eventos",
-        icon: House,
-        color: "bg-blue-600"
-    },
-
-    {
-        name: "Festival",
-        description: "Celebraciones y festivales",
-        icon: CalendarDays,
-        color: "bg-red-500"
-    },
-
-    {
-        name: "Concierto",
-        description: "Música en vivo",
-        icon: Music,
-        color: "bg-purple-500"
-    },
-
-    {
-        name: "Cultura",
-        description: "Arte y patrimonio",
-        icon: Landmark,
-        color: "bg-pink-500"
-    },
-
-    {
-        name: "Deportes",
-        description: "Eventos deportivos",
-        icon: Trophy,
-        color: "bg-green-600"
-    },
-
-    {
-        name: "Gastronomía",
-        description: "Sabores del Caribe",
-        icon: UtensilsCrossed,
-        color: "bg-orange-500"
-    },
-
-    {
-        name: "Feria",
-        description: "Exposiciones y negocios",
-        icon: Store,
-        color: "bg-cyan-500"
-    },
-
-    {
-        name: "Teatro",
-        description: "Obras y espectáculos",
-        icon: Drama,
-        color: "bg-indigo-500"
-    },
-
-    {
-        name: "Infantil",
-        description: "Diversión para niños",
-        icon: Baby,
-        color: "bg-yellow-500"
-    }
-
-];
-
-    const filtersContainer = document.getElementById("filters_container");
-
-    filtersContainer.innerHTML = categories
-        .map(category => renderCategoryFilterCard(category))
-        .join("");
-
-}
-
-
+    initializeMainNavigationEvents();
     
 
+    try {
+        let selectedCategory = "Todos";
+        let searchText = "";
+        const eventosContainer = document.getElementById("eventos-destacados");
+        const searchInput = document.getElementById("destination_search");
+        const eventos = await getAllEvent();
+        console.log(eventos);
+
+        function renderEventCard(event) {
+            eventosContainer.innerHTML = eventos
+                .map((evento) => renderFeaturedEventCard(evento))
+                .join("");
+
+            document
+                .querySelectorAll(".featured-event-card")
+                .forEach((card) => {
+                    card.addEventListener("click", () => {
+                        console.log("Click");
+                        const id = card.dataset.eventId;
+
+                        console.log("ID seleccionado:", id);
+
+                        localStorage.setItem("selectedEventId", id);
+
+                        console.log(
+                            "Guardado:",
+                            localStorage.getItem("selectedEventId"),
+                        );
+
+                        navigateTo("/detailEvent");
+                    });
+                });
+            initializeItineraryMenus();
+        }
+        if (eventos) {
+            renderEventCard(event);
+        }
+
+        function applyEventsFilters() {
+            const filtered = applyFilters(
+                eventos,
+                selectedCategory,
+                searchText,
+            );
+
+            renderEventCard(filtered);
+        }
+        const categories = [
+            {
+                name: "Todos",
+                description: "Explora todos los eventos",
+                icon: House,
+                color: "bg-blue-600",
+            },
+
+            {
+                name: "Festival",
+                description: "Celebraciones y festivales",
+                icon: CalendarDays,
+                color: "bg-red-500",
+            },
+
+            {
+                name: "Concierto",
+                description: "Música en vivo",
+                icon: Music,
+                color: "bg-purple-500",
+            },
+
+            {
+                name: "Cultura",
+                description: "Arte y patrimonio",
+                icon: Landmark,
+                color: "bg-pink-500",
+            },
+
+            {
+                name: "Deportes",
+                description: "Eventos deportivos",
+                icon: Trophy,
+                color: "bg-green-600",
+            },
+
+            {
+                name: "Gastronomía",
+                description: "Sabores del Caribe",
+                icon: UtensilsCrossed,
+                color: "bg-orange-500",
+            },
+
+            {
+                name: "Feria",
+                description: "Exposiciones y negocios",
+                icon: Store,
+                color: "bg-cyan-500",
+            },
+
+            {
+                name: "Teatro",
+                description: "Obras y espectáculos",
+                icon: Drama,
+                color: "bg-indigo-500",
+            },
+
+            {
+                name: "Infantil",
+                description: "Diversión para niños",
+                icon: Baby,
+                color: "bg-yellow-500",
+            },
+        ];
+
+        const filtersContainer = document.getElementById("filters_container");
+
+        filtersContainer.innerHTML = categories
+            .map((category) => renderCategoryFilterCard(category))
+            .join("");
+
+        document.querySelectorAll("[data-category]").forEach((button) => {
+            button.addEventListener("click", () => {
+                selectedCategory = button.dataset.category;
+
+                applyEventsFilters();
+            });
+        });
+
+        searchInput.addEventListener("input", (event) => {
+            searchText = event.target.value.toLowerCase().trim();
+
+            applyEventsFilters();
+        });
+    } catch (error) {
+        alert(error.message);
+    }
+}

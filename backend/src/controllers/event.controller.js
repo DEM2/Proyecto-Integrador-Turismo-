@@ -1,3 +1,4 @@
+import { getallevent } from "../querys/event.query.js";
 import * as authEvent from "../services/event.service.js";
 
 
@@ -52,4 +53,20 @@ export async function createEventController(req, res) {
             message: error.message || "Error interno del servidor"
         })
     }
+}
+
+export async function events(req, res) {
+    console.log("entre");
+    
+    try {
+
+        const events = await getallevent();
+        console.log(events,"hola");
+        
+        res.json(events);
+
+    } catch (error) {
+        res.status(500).json({ error: "Error al obtener los destinos" });
+    }
+
 }

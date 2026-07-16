@@ -24,3 +24,5 @@ export async function getEventosDestacados() {
   } 
     return await response.json();
 }
+
+
