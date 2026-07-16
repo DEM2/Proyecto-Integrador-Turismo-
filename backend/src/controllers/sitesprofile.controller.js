@@ -1,4 +1,4 @@
-import { countSitesByUserOrganizador } from "../querys/perfilOrganizador.query";
+import { countSitesByUserOrganizador } from "../querys/perfilOrganizador.query.js";
 
 
 export async function getSitesController(req, res) {
