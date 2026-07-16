@@ -11,6 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
+import { getAdminDashboardController } from "../controllers/adminDashboard.controller.js";
 
 const router = Router();
 
@@ -62,6 +63,12 @@ router.get(
     "/destinations",
     destinations
 ); 
+
+// ADMIN DASHBOARD
+router.get(
+    "/admin-dashboard",
+    getAdminDashboardController
+);
 
 //REVIEWS
 
