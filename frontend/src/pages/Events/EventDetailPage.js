@@ -5,6 +5,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { RenderCommentary } from "../../components/cards/commentary.card.js";
 import { RenderCommentariesModal } from "../../components/layout/commentaryModal.js";
+import { SaveCommentaries } from "../../components/layout/commentaryModal.js";
 
 let currentEvent = null;
 
@@ -481,14 +482,18 @@ function renderEventAgenda(eventAgenda) {
     agendaContainer.innerHTML = html;
 }
 function create_commentaries() {
+
     const bottonCommentary = document.getElementById("read_comentaries");
-    console.log(bottonCommentary);
 
     bottonCommentary.addEventListener("click", () => {
-         document.body.insertAdjacentHTML(
-             "beforeend",
-             RenderCommentariesModal()
-             
-           );
+
+        document.body.insertAdjacentHTML(
+            "beforeend",
+            RenderCommentariesModal()
+        );
+
+        SaveCommentaries(currentEvent.id);
+
     });
+
 }

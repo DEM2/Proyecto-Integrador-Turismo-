@@ -8,6 +8,7 @@ import { getReviewsByUser } from "../querys/reviews.query.js";
 import { getReviewsController } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
 import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
+import { saveEventReviewController } from "../controllers/eventReview.controller.js";
 
 const router = Router();
 
@@ -83,6 +84,11 @@ router.post(
     "/itineraries/:id/events",
     authMiddleware,
     addEventToItinerary
+);
+// Eventos
+router.post(
+    "/events/:id_event/reviews",
+    saveEventReviewController
 );
 
 export default router;

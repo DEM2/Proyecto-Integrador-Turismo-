@@ -1,10 +1,14 @@
 import { MessageSquareText } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon";
+import { getSession } from "../../services/authService.js";
+import { createReview } from "../../services/eventReview.service.js";
 
 export function RenderCommentariesModal() {
     return `
             <!-- Overlay -->
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div
+    id="commentary-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
 
     <!-- Modal -->
     <section
@@ -37,6 +41,7 @@ export function RenderCommentariesModal() {
         </div>
 
         <button
+            id = "button_x"
             class="text-3xl text-slate-500 hover:text-red-500 transition">
 
             ×
@@ -144,7 +149,7 @@ export function RenderCommentariesModal() {
         <footer class="flex justify-end gap-4 p-6 border-t border-slate-200">
 
         <button
-            id = "button_canceclar" class="px-8 py-3 rounded-xl border-2 border-blue-700 text-blue-700 font-semibold hover:bg-blue-50 transition">
+            id = "button_cancelar" class="px-8 py-3 rounded-xl border-2 border-blue-700 text-blue-700 font-semibold hover:bg-blue-50 transition">
 
             Cancelar
 
@@ -167,22 +172,97 @@ export function RenderCommentariesModal() {
     
 }
 
-export function SaveCommentaries(params) {
-    const cancelar = document.getElementById("button_cancelar")
-    const publicar = document.getElementById("button_publicar")
-    const stars = document.querySelectorAll(".star")
-    let score = 0
-    stars.forEach(stars=>{
-        star.addEventListener("click",()=>{
-            score = 
-            Number(star.dataset.score)
-                console.log(score);
-                
-        })
-    }) 
-    publicar.addEventListener("click",()=>{
-        const textArea = document.getElementById("comment").value
+function closeModal() {
+    document.getElementById("commentary-modal").remove();
+}
 
+export function SaveCommentaries(id_event) {
 
-    })
+    const cancelar = document.getElementById("button_cancelar");
+    const publicar = document.getElementById("button_publicar");
+    const stars = document.querySelectorAll(".star");
+    const cerrar = document.getElementById("button_x")
+
+    let score = 0;
+
+    
+    stars.forEach((star) => {
+    star.addEventListener("click", () => {
+        score = Number(star.dataset.score);
+
+        stars.forEach((s) => {
+
+            if (Number(s.dataset.score) <= score) {
+                s.textContent = "★";
+            } else {
+                s.textContent = "☆";
+            }
+
+        });
+    });
+});
+    
+   publicar.addEventListener("click", async () => {
+
+    const comment = document.getElementById("comment").value.trim();
+
+    if (score === 0) {
+        alert("Selecciona una calificación.");
+        return;
+    }
+
+    if (comment === "") {
+        alert("Escribe un comentario.");
+        return;
+    }
+
+    const session = getSession();
+
+    if (!session) {
+        alert("Debes iniciar sesión.");
+        return;
+    }
+
+    const review = {
+
+        id_user: session.user.id,
+
+        comments: comment,
+
+        score
+
+    };
+
+    try {
+
+        const response = await createReview(id_event, review);
+
+        console.log(response);
+
+        alert("Comentario guardado correctamente.");
+
+        closeModal();
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+
+});
+const textarea = document.getElementById("comment");
+const counter = document.getElementById("counter");
+
+textarea.addEventListener("input", () => {
+    counter.textContent = `${textarea.value.length} / 300`;
+});
+
+cancelar.addEventListener("click", () => {
+    closeModal();
+});
+
+cerrar.addEventListener("click", () => {
+    closeModal();
+});
+
 }
