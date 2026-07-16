@@ -5,12 +5,8 @@ import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controller
 import { destinations } from "../controllers/destinations.controller.js";
 import { createEventController, getEventController } from "../controllers/event.controller.js";
 import { validateCreateEvent } from "../validators/event.validator.js";
-import { getReviewsByUser } from "../querys/reviews.query.js";
-import { countReviewsControllerOrganizador, getOrganizerProfileController, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
-import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
+import { getOrganizerProfileController, getReviewsController } from "../controllers/reviews.controller.js";
 import { addEventToItinerary, addPlaceToItinerary, createItinerary, deleteItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
-import { getSitesController } from "../controllers/sitesprofile.controller.js";
-import { getEventsController } from "../controllers/eventsprofile.controller.js";
 import {
     saveEventReviewController,
     getEventReviewsController
