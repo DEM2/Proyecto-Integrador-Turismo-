@@ -1,4 +1,7 @@
-import { createReview } from "../querys/eventReview.query.js";
+import {
+    createReview,
+    getEventReviews
+} from "../querys/eventReview.query.js";
 
 export async function saveEventReviewController(req,res){
 
@@ -26,6 +29,32 @@ export async function saveEventReviewController(req,res){
         res.status(500).json({
             ok:false,
             message:"Error interno"
+        });
+
+    }
+
+}
+
+export async function getEventReviewsController(req, res) {
+
+    try {
+
+        const { id_event } = req.params;
+
+        const reviews = await getEventReviews(id_event);
+
+        res.status(200).json({
+            ok: true,
+            data: reviews
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            message: "Error interno"
         });
 
     }

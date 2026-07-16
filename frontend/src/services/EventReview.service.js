@@ -20,3 +20,19 @@ export async function createReview(id_event, review) {
     return await response.json();
 
 }
+
+export async function getReviews(id_event) {
+
+    const response = await fetch(
+        apiUrl(`/api/events/${id_event}/reviews`)
+    );
+
+    if (!response.ok) {
+        throw new Error("No fue posible obtener los comentarios.");
+    }
+
+    const data = await response.json();
+
+    return data.data;
+
+}

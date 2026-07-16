@@ -10,7 +10,10 @@ import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js"
 import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
 import { getSitesController } from "../controllers/sitesprofile.controller.js";
 import { getEventsController } from "../controllers/eventsprofile.controller.js";
-import { saveEventReviewController } from "../controllers/eventReview.controller.js";
+import {
+    saveEventReviewController,
+    getEventReviewsController
+} from "../controllers/eventReview.controller.js";
 
 const router = Router();
 
@@ -105,6 +108,10 @@ router.post(
 router.post(
     "/events/:id_event/reviews",
     saveEventReviewController
+);
+router.get(
+    "/events/:id_event/reviews",
+    getEventReviewsController
 );
 
 export default router;
