@@ -45,3 +45,13 @@ export async function postEvent(event) {
 
     return result;
 }
+
+export async function getAllEvent() {
+  
+  const response = await fetch(apiUrl("/api/events"));
+    if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los Eventos destacados");
+  } 
+    return await response.json();
+}

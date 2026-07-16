@@ -16,6 +16,7 @@ import {
     Baby
 } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
+import { serchBar } from "../../components/layout/serchbar.component.js";
 
 export function renderEventsPage() {
   return `
@@ -109,24 +110,24 @@ export function renderEventsPage() {
 
       <h1
         id="hero-title"
-        class="text-6xl
+        class="text-5xl
         font-extrabold
         leading-tight
         text-blue-950">
-        Eventos que <br>
-        hacen vibrar <br>
+        Eventos que
+        hacen vibrar 
         Barranquilla
       </h1>
 
       <p
         class="mt-6
-        text-xl
+        text-2xl
         leading-8
         text-slate-600">
         Conciertos, festivales, ferias y actividades
         para disfrutar lo mejor de nuestra ciudad.
       </p>
-
+      ${serchBar()}
     </div>
 
   </div>
