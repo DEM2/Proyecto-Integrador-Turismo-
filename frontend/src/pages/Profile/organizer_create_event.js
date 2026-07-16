@@ -626,6 +626,7 @@ export function organizerCreateView() {
                   </button>
 
                   <button
+                  id="cancelar"
                     type="button"
                     data-organizer-view="dashboard"
                     class="h-12 w-full rounded-xl border border-blue-600 font-bold text-blue-600 transition hover:bg-blue-50"
@@ -681,6 +682,11 @@ export function organizerCreateEvents() {
     //Navegamos para atras
     const btnAtras=document.getElementById("btn-atras");
       btnAtras.addEventListener("click",()=>{
+        navigateTo("/perfilorganizador");
+      });
+
+    const btnCancelar=document.getElementById("cancelar")
+    btnCancelar.addEventListener("click",()=>{
         navigateTo("/perfilorganizador");
       });
 
