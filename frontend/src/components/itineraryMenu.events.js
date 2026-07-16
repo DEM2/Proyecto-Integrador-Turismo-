@@ -110,7 +110,11 @@ export function initializeItineraryMenus() {
 
         positionMenu(menu, button);
 
+
         menu.classList.remove("invisible");
+        
+        
+            
 
       });
 
@@ -200,11 +204,11 @@ function initializeMenuEvents(menu, itemType, itemId, itemName) {
           if (itemType === "event") {
 
             await addEventToItinerary(itineraryId, itemId);
-
+            loadItineraries(getSession().user.id,true);
           } else {
 
             await addPlaceToItinerary(itineraryId, itemId);
-
+            loadItineraries(getSession().user.id,true);
           }
 
           removeCurrentMenu();
