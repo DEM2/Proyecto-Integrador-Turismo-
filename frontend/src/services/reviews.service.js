@@ -85,6 +85,7 @@ export async function getOrganizerProfileSummary(userId) {
                 sites: 0,
                 events: 0,
             },
+            events: [],
         };
     }
 
@@ -107,8 +108,18 @@ export async function getOrganizerProfileSummary(userId) {
             sites: 0,
             events: 0,
         },
+        events: [],
     };
 
-    createSessionStorageData(profileData);
-    return profileData;
+    const normalizedProfileData = {
+        counts: profileData.counts ?? {
+            reviews: 0,
+            sites: 0,
+            events: 0,
+        },
+        events: profileData.events ?? [],
+    };
+
+    createSessionStorageData(normalizedProfileData);
+    return normalizedProfileData;
 }

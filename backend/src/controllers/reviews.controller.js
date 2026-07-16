@@ -2,6 +2,7 @@ import {
     countEventsByUserOrganizador,
     countReviewsByUserOrganizador,
     countSitesByUserOrganizador,
+    getEventsByUserOrganizador,
 } from "../querys/perfilOrganizador.query.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 
@@ -38,10 +39,11 @@ export async function getOrganizerProfileController(req, res) {
     try {
         const { id } = req.params;
 
-        const [reviewCount, sitesCount, eventsCount] = await Promise.all([
+        const [reviewCount, sitesCount, eventsCount, organizerEvents] = await Promise.all([
             countReviewsByUserOrganizador(id),
             countSitesByUserOrganizador(id),
             countEventsByUserOrganizador(id),
+            getEventsByUserOrganizador(id),
         ]);
 
         res.status(200).json({
@@ -53,6 +55,7 @@ export async function getOrganizerProfileController(req, res) {
                     sites: sitesCount?.[0]?.total_sites ?? 0,
                     events: eventsCount?.[0]?.total_events ?? 0,
                 },
+                events: organizerEvents ?? [],
             },
         });
     } catch (error) {

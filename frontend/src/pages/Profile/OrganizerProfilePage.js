@@ -2,7 +2,7 @@ import {
   renderMainNavigation,
   initializeMainNavigationEvents,
 } from "../../components/layout/MainNavigation.js";
-import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
+import { renderEventCard } from "../../components/cards/EventsCardOrganizador.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
 import { navigateTo } from "../../router/AppRouter.js";
 
@@ -60,36 +60,7 @@ export function renderOrganizerProfilePage() {
       </section>
     </section>
 
-    <!-- RESEÑAS RECIBIDAS -->
-    <section aria-labelledby="received-reviews-title">
-
-      <header class="mb-6 flex items-center justify-between">
-      
-        <h2
-          id="received-reviews-title"
-          class="text-2xl font-black text-blue-950"
-        >
-          Reseñas recibidas
-        </h2>
-        
-
-        <button
-        id="btn-show-more-reviews"
-          type="button"
-          data-profile-section="reviews"
-          class="cursor-pointer font-bold text-blue-600 hover:underline"
-        >
-          Ver todas
-        </button>
-      </header>
-
-      <article  id="reviews-container" class="rounded-2xl border border-slate-200 bg-white px-7 shadow-sm">
-
-
-      </article>
-    </section>
-
-  </section>
+    
 
 </main>
 
@@ -103,9 +74,6 @@ export async function initializeOrganizerProfilePageEvents() {
   initializeMainNavigationEvents();
   // FIN
 
-  //Hacemos dinámico la información del perfil
-  renderProfileInfoEvents();
-
   const btnCrearevent=document.getElementById("btn-create-event")
   if (btnCrearevent) {
     btnCrearevent.addEventListener("click",()=>{
@@ -113,8 +81,21 @@ export async function initializeOrganizerProfilePageEvents() {
     })
   }
 
-      const contenedorEventos = document.getElementById("Eventos-container");
+  const contenedorEventos = document.getElementById("Eventos-container");
   if (contenedorEventos) {
-        contenedorEventos.innerHTML = "";
-      }
+    contenedorEventos.innerHTML = "<p class='col-span-full rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600'>Cargando eventos...</p>";
+  }
+
+  //Hacemos dinámico la información del perfil
+  const profileData = await renderProfileInfoEvents();
+
+  if (contenedorEventos) {
+    const eventos = profileData?.events ?? [];
+
+    if (eventos.length > 0) {
+      contenedorEventos.innerHTML = eventos.map((evento) => renderEventCard(evento)).join("");
+    } else {
+      contenedorEventos.innerHTML = "<p class='col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600'>Aún no tienes eventos creados.</p>";
+    }
+  }
 }

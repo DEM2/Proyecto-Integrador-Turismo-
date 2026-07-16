@@ -1,50 +1,63 @@
 
+function formatEventPrice(price) {
+  if (price === null || price === undefined || price === "") {
+    return "0";
+  }
 
+  const numericPrice = Number(price);
+  if (Number.isNaN(numericPrice)) {
+    return "Precio por confirmar";
+  }
 
-export function renderEventCard(event) {
+  return `Desde $${numericPrice.toLocaleString("es-CO")}`;
+}
+
+export function renderEventCard(event = {}) {
+  const name = event.name || "Evento sin nombre";
+  const address = event.address || "Lugar por confirmar";
+  const startDate = event.start_date || "Sin fecha";
+  const endDate = event.end_date || "Sin fecha";
+  const price = formatEventPrice(event.price);
 
   return `
     <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+      class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+    >
+      <figure class="relative h-64 overflow-hidden">
+        <img
+          src="/src/assets/images/hero.png"
+          alt="${name}"
+          class="h-full w-full object-cover"
+        />
+
+        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-blue-950/10 to-transparent"></div>
+
+        <time
+          datetime="${event.start_date || ""}"
+          class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
         >
+          <span class="block text-sm uppercase">${startDate}</span>
+        </time>
+      </figure>
 
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Carnaval de Barranquilla 2025"
-              class="h-full w-full object-cover"
-            />
+      <section class="space-y-4 p-5">
+        <header>
+          <h3 class="text-xl font-black text-blue-950">
+            ${name}
+          </h3>
+        </header>
 
-            <time
-              datetime="2025-02-15"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">15</span>
-              <span class="block text-sm">FEB</span>
-            </time>
+        <div class="space-y-2 text-sm text-slate-600">
+          <p><span class="font-semibold text-slate-700">Lugar:</span> ${address}</p>
+          <p><span class="font-semibold text-slate-700">Fechas:</span> ${startDate} - ${endDate}</p>
+        </div>
 
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Carnaval de Barranquilla 2025
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-red-50 px-2 py-1 text-sm font-semibold text-red-500">
-                Festival
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-red-500">
-                Desde $0
-              </strong>
-            </footer>
-          </section>
-
-        </article>
+        <footer>
+          <strong class="text-xl text-red-500">
+            ${price}
+          </strong>
+        </footer>
+      </section>
+    </article>
   `;
 }
