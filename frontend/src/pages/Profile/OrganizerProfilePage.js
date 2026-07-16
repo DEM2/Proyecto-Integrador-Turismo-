@@ -353,65 +353,100 @@ export function renderOrganizerProfilePage() {
     `;
 }
 
-  export async function initializeOrganizerProfilePageEvents() {
+export async function initializeOrganizerProfilePageEvents() {
   //Mostrar menú de navegación en versión móvil
   initializeMainNavigationEvents();
   // FIN
 
-
-  //Hacemos dinamico la informacion del perfil
+  //Hacemos dinámico la información del perfil
   const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(createFollowButton("purple"));
+  if (placeholder) {
+    placeholder.replaceWith(createFollowButton("purple"));
+  }
+
   const nombreUsuario = document.getElementById("profile-name");
   const username = document.getElementById("user-name");
   const description = document.getElementById("description");
- 
-
 
   const sesion = getSession();
-  nombreUsuario.innerText = sesion.user.name;
-  ((username.innerText = "@"), sesion.user.username);
-  description.innerText = sesion.user.description;
-  //FINN
+  if (sesion?.user) {
+    if (nombreUsuario) {
+      nombreUsuario.innerText = sesion.user.name || "Usuario";
+    }
 
+    if (username) {
+      username.innerText = `@${sesion.user.username || ""}`;
+    }
 
+    if (description) {
+      description.innerText = sesion.user.description || "Sin descripción disponible.";
+    }
+  }
+  //FIN
+
+  const reviewsContainer = document.getElementById("reviews-container");
+  const containerTotalR = document.getElementById("treview");
+  const containersites = document.getElementById("container-sites");
+  const containerevents = document.getElementById("container-events");
+  const contenedorEventos = document.getElementById("Eventos-container");
 
   // LAS REVIEWS SITES & EVENTS
+  if (sesion?.user) {
+    try {
+      const reviews = await getReviewsOrganizador(sesion.user.id);
+      if (reviewsContainer && reviews?.data) {
+        reviewsContainer.innerHTML = reviews.data
+          .map((review) => renderReviewCardOrganizador(review))
+          .join("");
+      }
+    } catch (error) {
+      console.error("No se pudieron cargar las reseñas del organizador:", error);
+      if (reviewsContainer) {
+        reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No se pudieron cargar las reseñas.</p>';
+      }
+    }
 
-  try {
-    const reviews = await getReviewsOrganizador(sesion.user.id);
-    const events = await getSitesOrganizador(sesion.user.id);
+    try {
+      const totalreviews = await countReviewsOrganizador(sesion.user.id);
+      const totalr = totalreviews?.data?.[0]?.total_reviews ?? 0;
+      if (containerTotalR) {
+        containerTotalR.innerText = totalr;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de reseñas:", error);
+      if (containerTotalR) {
+        containerTotalR.innerText = "0";
+      }
+    }
 
-    const totalreviews = await countReviewsOrganizador(sesion.user.id);
-    const totalr=totalreviews.data[0].total_reviews;
-    const totalsites= await countSitesOrganizador(sesion.user.id);
-    const totals=totalsites.data[0].total_sites
-    const totalevents= await countEventsOrganizador(sesion.user.id);
-    const totale=totalevents.data[0].total_events
+    try {
+      const totalsites = await countSitesOrganizador(sesion.user.id);
+      const totals = totalsites?.data?.[0]?.total_sites ?? 0;
+      if (containersites) {
+        containersites.innerText = totals;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de sitios:", error);
+      if (containersites) {
+        containersites.innerText = "0";
+      }
+    }
 
-    
-    
-    const container = document.getElementById("reviews-container");
-    const button = document.getElementById("btn-show-more-reviews");
-    const containerTotalR= document.getElementById("treview")
-    containerTotalR.innerText= totalr
-    const containersites= document.getElementById("container-sites")
-    containersites.innerText=totals
-    const containerevents= document.getElementById("container-events")
-    containerevents.innerText=totale
-
-    const contenedorEventos=getElementById("Eventos-container")
-    contenedorEventos.innerHTML= 
-
-
-    container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
-  
-  
-    
-  } catch (error) {
-    console.log(error);
-    
+    try {
+      const totalevents = await countEventsOrganizador(sesion.user.id);
+      const totale = totalevents?.data?.[0]?.total_events ?? 0;
+      if (containerevents) {
+        containerevents.innerText = totale;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de eventos:", error);
+      if (containerevents) {
+        containerevents.innerText = "0";
+      }
+    }
   }
 
-
+  if (contenedorEventos) {
+    contenedorEventos.innerHTML = "";
+  }
 }
