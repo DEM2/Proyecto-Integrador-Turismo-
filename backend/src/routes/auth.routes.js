@@ -3,11 +3,12 @@ import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
 import { destinations } from "../controllers/destinations.controller.js";
-import { getEventController } from "../controllers/event.controller.js";
+import { createEventController, getEventController } from "../controllers/event.controller.js";
+import { validateCreateEvent } from "../validators/event.validator.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
-import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
+import { addEventToItinerary, addPlaceToItinerary, createItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
 import { getSitesController } from "../controllers/sitesprofile.controller.js";
 import { getEventsController } from "../controllers/eventsprofile.controller.js";
 import {
@@ -40,6 +41,14 @@ router.post(
 router.get(
     "/events/:id_event",
     getEventController
+)
+
+//Create events
+
+router.post(
+    "/organizer/createEvent",
+    validateCreateEvent,
+    createEventController
 )
 
 
@@ -88,6 +97,11 @@ router.get(
 router.get(
     "/itineraries/:id",
     getUserItineraries
+);
+
+router.get(
+    "/itineraries/:id/itinerary",
+    getItineraryById
 );
 
 router.post(

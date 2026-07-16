@@ -1,30 +1,13 @@
-import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
-import { renderReviewCard } from "../../components/cards/ReviewCard.js";
-import { renderPublicItineraryCard } from "../../components/cards/PublicItineraryCard.js";
 import { getSession } from "../../services/authService.js";
-import { getReviews } from "../../services/reviews.service.js";
-import { renderIconSvg } from "../../utils/renderIcon.js";
-import {
-    UserRoundPlus,
-    UserRound,
-    Star,
-    Map
-} from "lucide";
-import { getItineraryDetail, getUserItineraries } from "../../services/itineraries.service.js";
-import { renderItineraryCard } from "../../components/cards/renderItineraryCard.js";
-import { openItineraryDetailModal } from "../../components/layout/itineraryDetailModal.js";
 
-export function renderExplorerProfilePage() {
-  const session = getSession();
-  const user = session.user;
-  const inicial = user?.name ? user.name.trim().charAt(0).toUpperCase() : "U";
+import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador, getSitesOrganizador } from "../../services/reviews.service.js";
 
+
+
+export function renderProfileInfo() {
   return `
-  ${renderMainNavigation()}
-
-  
-  <main class="min-h-screen  text-blue-950 font-sans bg-gray-50">
+ 
 
   <!-- ENCABEZADO DEL PERFIL -->
   <section
@@ -55,19 +38,15 @@ export function renderExplorerProfilePage() {
       <figure class="relative shrink-0">
         <img
           src="/src/assets/images/familias.webp"
-          alt="Foto de perfil de Mateo Mercado"
+          alt="Foto de perfil del usuario"
           class="size-50 rounded-full border-4 border-white object-cover shadow-xl sm:size-40 md:size-62"
         />
-
-        <figcaption class="sr-only">
-          Foto de perfil de Mateo Mercado
-        </figcaption>
 
         <div
           class="absolute -bottom-2 right-1 flex items-center justify-center rounded-full "
         >
           <img
-            src="/src/assets/images/explore2.png"
+            src="/src/assets/images/explorer_morado.png"
             alt=""
             class="size-15 object-contain "
           />
@@ -75,32 +54,31 @@ export function renderExplorerProfilePage() {
       </figure>
 
       <!-- Datos del perfil -->
-      <section class="max-w-xl">
+      <section class="max-w-xl" >
 
         <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-start">
           <h2
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
           >
-            ${user.name}
+            
           </h2>
 
           <button
             type="button"
             id="btn-follow"
-            class="cursor-pointer rounded-full bg-green-500 px-5 py-2 text-sm font-bold text-white transition hover:bg-green-600"
+            class="cursor-pointer rounded-full bg-purple-500 px-5 py-2 text-sm font-bold text-white transition hover:bg-purple-600"
           >
             Seguir
           </button>
         </section>
 
-        <p class="mt-1 text-sm font-light sm:text-2xl">
-          ${user.email}
+        <p id="user-name" class="mt-1 text-sm font-semibold sm:text-base">
+          @
         </p>
 
-        <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
-          Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-          archivos de texto...
+        <p id="description" class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
+          ...
         </p>
 
         <!-- Redes sociales -->
@@ -163,7 +141,7 @@ export function renderExplorerProfilePage() {
       class="relative  mx-auto -mb-10  max-w-7xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg"
       aria-label="Estadísticas y contenido del perfil"
     >
-      <ul class="grid grid-cols-2 md:grid-cols-4">
+      <ul class="grid grid-cols-2 md:grid-cols-5">
 
         <!-- Seguidores -->
         <li class="border-b border-r border-slate-200 md:border-b-0">
@@ -172,12 +150,15 @@ export function renderExplorerProfilePage() {
             data-profile-section="followers"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(UserRound, {
-                class: "size-9 text-green-600"
-            })}
+            <img
+              src="/src/assets/icons/seguidores_morado.svg"
+              alt=""
+              class="size-8"
+              aria-hidden="true"
+            />
 
             <span>
-              <strong class="block text-2xl font-bold text-blue-950">
+              <strong class="block text-2xl font-black text-blue-950">
                 1000
               </strong>
 
@@ -195,12 +176,15 @@ export function renderExplorerProfilePage() {
             data-profile-section="following"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(UserRoundPlus, {
-                class: "size-9 text-green-600"
-            })}
+            <img
+              src="/src/assets/icons/seguidos_morado.svg"
+              alt=""
+              class="size-8"
+              aria-hidden="true"
+            />
 
             <span>
-              <strong class="block text-2xl font-bold text-blue-950">
+              <strong class="block text-2xl font-black text-blue-950">
                 1000
               </strong>
 
@@ -215,16 +199,19 @@ export function renderExplorerProfilePage() {
         <li class="border-r border-slate-200 md:border-r">
           <button
             type="button"
+            data-profile-section="reviews"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(Star, {
-              class: "size-9 text-yellow-600",
-              "stroke-width": 1.8
-          })}
+            <img
+              src="/src/assets/icons/reseñas.svg"
+              alt=""
+              class="size-10"
+              aria-hidden="true"
+            />
 
             <span>
-              <strong id="reviews-count" class="block text-2xl font-bold text-blue-950">
-                0
+              <strong id="treview" class="block text-2xl font-black text-blue-950">
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -234,25 +221,53 @@ export function renderExplorerProfilePage() {
           </button>
         </li>
 
-        <!-- Itinerarios -->
+        <!-- Sitios -->
         <li class="border-t border-slate-200 md:border-r md:border-t-0">
           <button
             type="button"
             data-profile-section="places"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            ${renderIconSvg(Map, {
-                class: "size-9 text-violet-700",
-                "stroke-width": 1.8
-            })}
+            <img
+              src="/src/assets/icons/location4.svg"
+              alt=""
+              class="size-10"
+              aria-hidden="true"
+            />
 
             <span>
-              <strong class="block text-2xl font-bold text-blue-950">
-                18
+              <strong id="container-sites" class="block text-2xl font-black text-blue-950">
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
-                Itinerarios
+                Sitios
+              </span>
+            </span>
+          </button>
+        </li>
+
+        <!-- Eventos -->
+        <li class="col-span-2 border-t border-slate-200 md:col-span-1 md:border-t-0">
+          <button
+            type="button"
+            data-profile-section="events"
+            class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
+          >
+            <img
+              src="/src/assets/icons/calendar2.svg"
+              alt=""
+              class="size-10"
+              aria-hidden="true"
+            />
+
+            <span>
+              <strong id="container-events" class="block text-2xl font-black text-blue-950">
+                Cargando...
+              </strong>
+
+              <span class="text-sm text-slate-600">
+                Eventos
               </span>
             </span>
           </button>
@@ -262,146 +277,99 @@ export function renderExplorerProfilePage() {
     </nav>
 
   </section>
-
-  <!-- CONTENIDO DEL PERFIL -->
-  <section
-    id="profile-content"
-    class="mx-auto mt-20 max-w-7xl space-y-12 px-6 pb-16"
-    aria-live="polite"
-  >
-
-      <!-- RESEÑAS -->
-    <header class="mb-6 flex items-center justify-between">
-      <h2
-        id="reviews-title"
-        class="text-2xl font-black text-blue-950"
-      >
-        Reseñas
-      </h2>
-
-      <button
-        id="btn-show-more-reviews"
-        type="button"
-        class="hidden cursor-pointer font-bold text-blue-600 hover:underline"
-      >
-        Ver más
-      </button>
-    </header>
-
-    <section
-      id="reviews-container"
-      class="grid grid-cols-1 gap-6 md:grid-cols-2"
-    >
-    </section>
-
-    <!-- ITINERARIOS CREADOS -->
-    <section ">
-
-      <header class="mb-6 flex items-center justify-between">
-        <h2
-          id="received-reviews-title"
-          class="text-2xl font-black text-blue-950"
-        >
-          Itinerarios públicos
-        </h2>
-
-        <button
-          type="button"
-          data-profile-section="reviews"
-          class="cursor-pointer font-bold text-blue-600 hover:underline"
-        >
-          Ver todas
-        </button>
-      </header>
-
-<section
-  id="itinerary"
-  class="grid gap-6"
-  style="grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));"
->
-</section>
-
-  </section>
-
-</main>
-
-    `;
+  `
 }
 
-export async function initializeExplorerProfilePageEvents() {
-  const session = getSession();
-  const user = session.user;
-  //Mostrar menú de navegación en versión móvil
-  initializeMainNavigationEvents()
-  // FIN
+export async function renderProfileInfoEvents(){
 
-  const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(createFollowButton('green'));
+    //Hacemos dinámico la información del perfil
+      const placeholder = document.getElementById("btn-follow");
+      if (placeholder) {
+        placeholder.replaceWith(createFollowButton("purple"));
+      }
+    
+      const nombreUsuario = document.getElementById("profile-name");
+      const username = document.getElementById("user-name");
+      const description = document.getElementById("description");
+    
+      const sesion = getSession();
+      if (sesion?.user) {
+        if (nombreUsuario) {
+          nombreUsuario.innerText = sesion.user.name || "Usuario";
+        }
+    
+        if (username) {
+          username.innerText = `@${sesion.user.username || ""}`;
+        }
+    
+        if (description) {
+          description.innerText = sesion.user.description || "Sin descripción disponible.";
+        }
+      }
+      //FIN
+    
+      const reviewsContainer = document.getElementById("reviews-container");
+      const containerTotalR = document.getElementById("treview");
+      const containersites = document.getElementById("container-sites");
+      const containerevents = document.getElementById("container-events");
+    
+      // LAS REVIEWS SITES & EVENTS
+      if (sesion?.user) {
+        try {
+          const reviews = await getReviewsOrganizador(sesion.user.id);
+          if (reviewsContainer && reviews?.data) {
+            reviewsContainer.innerHTML = reviews.data
+              .map((review) => renderReviewCardOrganizador(review))
+              .join("");
+          }
+        } catch (error) {
+          console.error("No se pudieron cargar las reseñas del organizador:", error);
+          if (reviewsContainer) {
+            reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No se pudieron cargar las reseñas.</p>';
+          }
+        }
+    
+        try {
+          const totalreviews = await countReviewsOrganizador(sesion.user.id);
+          const totalr = totalreviews?.data?.[0]?.total_reviews ?? 0;
+          if (containerTotalR) {
+            containerTotalR.innerText = totalr;
+          }
+        } catch (error) {
+          console.error("No se pudo cargar el total de reseñas:", error);
+          if (containerTotalR) {
+            containerTotalR.innerText = "0";
+          }
+        }
+    
+        try {
+          const totalsites = await countSitesOrganizador(sesion.user.id);
+          const totals = totalsites?.data?.[0]?.total_sites ?? 0;
+          if (containersites) {
+            containersites.innerText = totals;
+          }
+        } catch (error) {
+          console.error("No se pudo cargar el total de sitios:", error);
+          if (containersites) {
+            containersites.innerText = "0";
+          }
+        }
+    
+        try {
+          const totalevents = await countEventsOrganizador(sesion.user.id);
+          const totale = totalevents?.data?.[0]?.total_events ?? 0;
+          if (containerevents) {
+            containerevents.innerText = totale;
+          }
+        } catch (error) {
+          console.error("No se pudo cargar el total de eventos:", error);
+          if (containerevents) {
+            containerevents.innerText = "0";
+          }
+        }
+      }
+    
+      
 
-
-  const reviews = await getReviews(user.id);
-  const container = document.getElementById("reviews-container");
-  const button = document.getElementById("btn-show-more-reviews");
-  document.getElementById("reviews-count").textContent =
-  reviews.data.length;
-  // Mostrar inicialmente solo 4
-  container.innerHTML = reviews.data.slice(0, 4)
-    .map(review => renderReviewCard(review))
-    .join("");
-
-  // Mostrar el botón solo si hay más de 4 reseñas
-  if (reviews.data.length > 4) {
-
-    button.classList.remove("hidden");
-
-    button.addEventListener("click", () => {
-
-      container.innerHTML = reviews.data
-        .map(review => renderReviewCard(review))
-        .join("");
-
-      button.classList.add("hidden");
-
-    });
-
-  }
-  await getMyIntineraries()
-  initializeItineraryCards();
-}
-
-
-async function getMyIntineraries() {
-   const session = getSession()
-   const intineraries = await getUserItineraries(session.user.id)
-   const container = document.getElementById("itinerary");
-   container.innerHTML = intineraries.data.map(itinerary => renderItineraryCard(itinerary)).join("");
-   initializeItineraryCards();  
-}
-
-function initializeItineraryCards() {
-
-    document
-        .querySelectorAll("[data-itinerary-id]")
-        .forEach(card => {
-
-            card.addEventListener("click", async () => {
-
-                const id = card.dataset.itineraryId;
-
-                try {
-
-                    const response = await getItineraryDetail(id);
-                  
-                    openItineraryDetailModal(response.data);
-
-                } catch (error) {
-
-                    console.error(error);
-
-                }
-
-            });
-
-        });
 
 }

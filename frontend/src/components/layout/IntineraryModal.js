@@ -241,20 +241,20 @@ export function renderCreateItineraryModal() {
 }
 
 
-export function openCreateItineraryModal() {
+export function openCreateItineraryModal(onCreated) {
   document.body.insertAdjacentHTML(
     "beforeend",
     renderCreateItineraryModal()
   );
 
-  initializeCreateItineraryModalEvents();
+  initializeCreateItineraryModalEvents(onCreated);
 }
 
 export function closeCreateItineraryModal() {
   document.getElementById("modal-create-itinerary")?.remove();
 }
 
-function initializeCreateItineraryModalEvents() {
+function initializeCreateItineraryModalEvents(onCreated) {
 
   const modal = document.getElementById("modal-create-itinerary");
   const article = modal.querySelector("article");
@@ -271,7 +271,7 @@ function initializeCreateItineraryModalEvents() {
   
   document
   .getElementById("btn-save-itinerary")
-  .addEventListener("click", handleCreateItinerary);
+  .addEventListener("click", () => handleCreateItinerary(onCreated));
 
   // Cerrar haciendo clic en el fondo oscuro
   modal.addEventListener("click", () => {
@@ -284,7 +284,7 @@ function initializeCreateItineraryModalEvents() {
   });
 }
 
-async function handleCreateItinerary() {
+async function handleCreateItinerary(onCreated) {
   const session = getSession();
 
   const name = document
@@ -340,6 +340,8 @@ async function handleCreateItinerary() {
     alert("Itinerario creado");
 
     closeCreateItineraryModal();
+
+    onCreated?.();
 
   } catch (error) {
 

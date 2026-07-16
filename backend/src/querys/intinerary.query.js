@@ -148,3 +148,61 @@ export async function getItineraryDetailQ(id) {
   return itinerary.rows[0];
 
 }
+
+
+export async function getItineraryByIdQuery(id) {
+
+  // Itinerario
+  const itinerarySql = `
+    SELECT
+      id,
+      name,
+      description,
+      start_date,
+      closing_date,
+      is_public,
+      is_active
+    FROM itineraries
+    WHERE id = $1;
+  `;
+
+  // Lugares
+  const placesSql = `
+    SELECT
+      p.id,
+      p.name,
+      p.address,
+      ip.position
+    FROM itinerary_places ip
+    INNER JOIN places p
+      ON p.id = ip.id_place
+    WHERE ip.id_itinerary = $1
+    ORDER BY ip.position;
+  `;
+
+  // Eventos
+  const eventsSql = `
+    SELECT
+      e.id,
+      e.name,
+      e.start_date,
+      e.address,
+      ie.position
+    FROM itinerary_events ie
+    INNER JOIN events e
+      ON e.id = ie.id_event
+    WHERE ie.id_itinerary = $1
+    ORDER BY ie.position;
+  `;
+
+  const itineraryResult = await pool.query(itinerarySql,[id]);
+  const placesResult = await pool.query(placesSql,[id]);
+  const eventsResult = await pool.query(eventsSql,[id]);
+
+  return {
+    ...itineraryResult.rows[0],
+    places: placesResult.rows,
+    events: eventsResult.rows
+  };
+
+}

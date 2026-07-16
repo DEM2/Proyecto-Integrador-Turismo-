@@ -49,3 +49,90 @@ export async function getEventAgendaById(id_event) {
 
     return result.rows || null
 };
+
+
+//Consulta para crear evento
+// Se implementa consulta para la creación de eventos a partir de un evento 
+// de tipo insertar.
+export async function createEventByUser(eventData) {
+    
+    const sql = `
+    INSERT INTO events(
+        name,
+        description,
+        start_date,
+        end_date,
+        start_time,
+        price,
+        address,
+        image_main,
+        id_category,
+        location,
+        id_user
+    ) VALUES (
+        $1, $2, $3, $4, $5, $6,
+        $7, $8, $9, $10, $11  
+    )
+    RETURNING *
+    `;
+
+    const values = [
+        eventData.name,
+        eventData.description,
+        eventData.start_date,
+        eventData.end_date,
+        eventData.start_time,
+        eventData.price,
+        eventData.address,
+        eventData.image_main,
+        eventData.id_category,
+        eventData.location,
+        eventData.id_user
+    ]
+
+    const result = await pool.query(sql,values)
+
+    return result.rows[0]
+
+}
+
+export async function createEventAgenda(idEvent, agenda) {
+  const activitiesCreated = []
+
+  for (const activity of agenda) {
+    const title = typeof activity?.title === "string" ? activity.title.trim() : ""
+    const activityDate = activity?.activity_date || null
+    const activityTime = activity?.activity_time || null
+    const isActive = activity?.is_active ?? true
+
+    if (!title || !activityDate) {
+      continue
+    }
+
+    const sql = `
+      INSERT INTO events_agenda (
+        id_event,
+        activity_date,
+        activity_time,
+        title,
+        is_active
+      )
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `
+
+    const values = [
+      idEvent,
+      activityDate,
+      activityTime,
+      title,
+      isActive
+    ]
+
+    const result = await pool.query(sql, values)
+
+    activitiesCreated.push(result.rows[0])
+  }
+
+  return activitiesCreated
+}

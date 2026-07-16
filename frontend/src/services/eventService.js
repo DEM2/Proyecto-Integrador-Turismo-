@@ -21,3 +21,27 @@ export async function getEventDetail(id_event) {
 
     return eventDetail.data
 }
+
+export async function postEvent(event) {
+    const response = await fetch(apiUrl(`/api/organizer/createEvent`), {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(event)
+    });
+
+    let result = {};
+
+    try {
+        result = await response.json();
+    } catch (error) {
+        result = {};
+    }
+
+    if (!response.ok) {
+        throw new Error(result?.message || "Error al crear el evento");
+    }
+
+    return result;
+}

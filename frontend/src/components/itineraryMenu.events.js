@@ -1,11 +1,55 @@
 import { renderItineraryOptionsMenu } from "./layout/ItineraryOptionsMenu.js";
-import { getUserItineraries, addPlaceToItinerary } from "../services/itineraries.service.js";
+import { getUserItineraries, addPlaceToItinerary, addEventToItinerary } from "../services/itineraries.service.js";
 import { openCreateItineraryModal } from "./layout/IntineraryModal.js";
 import { getSession } from "../services/authService.js";
 
+// Caché en memoria de los itinerarios del usuario.
+// Evita pedirlos a la API cada vez que se abre el menú.
+let itinerariesCache = null;
+let itinerariesRequest = null;
+
+function loadItineraries(userId, forceRefresh = false) {
+
+  if (forceRefresh) {
+    itinerariesCache = null;
+    itinerariesRequest = null;
+  }
+
+  if (itinerariesCache) {
+    return Promise.resolve(itinerariesCache);
+  }
+
+  if (!itinerariesRequest) {
+
+    itinerariesRequest = getUserItineraries(userId)
+      .then((response) => {
+        itinerariesCache = response.data;
+        return itinerariesCache;
+      })
+      .catch((error) => {
+        // Si falla, permitimos reintentar en el próximo click
+        console.error("Fallo al pedir itinerarios:", error);
+        itinerariesRequest = null;
+        throw error;
+      });
+
+  }
+
+  return itinerariesRequest;
+
+}
+
 export function initializeItineraryMenus() {
 
-  const session = getSession()
+  const session = getSession();
+
+  // Precarga los itinerarios apenas se inicializa la página,
+  // así el menú suele abrir ya con los datos listos.
+  if (session?.user?.id) {
+
+    loadItineraries(session.user.id).catch(() => {});
+
+  }
 
   document.querySelectorAll(".options-toggle-btn")
     .forEach(button => {
@@ -16,66 +60,45 @@ export function initializeItineraryMenus() {
 
         removeCurrentMenu();
 
-        const placeId = button.dataset.placeId;
-        console.log("hola",placeId)
-        const placeName = button.dataset.placeName;
+        const itemType = button.dataset.itemType || "place";
+        const itemId = button.dataset.itemId;
+        const itemName = button.dataset.itemName;
 
         const menu = document.createElement("div");
 
         menu.id = "itinerary-floating-menu";
 
-        menu.className = "fixed z-[9999]";
-
-        menu.innerHTML = `
-                <div class="rounded-2xl bg-white shadow-2xl border p-5">
-                    Cargando...
-                </div>
-            `;
+        // Oculto mientras se arma y se mide, para no mostrar
+        // parpadeos de "Cargando..." ni saltos de posición.
+        menu.className = "fixed z-[9999] invisible";
 
         document.body.appendChild(menu);
+
         menu.addEventListener("click", (e) => {
 
           e.stopPropagation();
 
         });
 
-        //-------------------------------------
-
-        const rect = button.getBoundingClientRect();
-
-        const menuWidth = 288;
-        const margin = 12;
-
-        let left = rect.right - menuWidth;
-
-        if (left < margin) {
-
-          left = margin;
-
-        }
-
-        if (left + menuWidth > window.innerWidth - margin) {
-
-          left = window.innerWidth - menuWidth - margin;
-
-        }
-
-        let top = rect.bottom + 10;
-
-        menu.style.left = `${left}px`;
-        menu.style.top = `${top}px`;
-
-        //-------------------------------------
+        // Cierra el menú si el usuario hace scroll (en window o en
+        // cualquier contenedor con scroll interno), ya que al ser
+        // "fixed" no se reposiciona automáticamente respecto al botón.
+        window.addEventListener("scroll", removeCurrentMenu, {
+          capture: true,
+          once: true,
+        });
 
         try {
 
-          const response = await getUserItineraries(session.user.id);
+          const itineraries = await loadItineraries(session.user.id);
 
-          menu.innerHTML = renderItineraryOptionsMenu(response.data);
+          menu.innerHTML = renderItineraryOptionsMenu(itineraries);
 
-          initializeMenuEvents(menu, placeId, placeName);
+          initializeMenuEvents(menu, itemType, itemId, itemName);
 
-        } catch {
+        } catch (error) {
+
+          console.error("Error cargando itinerarios:", error);
 
           menu.innerHTML = `
                     <div class="rounded-xl bg-white shadow-xl border p-4 text-red-500">
@@ -85,11 +108,72 @@ export function initializeItineraryMenus() {
 
         }
 
+        positionMenu(menu, button);
+
+        menu.classList.remove("invisible");
+
       });
 
     });
 
   document.addEventListener("click", removeCurrentMenu);
+
+}
+
+function positionMenu(menu, button) {
+
+  const rect = button.getBoundingClientRect();
+
+  const menuWidth = menu.offsetWidth || 288;
+  const menuHeight = menu.offsetHeight;
+  const margin = 12;
+
+  // Horizontal: pegado al borde derecho del botón, sin salirse de pantalla
+  let left = rect.right - menuWidth;
+
+  if (left < margin) {
+
+    left = margin;
+
+  }
+
+  if (left + menuWidth > window.innerWidth - margin) {
+
+    left = window.innerWidth - menuWidth - margin;
+
+  }
+
+  // Vertical: abre hacia abajo si hay espacio, si no, hacia arriba
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+
+  let top;
+
+  if (spaceBelow >= menuHeight + margin || spaceBelow >= spaceAbove) {
+
+    top = rect.bottom + 10;
+
+    // Por si aún así no cabe completo, lo recorta contra el borde inferior
+    if (top + menuHeight > window.innerHeight - margin) {
+
+      top = window.innerHeight - menuHeight - margin;
+
+    }
+
+  } else {
+
+    top = rect.top - menuHeight - 10;
+
+    if (top < margin) {
+
+      top = margin;
+
+    }
+
+  }
+
+  menu.style.left = `${left}px`;
+  menu.style.top = `${top}px`;
 
 }
 
@@ -101,7 +185,7 @@ function removeCurrentMenu() {
 
 }
 
-function initializeMenuEvents(menu, placeId, placeName) {
+function initializeMenuEvents(menu, itemType, itemId, itemName) {
 
   menu
     .querySelectorAll(".itinerary-option")
@@ -110,13 +194,30 @@ function initializeMenuEvents(menu, placeId, placeName) {
       button.addEventListener("click", async () => {
 
         const itineraryId = button.dataset.itineraryId;
-        console.log("inti",itineraryId)
 
-        await addPlaceToItinerary(itineraryId, placeId);
+        try {
 
-        removeCurrentMenu();
+          if (itemType === "event") {
 
-        alert(`${placeName} agregado correctamente.`);
+            await addEventToItinerary(itineraryId, itemId);
+
+          } else {
+
+            await addPlaceToItinerary(itineraryId, itemId);
+
+          }
+
+          removeCurrentMenu();
+
+          alert(`${itemName} agregado correctamente.`);
+
+        } catch (error) {
+
+          console.error("Error agregando al itinerario:", error);
+
+          alert(error.message || "No fue posible agregar al itinerario.");
+
+        }
 
       });
 
@@ -128,7 +229,19 @@ function initializeMenuEvents(menu, placeId, placeName) {
 
       removeCurrentMenu();
 
-      openCreateItineraryModal();
+      openCreateItineraryModal(() => {
+
+        // Se creó un itinerario nuevo: invalidamos el caché
+        // para que la próxima apertura del menú lo refleje.
+        const session = getSession();
+
+        if (session?.user?.id) {
+
+          loadItineraries(session.user.id, true).catch(() => {});
+
+        }
+
+      });
 
     });
 
