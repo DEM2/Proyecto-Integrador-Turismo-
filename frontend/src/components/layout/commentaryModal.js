@@ -1,7 +1,8 @@
 import { MessageSquareText } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon";
 import { getSession } from "../../services/authService.js";
-import { createReview } from "../../services/eventReview.service.js";
+import { createReview } from "../../services/EventReview.service.js";
+
 
 export function RenderCommentariesModal() {
     return `
