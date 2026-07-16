@@ -170,9 +170,8 @@ export async function getItineraryByIdQuery(id) {
   const placesSql = `
     SELECT
       p.id,
-      p.place,
+      p.name,
       p.address,
-      p.image,
       ip.position
     FROM itinerary_places ip
     INNER JOIN places p
@@ -186,7 +185,6 @@ export async function getItineraryByIdQuery(id) {
     SELECT
       e.id,
       e.name,
-      e.image,
       e.start_date,
       e.address,
       ie.position
