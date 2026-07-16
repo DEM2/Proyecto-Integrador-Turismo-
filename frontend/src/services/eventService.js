@@ -23,7 +23,7 @@ export async function getEventDetail(id_event) {
 }
 
 export async function postEvent(event) {
-    const response = await fetch(apiUrl(`api/organizer/createEvent`), {
+    const response = await fetch(apiUrl(`/api/organizer/createEvent`), {
         method: "POST",
         headers: {
             "content-type": "application/json",
