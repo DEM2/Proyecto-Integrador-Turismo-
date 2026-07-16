@@ -150,7 +150,7 @@ export async function getItineraryDetailQ(id) {
 }
 
 
-export async function getItineraryByIdQ(id) {
+export async function getItineraryByIdQuery(id) {
 
   // Itinerario
   const itinerarySql = `
