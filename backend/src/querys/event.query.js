@@ -100,6 +100,15 @@ export async function createEventAgenda(idEvent, agenda) {
   const activitiesCreated = []
 
   for (const activity of agenda) {
+    const title = typeof activity?.title === "string" ? activity.title.trim() : ""
+    const activityDate = activity?.activity_date || null
+    const activityTime = activity?.activity_time || null
+    const isActive = activity?.is_active ?? true
+
+    if (!title || !activityDate) {
+      continue
+    }
+
     const sql = `
       INSERT INTO events_agenda (
         id_event,
@@ -114,10 +123,10 @@ export async function createEventAgenda(idEvent, agenda) {
 
     const values = [
       idEvent,
-      activity.activity_date,
-      activity.activity_time,
-      activity.title,
-      activity.is_active
+      activityDate,
+      activityTime,
+      title,
+      isActive
     ]
 
     const result = await pool.query(sql, values)

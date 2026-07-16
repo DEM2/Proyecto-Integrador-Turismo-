@@ -32,6 +32,7 @@ export async function createEventService(eventData) {
     const start_date = new Date(eventData.start_date)
     const end_date = new Date(eventData.end_date)
     const currentDate = new Date()
+    const agenda = Array.isArray(eventData?.agenda) ? eventData.agenda : []
 
     if(start_date < currentDate || end_date < currentDate){
         const error = new Error(
@@ -59,7 +60,9 @@ export async function createEventService(eventData) {
 
     const newEvent = await createEventByUser(eventData)
 
-    const agendaCreated = await createEventAgenda(newEvent.id, eventData.agenda)
+    if (agenda.length > 0) {
+        await createEventAgenda(newEvent.id, agenda)
+    }
 
     return newEvent;
 }

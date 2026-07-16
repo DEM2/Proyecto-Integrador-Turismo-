@@ -31,10 +31,16 @@ export async function postEvent(event) {
         body: JSON.stringify(event)
     });
 
-    const result = await response.json()
+    let result = {};
 
-    if(!response.ok){
-        throw new Error("Error al crear el evento")
+    try {
+        result = await response.json();
+    } catch (error) {
+        result = {};
+    }
+
+    if (!response.ok) {
+        throw new Error(result?.message || "Error al crear el evento");
     }
 
     return result;

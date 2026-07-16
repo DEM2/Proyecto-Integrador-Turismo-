@@ -706,8 +706,8 @@ export function organizerCreateEvents() {
 
     const activity = {
       title: titleActivity.value.trim(),
-      activity_date: dateActivity.value,
-      activity_time: timeActivity.value,
+      activity_date: dateActivity.value || null,
+      activity_time: timeActivity.value || null,
       is_active: statusActivity.value === "true"
     }
 
@@ -789,12 +789,15 @@ export function organizerCreateEvents() {
       return;
     }
 
-    //Esta seguro de los cambios?
-
-    const result = await postEvent(eventCreated)
-    alert("Evento publicado correctamente.")
-
-    formCreateEvent.reset()
+    try {
+      const result = await postEvent(eventCreated)
+      alert(result?.message || "Evento publicado correctamente.")
+      formCreateEvent.reset()
+      agendaActivities = []
+      renderAgendaActivities(agendaActivities)
+    } catch (error) {
+      alert(error.message || "No se pudo crear el evento")
+    }
 
 
   })
