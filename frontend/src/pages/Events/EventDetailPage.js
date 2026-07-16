@@ -6,6 +6,7 @@ import {
 import { RenderCommentary } from "../../components/cards/commentary.card.js";
 import { RenderCommentariesModal } from "../../components/layout/commentaryModal.js";
 import { SaveCommentaries } from "../../components/layout/commentaryModal.js";
+import { getReviews } from "../../services/EventReview.service.js";
 
 let currentEvent = null;
 
@@ -308,11 +309,9 @@ export async function renderEventDetailPage() {
             </button>
           </header>
 
-          <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
-
-            ${RenderCommentary()}
-
-            
+          <section
+          id="commentaries-container"
+          class="grid grid-cols-1 gap-4 md:grid-cols-2">
 
           </section>
 
@@ -404,12 +403,16 @@ export async function renderEventDetailPage() {
     }
 }
 
-export function initializeEventDetailPageEvents() {
-    if (!currentEvent) {
-        return;
-    }
+export async function initializeEventDetailPageEvents() {
+
+    if (!currentEvent) return;
+
     renderEventAgenda(currentEvent.agenda);
+
+    await loadCommentaries();
+
     create_commentaries();
+
 }
 
 function groupAgenda(eventAgenda) {
@@ -496,4 +499,16 @@ function create_commentaries() {
 
     });
 
+}
+async function loadCommentaries() {
+
+    const commentaries = await getReviews(currentEvent.id);
+
+    console.log(commentaries);
+
+    const container = document.getElementById("commentaries-container");
+
+    container.innerHTML = commentaries
+        .map(commentary => RenderCommentary(commentary))
+        .join("");
 }
