@@ -1,4 +1,4 @@
-import { renderMainNavigation } from "../../components/layout/MainNavigation.js";
+import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postEvent } from "../../services/eventService.js";
@@ -670,7 +670,9 @@ export function organizerCreateView() {
 let agendaActivities = []
 
 export function organizerCreateEvents() {
-
+//Mostrar menú de navegación en versión móvil
+  initializeMainNavigationEvents();
+  // FIN
 
   //Hacemos dinámico la información del perfil
     renderProfileInfoEvents();
