@@ -47,20 +47,29 @@ export async function getUserItinerariesQ(id_user) {
 
   const sql = `
       SELECT
-        id,
-        name,
-        description,
-        start_date,
-        closing_date,
-        is_public
-      FROM itineraries
-      WHERE id_user=$1
-      ORDER BY id DESC;
+        i.id,
+        i.name,
+        i.description,
+        i.start_date,
+        i.closing_date,
+        i.is_public,
+        COUNT(DISTINCT ip.id) AS places_count,
+        COUNT(DISTINCT ie.id) AS events_count
+      FROM itineraries i
+      LEFT JOIN itinerary_places ip ON ip.id_itinerary = i.id
+      LEFT JOIN itinerary_events ie ON ie.id_itinerary = i.id
+      WHERE i.id_user = $1
+      GROUP BY i.id
+      ORDER BY i.id DESC;
   `;
 
   const result = await pool.query(sql, [id_user]);
 
-  return result.rows;
+  return result.rows.map((row) => ({
+    ...row,
+    places_count: Number(row.places_count),
+    events_count: Number(row.events_count),
+  }));
 
 }
 
