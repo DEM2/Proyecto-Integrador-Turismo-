@@ -120,6 +120,26 @@ export async function getOrganizerProfileSummary(userId) {
         events: profileData.events ?? [],
     };
 
-    createSessionStorageData(normalizedProfileData);
-    return normalizedProfileData;
+    const cachedData = {
+        counts: normalizedProfileData.counts,
+        events: (normalizedProfileData.events ?? []).slice(0, 4),
+    };
+
+    createSessionStorageData(cachedData);
+    return cachedData;
+}
+
+export async function getOrganizerAllEvents(userId) {
+    if (!userId) {
+        return [];
+    }
+
+    const response = await fetch(apiUrl(`/api/organizer-profile/${userId}`));
+    if (!response.ok) {
+        const error = await response.json().catch(() => null);
+        throw new Error(error?.message || "Error al obtener los eventos del organizador");
+    }
+
+    const payload = await response.json();
+    return payload?.data?.events ?? [];
 }

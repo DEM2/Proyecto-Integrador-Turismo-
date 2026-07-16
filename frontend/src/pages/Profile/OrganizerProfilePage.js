@@ -4,6 +4,8 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { renderEventCard } from "../../components/cards/EventsCardOrganizador.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
+import { getOrganizerAllEvents } from "../../services/reviews.service.js";
+import { getSession } from "../../services/authService.js";
 import { navigateTo } from "../../router/AppRouter.js";
 
 export function renderOrganizerProfilePage() {
@@ -35,12 +37,12 @@ export function renderOrganizerProfilePage() {
         </h2>
         
         <div  class="flex flex-col text-center gap-1">
-        <a
-          href="/eventos"
-          class="cursor-pointer font-bold text-blue-600 hover:underline"
+        <button id="btn-show-all-events"
+          type="button"
+          class="font-bold text-blue-600 hover:underline cursor-pointer"
         >
           Ver todos
-        </a>
+        </button>
         <button
           id="btn-create-event"
           type="button"
@@ -90,12 +92,47 @@ export async function initializeOrganizerProfilePageEvents() {
   const profileData = await renderProfileInfoEvents();
 
   if (contenedorEventos) {
-    const eventos = profileData?.events ?? [];
+    const allEvents = profileData?.events ?? [];
+    const eventos = allEvents.slice(0, 4);
 
     if (eventos.length > 0) {
       contenedorEventos.innerHTML = eventos.map((evento) => renderEventCard(evento)).join("");
     } else {
       contenedorEventos.innerHTML = "<p class='col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600'>Aún no tienes eventos creados.</p>";
+    }
+
+    const btnShowAllEvents = document.getElementById("btn-show-all-events");
+    if (btnShowAllEvents) {
+      btnShowAllEvents.addEventListener("click", async () => {
+        const session = getSession();
+        const userId = session?.user?.id;
+
+        if (!userId) {
+          alert("No se pudo cargar los eventos. Inicia sesión de nuevo.");
+          return;
+        }
+
+        try {
+          const allBackendEvents = await getOrganizerAllEvents(userId);
+
+          if (allBackendEvents.length > 0) {
+            contenedorEventos.innerHTML = allBackendEvents.map((evento) => renderEventCard(evento)).join("");
+          } else {
+            contenedorEventos.innerHTML = "<p class='col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600'>Aún no tienes eventos creados.</p>";
+          }
+
+          btnShowAllEvents.classList.add("opacity-50", "pointer-events-none");
+        } catch (error) {
+          console.error(error);
+          alert("Error al cargar todos los eventos. Intenta de nuevo.");
+        }
+      });
+
+      const totalEvents = profileData?.counts?.events ?? allEvents.length;
+      
+      if (totalEvents <= 4) {
+        btnShowAllEvents.classList.add("opacity-50", "pointer-events-none");
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ function formatEventPrice(price) {
   return `Desde $${numericPrice.toLocaleString("es-CO")}`;
 }
 
-export function renderEventCard(event = {}) {
+export function renderEventCard(event) {
   const name = event.name || "Evento sin nombre";
   const address = event.address || "Lugar por confirmar";
   const startDate = event.start_date || "Sin fecha";
@@ -32,12 +32,7 @@ export function renderEventCard(event = {}) {
 
         <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-blue-950/10 to-transparent"></div>
 
-        <time
-          datetime="${event.start_date || ""}"
-          class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-        >
-          <span class="block text-sm uppercase">${startDate}</span>
-        </time>
+        
       </figure>
 
       <section class="space-y-4 p-5">
@@ -49,11 +44,12 @@ export function renderEventCard(event = {}) {
 
         <div class="space-y-2 text-sm text-slate-600">
           <p><span class="font-semibold text-slate-700">Lugar:</span> ${address}</p>
-          <p><span class="font-semibold text-slate-700">Fechas:</span> ${startDate} - ${endDate}</p>
+          <p><span class="font-semibold text-slate-700">Fecha de inicio:</span> ${startDate}</p>
+          <p><span class="font-semibold text-slate-700">Fecha de finalización:</span> ${endDate}</p>
         </div>
 
-        <footer>
-          <strong class="text-xl text-red-500">
+        <footer class="">
+          <strong class=" text-md text-blue-700">
             ${price}
           </strong>
         </footer>

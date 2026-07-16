@@ -57,22 +57,17 @@ export async function countEventsByUserOrganizador(id_user) {
 }
 
 export async function getEventsByUserOrganizador(id_user) {
-    
-    
-  const sql = `
+    const sql = `
                 SELECT events.name,
                 TO_CHAR(events.start_date, 'YYYY-MM-DD') as start_date,
                 TO_CHAR(events.end_date, 'YYYY-MM-DD') as end_date,
-                events.address,events.price
-                from events
-                inner join users on users.id=events.id_user
-                where events.id_user=$1;
-;
-    `;
-  const values = [id_user];
+                events.address, events.price
+                FROM events
+                INNER JOIN users ON users.id = events.id_user
+                WHERE events.id_user = $1`;
+    const values = [id_user];
 
-  const result = await pool.query(sql, values);
-  
+    const result = await pool.query(sql, values);
 
-  return result.rows || null;
+    return result.rows || null;
 }

@@ -311,10 +311,18 @@ export async function renderProfileInfoEvents(){
       const containerTotalR = document.getElementById("treview");
       const containersites = document.getElementById("container-sites");
       const containerevents = document.getElementById("container-events");
+      let profileData = {
+        counts: {
+          reviews: 0,
+          sites: 0,
+          events: 0,
+        },
+        events: [],
+      };
     
       if (sesion?.user) {
         try {
-          const profileData = await getOrganizerProfileSummary(sesion.user.id);
+          profileData = await getOrganizerProfileSummary(sesion.user.id, 4);
 
           if (containerTotalR) {
             containerTotalR.innerText = profileData?.counts?.reviews ?? 0;
@@ -341,7 +349,5 @@ export async function renderProfileInfoEvents(){
         }
       }
     
-      
-
-
+      return profileData;
 }
