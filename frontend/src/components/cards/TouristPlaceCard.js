@@ -1,4 +1,4 @@
-import { Ellipsis, Landmark, UtensilsCrossed, Theater, Trees, ShoppingBag, Moon, MapPin, Navigation } from "lucide";
+import { ListPlus, Landmark, UtensilsCrossed, Theater, Trees, ShoppingBag, Moon, MapPin, Navigation } from "lucide";
 import { getSession } from "../../services/authService.js";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 
@@ -35,7 +35,7 @@ export function renderTouristPlaceCard(destination) {
         class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
       >
 
-        ${renderIconSvg(Ellipsis,{
+        ${renderIconSvg(ListPlus,{
           class:"size-5",
           strokeWidth:2
         })}

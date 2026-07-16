@@ -14,6 +14,7 @@ import {
     Baby
 } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
+import ventanaMundo from "../../assets/videos/ventana_mundo.mp4";
 
 export function renderTouristPlacesPage() {
     return `
@@ -22,7 +23,15 @@ export function renderTouristPlacesPage() {
 
             <!-- Imagen de fondo -->
             <figure class="absolute inset-0">
-                <img src="/src/assets/images/auduana2.jpg" class="absolute inset-0 block w-full h-full object-cover" alt="Fondo"/>
+                 <video
+                    class="absolute inset-0 block w-full h-full object-cover"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    >
+                <source src="${ventanaMundo}" type="video/mp4" />
+                </video>
             </figure>
 
             <!-- Degradado -->
@@ -36,23 +45,49 @@ export function renderTouristPlacesPage() {
             </span>
 
             <!-- Contenido -->
-            <section class="relative z-50 flex h-full items-start pt-16 px-12 w-3xl ">
+            <section class="relative z-50 flex-col h-full items-start pt-16 px-12 w-3xl ">
 
 
                 <article class="max-w-2xl">
 
-                    <h1 class="text-6xl font-extrabold leading-tight text-[#0B2E69]">
+                    <h1 class="text-5xl font-bold leading-tight text-[#0B2E69]">
                         Descubre los mejores
                         <br>
                         lugares de Barranquilla
                     </h1>
 
-                    <p class="mt-5 text-xl leading-8  text-gray-700">
+                    <p class="mt-5 text-xl leading-8  text-gray-700 max-w-xl">
                         Explora la historia, la cultura, la naturaleza y los rincones
                         únicos que hacen de Barranquilla una ciudad inolvidable.
                     </p>
 
                 </article>
+
+                <div class="relative mt-8 w-full max-w-2xl">
+
+    <input
+        id="destination_search"
+        type="text"
+        placeholder="Buscar lugares turísticos..."
+        class="h-14 w-full rounded-2xl border border-gray-200 bg-white px-6 pr-14 shadow-xl outline-none transition-all duration-300 focus:ring-4 focus:ring-blue-100"
+    />
+
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor">
+
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-4.35-4.35m1.35-5.15a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"/>
+
+    </svg>
+
+</div>
 
             </section>
 
@@ -85,10 +120,10 @@ export function renderTouristPlacesPage() {
                 <!-- Encabezado -->
                 <section class="mb-8">
 
-                    <h2 class=" font-semibold text-[#0B2E69] text-3xl">
+                    <h2 class=" font-semibold text-[#0B2E69] text-xl">
 
                         <span id="destination_count">245</span>
-                        <span class="   text-3xl">
+                        <span class="">
                             Destinos encontrados
                         </span>
 
@@ -113,12 +148,47 @@ export async function initializeTouristPlacesPageEvents() {
     const destination_container = document.getElementById("destination_container")
     const destination_count = document.getElementById("destination_count");
     const filters_container = document.getElementById("filters_container");
+    const searchInput = document.getElementById("destination_search");
 
     const destinations = await getDestinations();
     destination_count.textContent = destinations.length;
 
-    destination_container.innerHTML = destinations.map(d => renderTouristPlaceCard(d)).join("");
-    initializeItineraryMenus()
+    let selectedCategory = "Todos";
+    let searchText = "";
+
+    
+
+    function renderDestinations(list) {
+        destination_container.innerHTML = list
+            .map(destination => renderTouristPlaceCard(destination))
+            .join("");
+
+        destination_count.textContent = list.length;
+
+        initializeItineraryMenus();
+    }
+
+    function applyFilters() {
+
+    const filtered = destinations.filter(destination => {
+
+        const matchesCategory =
+            selectedCategory === "Todos" ||
+            destination.category === selectedCategory;
+
+        const matchesSearch =
+            destination.place.toLowerCase().includes(searchText) 
+
+        return matchesCategory && matchesSearch;
+
+    });
+
+    renderDestinations(filtered);
+
+}
+
+    renderDestinations(destinations);
+
     const categories = [
 
     {
@@ -188,5 +258,26 @@ export async function initializeTouristPlacesPageEvents() {
     filters_container.innerHTML = categories
         .map(category => renderCategoryFilterCard(category))
         .join("");
+
+    document.querySelectorAll("[data-category]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        selectedCategory = button.dataset.category;
+
+        applyFilters();
+
+    });
+
+});
+
+    searchInput.addEventListener("input", (event) => {
+
+     searchText = event.target.value.toLowerCase().trim();
+
+     applyFilters();
+
+
+});
 
 }
