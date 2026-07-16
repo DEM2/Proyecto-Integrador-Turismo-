@@ -4,7 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
-import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
+import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador, getSitesOrganizador } from "../../services/reviews.service.js";
 import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
@@ -309,184 +309,9 @@ export function renderOrganizerProfilePage() {
         </a>
       </header>
 
-      <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section id="Eventos-container" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
-        <!-- EVENTO 1 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Carnaval de Barranquilla 2025"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-02-15"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">15</span>
-              <span class="block text-sm">FEB</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Carnaval de Barranquilla 2025
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-red-50 px-2 py-1 text-sm font-semibold text-red-500">
-                Festival
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-red-500">
-                Desde $0
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 2 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Concierto en el Río"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-06-22"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">22</span>
-              <span class="block text-sm">JUN</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Concierto en el Río
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-blue-50 px-2 py-1 text-sm font-semibold text-blue-600">
-                Concierto
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-blue-600">
-                Desde $40.000
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 3 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Noche de Jazz"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-07-05"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">05</span>
-              <span class="block text-sm">JUL</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Noche de Jazz
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-purple-50 px-2 py-1 text-sm font-semibold text-purple-600">
-                Música
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-blue-600">
-                Desde $35.000
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 4 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Sabores del Caribe"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-07-12"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">12</span>
-              <span class="block text-sm">JUL</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Sabores del Caribe
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-orange-50 px-2 py-1 text-sm font-semibold text-orange-600">
-                Gastronomía
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-green-600">
-                Entrada libre
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
+        <!-- EVENTOS -->
       </section>
     </section>
 
@@ -528,60 +353,100 @@ export function renderOrganizerProfilePage() {
     `;
 }
 
-  export async function initializeOrganizerProfilePageEvents() {
+export async function initializeOrganizerProfilePageEvents() {
   //Mostrar menú de navegación en versión móvil
   initializeMainNavigationEvents();
   // FIN
 
-
-  //Hacemos dinamico la informacion del perfil
+  //Hacemos dinámico la información del perfil
   const placeholder = document.getElementById("btn-follow");
-  placeholder.replaceWith(createFollowButton("purple"));
+  if (placeholder) {
+    placeholder.replaceWith(createFollowButton("purple"));
+  }
+
   const nombreUsuario = document.getElementById("profile-name");
   const username = document.getElementById("user-name");
   const description = document.getElementById("description");
- 
-
 
   const sesion = getSession();
-  nombreUsuario.innerText = sesion.user.name;
-  ((username.innerText = "@"), sesion.user.username);
-  description.innerText = sesion.user.description;
-  //FINN
+  if (sesion?.user) {
+    if (nombreUsuario) {
+      nombreUsuario.innerText = sesion.user.name || "Usuario";
+    }
 
+    if (username) {
+      username.innerText = `@${sesion.user.username || ""}`;
+    }
 
+    if (description) {
+      description.innerText = sesion.user.description || "Sin descripción disponible.";
+    }
+  }
+  //FIN
+
+  const reviewsContainer = document.getElementById("reviews-container");
+  const containerTotalR = document.getElementById("treview");
+  const containersites = document.getElementById("container-sites");
+  const containerevents = document.getElementById("container-events");
+  const contenedorEventos = document.getElementById("Eventos-container");
 
   // LAS REVIEWS SITES & EVENTS
+  if (sesion?.user) {
+    try {
+      const reviews = await getReviewsOrganizador(sesion.user.id);
+      if (reviewsContainer && reviews?.data) {
+        reviewsContainer.innerHTML = reviews.data
+          .map((review) => renderReviewCardOrganizador(review))
+          .join("");
+      }
+    } catch (error) {
+      console.error("No se pudieron cargar las reseñas del organizador:", error);
+      if (reviewsContainer) {
+        reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No se pudieron cargar las reseñas.</p>';
+      }
+    }
 
-  try {
-    const reviews = await getReviewsOrganizador(sesion.user.id);
-    const totalreviews = await countReviewsOrganizador(sesion.user.id);
-    const totalr=totalreviews.data[0].total_reviews;
-    const totalsites= await countSitesOrganizador(sesion.user.id);
-    const totals=totalsites.data[0].total_sites
-    const totalevents= await countEventsOrganizador(sesion.user.id);
-    const totale=totalevents.data[0].total_events
+    try {
+      const totalreviews = await countReviewsOrganizador(sesion.user.id);
+      const totalr = totalreviews?.data?.[0]?.total_reviews ?? 0;
+      if (containerTotalR) {
+        containerTotalR.innerText = totalr;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de reseñas:", error);
+      if (containerTotalR) {
+        containerTotalR.innerText = "0";
+      }
+    }
 
-    
-    
-    const container = document.getElementById("reviews-container");
-    const button = document.getElementById("btn-show-more-reviews");
-    const containerTotalR= document.getElementById("treview")
-    containerTotalR.innerText= totalr
-    const containersites= document.getElementById("container-sites")
-    containersites.innerText=totals
-    const containerevents= document.getElementById("container-events")
-    containerevents.innerText=totale
+    try {
+      const totalsites = await countSitesOrganizador(sesion.user.id);
+      const totals = totalsites?.data?.[0]?.total_sites ?? 0;
+      if (containersites) {
+        containersites.innerText = totals;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de sitios:", error);
+      if (containersites) {
+        containersites.innerText = "0";
+      }
+    }
 
-
-    container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
-  
-  
-    
-  } catch (error) {
-    console.log(error);
-    
+    try {
+      const totalevents = await countEventsOrganizador(sesion.user.id);
+      const totale = totalevents?.data?.[0]?.total_events ?? 0;
+      if (containerevents) {
+        containerevents.innerText = totale;
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el total de eventos:", error);
+      if (containerevents) {
+        containerevents.innerText = "0";
+      }
+    }
   }
 
-
+  if (contenedorEventos) {
+    contenedorEventos.innerHTML = "";
+  }
 }
