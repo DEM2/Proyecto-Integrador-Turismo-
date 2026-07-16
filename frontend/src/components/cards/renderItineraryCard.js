@@ -1,4 +1,4 @@
-import { ChevronRight, CalendarDays, MapPin } from "lucide";
+import { ChevronRight, CalendarDays, MapPin, Trash2 } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 
 function formatDate(date) {
@@ -97,23 +97,40 @@ export function renderItineraryCard(itinerary) {
 
       </section>
 
-      <!-- Flecha -->
-      <span
-        class="
-          shrink-0
-          text-slate-400
-          transition
-          group-hover:text-violet-600
-          group-hover:translate-x-1
-        "
-      >
+      <!-- Acciones -->
+      <div class="flex shrink-0 items-center gap-1">
 
-        ${renderIconSvg(ChevronRight,{
-          class:"size-6",
-          strokeWidth:2
-        })}
+        <button
+          type="button"
+          class="delete-itinerary-btn rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-600"
+          title="Eliminar itinerario"
+        >
 
-      </span>
+          ${renderIconSvg(Trash2,{
+            class:"size-5",
+            strokeWidth:2
+          })}
+
+        </button>
+
+        <!-- Flecha -->
+        <span
+          class="
+            text-slate-400
+            transition
+            group-hover:text-violet-600
+            group-hover:translate-x-1
+          "
+        >
+
+          ${renderIconSvg(ChevronRight,{
+            class:"size-6",
+            strokeWidth:2
+          })}
+
+        </span>
+
+      </div>
 
     </article>
   `;

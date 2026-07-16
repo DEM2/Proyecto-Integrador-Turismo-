@@ -107,3 +107,24 @@ export async function getItineraryDetail(id){
     return data;
 
 }
+
+
+/**
+ * Elimina un itinerario junto con los lugares y eventos
+ * registrados en él (eliminación en cadena a cargo del backend)
+ */
+export async function deleteItinerary(id) {
+
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+
+    const data = await response.json().catch(() => ({}));
+
+    throw new Error(data.message || "No fue posible eliminar el itinerario");
+  }
+
+  return true;
+}

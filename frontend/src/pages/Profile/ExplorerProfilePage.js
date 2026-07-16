@@ -11,7 +11,7 @@ import {
     Star,
     Map
 } from "lucide";
-import { getItineraryDetail, getUserItineraries } from "../../services/itineraries.service.js";
+import { getItineraryDetail, getUserItineraries, deleteItinerary} from "../../services/itineraries.service.js";
 import { renderItineraryCard } from "../../components/cards/renderItineraryCard.js";
 import { openItineraryDetailModal } from "../../components/layout/itineraryDetailModal.js";
 
@@ -402,6 +402,41 @@ function initializeItineraryCards() {
 
             });
 
-        });
+            const deleteButton = card.querySelector(".delete-itinerary-btn");
 
+            deleteButton?.addEventListener("click", async (e) => {
+
+                // Evita que el click abra el modal de detalle
+                e.stopPropagation();
+
+                const id = card.dataset.itineraryId;
+                const name = card.querySelector("h3")?.textContent.trim() || "este itinerario";
+
+                const confirmed = window.confirm(
+                    `¿Seguro que deseas eliminar "${name}"?\n\nSe eliminarán también todos los lugares y eventos registrados en él. Esta acción no se puede deshacer.`
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                deleteButton.disabled = true;
+
+                try {
+
+                    await deleteItinerary(id);
+
+                    card.remove();
+
+                } catch (error) {
+
+                    console.error(error);
+                    alert(error.message || "No fue posible eliminar el itinerario");
+                    deleteButton.disabled = false;
+
+                }
+
+            });
+
+        });
 }
