@@ -5,7 +5,6 @@ import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controller
 import { destinations } from "../controllers/destinations.controller.js";
 import { createEventController, getEventController } from "../controllers/event.controller.js";
 import { validateCreateEvent } from "../validators/event.validator.js";
-import { getEventController } from "../controllers/event.controller.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
