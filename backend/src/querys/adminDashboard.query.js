@@ -81,21 +81,34 @@ export async function getAdminDashboardPendingOrganizers() {
 
 export async function getAdminDashboardRecentReviews() {
   const sql = `
-    select events_reviews.comments,
-       TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') as created_at,
-       TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') as updated_at,
-       users.name from events_reviews
-      inner join users on events_reviews.id_user = users.id
-      limit 3
+    SELECT
+      comments,
+      TO_CHAR(created_at, 'YYYY-MM-DD') AS created_at,
+      TO_CHAR(updated_at, 'YYYY-MM-DD') AS updated_at,
+      name
+    FROM (
+      SELECT
+        events_reviews.comments,
+        events_reviews.created_at,
+        events_reviews.updated_at,
+        users.name
+      FROM events_reviews
+      INNER JOIN users
+        ON events_reviews.id_user = users.id
 
       UNION ALL
 
-      select places_reviews.comments,
-       TO_CHAR(places_reviews.created_at,'YYYY-MM-DD' ) as created_at,
-       TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD' ) as updated_at,
-       users.name from places_reviews
-      inner join users on places_reviews.id_user = users.id
-      limit 3
+      SELECT
+        places_reviews.comments,
+        places_reviews.created_at,
+        places_reviews.updated_at,
+        users.name
+      FROM places_reviews
+      INNER JOIN users
+        ON places_reviews.id_user = users.id
+    ) reviews
+    ORDER BY created_at DESC
+    LIMIT 3;
   `;
 
   const result = await pool.query(sql);
