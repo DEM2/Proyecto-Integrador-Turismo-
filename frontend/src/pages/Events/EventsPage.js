@@ -17,6 +17,7 @@ import {
 } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
+import { getAllEvent } from "../../services/eventService.js";
 
 export function renderEventsPage() {
   return `
@@ -203,8 +204,9 @@ export async function initializeEventsPageEvents() {
 
       const eventosContainer = document.getElementById("eventos-destacados");
 
-      const eventos = await getEventosDestacados();
-
+      const eventos = await getAllEvent();
+      console.log(eventos);
+      
       if (eventos) {
 
           eventosContainer.innerHTML = eventos

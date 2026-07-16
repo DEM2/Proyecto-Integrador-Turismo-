@@ -49,9 +49,11 @@ export async function postEvent(event) {
 export async function getAllEvent() {
   
   const response = await fetch(apiUrl("/api/events"));
+  console.log(response);
+  
     if (!response.ok) {
     const error = await response.json().catch(() => null);
-    throw new Error(error?.message || "Error al obtener los Eventos destacados");
+    throw new Error(error?.message || "Error al obtener los Eventos");
   } 
     return await response.json();
 }
