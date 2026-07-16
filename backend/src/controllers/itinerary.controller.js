@@ -98,7 +98,7 @@ export async function addPlaceToItinerary(req, res) {
 
 /* Agregar evento */
 export async function addEventToItinerary(req, res) {
-
+  console.log("hello como estas ")
   try {
 
     const { id } = req.params;

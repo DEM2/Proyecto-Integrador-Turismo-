@@ -98,7 +98,6 @@ router.post(
 
 router.post(
     "/itineraries/:id/events",
-    authMiddleware,
     addEventToItinerary
 );
 
