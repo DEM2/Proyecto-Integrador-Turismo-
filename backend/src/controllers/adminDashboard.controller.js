@@ -1,5 +1,6 @@
 import {
   countAdminDashboardEvents,
+  countAdminDashboardPendingOrganizers,
   countAdminDashboardPlaces,
   countAdminDashboardReviews,
   countAdminDashboardUsers,
@@ -14,6 +15,7 @@ export async function getAdminDashboardController(req, res) {
       eventsCount,
       placesCount,
       reviewsCount,
+      pendingOrganizersCount,
       pendingOrganizers,
       recentReviews,
     ] = await Promise.all([
@@ -21,6 +23,7 @@ export async function getAdminDashboardController(req, res) {
       countAdminDashboardEvents(),
       countAdminDashboardPlaces(),
       countAdminDashboardReviews(),
+      countAdminDashboardPendingOrganizers(),
       getAdminDashboardPendingOrganizers(),
       getAdminDashboardRecentReviews(),
     ]);
@@ -34,7 +37,7 @@ export async function getAdminDashboardController(req, res) {
           events: Number(eventsCount?.total_events ?? 0),
           places: Number(placesCount?.total_places ?? 0),
           reviews: Number(reviewsCount?.total_reviews ?? 0),
-          pendingOrganizers: pendingOrganizers.length,
+          pendingOrganizers: Number(pendingOrganizersCount?.total_pending_organizers ?? 0),
         },
         pendingOrganizers,
         recentReviews,

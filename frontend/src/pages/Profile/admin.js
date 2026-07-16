@@ -3,10 +3,13 @@ import { renderAdminDashboardPendingRequests } from "../../components/cards/admi
 import { renderAdminDashboardQuickActions } from "../../components/cards/adminDashboardQuickActions.js";
 import { renderAdminDashboardRecentReviews } from "../../components/cards/adminDashboardRecentReviews.js";
 import { renderAdminDashboardSidebar } from "../../components/cards/adminDashboardSidebar.js";
-import { getAdminDashboardData } from "../../services/adminDashboard.service.js";
 
 export async function adminDashboardPage() {
-  const dashboardData = await getAdminDashboardData();
+  const [metricCards, pendingRequests, recentReviews] = await Promise.all([
+    renderAdminDashboardMetricCards(),
+    renderAdminDashboardPendingRequests(),
+    renderAdminDashboardRecentReviews(),
+  ]);
 
   return `
     <main class="min-h-screen bg-slate-50 font-sans text-slate-950 lg:grid lg:h-screen lg:grid-cols-[17rem_1fr] lg:overflow-hidden">
@@ -27,11 +30,11 @@ export async function adminDashboardPage() {
           </section>
         </header>
 
-        ${renderAdminDashboardMetricCards(dashboardData.counts)}
+        ${metricCards}
 
         <section class="mt-3 grid min-h-0 flex-1 gap-3 xl:grid-cols-[1fr_1fr]" aria-label="Actividad pendiente y reciente">
-          ${renderAdminDashboardPendingRequests(dashboardData.pendingOrganizers)}
-          ${renderAdminDashboardRecentReviews(dashboardData.recentReviews)}
+          ${pendingRequests}
+          ${recentReviews}
         </section>
 
         ${renderAdminDashboardQuickActions()}

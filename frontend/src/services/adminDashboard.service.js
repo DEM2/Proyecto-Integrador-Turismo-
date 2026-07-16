@@ -1,6 +1,17 @@
 import { apiUrl } from "./apiConfig.js";
 
+let adminDashboardDataPromise = null;
+
 export async function getAdminDashboardData() {
+  if (adminDashboardDataPromise) {
+    return adminDashboardDataPromise;
+  }
+
+  adminDashboardDataPromise = fetchAdminDashboardData();
+  return adminDashboardDataPromise;
+}
+
+async function fetchAdminDashboardData() {
   const response = await fetch(apiUrl("/api/admin-dashboard"));
 
   if (!response.ok) {
@@ -10,15 +21,5 @@ export async function getAdminDashboardData() {
 
   const payload = await response.json();
 
-  return payload?.data ?? {
-    counts: {
-      users: 0,
-      events: 0,
-      places: 0,
-      reviews: 0,
-      pendingOrganizers: 0,
-    },
-    pendingOrganizers: [],
-    recentReviews: [],
-  };
+  return payload?.data ?? {};
 }

@@ -1,26 +1,39 @@
-function renderStars(score) {
-  const normalizedScore = Math.max(0, Math.min(5, Math.round(Number(score ?? 0))));
-  return `${"&#9733;".repeat(normalizedScore)}${"&#9734;".repeat(5 - normalizedScore)}`;
-}
+import {
+  getAdminDashboardData,
+} from "../../services/adminDashboard.service.js";
 
 function renderRecentReviewItem(review) {
-  const rating = Number(review.score ?? 0).toFixed(1);
-  const image = review.image_main || "/images/carnaval-detalle.png";
+  const userName = review.name || "Usuario";
+  const comments = review.comments || "Sin comentario";
+  const createdAt = review.created_at || "Sin fecha";
+  const updatedAt = review.updated_at || "";
 
   return `
-    <li class="grid grid-cols-[4.5rem_1fr_auto] gap-3 px-5 py-2.5">
-      <img src="${image}" alt="" class="h-14 w-18 rounded-lg object-cover" />
+    <li class="grid grid-cols-[1fr_auto] gap-4 px-5 py-3">
       <article>
-        <h3 class="font-extrabold text-slate-800 lg:text-sm">${review.target_name}</h3>
-        <p class="text-sm font-semibold text-slate-500">por ${review.author}</p>
-        <p class="mt-1 text-sm font-bold text-amber-400" aria-label="Calificacion ${rating} de 5">${renderStars(review.score)} <span class="ml-2 text-slate-500">${rating}</span></p>
+        <h3 class="font-extrabold text-slate-800 lg:text-sm">${userName}</h3>
+        <p class="mt-1 line-clamp-2 text-sm font-medium text-slate-600">
+          ${comments}
+        </p>
+        <p class="mt-1 text-xs font-semibold text-slate-400">
+          ${updatedAt ? `Actualizada el ${updatedAt}` : ""}
+        </p>
       </article>
-      <p class="text-right text-sm font-medium text-slate-500">${review.review_date}</p>
+      <p class="text-right text-sm font-medium text-slate-500">${createdAt}</p>
     </li>
   `;
 }
 
-export function renderAdminDashboardRecentReviews(recentReviews = []) {
+export async function renderAdminDashboardRecentReviews() {
+  let recentReviews = [];
+
+  try {
+    const dashboardData = await getAdminDashboardData();
+    recentReviews = dashboardData.recentReviews ?? recentReviews;
+  } catch (error) {
+    console.error(error);
+  }
+
   const reviewItems = recentReviews.length
     ? recentReviews.map((review) => renderRecentReviewItem(review)).join("")
     : `<li class="p-6 text-center text-sm font-semibold text-slate-500">No hay resenas recientes.</li>`;

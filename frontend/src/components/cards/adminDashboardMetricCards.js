@@ -1,61 +1,84 @@
-import { renderAdminDashboardMetricCard } from "./adminDashboardMetricCard.js";
+import { getAdminDashboardData } from "../../services/adminDashboard.service.js";
 
 function formatCount(value) {
-  return Number(value ?? 0).toLocaleString("en-US");
+  return Number(value ?? 0);
 }
 
-export function renderAdminDashboardMetricCards(counts = {}) {
-  const dashboardMetrics = [
-    {
-      title: "Usuarios",
-      value: formatCount(counts.users),
-      description: "Total registrados",
-      actionLabel: "Ver usuarios",
-      actionClass: "text-blue-700 hover:bg-sky-100",
-      icon: "users",
-      iconClass: "bg-blue-100 text-blue-600",
-    },
-    {
-      title: "Eventos",
-      value: formatCount(counts.events),
-      description: "Total eventos",
-      actionLabel: "Ver eventos",
-      actionClass: "text-emerald-600 hover:bg-emerald-100",
-      icon: "events",
-      iconClass: "bg-emerald-100 text-emerald-600",
-    },
-    {
-      title: "Sitios",
-      value: formatCount(counts.places),
-      description: "Total sitios",
-      actionLabel: "Ver sitios",
-      actionClass: "text-violet-600 hover:bg-violet-100",
-      icon: "places",
-      iconClass: "bg-violet-100 text-violet-600",
-    },
-    {
-      title: "Resenas",
-      value: formatCount(counts.reviews),
-      description: "Total resenas",
-      actionLabel: "Ver resenas",
-      actionClass: "text-amber-500 hover:bg-amber-100",
-      icon: "reviews",
-      iconClass: "bg-amber-100 text-amber-500",
-    },
-    {
-      title: "Solicitudes pendientes",
-      value: formatCount(counts.pendingOrganizers),
-      description: "Por revisar",
-      actionLabel: "Ver solicitudes",
-      actionClass: "text-orange-700 hover:bg-orange-200",
-      icon: "requests",
-      iconClass: "bg-orange-100 text-orange-500",
-    },
-  ];
+export async function renderAdminDashboardMetricCards() {
+  const dashboardData = await getAdminDashboardData();
+  const counts = dashboardData.counts || {};
+
+  const totalUsers = counts.users || 0;
+  const totalEvents = counts.events || 0;
+  const totalPlaces = counts.places || 0;
+  const totalReviews = counts.reviews || 0;
+  const totalPendingOrganizers = counts.pendingOrganizers || 0;
 
   return `
     <section aria-label="Resumen de metricas" class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-      ${dashboardMetrics.map((metric) => renderAdminDashboardMetricCard(metric)).join("")}
+      <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
+        <svg aria-hidden="true" class="mb-3 size-12 rounded-full bg-blue-100 p-3 text-blue-600 lg:size-10 lg:p-2.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5 1.34 3.5 3 3.5ZM8 11c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Zm8 0c-.33 0-.7.02-1.1.06 1.33.96 2.1 2.18 2.1 3.94v2h7v-2c0-2.66-5.33-4-8-4Z" />
+        </svg>
+        <h2 class="text-sm font-bold text-slate-800">Usuarios</h2>
+        <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalUsers)}</p>
+        <p class="mt-1 text-sm font-medium text-slate-500">Total registrados</p>
+        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-blue-700 transition hover:bg-sky-100 lg:mt-3 lg:py-1.5">
+          Ver usuarios <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+
+      <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
+        <svg aria-hidden="true" class="mb-3 size-12 rounded-full bg-emerald-100 p-3 text-emerald-600 lg:size-10 lg:p-2.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.31 0-6 1.57-6 3.5V20h7.26a6.5 6.5 0 0 1-.26-1.82 6.42 6.42 0 0 1 1.28-3.86A9.84 9.84 0 0 0 12 14Zm7.5 1.5.47 1.45h1.53l-1.24.9.47 1.45-1.23-.9-1.24.9.48-1.45-1.24-.9h1.53l.47-1.45Z" />
+        </svg>
+        <h2 class="text-sm font-bold text-slate-800">Eventos</h2>
+        <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalEvents)}</p>
+        <p class="mt-1 text-sm font-medium text-slate-500">Total eventos</p>
+        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-emerald-600 transition hover:bg-emerald-100 lg:mt-3 lg:py-1.5">
+          Ver eventos <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+
+      <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
+        <svg aria-hidden="true" class="mb-3 size-12 rounded-full bg-violet-100 p-3 text-violet-600 lg:size-10 lg:p-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        <h2 class="text-sm font-bold text-slate-800">Sitios</h2>
+        <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalPlaces)}</p>
+        <p class="mt-1 text-sm font-medium text-slate-500">Total sitios</p>
+        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-violet-600 transition hover:bg-violet-100 lg:mt-3 lg:py-1.5">
+          Ver sitios <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+
+      <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
+        <svg aria-hidden="true" class="mb-3 size-12 rounded-full bg-amber-100 p-3 text-amber-500 lg:size-10 lg:p-2.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" />
+        </svg>
+        <h2 class="text-sm font-bold text-slate-800">Resenas</h2>
+        <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalReviews)}</p>
+        <p class="mt-1 text-sm font-medium text-slate-500">Total resenas</p>
+        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-amber-500 transition hover:bg-amber-100 lg:mt-3 lg:py-1.5">
+          Ver resenas <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+
+      <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
+        <svg aria-hidden="true" class="mb-3 size-12 rounded-full bg-orange-100 p-3 text-orange-500 lg:size-10 lg:p-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+          <rect width="8" height="4" x="8" y="2" rx="1" />
+          <path d="M9 12h6" />
+          <path d="M9 16h6" />
+        </svg>
+        <h2 class="text-sm font-bold text-slate-800">Solicitudes pendientes</h2>
+        <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalPendingOrganizers)}</p>
+        <p class="mt-1 text-sm font-medium text-slate-500">Por revisar</p>
+        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-orange-700 transition hover:bg-orange-200 lg:mt-3 lg:py-1.5">
+          Ver solicitudes <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
     </section>
   `;
 }

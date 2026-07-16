@@ -44,6 +44,20 @@ export async function countAdminDashboardReviews() {
   return result.rows[0] || null;
 }
 
+export async function countAdminDashboardPendingOrganizers() {
+  const sql = `
+    SELECT COUNT(*) AS total_pending_organizers
+    FROM users u
+    INNER JOIN roles r
+      ON r.id = u.id_role
+    WHERE LOWER(r.name) = 'organizador'
+      AND u.is_active = false;
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows[0] || null;
+}
+
 export async function getAdminDashboardPendingOrganizers() {
   const sql = `
     SELECT
@@ -67,41 +81,21 @@ export async function getAdminDashboardPendingOrganizers() {
 
 export async function getAdminDashboardRecentReviews() {
   const sql = `
-    SELECT
-      target_name,
-      author,
-      score,
-      TO_CHAR(created_at, 'DD/MM/YYYY') AS review_date,
-      image_main
-    FROM (
-      SELECT
-        ev.name AS target_name,
-        CONCAT_WS(' ', u.name, u.last_name) AS author,
-        er.score,
-        er.created_at,
-        ev.image_main
-      FROM events_reviews er
-      INNER JOIN events ev
-        ON ev.id = er.id_event
-      INNER JOIN users u
-        ON u.id = er.id_user
+    select events_reviews.comments,
+       TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') as created_at,
+       TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') as updated_at,
+       users.name from events_reviews
+      inner join users on events_reviews.id_user = users.id
+      limit 3
 
       UNION ALL
 
-      SELECT
-        p.name AS target_name,
-        CONCAT_WS(' ', u.name, u.last_name) AS author,
-        pr.score,
-        pr.created_at,
-        NULL AS image_main
-      FROM places_reviews pr
-      INNER JOIN places p
-        ON p.id = pr.id_place
-      INNER JOIN users u
-        ON u.id = pr.id_user
-    ) reviews
-    ORDER BY created_at DESC
-    LIMIT 3;
+      select places_reviews.comments,
+       TO_CHAR(places_reviews.created_at,'YYYY-MM-DD' ) as created_at,
+       TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD' ) as updated_at,
+       users.name from places_reviews
+      inner join users on places_reviews.id_user = users.id
+      limit 3
   `;
 
   const result = await pool.query(sql);

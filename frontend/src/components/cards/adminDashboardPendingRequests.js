@@ -1,3 +1,7 @@
+import {
+  getAdminDashboardData,
+} from "../../services/adminDashboard.service.js";
+
 function renderPendingRequestItem(request) {
   const fullName = [request.name, request.last_name].filter(Boolean).join(" ");
   const requestedAt = request.requested_at ?? "Sin fecha";
@@ -25,7 +29,16 @@ function renderPendingRequestItem(request) {
   `;
 }
 
-export function renderAdminDashboardPendingRequests(pendingRequests = []) {
+export async function renderAdminDashboardPendingRequests() {
+  let pendingRequests = [];
+
+  try {
+    const dashboardData = await getAdminDashboardData();
+    pendingRequests = dashboardData.pendingOrganizers ?? pendingRequests;
+  } catch (error) {
+    console.error(error);
+  }
+
   const requestItems = pendingRequests.length
     ? pendingRequests.map((request) => renderPendingRequestItem(request)).join("")
     : `<li class="rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm font-semibold text-slate-500">No hay solicitudes pendientes.</li>`;
