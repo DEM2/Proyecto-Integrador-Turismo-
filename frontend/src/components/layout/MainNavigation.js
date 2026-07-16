@@ -12,9 +12,9 @@ export function renderMainNavigation() {
     <header
       class=" NAVEGACION  font-sans text-blue-950 flex items-center justify-between h-20 pl-4 sm:pl-6 md:pl-10 pr-2 sm:pr-4 md:pr-8 bg-gray-50"
     >
-      <figure class="w-60 flex items-center gap-4">
+      <figure id= "logo_container" class="w-60 flex items-center gap-4">
         <h1 class="text-3xl font-bold max-md:text-2xl">Barranquilla</h1>
-        <img class="w-32 max-md:w-28" src="/src/assets/logos/logo.png" alt="Logo">
+        <img id ="logo" class="w-32 max-md:w-28" src="/src/assets/logos/logo.png" alt="Logo">
       </figure>
       <nav class="">
       <img 
@@ -87,7 +87,13 @@ export function initializeMainNavigationEvents() {
   const boton = document.getElementById("boton_menu");
   const navegacion = document.getElementById("navegacion");
   const equis = document.getElementById("boton_equis");
+  const logo = document.getElementById("logo_container")
 
+  logo.addEventListener("click", () => {
+    navigateTo("/");
+  });
+
+  
   boton.addEventListener("click", funcionMenu);
   equis.addEventListener("click", funcionMenu);
 
@@ -152,7 +158,7 @@ export function initializeMainNavigationEvents() {
 
     document.getElementById("menu_itinerario").addEventListener("click", () => {
       menuPerfil.classList.add("hidden");
-
+ 
      openCreateItineraryModal()
       
     });
