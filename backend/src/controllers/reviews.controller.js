@@ -1,4 +1,4 @@
-import { countReviewsByUserOrganizador, getReviewsByUserOrganizador } from "../querys/perfilOrganizador.js";
+import { countReviewsByUserOrganizador, getReviewsByUserOrganizador } from "../querys/perfilOrganizador.query.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 
 export async function getReviewsController(req, res) {

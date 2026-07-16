@@ -4,7 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
-import { countReviewsOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
+import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
 import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
@@ -43,13 +43,9 @@ export function renderOrganizerProfilePage() {
       <figure class="relative shrink-0">
         <img
           src="/src/assets/images/familias.webp"
-          alt="Foto de perfil de Mateo Mercado"
+          alt="Foto de perfil del usuario"
           class="size-50 rounded-full border-4 border-white object-cover shadow-xl sm:size-40 md:size-62"
         />
-
-        <figcaption class="sr-only">
-          Foto de perfil de Mateo Mercado
-        </figcaption>
 
         <div
           class="absolute -bottom-2 right-1 flex items-center justify-center rounded-full "
@@ -70,7 +66,7 @@ export function renderOrganizerProfilePage() {
             id="profile-name"
             class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
           >
-            Mateo Mercado
+            
           </h2>
 
           <button
@@ -83,12 +79,11 @@ export function renderOrganizerProfilePage() {
         </section>
 
         <p id="user-name" class="mt-1 text-sm font-semibold sm:text-base">
-          @Matero123_sew
+          @
         </p>
 
         <p id="description" class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
-          Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-          archivos de texto...
+          ...
         </p>
 
         <!-- Redes sociales -->
@@ -221,7 +216,7 @@ export function renderOrganizerProfilePage() {
 
             <span>
               <strong id="treview" class="block text-2xl font-black text-blue-950">
-                10
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -246,8 +241,8 @@ export function renderOrganizerProfilePage() {
             />
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
-                18
+              <strong id="container-sites" class="block text-2xl font-black text-blue-950">
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -272,8 +267,8 @@ export function renderOrganizerProfilePage() {
             />
 
             <span>
-              <strong class="block text-2xl font-black text-blue-950">
-                12
+              <strong id="container-events" class="block text-2xl font-black text-blue-950">
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -545,6 +540,8 @@ export function renderOrganizerProfilePage() {
   const nombreUsuario = document.getElementById("profile-name");
   const username = document.getElementById("user-name");
   const description = document.getElementById("description");
+ 
+
 
   const sesion = getSession();
   nombreUsuario.innerText = sesion.user.name;
@@ -554,12 +551,16 @@ export function renderOrganizerProfilePage() {
 
 
 
-  // LAS REVIEWS
+  // LAS REVIEWS SITES & EVENTS
 
   try {
     const reviews = await getReviewsOrganizador(sesion.user.id);
     const totalreviews = await countReviewsOrganizador(sesion.user.id);
     const totalr=totalreviews.data[0].total_reviews;
+    const totalsites= await countSitesOrganizador(sesion.user.id);
+    const totals=totalsites.data[0].total_sites
+    const totalevents= await countEventsOrganizador(sesion.user.id);
+    const totale=totalevents.data[0].total_events
 
     
     
@@ -567,6 +568,11 @@ export function renderOrganizerProfilePage() {
     const button = document.getElementById("btn-show-more-reviews");
     const containerTotalR= document.getElementById("treview")
     containerTotalR.innerText= totalr
+    const containersites= document.getElementById("container-sites")
+    containersites.innerText=totals
+    const containerevents= document.getElementById("container-events")
+    containerevents.innerText=totale
+
 
     container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
   
