@@ -22,14 +22,16 @@ export function renderTouristPlaceCard(destination) {
     const session = getSession();
     const isExplorer = session?.user?.role === "explorador" || session?.role === "explorador";
     const placeId = destination.id ?? destination._id ?? "";
+    console.log(placeId)
 
    const optionsButton = isExplorer
   ? `
-      <button
+       <button
         type="button"
         aria-label="Agregar a itinerario"
-        data-place-id="${placeId}"
-        data-place-name="${destination.place}"
+        data-item-type="place"
+        data-item-id="${placeId}"
+        data-item-name="${destination.place}"
         class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
       >
 

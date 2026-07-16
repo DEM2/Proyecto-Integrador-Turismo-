@@ -1,3 +1,4 @@
+import { getSession } from "../../services/authService";
 
 export function renderHomeInfoIcon(iconFileName, description, backgroundColor) {
   return `
@@ -120,6 +121,29 @@ export function renderFeaturedEventCard(featuredEvent) {
     month: "short"
   }).toUpperCase();
 
+  const session = getSession();
+  const isExplorer = session?.user?.role === "explorador" || session?.role === "explorador";
+  const eventId = featuredEvent.id ?? featuredEvent._id ?? "";
+
+  const optionsButton = isExplorer
+    ? `
+      <button
+        type="button"
+        aria-label="Agregar a itinerario"
+        data-item-type="event"
+        data-item-id="${eventId}"
+        data-item-name="${featuredEvent?.name}"
+        class="options-toggle-btn flex cursor-pointer items-center justify-center hover:scale-110 peer"
+      >
+        <img
+          src="/src/assets/icons/3puntos.svg"
+          alt="Opciones"
+          class="w-5 h-5"
+        />
+      </button>
+    `
+    : "";
+
   return `
 
    <article
@@ -152,13 +176,7 @@ export function renderFeaturedEventCard(featuredEvent) {
         <div
           class="absolute top-3 right-3 opacity-0 max-lg:opacity-100 max-lg:bg-amber-50 rounded-lg group-hover/mostraropcionesyopacidad:opacity-100"
         >
-          <button class="flex cursor-pointer items-center justify-center hover:scale-110 peer">
-            <img
-              src="/src/assets/icons/3puntos.svg"
-              alt="Opciones"
-              class="w-5 h-5"
-            />
-          </button>
+          ${optionsButton}
 
           <span
             class="absolute top-full right-0 mt-2 whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-all duration-200 peer-hover:opacity-100"

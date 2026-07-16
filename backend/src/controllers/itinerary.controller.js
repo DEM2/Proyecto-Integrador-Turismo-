@@ -4,6 +4,7 @@ import {
   addPlaceToItineraryQ,
   addEventToItineraryQ,
   getItineraryDetailQ,
+  getItineraryByIdQuery,
 } from "../querys/intinerary.query.js";
 
 /* Crear itinerario */
@@ -145,5 +146,27 @@ export async function getItineraryDetail(req, res) {
     });
 
   }
+
+}
+
+export async function getItineraryById(req, res) {
+
+    try {
+      
+        const itinerary = await getItineraryByIdQuery(req.params.id);
+
+        res.json({
+            ok: true,
+            data: itinerary
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            ok: false,
+            message: error.message
+        });
+
+    }
 
 }

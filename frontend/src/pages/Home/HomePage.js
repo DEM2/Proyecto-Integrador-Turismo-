@@ -9,6 +9,7 @@ import {
   getSitiosDestacados,
 } from "../../services/featuredContentService.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
+import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 
 export function renderHomePage() {
   return `
@@ -152,6 +153,7 @@ export async function initializeHomePageEvents() {
     const sitios = await getSitiosDestacados();
     if (sitios) {
       sitiosContainer.innerHTML = sitios.map(sitio => renderTouristPlaceCard(sitio)).join("");
+      initializeItineraryMenus();
     }
   } catch (error) {
     alert(error.message);
