@@ -107,9 +107,11 @@ export async function initializeOrganizerProfilePageEvents() {
   renderProfileInfoEvents();
 
   const btnCrearevent=document.getElementById("btn-create-event")
-  btnCrearevent.addEventListener("click",()=>{
-    navigateTo("perfilorganizador/createEvent")
-  })
+  if (btnCrearevent) {
+    btnCrearevent.addEventListener("click",()=>{
+      navigateTo("perfilorganizador/createEvent")
+    })
+  }
 
       const contenedorEventos = document.getElementById("Eventos-container");
   if (contenedorEventos) {
