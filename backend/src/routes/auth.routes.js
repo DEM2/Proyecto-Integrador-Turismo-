@@ -8,7 +8,7 @@ import { validateCreateEvent } from "../validators/event.validator.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
-import { addEventToItinerary, addPlaceToItinerary, createItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
+import { addEventToItinerary, addPlaceToItinerary, createItinerary, deleteItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
 import { getSitesController } from "../controllers/sitesprofile.controller.js";
 import { getEventsController } from "../controllers/eventsprofile.controller.js";
 import {
@@ -118,6 +118,12 @@ router.post(
     "/itineraries/:id/events",
     addEventToItinerary
 );
+
+router.delete(
+    "/itineraries/:id",
+    deleteItinerary
+)
+
 // Eventos
 router.post(
     "/events/:id_event/reviews",

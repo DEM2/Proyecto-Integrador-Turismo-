@@ -5,6 +5,7 @@ import {
   addEventToItineraryQ,
   getItineraryDetailQ,
   getItineraryByIdQuery,
+  deleteItineraryQ
 } from "../querys/intinerary.query.js";
 
 /* Crear itinerario */
@@ -168,5 +169,37 @@ export async function getItineraryById(req, res) {
         });
 
     }
+
+}
+
+export async function deleteItinerary(req, res) {
+
+  try {
+
+    const { id } = req.params;
+
+    const deleted = await deleteItineraryQ(id);
+
+    if (!deleted) {
+      return res.status(404).json({
+        ok: false,
+        message: "Itinerario no encontrado",
+      });
+    }
+
+    return res.json({
+      ok: true,
+      message: "Itinerario eliminado correctamente",
+      data: deleted,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      ok: false,
+      message: error.message,
+    });
+
+  }
 
 }

@@ -206,3 +206,65 @@ export async function getItineraryByIdQuery(id) {
   };
 
 }
+
+
+/* Eliminar itinerario (en cadena: eventos, lugares y luego el itinerario) */
+export async function deleteItineraryQ(id) {
+
+  const client = await pool.connect();
+
+  try {
+
+    await client.query("BEGIN");
+
+    const itinerarySql = `
+        SELECT id
+        FROM itineraries
+        WHERE id = $1;
+    `;
+
+    const itineraryResult = await client.query(itinerarySql, [id]);
+
+    if (itineraryResult.rows.length === 0) {
+      await client.query("ROLLBACK");
+      return null;
+    }
+
+    const deleteEventsSql = `
+        DELETE FROM itinerary_events
+        WHERE id_itinerary = $1;
+    `;
+
+    await client.query(deleteEventsSql, [id]);
+
+    const deletePlacesSql = `
+        DELETE FROM itinerary_places
+        WHERE id_itinerary = $1;
+    `;
+
+    await client.query(deletePlacesSql, [id]);
+
+    const deleteItinerarySql = `
+        DELETE FROM itineraries
+        WHERE id = $1
+        RETURNING *;
+    `;
+
+    const deleteResult = await client.query(deleteItinerarySql, [id]);
+
+    await client.query("COMMIT");
+
+    return deleteResult.rows[0];
+
+  } catch (error) {
+
+    await client.query("ROLLBACK");
+    throw error;
+
+  } finally {
+
+    client.release();
+
+  }
+
+}
