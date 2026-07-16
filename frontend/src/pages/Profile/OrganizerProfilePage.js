@@ -4,7 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
-import { countReviewsOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
+import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
 import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
@@ -216,7 +216,7 @@ export function renderOrganizerProfilePage() {
 
             <span>
               <strong id="treview" class="block text-2xl font-black text-blue-950">
-                10
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -242,7 +242,7 @@ export function renderOrganizerProfilePage() {
 
             <span>
               <strong id="container-sites" class="block text-2xl font-black text-blue-950">
-                
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -268,7 +268,7 @@ export function renderOrganizerProfilePage() {
 
             <span>
               <strong id="container-events" class="block text-2xl font-black text-blue-950">
-                
+                Cargando...
               </strong>
 
               <span class="text-sm text-slate-600">
