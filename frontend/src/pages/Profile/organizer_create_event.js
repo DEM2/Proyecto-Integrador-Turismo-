@@ -1,4 +1,4 @@
-import { renderMainNavigation } from "../../components/layout/MainNavigation.js";
+import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postEvent } from "../../services/eventService.js";
@@ -626,6 +626,7 @@ export function organizerCreateView() {
                   </button>
 
                   <button
+                  id="cancelar"
                     type="button"
                     data-organizer-view="dashboard"
                     class="h-12 w-full rounded-xl border border-blue-600 font-bold text-blue-600 transition hover:bg-blue-50"
@@ -670,7 +671,9 @@ export function organizerCreateView() {
 let agendaActivities = []
 
 export function organizerCreateEvents() {
-
+//Mostrar menú de navegación en versión móvil
+  initializeMainNavigationEvents();
+  // FIN
 
   //Hacemos dinámico la información del perfil
     renderProfileInfoEvents();
@@ -679,6 +682,11 @@ export function organizerCreateEvents() {
     //Navegamos para atras
     const btnAtras=document.getElementById("btn-atras");
       btnAtras.addEventListener("click",()=>{
+        navigateTo("/perfilorganizador");
+      });
+
+    const btnCancelar=document.getElementById("cancelar")
+    btnCancelar.addEventListener("click",()=>{
         navigateTo("/perfilorganizador");
       });
 
@@ -814,7 +822,7 @@ function getEventData() {
   const price = document.getElementById("event-price")//
   const address = document.getElementById("event-address")//
   const image_main = document.getElementById("event-image")//
-  const location = document.getElementById("event-location")//
+  //const location = document.getElementById("event-location")//
   //id_user
   const session = getSession()
   const idUser = session?.user?.id
@@ -822,7 +830,7 @@ function getEventData() {
   return {
     name: name.value.trim(),
     id_category: Number(id_category.value),
-    location: location.value.trim(),
+    //location: location.value.trim(),
     description: description.value,
     start_date: start_date.value,
     end_date: end_date.value,
@@ -837,7 +845,7 @@ function getEventData() {
 
 function udapteEventPreview(eventCreated) {
 
-  const { name, location, description, start_date,
+  const { name, description, start_date,
     end_date, start_time, price, address, image_main
   } = eventCreated
 
@@ -845,7 +853,7 @@ function udapteEventPreview(eventCreated) {
   const eventDescriptionPreview = document.getElementById("event-description-preview")
   const eventDatePreview = document.getElementById("event-date-preview")
   const eventTimePreview = document.getElementById("event-time-preview")
-  const eventLocationPreview = document.getElementById("event-location-preview")
+  //const eventLocationPreview = document.getElementById("event-location-preview")
   const eventPricePreview = document.getElementById("event-price-preview")
   const eventImagePreview = document.getElementById("event-image-preview")
 
@@ -853,7 +861,7 @@ function udapteEventPreview(eventCreated) {
   eventDescriptionPreview.textContent = description
   eventDatePreview.textContent = start_date === end_date ? start_date : `${start_date} - ${end_date}`
   eventTimePreview.textContent = start_time
-  eventLocationPreview.textContent = location
+  //eventLocationPreview.textContent = location
   eventPricePreview.textContent = Number(price) === 0 ? "Evento gratuito" : `$${price.toLocaleString("es-CO")}`
   eventImagePreview.src = image_main
 

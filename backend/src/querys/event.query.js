@@ -51,11 +51,30 @@ export async function getEventAgendaById(id_event) {
 };
 
 
+async function syncEventsSequence() {
+    const sequenceResult = await pool.query(`
+        SELECT pg_get_serial_sequence('events', 'id') AS sequence_name
+    `);
+
+    const sequenceName = sequenceResult.rows[0]?.sequence_name;
+
+    if (!sequenceName) {
+        return;
+    }
+
+    await pool.query(`
+        SELECT setval(
+            '${sequenceName}',
+            COALESCE((SELECT MAX(id) FROM events), 0) + 1,
+            false
+        )
+    `);
+}
+
 //Consulta para crear evento
 // Se implementa consulta para la creación de eventos a partir de un evento 
 // de tipo insertar.
 export async function createEventByUser(eventData) {
-    
     const sql = `
     INSERT INTO events(
         name,
@@ -70,7 +89,7 @@ export async function createEventByUser(eventData) {
         id_user
     ) VALUES (
         $1, $2, $3, $4, $5, $6,
-        $7, $8, $9, $10, $11  
+        $7, $8, $9, $10 
     )
     RETURNING *
     `;
@@ -85,14 +104,21 @@ export async function createEventByUser(eventData) {
         eventData.address,
         eventData.image_main,
         eventData.id_category,
-        eventData.location,
         eventData.id_user
-    ]
+    ];
 
-    const result = await pool.query(sql,values)
+    try {
+        const result = await pool.query(sql, values);
+        return result.rows[0];
+    } catch (error) {
+        if (error?.code === "23505" && error?.constraint === "events_pkey") {
+            await syncEventsSequence();
+            const retryResult = await pool.query(sql, values);
+            return retryResult.rows[0];
+        }
 
-    return result.rows[0]
-
+        throw error;
+    }
 }
 
 export async function createEventAgenda(idEvent, agenda) {

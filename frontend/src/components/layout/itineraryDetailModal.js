@@ -28,16 +28,16 @@ export function renderItineraryDetailModal(itinerary) {
     class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
 
     <article
-        class="w-full max-w-3xl rounded-3xl bg-white shadow-2xl overflow-hidden">
+        class="w-full max-w-lg rounded-2xl bg-white shadow-2xl overflow-hidden">
 
         <!-- Header -->
 
         <header
-            class="flex items-center justify-between border-b border-slate-200 px-7 py-5">
+            class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
 
             <section>
 
-                <h2 class="text-2xl font-bold text-slate-900">
+                <h2 class="text-xl font-bold text-slate-900">
                     ${itinerary.name}
                 </h2>
 
@@ -90,9 +90,9 @@ export function renderItineraryDetailModal(itinerary) {
 
         <!-- Descripción -->
 
-        <section class="border-b border-slate-200 px-7 py-5">
+        <section class="border-b border-slate-200 px-5 py-4">
 
-            <p class="text-slate-600 leading-7">
+            <p class="text-sm text-slate-600 leading-6">
 
                 ${
                     itinerary.description ||
@@ -103,51 +103,10 @@ export function renderItineraryDetailModal(itinerary) {
 
         </section>
 
-        <!-- Estadísticas -->
-
-        <section
-            class="grid grid-cols-2 gap-6 border-b border-slate-200 px-7 py-5">
-
-            <article
-                class="rounded-2xl bg-violet-50 p-5">
-
-                <p class="text-sm text-slate-500">
-
-                    Lugares
-
-                </p>
-
-                <h3 class="mt-1 text-3xl font-bold text-violet-700">
-
-                    ${places.length}
-
-                </h3>
-
-            </article>
-
-            <article
-                class="rounded-2xl bg-blue-50 p-5">
-
-                <p class="text-sm text-slate-500">
-
-                    Eventos
-
-                </p>
-
-                <h3 class="mt-1 text-3xl font-bold text-blue-700">
-
-                    ${events.length}
-
-                </h3>
-
-            </article>
-
-        </section>
-
         <!-- Contenido -->
 
         <section
-            class="max-h-[430px] space-y-6 overflow-y-auto px-7 py-6">
+            class="max-h-[320px] space-y-5 overflow-y-auto px-5 py-4">
 
             <section>
 
@@ -176,7 +135,7 @@ export function renderItineraryDetailModal(itinerary) {
 
                                 <h4 class="font-semibold">
 
-                                    ${place.place}
+                                    ${place.name}
 
                                 </h4>
 
@@ -271,26 +230,35 @@ export function renderItineraryDetailModal(itinerary) {
 
 export function openItineraryDetailModal(itinerary){
 
-    document.body.insertAdjacentHTML(
-        "beforeend",
-        renderItineraryDetailModal(itinerary)
-    );
+    // Si ya hay un modal abierto, se elimina antes de abrir uno nuevo
+    // para evitar ids duplicados en el DOM.
+    document
+        .querySelectorAll("#itinerary-detail-modal")
+        .forEach(existing => existing.remove());
 
-    initializeItineraryDetailModal();
+    const wrapper = document.createElement("div");
+
+    wrapper.innerHTML = renderItineraryDetailModal(itinerary).trim();
+
+    const modal = wrapper.firstElementChild;
+
+    document.body.appendChild(modal);
+
+    initializeItineraryDetailModal(modal);
 }
 
-function initializeItineraryDetailModal(){
+function initializeItineraryDetailModal(modal){
 
-    const modal=document.getElementById("itinerary-detail-modal");
+    const closeModal = () => modal.remove();
 
     modal
         .querySelector("#btn-close-itinerary-detail")
-        .addEventListener("click",()=>modal.remove());
+        .addEventListener("click", closeModal);
 
     modal.addEventListener("click",(e)=>{
 
         if(e.target===modal){
-            modal.remove();
+            closeModal();
         }
 
     });
