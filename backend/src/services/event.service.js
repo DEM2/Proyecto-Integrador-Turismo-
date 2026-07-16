@@ -11,21 +11,20 @@ export async function getEventService(id_event) {
 
     const agenda = await getEventAgendaById(id_event)
     
-    return {
+        return {
         id: event.id,
         name: event.name,
         id_category: event.id_category,
-        location : event.location,
-        description : event.description,
-        start_date : event.start_date,
-        end_date : event.end_date,
-        start_time : event.start_time,
-        price : event.price,
-        address : event.address,
-        image_main : event.image_main,
-        category_name : event.category_name,
-        agenda: agenda
-    }
+        description: event.description,
+        start_date: event.start_date,
+        end_date: event.end_date,
+        start_time: event.start_time,
+        price: event.price,
+        address: event.address,
+        image_main: event.image_main,
+        category_name: event.category_name,
+        agenda
+    };
 
 }
 

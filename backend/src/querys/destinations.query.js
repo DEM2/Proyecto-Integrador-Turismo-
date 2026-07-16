@@ -3,7 +3,8 @@ import pool from "../config/db.js";
 export async function getDestinations(){
 
    const sql = 
-      `SELECT 
+      `SELECT
+          p.id, 
           p.name as place ,
           c.name as category,
           p.address as address
