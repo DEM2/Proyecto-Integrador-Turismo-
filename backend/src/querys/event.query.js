@@ -2,6 +2,20 @@ import pool from "../config/db.js"
 
 //Consulta para eventos
 
+export async function getallevent() {
+    const sql = `
+    SELECT
+     e.name,
+     e.address,
+     c.name as category,
+     e.start_date
+    FROM events e
+    INNER JOIN categories c on c.id = e.id_category
+    `
+    const result = await pool.query(sql);
+    return result.rows
+}
+
 export async function getEventById(id_event) {
 
     const sql = `
