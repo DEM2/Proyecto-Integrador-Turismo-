@@ -80,7 +80,6 @@ export async function countEventsOrganizador(userId) {
 export async function getOrganizerProfileSummary(userId) {
     if (!userId) {
         return {
-            reviews: [],
             counts: {
                 reviews: 0,
                 sites: 0,
@@ -89,7 +88,7 @@ export async function getOrganizerProfileSummary(userId) {
         };
     }
 
-    const cached = getSessionStorageData(userId);
+    const cached = getSessionStorageData();
 
     if (cached) {
         return cached;
@@ -103,7 +102,6 @@ export async function getOrganizerProfileSummary(userId) {
 
     const payload = await response.json();
     const profileData = payload?.data ?? {
-        reviews: [],
         counts: {
             reviews: 0,
             sites: 0,
@@ -111,6 +109,6 @@ export async function getOrganizerProfileSummary(userId) {
         },
     };
 
-    createSessionStorageData(userId, profileData);
+    createSessionStorageData(profileData);
     return profileData;
 }
