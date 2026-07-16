@@ -60,7 +60,7 @@ function formatAgendaTime(eventTime) {
 
 export async function renderViewDetailEvent() {
   try {
-    const id = 1
+    const id = 39
 
     currentEvent = await getEventDetail(id)
 

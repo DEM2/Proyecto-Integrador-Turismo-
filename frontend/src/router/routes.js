@@ -8,6 +8,7 @@ import { eventViewDetailEvent, renderViewDetailEvent } from "../pages/detailView
 
 import { destiation_event, destination } from "../pages/destination_view.js";
 import { organizerCreateEvents, organizerCreateView } from "../pages/organizer_create_event.js";
+import { renderCreatePlaceView } from "../pages/organizer_create_place.js";
 
 
 export const routes = {
@@ -41,6 +42,9 @@ export const routes = {
   "/perfilorganizador/createEvent": {
     render: organizerCreateView,
     events: organizerCreateEvents,
+  },
+  "/perfilorganizador/createPlace":{
+    render: renderCreatePlaceView
   },
   
   "/perfilexplorador": {

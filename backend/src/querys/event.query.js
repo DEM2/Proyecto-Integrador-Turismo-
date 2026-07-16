@@ -93,3 +93,35 @@ export async function createEventByUser(eventData) {
     return result.rows[0]
 
 }
+
+export async function createEventAgenda(idEvent, agenda) {
+  const activitiesCreated = []
+
+  for (const activity of agenda) {
+    const sql = `
+      INSERT INTO events_agenda (
+        id_event,
+        activity_date,
+        activity_time,
+        title,
+        is_active
+      )
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `
+
+    const values = [
+      idEvent,
+      activity.activity_date,
+      activity.activity_time,
+      activity.title,
+      activity.is_active
+    ]
+
+    const result = await pool.query(sql, values)
+
+    activitiesCreated.push(result.rows[0])
+  }
+
+  return activitiesCreated
+}

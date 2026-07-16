@@ -1,4 +1,4 @@
-import { createEventByUser, getEventAgendaById, getEventById } from "../querys/event.query.js";
+import { createEventByUser, getEventAgendaById, getEventById, createEventAgenda } from "../querys/event.query.js";
 
 export async function getEventService(id_event) {
     const event = await getEventById(id_event)
@@ -59,6 +59,8 @@ export async function createEventService(eventData) {
     }
 
     const newEvent = await createEventByUser(eventData)
+
+    const agendaCreated = await createEventAgenda(newEvent.id, eventData.agenda)
 
     return newEvent;
 }

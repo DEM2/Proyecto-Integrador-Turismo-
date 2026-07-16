@@ -8,7 +8,7 @@ export function organizerCreateView() {
   return `
     ${NAV_BAR()}
     <main class="min-h-screen text-blue-950 font-sans bg-gray-50">
-
+        
       <!-- =====================================================
            ENCABEZADO DEL PERFIL
       ====================================================== -->
@@ -495,7 +495,7 @@ export function organizerCreateView() {
 
                 </section>
               </fieldset>
-
+                
               <!-- Ubicación -->
               <fieldset
                 class="rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"
@@ -542,7 +542,171 @@ export function organizerCreateView() {
 
                 </section>
               </fieldset>
+                <!-- AGENDA DEL EVENTO -->
+<fieldset
+  id="event-agenda-builder"
+  class="rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"
+>
+  <legend class="px-3 text-xl font-black text-blue-950">
+    Agenda del evento
+  </legend>
 
+  <header class="mt-2 flex flex-wrap items-center justify-between gap-4">
+    <section>
+      <p class="text-sm text-slate-500">
+        Agrega las actividades que se realizarán durante el evento.
+      </p>
+
+      <p
+        id="agenda-activity-counter"
+        class="mt-1 text-xs font-bold text-blue-600"
+      >
+        No se han agregado actividades
+      </p>
+    </section>
+    <button
+      id="add-agenda-activity"
+      type="button"
+      class="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-md shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
+    >
+      <span aria-hidden="true">＋</span>
+      Agregar nueva actividad
+    </button>
+    <button
+      id="clear-agenda-activity"
+      type="button"
+      class="inline-flex items-center gap-2 rounded-xl bg-blue-950 px-5 py-3 text-sm font-bold text-white shadow-md shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
+    >
+      
+      Borrar actividades
+    </button>
+  </header>
+
+  <!-- Actividades agregadas -->
+  <section
+    id="agenda-items"
+    class="mt-6 space-y-4"
+    aria-live="polite"
+  >
+
+    <!-- Actividad inicial -->
+    <article
+      data-agenda-item
+      class="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50/70 to-white p-5"
+    >
+      <header class="mb-4 flex items-center justify-between gap-4">
+        <section class="flex items-center gap-3">
+          <span
+            class="flex size-10 items-center justify-center rounded-xl bg-blue-600 font-black text-white"
+            aria-hidden="true"
+          >
+            1
+          </span>
+
+          <section>
+            <h3
+              id="activities-counter"
+              data-agenda-heading
+              class="font-black text-blue-950"
+            >
+              Actividad 1
+            </h3>
+
+            <p class="text-xs text-slate-500">
+              Información de la actividad programada.
+            </p>
+          </section>
+        </section>
+
+        <button
+          type="button"
+          data-remove-agenda
+          class="hidden rounded-lg border border-red-200 px-3 py-2 text-xs font-bold text-red-600 transition hover:bg-red-50"
+        >
+          Eliminar
+        </button>
+      </header>
+
+      <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+        <!-- Título -->
+        <label class="md:col-span-2">
+          <span class="mb-2 block text-sm font-bold text-blue-950">
+            Título de la actividad
+          </span>
+
+          <input
+            id="agenda-title-0"
+            data-agenda-field="title"
+            type="text"
+            maxlength="150"
+            placeholder="Ejemplo: Batalla de Flores"
+            required
+            class="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+          />
+
+          <small class="mt-2 block text-xs text-slate-400">
+            Máximo 150 caracteres.
+          </small>
+        </label>
+
+        <!-- Fecha -->
+        <label>
+          <span class="mb-2 block text-sm font-bold text-blue-950">
+            Fecha de la actividad
+          </span>
+
+          <input
+            id="agenda-date-0"
+            data-agenda-field="date"
+            type="date"
+            required
+            class="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-700 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+          />
+        </label>
+
+        <!-- Hora -->
+        <label>
+          <span class="mb-2 block text-sm font-bold text-blue-950">
+            Hora de la actividad
+          </span>
+
+          <input
+            id="agenda-time-0"
+            data-agenda-field="time"
+            type="time"
+            class="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-700 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+          />
+        </label>
+
+        <!-- Estado -->
+        <label class="md:col-span-2">
+          <span class="mb-2 block text-sm font-bold text-blue-950">
+            Estado de la actividad
+          </span>
+
+          <select
+            id="agenda-status-0"
+            data-agenda-field="active"
+            class="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-700 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+          >
+            <option value="true">Activa</option>
+            <option value="false">Inactiva</option>
+          </select>
+        </label>
+
+      </section>
+    </article>
+
+  </section>
+</fieldset>
+<section
+  id="agenda-list"
+  class="mt-5 space-y-3"
+  aria-live="polite"
+>
+  <!-- Aquí se renderizan las actividades -->
+</section>
               <!-- Entrada e imagen -->
               <fieldset
                 class="rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"
@@ -776,6 +940,9 @@ export function organizerCreateView() {
     `
 }
 
+
+let agendaActivities = []
+
 export function organizerCreateEvents() {
 
   const formCreateEvent = document.getElementById("create-event-form")
@@ -787,8 +954,74 @@ export function organizerCreateEvents() {
     return
   }
 
+  //Logica para añadir actividades del evento: Agenda
+  const agendaContainer = document.getElementById("agenda-list")
+  const addAgendaButton = document.getElementById("add-agenda-activity")
+  const clearAgendaButton = document.getElementById("clear-agenda-activity")
 
+  //Boton para agregar actividades-------------------------------------
+  addAgendaButton.addEventListener("click", function () {
+    const titleActivity = document.getElementById("agenda-title-0")
+    const dateActivity = document.getElementById("agenda-date-0")
+    const timeActivity = document.getElementById("agenda-time-0")
+    const statusActivity = document.getElementById("agenda-status-0")
 
+    const activity = {
+      title: titleActivity.value.trim(),
+      activity_date: dateActivity.value,
+      activity_time: timeActivity.value,
+      is_active: statusActivity.value === "true"
+    }
+
+    if (!activity.title) {
+      alert("El titulo de la actividad es obligatorio")
+      return
+    }
+
+    if (!activity.activity_date) {
+      alert("La fecha de la actividad es obligatoria")
+      return
+    }
+
+    agendaActivities.push(activity)
+
+    renderAgendaActivities(agendaActivities)
+  })
+  //Boton para borrar las actividades
+  clearAgendaButton.addEventListener("click", function () {
+
+    const titleActivity = document.getElementById("agenda-title-0")
+    const dateActivity = document.getElementById("agenda-date-0")
+    const timeActivity = document.getElementById("agenda-time-0")
+    const statusActivity = document.getElementById("agenda-status-0")
+    
+    agendaActivities = []
+
+    titleActivity.value = ""
+    dateActivity.value = ""
+    timeActivity.value = ""
+    statusActivity.value = "true"
+
+    renderAgendaActivities(agendaActivities)
+  })
+  //Evento para eliminar actividad en especifica
+  agendaContainer.addEventListener("click", function (event) {
+    event.preventDefault()
+
+    const deleteButton = event.target.closest(".btn-eliminar")
+
+    if (!deleteButton) {
+      return
+    }
+
+    const activityNumber = Number(deleteButton.dataset.number)
+
+    const ActivityEliminate = activityNumber - 1
+
+    agendaActivities.splice(ActivityEliminate, 1)
+
+    renderAgendaActivities(agendaActivities)
+  })
 
   saveChangesButton.addEventListener("click", function (event) {
     event.preventDefault()
@@ -819,13 +1052,13 @@ export function organizerCreateEvents() {
     }
 
     //Esta seguro de los cambios?
-    
-      const result = await postEvent(eventCreated)
-      alert("Evento publicado correctamente.")
 
-      formCreateEvent.reset()
+    const result = await postEvent(eventCreated)
+    alert("Evento publicado correctamente.")
 
-    
+    formCreateEvent.reset()
+
+
   })
 }
 
@@ -843,7 +1076,7 @@ function getEventData() {
   const location = document.getElementById("event-location")//
   //id_user
   const session = getSession()
-  const idUser = session.user.id
+  const idUser = session?.user?.id
 
   return {
     name: name.value.trim(),
@@ -856,7 +1089,8 @@ function getEventData() {
     price: Number(price.value),
     address: address.value,
     image_main: image_main.value,
-    id_user: idUser
+    id_user: idUser,
+    agenda: agendaActivities
   }
 }
 
@@ -926,9 +1160,73 @@ function validateEventForm(eventCreated) {
     return "El precio es obligatorio"
   } else if (Number(price) < 0) {
     return "El precio no puede ser negativo"
-  } else if (!Number(numberPrice)) {
+  } else if (Number.isNaN(numberPrice)) {
     return "El precio tiene que ser un número"
   }
 
   return true
 }
+
+function renderAgendaActivities(agendaActivities) {
+
+  const agendaContainer = document.getElementById("agenda-list")
+  const agendaNumber = document.getElementById("agenda-activity-counter")
+  const activityNumber = document.getElementById("activities-counter")
+
+  if (!agendaContainer || !agendaNumber || !activityNumber) {
+    return
+  }
+
+  let htmlAgenda = ""
+  const totalActivities = agendaActivities.length
+  let number = 0
+
+  if (totalActivities > 0) {
+    agendaNumber.textContent = `${totalActivities} ${totalActivities === 1 ? "Actividad añadida" : "Actividades añadidas"}`
+  } else {
+    agendaNumber.textContent = "No se ha agregado actividades"
+  }
+
+  if (totalActivities >= 1) {
+    activityNumber.textContent = `Actividad ${totalActivities + 1} `
+  }
+
+  for (const activity of agendaActivities) {
+
+    number += 1
+    htmlAgenda += `
+    <article
+      data-agenda-index="${number}"
+      class="flex items-center justify-between gap-4 rounded-xl border border-blue-100 bg-blue-50 p-4"
+    >
+      <section class="min-w-0">
+        <h4 class="font-bold text-blue-950">
+          ${activity.title}
+        </h4>
+
+        <p class="mt-1 text-xs text-slate-500">
+          ${activity.activity_date}
+          ·
+          ${activity.activity_time || "Sin hora definida"}
+        </p>
+      </section>
+
+      <button
+        data-number=${number}
+        type="button"
+        data-title="${activity.title}"
+        aria-label="Eliminar actividad ${activity.title}"
+        class="btn-eliminar flex size-8 shrink-0 items-center justify-center rounded-full bg-red-100 font-bold text-red-600 transition hover:bg-red-600 hover:text-white"
+      >
+        ✕
+      </button>
+    </article>
+  `
+  }
+
+
+  agendaContainer.innerHTML = htmlAgenda
+
+
+}
+
