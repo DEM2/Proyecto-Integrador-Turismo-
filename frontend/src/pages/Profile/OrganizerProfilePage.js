@@ -4,7 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
-import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador } from "../../services/reviews.service.js";
+import { countEventsOrganizador, countReviewsOrganizador, countSitesOrganizador, getReviewsOrganizador, getSitesOrganizador } from "../../services/reviews.service.js";
 import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 
 export function renderOrganizerProfilePage() {
@@ -309,184 +309,9 @@ export function renderOrganizerProfilePage() {
         </a>
       </header>
 
-      <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section id="Eventos-container" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
-        <!-- EVENTO 1 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Carnaval de Barranquilla 2025"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-02-15"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">15</span>
-              <span class="block text-sm">FEB</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Carnaval de Barranquilla 2025
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-red-50 px-2 py-1 text-sm font-semibold text-red-500">
-                Festival
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-red-500">
-                Desde $0
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 2 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Concierto en el Río"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-06-22"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">22</span>
-              <span class="block text-sm">JUN</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Concierto en el Río
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-blue-50 px-2 py-1 text-sm font-semibold text-blue-600">
-                Concierto
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-blue-600">
-                Desde $40.000
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 3 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Noche de Jazz"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-07-05"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">05</span>
-              <span class="block text-sm">JUL</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Noche de Jazz
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-purple-50 px-2 py-1 text-sm font-semibold text-purple-600">
-                Música
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-blue-600">
-                Desde $35.000
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
-        <!-- EVENTO 4 -->
-        <article
-          class="cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-        >
-
-          <figure class="relative h-64 overflow-hidden">
-            <img
-              src="/src/assets/images/hero.png"
-              alt="Sabores del Caribe"
-              class="h-full w-full object-cover"
-            />
-
-            <time
-              datetime="2025-07-12"
-              class="absolute left-3 top-3 rounded-xl bg-white px-4 py-2 text-center font-black text-blue-950 shadow-md"
-            >
-              <span class="block text-xl">12</span>
-              <span class="block text-sm">JUL</span>
-            </time>
-
-          </figure>
-
-          <section class="space-y-4 p-5">
-            <header>
-              <h3 class="text-xl font-black text-blue-950">
-                Sabores del Caribe
-              </h3>
-            </header>
-
-            <p>
-              <span class="rounded-md bg-orange-50 px-2 py-1 text-sm font-semibold text-orange-600">
-                Gastronomía
-              </span>
-            </p>
-
-            <footer>
-              <strong class="text-xl text-green-600">
-                Entrada libre
-              </strong>
-            </footer>
-          </section>
-
-        </article>
-
+        <!-- EVENTOS -->
       </section>
     </section>
 
@@ -555,6 +380,8 @@ export function renderOrganizerProfilePage() {
 
   try {
     const reviews = await getReviewsOrganizador(sesion.user.id);
+    const events = await getSitesOrganizador(sesion.user.id);
+
     const totalreviews = await countReviewsOrganizador(sesion.user.id);
     const totalr=totalreviews.data[0].total_reviews;
     const totalsites= await countSitesOrganizador(sesion.user.id);
@@ -572,6 +399,9 @@ export function renderOrganizerProfilePage() {
     containersites.innerText=totals
     const containerevents= document.getElementById("container-events")
     containerevents.innerText=totale
+
+    const contenedorEventos=getElementById("Eventos-container")
+    contenedorEventos.innerHTML= 
 
 
     container.innerHTML = reviews.data.map(review => renderReviewCardOrganizador(review)).join("");
