@@ -161,7 +161,9 @@ export async function renderEventDetailPage() {
         <p class="mb-4 flex flex-wrap items-center gap-2 text-sm">
           <span class="text-xl text-yellow-400">★★★★★</span>
           <strong>4.9</strong>
-          <span class="text-slate-500">(2.356 reseñas)</span>
+          <span id="reviews-count" class="text-base text-slate-400">
+          (0)
+          </span>
         </p>
 
         <!-- Datos rápidos -->
@@ -301,7 +303,10 @@ export async function renderEventDetailPage() {
           <header class="mb-5 flex items-center justify-between">
             <h2 class="text-2xl font-black text-blue-950">
               Comentarios
-              <span class="text-base text-slate-400">(2.356)</span>
+                <span id="rating-count" class="text-slate-500">
+                (0 reseñas)
+                </span>
+             
             </h2>
 
             <button id = "read_comentaries" class="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700">
@@ -495,7 +500,7 @@ function create_commentaries() {
             RenderCommentariesModal()
         );
 
-        SaveCommentaries(currentEvent.id);
+        SaveCommentaries(currentEvent.id, loadCommentaries);
 
     });
 
@@ -504,7 +509,13 @@ async function loadCommentaries() {
 
     const commentaries = await getReviews(currentEvent.id);
 
-    console.log(commentaries);
+    const totalReviews = commentaries.length;
+
+    document.getElementById("reviews-count").textContent =
+        `(${totalReviews})`;
+
+    document.getElementById("rating-count").textContent =
+        `(${totalReviews} reseñas)`;
 
     const container = document.getElementById("commentaries-container");
 

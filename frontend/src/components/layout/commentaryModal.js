@@ -176,7 +176,7 @@ function closeModal() {
     document.getElementById("commentary-modal").remove();
 }
 
-export function SaveCommentaries(id_event) {
+export function SaveCommentaries(id_event, reloadComments) {
 
     const cancelar = document.getElementById("button_cancelar");
     const publicar = document.getElementById("button_publicar");
@@ -235,13 +235,13 @@ export function SaveCommentaries(id_event) {
 
     try {
 
-        const response = await createReview(id_event, review);
+        await createReview(id_event, review);
 
-        console.log(response);
-
-        alert("Comentario guardado correctamente.");
+        await reloadComments();
 
         closeModal();
+
+        alert("Comentario guardado.");
 
     } catch (error) {
 
