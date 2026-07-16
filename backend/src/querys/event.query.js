@@ -67,7 +67,6 @@ export async function createEventByUser(eventData) {
         address,
         image_main,
         id_category,
-        location,
         id_user
     ) VALUES (
         $1, $2, $3, $4, $5, $6,
