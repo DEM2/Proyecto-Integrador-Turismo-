@@ -8,6 +8,8 @@ import { getReviewsByUser } from "../querys/reviews.query.js";
 import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
 import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
+import { getSitesController } from "../controllers/sitesprofile.controller.js";
+import { getEventsController } from "../controllers/eventsprofile.controller.js";
 
 const router = Router();
 
@@ -65,6 +67,15 @@ router.get(
 router.get(
     "/countreviewsorganizador/:id",
     countReviewsControllerOrganizador
+);
+//Sites and Events
+router.get(
+    "/countsites/:id",
+    getSitesController
+);
+router.get(
+    "/countevents/:id",
+    getEventsController
 );
 
 

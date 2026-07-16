@@ -36,3 +36,29 @@ export async function countReviewsOrganizador(userId) {
 
    return await response.json()
 }
+
+export async function countSitesOrganizador(userId) {
+    
+    const response = await fetch(apiUrl(`/api/countsites/${userId}`));
+    
+    if (!response.ok) {
+        
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los sitios");
+    }
+
+   return await response.json()
+}
+
+export async function countEventsOrganizador(userId) {
+    
+    const response = await fetch(apiUrl(`/api/countevents/${userId}`));
+    
+    if (!response.ok) {
+        
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los eventos");
+    }
+
+   return await response.json()
+}
