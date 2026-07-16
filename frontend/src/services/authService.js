@@ -38,17 +38,15 @@ export function getSession(){
 
 export function clearSession(){
     localStorage.removeItem(llave);
-    sessionStorage.removeItem(`${llave_perfil_organizador}:current`);
+    sessionStorage.removeItem(llave_perfil_organizador);
 }
 //sesion storage
-export function createSessionStorageData(key, data){
-    const storageKey = `${llave_perfil_organizador}:${key}`;
-    sessionStorage.setItem(storageKey, JSON.stringify(data));
+export function createSessionStorageData(data){
+    sessionStorage.setItem(llave_perfil_organizador, JSON.stringify(data));
 }
 
-export function getSessionStorageData(key){
-    const storageKey = `${llave_perfil_organizador}:${key}`;
-    const storedData = sessionStorage.getItem(storageKey);
+export function getSessionStorageData(){
+    const storedData = sessionStorage.getItem(llave_perfil_organizador);
 
     if (!storedData) {
         return null;

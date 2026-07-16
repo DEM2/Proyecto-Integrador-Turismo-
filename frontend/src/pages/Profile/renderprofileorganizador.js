@@ -1,5 +1,4 @@
 import { createFollowButton } from "../../components/buttons/FollowButton.js";
-import { renderReviewCardOrganizador } from "../../components/cards/ReviewCardOrganizador.js";
 import { getSession } from "../../services/authService.js";
 
 import { getOrganizerProfileSummary } from "../../services/reviews.service.js";
@@ -309,7 +308,6 @@ export async function renderProfileInfoEvents(){
       }
       //FIN
     
-      const reviewsContainer = document.getElementById("reviews-container");
       const containerTotalR = document.getElementById("treview");
       const containersites = document.getElementById("container-sites");
       const containerevents = document.getElementById("container-events");
@@ -317,16 +315,6 @@ export async function renderProfileInfoEvents(){
       if (sesion?.user) {
         try {
           const profileData = await getOrganizerProfileSummary(sesion.user.id);
-
-          if (reviewsContainer) {
-            if (profileData?.reviews?.length) {
-              reviewsContainer.innerHTML = profileData.reviews
-                .map((review) => renderReviewCardOrganizador(review))
-                .join("");
-            } else {
-              reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No hay reseñas aún.</p>';
-            }
-          }
 
           if (containerTotalR) {
             containerTotalR.innerText = profileData?.counts?.reviews ?? 0;
@@ -341,9 +329,6 @@ export async function renderProfileInfoEvents(){
           }
         } catch (error) {
           console.error("No se pudo cargar el perfil del organizador:", error);
-          if (reviewsContainer) {
-            reviewsContainer.innerHTML = '<p class="text-sm text-slate-500">No se pudieron cargar las reseñas.</p>';
-          }
           if (containerTotalR) {
             containerTotalR.innerText = "0";
           }
