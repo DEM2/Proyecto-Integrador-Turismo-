@@ -15,6 +15,7 @@ import {
     Drama,
     Baby
 } from "lucide";
+import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 
 export function renderEventsPage() {
   return `
@@ -229,7 +230,7 @@ export async function initializeEventsPageEvents() {
                   });
 
               });
-
+           initializeItineraryMenus()
       }
 
   } catch (error) {

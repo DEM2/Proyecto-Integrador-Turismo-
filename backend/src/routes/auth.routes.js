@@ -9,9 +9,10 @@ import { getEventController } from "../controllers/event.controller.js";
 import { getReviewsByUser } from "../querys/reviews.query.js";
 import { countReviewsControllerOrganizador, getReviewsController, getReviewsControllerOrganizador } from "../controllers/reviews.controller.js";
 import { authMiddleware } from "../../../frontend/src/middleware/routeGuards.js";
-import { addEventToItinerary, addPlaceToItinerary, createItinerary, getUserItineraries } from "../controllers/itinerary.controller.js";
+import { addEventToItinerary, addPlaceToItinerary, createItinerary, getItineraryById, getUserItineraries } from "../controllers/itinerary.controller.js";
 import { getSitesController } from "../controllers/sitesprofile.controller.js";
 import { getEventsController } from "../controllers/eventsprofile.controller.js";
+import { saveEventReviewController } from "../controllers/eventReview.controller.js";
 
 const router = Router();
 
@@ -96,6 +97,11 @@ router.get(
     getUserItineraries
 );
 
+router.get(
+    "/itineraries/:id/itinerary",
+    getItineraryById
+);
+
 router.post(
     "/itineraries",
     createItinerary
@@ -109,6 +115,11 @@ router.post(
 router.post(
     "/itineraries/:id/events",
     addEventToItinerary
+);
+// Eventos
+router.post(
+    "/events/:id_event/reviews",
+    saveEventReviewController
 );
 
 export default router;

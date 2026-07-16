@@ -44,8 +44,7 @@ export async function createItinerary(itinerary) {
  * Agrega un lugar a un itinerario
  */
 export async function addPlaceToItinerary(itineraryId, placeId) {
-  console.log(itineraryId)
-  console.log(placeId)
+
   const response = await fetch(
     `${API_URL}/${itineraryId}/places`,
     {
@@ -72,7 +71,7 @@ export async function addPlaceToItinerary(itineraryId, placeId) {
  * Agrega un evento a un itinerario
  */
 export async function addEventToItinerary(itineraryId, eventId) {
-
+  console.log("llegue", eventId)
   const response = await fetch(
     `${API_URL}/${itineraryId}/events`,
     {
@@ -80,18 +79,31 @@ export async function addEventToItinerary(itineraryId, eventId) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({
-        event_id: eventId,
+        id_event : eventId,
       }),
     }
   );
 
   const data = await response.json();
-
+  console.log(data)
   if (!response.ok) {
     throw new Error(data.message || "No fue posible agregar el evento");
   }
 
   return data;
+}
+
+export async function getItineraryDetail(id){
+
+    const response = await fetch(`${API_URL}/${id}/itinerary`);
+
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message);
+    }
+
+    return data;
+
 }

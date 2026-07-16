@@ -11,6 +11,9 @@ import {
     Star,
     Map
 } from "lucide";
+import { getItineraryDetail, getUserItineraries } from "../../services/itineraries.service.js";
+import { renderItineraryCard } from "../../components/cards/renderItineraryCard.js";
+import { openItineraryDetailModal } from "../../components/layout/itineraryDetailModal.js";
 
 export function renderExplorerProfilePage() {
   const session = getSession();
@@ -311,15 +314,12 @@ export function renderExplorerProfilePage() {
         </button>
       </header>
 
-
-        <section class="grid grid-cols-1 gap-6 lg:grid-cols-5">
-
-        <!-- ITINERARIO 1 -->
-        <article id="itinerarios"
-          class="cursor-pointer"
-        >
-        </article>
-      </section>
+<section
+  id="itinerary"
+  class="grid gap-6"
+  style="grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));"
+>
+</section>
 
   </section>
 
@@ -365,7 +365,43 @@ export async function initializeExplorerProfilePageEvents() {
     });
 
   }
-  const itinerariosContainer = document.getElementById("itinerarios");
-  itinerariosContainer.innerHTML = renderPublicItineraryCard()
+  await getMyIntineraries()
+  initializeItineraryCards();
+}
+
+
+async function getMyIntineraries() {
+   const session = getSession()
+   const intineraries = await getUserItineraries(session.user.id)
+   const container = document.getElementById("itinerary");
+   container.innerHTML = intineraries.data.map(itinerary => renderItineraryCard(itinerary)).join("");
+   initializeItineraryCards();  
+}
+
+function initializeItineraryCards() {
+
+    document
+        .querySelectorAll("[data-itinerary-id]")
+        .forEach(card => {
+
+            card.addEventListener("click", async () => {
+
+                const id = card.dataset.itineraryId;
+
+                try {
+
+                    const response = await getItineraryDetail(id);
+                  
+                    openItineraryDetailModal(response.data);
+
+                } catch (error) {
+
+                    console.error(error);
+
+                }
+
+            });
+
+        });
 
 }
