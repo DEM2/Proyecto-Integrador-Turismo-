@@ -85,7 +85,6 @@ export async function createEventByUser(eventData) {
         eventData.address,
         eventData.image_main,
         eventData.id_category,
-        eventData.location,
         eventData.id_user
     ]
 
