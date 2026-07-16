@@ -11,6 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
+import { events } from "../controllers/event.controller.js";
 
 const router = Router();
 
@@ -119,5 +120,9 @@ router.get(
     "/events/:id_event/reviews",
     getEventReviewsController
 );
+router.get(
+    "/events",
+    events
+)
 
 export default router;
