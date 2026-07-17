@@ -124,13 +124,13 @@ export async function getAdminDashboardAllReviews() {
       events_reviews.id AS id_review,
       'event' AS review_type,
       events_reviews.comments,
+      events_reviews.is_active,
       TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
       users.name
     FROM events_reviews
     INNER JOIN users
       ON events_reviews.id_user = users.id
-    WHERE events_reviews.is_active = true
 
     UNION ALL
 
@@ -138,13 +138,13 @@ export async function getAdminDashboardAllReviews() {
       places_reviews.id AS id_review,
       'place' AS review_type,
       places_reviews.comments,
+      places_reviews.is_active,
       TO_CHAR(places_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
       users.name
     FROM places_reviews
     INNER JOIN users
       ON places_reviews.id_user = users.id
-    WHERE places_reviews.is_active = true
 
     ORDER BY created_at DESC;
   `;

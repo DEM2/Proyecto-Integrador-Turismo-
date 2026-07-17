@@ -39,7 +39,7 @@ export async function renderAdminDashboardAllReviews() {
       <div>
         <h1 class="text-3xl font-extrabold text-slate-950 lg:text-2xl">Resenas</h1>
         <p class="mt-1 text-base font-medium text-slate-500 lg:text-sm">
-          Todas las resenas activas de sitios y eventos
+          Todas las resenas de sitios y eventos
         </p>
       </div>
 
@@ -52,6 +52,60 @@ export async function renderAdminDashboardAllReviews() {
       </button>
     </header>
 
+    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-5" aria-label="Filtros de resenas">
+      <label class="text-sm font-bold text-slate-700">
+        Persona
+        <input
+          id="filter-review-user"
+          type="search"
+          placeholder="Nombre"
+          class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Tipo
+        <select
+          id="filter-review-type"
+          class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        >
+          <option value="">Todas</option>
+          <option value="place">Sitios</option>
+          <option value="event">Eventos</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Estado
+        <select
+          id="filter-review-status"
+          class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        >
+          <option value="">Todas</option>
+          <option value="true">Visibles</option>
+          <option value="false">Ocultas</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Fecha creacion
+        <input
+          id="filter-review-created"
+          type="date"
+          class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Fecha actualizacion
+        <input
+          id="filter-review-updated"
+          type="date"
+          class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        />
+      </label>
+    </section>
+
     <section id="admin-all-reviews" class="min-h-0 flex-1 overflow-y-auto" aria-labelledby="admin-all-reviews-title">
       <h2 id="admin-all-reviews-title" class="sr-only">Todas las resenas</h2>
       <ul class="space-y-3">
@@ -63,10 +117,50 @@ export async function renderAdminDashboardAllReviews() {
 
 export function renderAdminDashboardAllReviewsEvents() {
   const reviewsSection = document.getElementById("admin-all-reviews");
+  const filterReviewUser = document.getElementById("filter-review-user");
+  const filterReviewType = document.getElementById("filter-review-type");
+  const filterReviewStatus = document.getElementById("filter-review-status");
+  const filterReviewCreated = document.getElementById("filter-review-created");
+  const filterReviewUpdated = document.getElementById("filter-review-updated");
 
   if (!reviewsSection) {
     return;
   }
+
+  function filterReviews() {
+    const userValue = filterReviewUser.value.trim().toLowerCase();
+    const typeValue = filterReviewType.value;
+    const statusValue = filterReviewStatus.value;
+    const createdValue = filterReviewCreated.value;
+    const updatedValue = filterReviewUpdated.value;
+    const reviewItems = reviewsSection.querySelectorAll("[data-review-item]");
+
+    reviewItems.forEach((reviewItem) => {
+      const reviewUser = reviewItem.dataset.reviewUser || "";
+      const reviewType = reviewItem.dataset.reviewTypeFilter || "";
+      const reviewActive = reviewItem.dataset.reviewActive || "";
+      const reviewCreated = reviewItem.dataset.reviewCreated || "";
+      const reviewUpdated = reviewItem.dataset.reviewUpdated || "";
+
+      const matchUser = !userValue || reviewUser.includes(userValue);
+      const matchType = !typeValue || reviewType === typeValue;
+      const matchStatus = !statusValue || reviewActive === statusValue;
+      const matchCreated = !createdValue || reviewCreated === createdValue;
+      const matchUpdated = !updatedValue || reviewUpdated === updatedValue;
+
+      if (matchUser && matchType && matchStatus && matchCreated && matchUpdated) {
+        reviewItem.classList.remove("hidden");
+      } else {
+        reviewItem.classList.add("hidden");
+      }
+    });
+  }
+
+  filterReviewUser.addEventListener("input", filterReviews);
+  filterReviewType.addEventListener("change", filterReviews);
+  filterReviewStatus.addEventListener("change", filterReviews);
+  filterReviewCreated.addEventListener("change", filterReviews);
+  filterReviewUpdated.addEventListener("change", filterReviews);
 
   reviewsSection.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-hide-review='true']");
@@ -86,10 +180,19 @@ export function renderAdminDashboardAllReviewsEvents() {
 
       const reviewItem = button.closest("[data-review-item]");
       if (reviewItem) {
-        reviewItem.remove();
+        const reviewStatusLabel = reviewItem.querySelector("[data-review-status-label='true']");
+
+        reviewItem.dataset.reviewActive = "false";
+        button.remove();
+
+        if (reviewStatusLabel) {
+          reviewStatusLabel.textContent = "Oculta";
+          reviewStatusLabel.className = "inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500";
+        }
+
+        filterReviews();
       }
     } catch (error) {
-      console.error(error);
       button.disabled = false;
       button.textContent = "Ocultar";
       alert("No se pudo ocultar la resena. Intenta de nuevo.");
