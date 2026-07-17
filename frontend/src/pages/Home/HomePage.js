@@ -5,10 +5,11 @@ import { navigateTo } from "../../router/AppRouter.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
 import { renderEventCard } from "../../components/cards/EventCard.component.js";
 import { renderIconSvg } from "../../utils/renderIcon.js";
-import { ArrowRight, CalendarDays, MapPin, MapPinned, Sparkles } from "lucide";
+import { ArrowRight, CalendarDays, MapPin, MapPinned, Sparkles,Signpost, Music4, ShieldCheck, HeartPlus, Users, Store } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import ventanaMundo from "../../assets/videos/ventana_mundo.mp4";
 import { alertaError } from "../../utils/alertsss.js";
+
 
 export function renderHomePage() {
   return `
@@ -154,12 +155,12 @@ export function renderHomePage() {
         <figure
           class="items-stretch grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4 p-2"
         >
-          ${renderHomeInfoIcon("places.svg", "Descubre lugares icónicos y también menos visibles.", "bg-blue-600")} 
-          ${renderHomeInfoIcon("music.svg", "Consulta eventos culturales, gastronómicos y deportivos.", "bg-red-500")} 
-          ${renderHomeInfoIcon("safe.svg", "Encuentra información confiable y actualizada","bg-yellow-500")}
-          ${renderHomeInfoIcon("heart.svg", "Planifica y guarda tus itinerarios.","bg-green-500")} 
-          ${renderHomeInfoIcon("people.svg", "Conecta con experiencias locales auténticas y memorables.", "bg-purple-500")}
-          ${renderHomeInfoIcon("shop.svg", "Impulsa el turismo local y la visibilidad de emprendimientos.", "bg-orange-500")}
+          ${renderHomeInfoIcon(Signpost, "Descubre lugares icónicos y también menos visibles.", "bg-blue-600")} 
+          ${renderHomeInfoIcon(Music4, "Consulta eventos culturales, gastronómicos y deportivos.", "bg-red-500")} 
+          ${renderHomeInfoIcon(ShieldCheck, "Encuentra información confiable y actualizada","bg-yellow-500")}
+          ${renderHomeInfoIcon(HeartPlus, "Planifica y guarda tus itinerarios.","bg-green-500")} 
+          ${renderHomeInfoIcon(Users, "Conecta con experiencias locales auténticas y memorables.", "bg-purple-500")}
+          ${renderHomeInfoIcon(Store, "Impulsa el turismo local y la visibilidad de emprendimientos.", "bg-orange-500")}
         </figure>
       </section>
 

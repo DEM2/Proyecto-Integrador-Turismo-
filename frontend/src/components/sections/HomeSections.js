@@ -1,3 +1,4 @@
+import { renderIconSvg } from "../../utils/renderIcon"
 export function renderHomeInfoIcon(iconFileName, description, backgroundColor) {
   return `
 
@@ -6,11 +7,10 @@ export function renderHomeInfoIcon(iconFileName, description, backgroundColor) {
             <div
               class="flex items-center justify-center size-15 shrink-0 rounded-full ${backgroundColor}"
             >
-              <img
-                src="/src/assets/icons/${iconFileName}"
-                alt="Sitios destacados"
-                class="w-8 h-8"
-              />
+              ${renderIconSvg(iconFileName, {
+                class: "size-6 text-white",
+                strokeWidth: 2,
+              })}
             </div>
             <p>
               ${description}
