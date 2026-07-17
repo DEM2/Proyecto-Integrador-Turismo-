@@ -210,29 +210,13 @@ inner join users on places.id_user = users.id
 
 export async function getAdminDashboardAllUsers() {
   const sql = `
-    /*
-      Reemplaza esta consulta por la consulta real de tus usuarios.
-
-      El frontend espera estos alias:
-        id
-        name
-        last_name
-        email
-        role_name
-        is_active
-        created_at
-        updated_at
-    */
-    SELECT
-      NULL AS id,
-      NULL AS name,
-      NULL AS last_name,
-      NULL AS email,
-      NULL AS role_name,
-      NULL AS is_active,
-      NULL AS created_at,
-      NULL AS updated_at
-    WHERE false;
+    
+        select users.id,users.name,users.last_name,users.email,
+       users.is_active,
+       roles.name AS role_name
+from users
+inner join roles on users.id_role = roles.id
+    
   `;
 
   const result = await pool.query(sql);

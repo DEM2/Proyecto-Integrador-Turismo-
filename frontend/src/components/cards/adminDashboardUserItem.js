@@ -11,8 +11,6 @@ export function renderAdminDashboardUserItem(user) {
   const userLastName = user.last_name || "";
   const userEmail = user.email || "Sin correo";
   const roleName = user.role_name || "Sin rol";
-  const createdAt = user.created_at || "";
-  const updatedAt = user.updated_at || "";
   const isActive = user.is_active !== false;
 
   let activeLabel = "";
@@ -44,8 +42,6 @@ export function renderAdminDashboardUserItem(user) {
       data-user-email="${userEmail.toLowerCase()}"
       data-user-role="${roleName.toLowerCase()}"
       data-user-active="${isActive}"
-      data-user-created="${createdAt}"
-      data-user-updated="${updatedAt}"
       data-user-name-title="${formatAttribute(userName)}"
       data-user-last-name-title="${formatAttribute(userLastName)}"
       data-user-email-title="${formatAttribute(userEmail)}"
@@ -67,8 +63,6 @@ export function renderAdminDashboardUserItem(user) {
       </article>
 
       <div class="text-left lg:text-right">
-        <p class="text-sm font-bold text-slate-700">Creado: ${createdAt || "Sin fecha"}</p>
-        <p class="mt-1 text-sm font-medium text-slate-500">Actualizado: ${updatedAt || "Sin fecha"}</p>
         <button
           type="button"
           data-edit-user="true"

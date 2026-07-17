@@ -40,7 +40,7 @@ export async function renderAdminDashboardAllUsers() {
       </p>
     </header>
 
-    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-6" aria-label="Filtros de usuarios">
+    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Filtros de usuarios">
       <label class="text-sm font-bold text-slate-700">
         Usuario
         <input id="filter-user-name" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
@@ -64,16 +64,6 @@ export async function renderAdminDashboardAllUsers() {
           <option value="false">Inactivos</option>
         </select>
       </label>
-
-      <label class="text-sm font-bold text-slate-700">
-        Fecha creacion
-        <input id="filter-user-created" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
-
-      <label class="text-sm font-bold text-slate-700">
-        Fecha actualizacion
-        <input id="filter-user-updated" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
     </section>
 
     <section id="admin-all-users" class="min-h-0 flex-1 overflow-y-auto" aria-labelledby="admin-all-users-title">
@@ -91,8 +81,6 @@ export function renderAdminDashboardAllUsersEvents() {
   const filterUserEmail = document.getElementById("filter-user-email");
   const filterUserRole = document.getElementById("filter-user-role");
   const filterUserActive = document.getElementById("filter-user-active");
-  const filterUserCreated = document.getElementById("filter-user-created");
-  const filterUserUpdated = document.getElementById("filter-user-updated");
 
   if (!usersSection) {
     return;
@@ -103,8 +91,6 @@ export function renderAdminDashboardAllUsersEvents() {
     const emailValue = filterUserEmail.value.trim().toLowerCase();
     const roleValue = filterUserRole.value.trim().toLowerCase();
     const activeValue = filterUserActive.value;
-    const createdValue = filterUserCreated.value;
-    const updatedValue = filterUserUpdated.value;
     const userItems = usersSection.querySelectorAll("[data-admin-user-item='true']");
 
     userItems.forEach((userItem) => {
@@ -112,17 +98,13 @@ export function renderAdminDashboardAllUsersEvents() {
       const userEmail = userItem.dataset.userEmail || "";
       const userRole = userItem.dataset.userRole || "";
       const userActive = userItem.dataset.userActive || "";
-      const userCreated = userItem.dataset.userCreated || "";
-      const userUpdated = userItem.dataset.userUpdated || "";
 
       const matchName = !nameValue || userFullName.includes(nameValue);
       const matchEmail = !emailValue || userEmail.includes(emailValue);
       const matchRole = !roleValue || userRole.includes(roleValue);
       const matchActive = !activeValue || userActive === activeValue;
-      const matchCreated = !createdValue || userCreated === createdValue;
-      const matchUpdated = !updatedValue || userUpdated === updatedValue;
 
-      if (matchName && matchEmail && matchRole && matchActive && matchCreated && matchUpdated) {
+      if (matchName && matchEmail && matchRole && matchActive) {
         userItem.classList.remove("hidden");
       } else {
         userItem.classList.add("hidden");
@@ -134,8 +116,6 @@ export function renderAdminDashboardAllUsersEvents() {
   filterUserEmail.addEventListener("input", filterUsers);
   filterUserRole.addEventListener("input", filterUsers);
   filterUserActive.addEventListener("change", filterUsers);
-  filterUserCreated.addEventListener("change", filterUsers);
-  filterUserUpdated.addEventListener("change", filterUsers);
 
   usersSection.addEventListener("click", (event) => {
     const editButton = event.target.closest("[data-edit-user='true']");
