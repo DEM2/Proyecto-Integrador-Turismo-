@@ -1,6 +1,6 @@
 import { renderAdminDashboardMetricCards, renderAdminDashboardMetricCardsEvents } from "../../components/cards/adminDashboardMetricCards.js";
 import { renderAdminDashboardPendingRequests } from "../../components/cards/adminDashboardPendingRequests.js";
-import { renderAdminDashboardQuickActions } from "../../components/cards/adminDashboardQuickActions.js";
+import { renderAdminDashboardQuickActions, renderAdminDashboardQuickActionsEvents } from "../../components/cards/adminDashboardQuickActions.js";
 import { renderAdminDashboardRecentReviews, renderAdminDashboardRecentReviewsEvents } from "../../components/cards/adminDashboardRecentReviews.js";
 import { renderAdminDashboardSidebar, renderAdminDashboardSidebarEvents } from "../../components/cards/adminDashboardSidebar.js";
 
@@ -47,4 +47,5 @@ export function adminDashboardPageEvents() {
   renderAdminDashboardSidebarEvents();
   renderAdminDashboardMetricCardsEvents();
   renderAdminDashboardRecentReviewsEvents();
+  renderAdminDashboardQuickActionsEvents();
 }

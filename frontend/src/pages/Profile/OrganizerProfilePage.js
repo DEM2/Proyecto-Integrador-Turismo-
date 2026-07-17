@@ -44,6 +44,14 @@ export function renderOrganizerProfilePage() {
           Ver todos
         </button>
         <button
+          id="btn-create-place"
+          type="button"
+          class="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-purple-700 px-6 py-3 font-bold text-white shadow-lg shadow-purple-700/20 transition hover:-translate-y-0.5 hover:bg-purple-800"
+        >
+          <span aria-hidden="true">＋</span>
+          Crear lugar
+        </button>
+        <button
           id="btn-create-event"
           type="button"
           data-organizer-view="create-event"
@@ -82,6 +90,17 @@ export async function initializeOrganizerProfilePageEvents() {
       navigateTo("perfilorganizador/createEvent")
     })
   }
+
+  const btnCreatePlace = document.getElementById("btn-create-place");
+
+  if(!btnCreatePlace){
+    return
+  }
+  
+  btnCreatePlace.addEventListener("click", () => {
+    navigateTo("/perfilorganizador/createPlace");
+  });
+
 
   const contenedorEventos = document.getElementById("Eventos-container");
   if (contenedorEventos) {

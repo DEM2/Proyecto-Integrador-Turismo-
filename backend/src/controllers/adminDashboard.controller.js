@@ -7,14 +7,17 @@ import {
   getAdminDashboardAllEvents,
   getAdminDashboardAllPlaces,
   getAdminDashboardAllReviews,
+  getAdminDashboardAllUsers,
   getAdminDashboardPendingOrganizers,
   getAdminDashboardRecentReviews,
+  getAdminDashboardRoles,
   hideAdminDashboardEventReview,
   hideAdminDashboardPlaceReview,
   showAdminDashboardEventReview,
   showAdminDashboardPlaceReview,
   updateAdminDashboardEvent,
   updateAdminDashboardPlace,
+  updateAdminDashboardUser,
 } from "../querys/adminDashboard.query.js";
 
 export async function getAdminDashboardController(req, res) {
@@ -146,6 +149,40 @@ export async function getAdminDashboardAllPlacesController(req, res) {
   }
 }
 
+export async function getAdminDashboardAllUsersController(req, res) {
+  try {
+    const users = await getAdminDashboardAllUsers();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Usuarios consultados exitosamente",
+      data: users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function getAdminDashboardRolesController(req, res) {
+  try {
+    const roles = await getAdminDashboardRoles();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Roles consultados exitosamente",
+      data: roles,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
 export async function updateAdminDashboardEventController(req, res) {
   try {
     const { id } = req.params;
@@ -187,6 +224,31 @@ export async function updateAdminDashboardPlaceController(req, res) {
       ok: true,
       message: "Sitio actualizado exitosamente",
       data: placeUpdated,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function updateAdminDashboardUserController(req, res) {
+  try {
+    const { id } = req.params;
+    const userUpdated = await updateAdminDashboardUser(id, req.body);
+
+    if (!userUpdated) {
+      return res.status(404).json({
+        ok: false,
+        message: "Usuario no encontrado",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Usuario actualizado exitosamente",
+      data: userUpdated,
     });
   } catch (error) {
     return res.status(500).json({

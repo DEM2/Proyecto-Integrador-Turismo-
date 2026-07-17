@@ -1,5 +1,9 @@
 import { getAdminDashboardData } from "../../services/adminDashboard.service.js";
 import {
+  renderAdminDashboardAllUsers,
+  renderAdminDashboardAllUsersEvents,
+} from "./adminDashboardAllUsers.js";
+import {
   renderAdminDashboardAllEvents,
   renderAdminDashboardAllEventsEvents,
 } from "./adminDashboardAllEvents.js";
@@ -36,9 +40,9 @@ export async function renderAdminDashboardMetricCards() {
         <h2 class="text-sm font-bold text-slate-800">Usuarios</h2>
         <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalUsers)}</p>
         <p class="mt-1 text-sm font-medium text-slate-500">Total registrados</p>
-        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-blue-700 transition hover:bg-sky-100 lg:mt-3 lg:py-1.5">
+        <button type="button" data-show-all-users="true" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-blue-700 transition hover:bg-sky-100 lg:mt-3 lg:py-1.5">
           Ver usuarios <span aria-hidden="true">&rarr;</span>
-        </a>
+        </button>
       </article>
 
       <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
@@ -97,9 +101,23 @@ export async function renderAdminDashboardMetricCards() {
 }
 
 export function renderAdminDashboardMetricCardsEvents() {
+  const showAllUsersButton = document.querySelector("[data-show-all-users='true']");
   const showAllEventsButton = document.querySelector("[data-show-all-events='true']");
   const showAllPlacesButton = document.querySelector("[data-show-all-places='true']");
   const showAllReviewsButton = document.querySelector("[data-show-all-reviews='true']");
+
+  if (showAllUsersButton) {
+    showAllUsersButton.addEventListener("click", async () => {
+      const dashboardContent = document.getElementById("admin-dashboard-content");
+
+      if (!dashboardContent) {
+        return;
+      }
+
+      dashboardContent.innerHTML = await renderAdminDashboardAllUsers();
+      renderAdminDashboardAllUsersEvents();
+    });
+  }
 
   if (showAllEventsButton) {
     showAllEventsButton.addEventListener("click", async () => {

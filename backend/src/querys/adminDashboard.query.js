@@ -208,6 +208,35 @@ inner join users on places.id_user = users.id
   return result.rows || [];
 }
 
+export async function getAdminDashboardAllUsers() {
+  const sql = `
+    
+        select users.id,users.name,users.last_name,users.email,
+       users.is_active,
+       roles.id AS id_role,
+       roles.name AS role_name
+from users
+inner join roles on users.id_role = roles.id
+    
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
+export async function getAdminDashboardRoles() {
+  const sql = `
+    SELECT
+      roles.id,
+      roles.name
+    FROM roles
+    ORDER BY roles.name ASC;
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
 export async function updateAdminDashboardEvent(id_event, eventData) {
   const sql = `
     UPDATE events
@@ -261,6 +290,41 @@ export async function updateAdminDashboardPlace(id_place, placeData) {
     placeData.is_featured,
     placeData.is_active,
     id_place
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
+export async function updateAdminDashboardUser(id_user, userData) {
+  const sql = `
+    /*
+      Reemplaza esta consulta por el UPDATE real de tu tabla de usuarios.
+
+      Parametros disponibles:
+        $1 -> name
+        $2 -> last_name
+        $3 -> email
+        $4 -> is_active
+        $5 -> id_role
+        $6 -> id_user
+    */
+    SELECT NULL AS id
+    WHERE $1::text IS NULL
+      AND $2::text IS NULL
+      AND $3::text IS NULL
+      AND $4::boolean IS NULL
+      AND $5::text IS NULL
+      AND $6::text IS NULL;
+  `;
+
+  const values = [
+    userData.name,
+    userData.last_name,
+    userData.email,
+    userData.is_active,
+    userData.id_role,
+    id_user
   ];
 
   const result = await pool.query(sql, values);

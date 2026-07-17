@@ -92,6 +92,30 @@ export async function getAdminDashboardAllPlaces() {
   return payload?.data ?? [];
 }
 
+export async function getAdminDashboardAllUsers() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/users"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los usuarios");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
+export async function getAdminDashboardRoles() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/roles"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los roles");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
 export async function updateAdminDashboardEvent(eventId, eventData) {
   const response = await fetch(apiUrl(`/api/admin-dashboard/events/${eventId}`), {
     method: "PATCH",
@@ -122,6 +146,24 @@ export async function updateAdminDashboardPlace(placeId, placeData) {
   if (!response.ok) {
     const error = await response.json().catch(() => null);
     throw new Error(error?.message || "Error al actualizar el sitio");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
+export async function updateAdminDashboardUser(userId, userData) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/users/${userId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al actualizar el usuario");
   }
 
   adminDashboardDataPromise = null;
