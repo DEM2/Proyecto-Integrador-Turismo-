@@ -6,7 +6,7 @@ export async function validateRegister(req, res, next) {
         const user = req.body;
        
         const result = await pool.query(
-            "SELECT id FROM users WHERE email = $1",
+            `SELECT * FROM users WHERE email = $1`,
             [user.email]
         );
         
