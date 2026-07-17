@@ -8,6 +8,9 @@ import {
   getSitiosDestacados,
 } from "../../services/featuredContentService.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
+import { renderEventCard } from "../../components/cards/EventCard.component.js";
+import { renderIconSvg } from "../../utils/renderIcon.js";
+import { CalendarDays, MapPinned } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import { alertaError } from "../../utils/alertsss.js";
 
@@ -34,20 +37,20 @@ export function renderHomePage() {
       </section>
 
       <section
-        class="SITIOSYEVENTOSDESTACADOS pl-10 pr-10 items-stretch grid grid-cols-1 xl:grid-cols-2 gap-4"
+        class="SITIOSYEVENTOSDESTACADOS mt-6 pl-10 pr-10 items-stretch grid grid-cols-1 xl:grid-cols-2 gap-4"
       >
         <aside class="IZQUIERDO-SITIOSDESTACADOS">
-          <section class="flex gap-2 items-center h-10">
-            <div
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700"
-            >
-              <img
-                class="h-5 w-5"
-                src="/src/assets/icons/location.svg"
-                alt="Icono de sitios destacados"
-              />
+          <section  class="flex items-center  gap-2 mb-5 ">
+            ${renderIconSvg(MapPinned, {
+              class: "size-6 text-blue-500",
+              strokeWidth: 2,
+            })}
+            <div>
+              <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                Explora
+              </p>
+              <h2 class="text-2xl font-bold text-blue-700">Sitios Destacado</h2>
             </div>
-            <h2 class="text-2xl font-bold text-blue-700">Sitios Destacados</h2>
           </section>
 
           <figure
@@ -58,17 +61,17 @@ export function renderHomePage() {
         </aside>
 
         <aside class="DERECHA-EVENTOSDESTACADOS">
-          <section class="flex gap-2 items-center h-10">
-            <div
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
-            >
-              <img
-                class="h-5 w-5"
-                src="/src/assets/icons/calendar.svg"
-                alt="Icono de eventos destacados"
-              />
+          <section class="flex items-center gap-2 mb-4">
+            ${renderIconSvg(CalendarDays, {
+              class: "size-6 text-red-500",
+              strokeWidth: 2,
+            })}
+            <div>
+              <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                Explora
+              </p>
+              <h2 class="text-2xl font-bold text-red-500">Eventos Destacado</h2>
             </div>
-            <h2 class="text-2xl font-bold text-red-500">Eventos Destacados</h2>
           </section>
 
           <figure
@@ -162,7 +165,7 @@ export async function initializeHomePageEvents() {
     const eventos = await getEventosDestacados();
     if (eventos) {
       eventosContainer.innerHTML = eventos
-        .map(evento => renderTouristPlaceCard({ ...evento, place: evento.name }, "event"))
+        .map(evento => renderEventCard(evento))
         .join("");
     }
   } catch (error) {
