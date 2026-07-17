@@ -28,7 +28,7 @@ import {
   renderTouristPlacesPage,
 } from "../pages/TouristPlaces/TouristPlacesPage.js";
 import { organizerCreateEvents, organizerCreateView } from "../pages/Profile/organizer_create_event.js";
-import { renderCreatePlaceView } from "../pages/Profile/organizer_create_place.js";
+import { renderCreatePlaceEvents, renderCreatePlaceView } from "../pages/Profile/organizer_create_place.js";
 import { adminDashboardPage, adminDashboardPageEvents } from "../pages/Profile/admin.js";
 
 
@@ -77,7 +77,8 @@ export const appRoutes = {
     events: organizerCreateEvents,
   },
   "/perfilorganizador/createPlace":{
-    render: renderCreatePlaceView
+    render: renderCreatePlaceView,
+    events: renderCreatePlaceEvents
   },
     "/dashboard":{
     render:adminDashboardPage,

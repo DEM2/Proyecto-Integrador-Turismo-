@@ -10,3 +10,21 @@ export async function getDestinations(){
 
   return await response.json()
 }
+
+export async function postPlace(place) {
+  const response = await fetch(apiUrl("api/organizer/createDestination"), {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(place)
+  })
+
+  const result = await response.json()
+
+  if(!response.ok){
+    throw new Error("Error al crear el evento")
+  }
+
+  return result
+}

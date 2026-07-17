@@ -15,3 +15,30 @@ export async function getDestinations(){
 
   return result.rows
 }
+
+export async function createDestinationByUser(placeData) {
+   const sql =`
+   INSERT INTO places(
+      name,
+      description,
+      address,
+      id_category,
+      is_active,
+      fk_places_user) VALUES (
+      $1, $2, $3, $4, $5, $6 
+   ) RETURNING *
+   `;
+
+   const values = [
+      placeData.name,
+      placeData.description,
+      placeData.address,
+      placeData.id_category,
+      placeData.is_active,
+      placeData.fk_places_user
+   ]
+
+   const result = await pool.query(sql, values)
+
+   return result.rows[0]
+}
