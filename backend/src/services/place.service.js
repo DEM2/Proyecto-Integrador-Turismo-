@@ -1,4 +1,4 @@
-import { createDestinationByUser } from "../querys/destinations.query";
+import { createDestinationByUser } from "../querys/destinations.query.js";
 
 
 export async function createDestinationService(placeData) {

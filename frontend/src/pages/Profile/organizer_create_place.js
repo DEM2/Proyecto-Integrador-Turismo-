@@ -745,10 +745,9 @@ export function renderCreatePlaceEvents(params) {
       alert("No se pudo crear el lugar")
     }
 
-    resetPlacePreview()
-
     // Después puedes validar y enviar placeCreated al backend.
   });
+  resetPlacePreview()
 }
 
 function getPlaceData() {
@@ -781,7 +780,6 @@ function updatePlacePreview(placeCreated) {
   } = placeCreated;
 
   const placeNamePreview = document.getElementById("place-name-preview");
-  const placeCategoryPreview = document.getElementById("place-category-preview");
   const placeDescriptionPreview = document.getElementById("place-description-preview");
   const placeAddressPreview = document.getElementById("place-address-preview");
   const placeStatusPreview = document.getElementById("place-status-preview");
