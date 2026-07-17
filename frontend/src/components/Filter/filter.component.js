@@ -10,7 +10,7 @@ export function applyFilters(
             destination.category === selectedCategory;
 
         const matchesSearch =
-            (destination.place || "")
+            (destination.place || "" || destination.name)
                 .toLowerCase()
                 .includes(searchText.toLowerCase());
 

@@ -148,9 +148,8 @@ export function renderEventsPage() {
 
       <!-- CONTENIDO -->
       <section
-        class="px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-[2fr_420px] gap-10">
-        <!-- EVENTOS -->
-        <aside>
+        class="px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-1">
+       
 
           <section class="flex items-center gap-3 mb-6">
 
@@ -165,33 +164,15 @@ export function renderEventsPage() {
             </div>
 
             <h2 class="text-3xl font-bold text-blue-700">
-              Eventos Destacados
+              Eventos activos 
             </h2>
 
           </section>
 
          <figure
           id="eventos-destacados"
-          class="grid
-           grid-cols-1
-           sm:grid-cols-2
-           lg:grid-cols-3
-           gap-6">
-
+          class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           </figure>
-
-        </aside>
-
-        <!-- renderEventCalendarIO -->
-        <aside>
-
-          <div
-            class="rounded-3xl bg-white shadow-xl border border-slate-200 p-6 stickytop-6">
-            ${renderEventCalendar()}
-
-          </div>
-
-        </aside>
 
       </section>
 
@@ -209,15 +190,13 @@ export async function initializeEventsPageEvents() {
         const eventosContainer = document.getElementById("eventos-destacados");
         const searchInput = document.getElementById("destination_search");
         const eventos = await getAllEvent();
-        console.log(eventos);
 
         function renderEventCard(event) {
-            eventosContainer.innerHTML = eventos
-                .map((evento) => renderFeaturedEventCard(evento))
+          console.log(event)
+            eventosContainer.innerHTML = event.map((evento) => renderFeaturedEventCard(evento))
                 .join("");
 
-            document
-                .querySelectorAll(".featured-event-card")
+            document.querySelectorAll(".featured-event-card")
                 .forEach((card) => {
                     card.addEventListener("click", () => {
                         console.log("Click");
@@ -238,7 +217,7 @@ export async function initializeEventsPageEvents() {
             initializeItineraryMenus();
         }
         if (eventos) {
-            renderEventCard(event);
+            renderEventCard(eventos);
         }
 
         function applyEventsFilters() {
