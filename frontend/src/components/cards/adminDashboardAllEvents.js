@@ -1,4 +1,7 @@
-import { getAdminDashboardAllEvents } from "../../services/adminDashboard.service.js";
+import {
+  getAdminDashboardAllEvents,
+  updateAdminDashboardEvent,
+} from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardEventItem } from "./adminDashboardEventItem.js";
 
 export async function renderAdminDashboardAllEvents() {
@@ -157,4 +160,156 @@ export function renderAdminDashboardAllEventsEvents() {
   filterEventStartDate.addEventListener("change", filterEvents);
   filterEventCreated.addEventListener("change", filterEvents);
   filterEventUpdated.addEventListener("change", filterEvents);
+
+  eventsSection.addEventListener("click", (event) => {
+    const editButton = event.target.closest("[data-edit-event='true']");
+    const cancelButton = event.target.closest("[data-cancel-event-edit='true']");
+
+    if (editButton) {
+      const eventItem = editButton.closest("[data-admin-event-item='true']");
+
+      if (!eventItem) {
+        return;
+      }
+
+      const currentForm = eventItem.querySelector("[data-event-edit-form='true']");
+
+      if (currentForm) {
+        currentForm.remove();
+        return;
+      }
+
+      eventItem.insertAdjacentHTML("beforeend", renderAdminDashboardEventEditForm(eventItem));
+    }
+
+    if (cancelButton) {
+      const form = cancelButton.closest("[data-event-edit-form='true']");
+
+      if (form) {
+        form.remove();
+      }
+    }
+  });
+
+  eventsSection.addEventListener("submit", async (event) => {
+    const form = event.target.closest("[data-event-edit-form='true']");
+
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const eventItem = form.closest("[data-admin-event-item='true']");
+
+    if (!eventItem) {
+      return;
+    }
+
+    const saveButton = form.querySelector("[data-save-event-edit='true']");
+    const eventId = eventItem.dataset.eventId;
+    const fields = form.elements;
+
+    const eventData = {
+      name: fields.name.value.trim(),
+      description: fields.description.value.trim(),
+      start_date: fields.start_date.value || null,
+      price: fields.price.value || null,
+      address: fields.address.value.trim(),
+      image_main: fields.image_main.value.trim(),
+      is_featured: fields.is_featured.value === "true",
+      is_active: fields.is_active.value === "true",
+    };
+
+    try {
+      saveButton.disabled = true;
+      saveButton.textContent = "Guardando...";
+
+      await updateAdminDashboardEvent(eventId, eventData);
+
+      const dashboardContent = document.getElementById("admin-dashboard-content");
+
+      if (!dashboardContent) {
+        return;
+      }
+
+      dashboardContent.innerHTML = await renderAdminDashboardAllEvents();
+      renderAdminDashboardAllEventsEvents();
+    } catch (error) {
+      saveButton.disabled = false;
+      saveButton.textContent = "Guardar cambios";
+      alert("No se pudo actualizar el evento. Intenta de nuevo.");
+    }
+  });
+}
+
+function renderAdminDashboardEventEditForm(eventItem) {
+  return `
+    <form data-event-edit-form="true" class="col-span-full mt-4 grid gap-3 border-t border-slate-200 pt-4 md:grid-cols-2 xl:grid-cols-4">
+      <label class="text-sm font-bold text-slate-700">
+        Nombre
+        <input name="name" type="text" value="${eventItem.dataset.eventTitle || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Fecha inicio
+        <input name="start_date" type="date" value="${eventItem.dataset.eventStartDate || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Precio
+        <input name="price" type="number" value="${eventItem.dataset.eventPrice || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Categoria
+        <input type="text" value="${eventItem.dataset.eventCategoryTitle || ""}" disabled class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Organizador
+        <input type="text" value="${eventItem.dataset.eventUserTitle || ""}" disabled class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Imagen
+        <input name="image_main" type="text" value="${eventItem.dataset.eventImageMain || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700 md:col-span-2">
+        Direccion
+        <input name="address" type="text" value="${eventItem.dataset.eventAddress || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Estado
+        <select name="is_active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+          <option value="true" ${eventItem.dataset.eventActive === "true" ? "selected" : ""}>Visible</option>
+          <option value="false" ${eventItem.dataset.eventActive === "false" ? "selected" : ""}>Oculto</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Destacado
+        <select name="is_featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+          <option value="true" ${eventItem.dataset.eventFeatured === "true" ? "selected" : ""}>Destacado</option>
+          <option value="false" ${eventItem.dataset.eventFeatured === "false" ? "selected" : ""}>No destacado</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700 md:col-span-2 xl:col-span-4">
+        Descripcion
+        <textarea name="description" rows="3" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">${eventItem.dataset.eventDescription || ""}</textarea>
+      </label>
+
+      <div class="flex gap-2 md:col-span-2 xl:col-span-4">
+        <button type="submit" data-save-event-edit="true" class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-blue-700">
+          Guardar cambios
+        </button>
+        <button type="button" data-cancel-event-edit="true" class="cursor-pointer rounded-lg border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  `;
 }

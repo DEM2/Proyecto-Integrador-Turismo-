@@ -1,4 +1,7 @@
-import { getAdminDashboardAllPlaces } from "../../services/adminDashboard.service.js";
+import {
+  getAdminDashboardAllPlaces,
+  updateAdminDashboardPlace,
+} from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardPlaceItem } from "./adminDashboardPlaceItem.js";
 
 export async function renderAdminDashboardAllPlaces() {
@@ -127,4 +130,138 @@ export function renderAdminDashboardAllPlacesEvents() {
   filterPlaceUser.addEventListener("input", filterPlaces);
   filterPlaceActive.addEventListener("change", filterPlaces);
   filterPlaceFeatured.addEventListener("change", filterPlaces);
+
+  placesSection.addEventListener("click", (event) => {
+    const editButton = event.target.closest("[data-edit-place='true']");
+    const cancelButton = event.target.closest("[data-cancel-place-edit='true']");
+
+    if (editButton) {
+      const placeItem = editButton.closest("[data-admin-place-item='true']");
+
+      if (!placeItem) {
+        return;
+      }
+
+      const currentForm = placeItem.querySelector("[data-place-edit-form='true']");
+
+      if (currentForm) {
+        currentForm.remove();
+        return;
+      }
+
+      placeItem.insertAdjacentHTML("beforeend", renderAdminDashboardPlaceEditForm(placeItem));
+    }
+
+    if (cancelButton) {
+      const form = cancelButton.closest("[data-place-edit-form='true']");
+
+      if (form) {
+        form.remove();
+      }
+    }
+  });
+
+  placesSection.addEventListener("submit", async (event) => {
+    const form = event.target.closest("[data-place-edit-form='true']");
+
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const placeItem = form.closest("[data-admin-place-item='true']");
+
+    if (!placeItem) {
+      return;
+    }
+
+    const saveButton = form.querySelector("[data-save-place-edit='true']");
+    const placeId = placeItem.dataset.placeId;
+    const fields = form.elements;
+
+    const placeData = {
+      name: fields.name.value.trim(),
+      description: fields.description.value.trim(),
+      address: fields.address.value.trim(),
+      is_featured: fields.is_featured.value === "true",
+      is_active: fields.is_active.value === "true",
+    };
+
+    try {
+      saveButton.disabled = true;
+      saveButton.textContent = "Guardando...";
+
+      await updateAdminDashboardPlace(placeId, placeData);
+
+      const dashboardContent = document.getElementById("admin-dashboard-content");
+
+      if (!dashboardContent) {
+        return;
+      }
+
+      dashboardContent.innerHTML = await renderAdminDashboardAllPlaces();
+      renderAdminDashboardAllPlacesEvents();
+    } catch (error) {
+      saveButton.disabled = false;
+      saveButton.textContent = "Guardar cambios";
+      alert("No se pudo actualizar el sitio. Intenta de nuevo.");
+    }
+  });
+}
+
+function renderAdminDashboardPlaceEditForm(placeItem) {
+  return `
+    <form data-place-edit-form="true" class="mt-4 grid gap-3 border-t border-slate-200 pt-4 md:grid-cols-2 xl:grid-cols-4">
+      <label class="text-sm font-bold text-slate-700">
+        Nombre
+        <input name="name" type="text" value="${placeItem.dataset.placeTitle || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700 md:col-span-2">
+        Direccion
+        <input name="address" type="text" value="${placeItem.dataset.placeAddress || ""}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Categoria
+        <input type="text" value="${placeItem.dataset.placeCategoryTitle || ""}" disabled class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Organizador
+        <input type="text" value="${placeItem.dataset.placeUserTitle || ""}" disabled class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500" />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Estado
+        <select name="is_active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+          <option value="true" ${placeItem.dataset.placeActive === "true" ? "selected" : ""}>Visible</option>
+          <option value="false" ${placeItem.dataset.placeActive === "false" ? "selected" : ""}>Oculto</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Destacado
+        <select name="is_featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+          <option value="true" ${placeItem.dataset.placeFeatured === "true" ? "selected" : ""}>Destacado</option>
+          <option value="false" ${placeItem.dataset.placeFeatured === "false" ? "selected" : ""}>No destacado</option>
+        </select>
+      </label>
+
+      <label class="text-sm font-bold text-slate-700 md:col-span-2 xl:col-span-4">
+        Descripcion
+        <textarea name="description" rows="3" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">${placeItem.dataset.placeDescription || ""}</textarea>
+      </label>
+
+      <div class="flex gap-2 md:col-span-2 xl:col-span-4">
+        <button type="submit" data-save-place-edit="true" class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-blue-700">
+          Guardar cambios
+        </button>
+        <button type="button" data-cancel-place-edit="true" class="cursor-pointer rounded-lg border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  `;
 }

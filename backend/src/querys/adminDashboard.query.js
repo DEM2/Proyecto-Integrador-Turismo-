@@ -208,6 +208,37 @@ inner join users on places.id_user = users.id
   return result.rows || [];
 }
 
+export async function getAdminDashboardAllUsers() {
+  const sql = `
+    /*
+      Reemplaza esta consulta por la consulta real de tus usuarios.
+
+      El frontend espera estos alias:
+        id
+        name
+        last_name
+        email
+        role_name
+        is_active
+        created_at
+        updated_at
+    */
+    SELECT
+      NULL AS id,
+      NULL AS name,
+      NULL AS last_name,
+      NULL AS email,
+      NULL AS role_name,
+      NULL AS is_active,
+      NULL AS created_at,
+      NULL AS updated_at
+    WHERE false;
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
 export async function updateAdminDashboardEvent(id_event, eventData) {
   const sql = `
     UPDATE events
@@ -261,6 +292,38 @@ export async function updateAdminDashboardPlace(id_place, placeData) {
     placeData.is_featured,
     placeData.is_active,
     id_place
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
+export async function updateAdminDashboardUser(id_user, userData) {
+  const sql = `
+    /*
+      Reemplaza esta consulta por el UPDATE real de tu tabla de usuarios.
+
+      Parametros disponibles:
+        $1 -> name
+        $2 -> last_name
+        $3 -> email
+        $4 -> is_active
+        $5 -> id_user
+    */
+    SELECT NULL AS id
+    WHERE $1::text IS NULL
+      AND $2::text IS NULL
+      AND $3::text IS NULL
+      AND $4::boolean IS NULL
+      AND $5::text IS NULL;
+  `;
+
+  const values = [
+    userData.name,
+    userData.last_name,
+    userData.email,
+    userData.is_active,
+    id_user
   ];
 
   const result = await pool.query(sql, values);
