@@ -1,4 +1,9 @@
 import { getAdminDashboardData } from "../../services/adminDashboard.service.js";
+import {
+  renderAdminDashboardAllReviews,
+  renderAdminDashboardAllReviewsEvents,
+  renderAdminDashboardBackEvent,
+} from "./adminDashboardAllReviews.js";
 
 function formatCount(value) {
   return Number(value ?? 0);
@@ -60,9 +65,9 @@ export async function renderAdminDashboardMetricCards() {
         <h2 class="text-sm font-bold text-slate-800">Resenas</h2>
         <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalReviews)}</p>
         <p class="mt-1 text-sm font-medium text-slate-500">Total resenas</p>
-        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-amber-500 transition hover:bg-amber-100 lg:mt-3 lg:py-1.5">
+        <button type="button" data-show-all-reviews="true" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-amber-500 transition hover:bg-amber-100 lg:mt-3 lg:py-1.5">
           Ver resenas <span aria-hidden="true">&rarr;</span>
-        </a>
+        </button>
       </article>
 
       <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
@@ -81,4 +86,24 @@ export async function renderAdminDashboardMetricCards() {
       </article>
     </section>
   `;
+}
+
+export function renderAdminDashboardMetricCardsEvents() {
+  const showAllReviewsButton = document.querySelector("[data-show-all-reviews='true']");
+
+  if (!showAllReviewsButton) {
+    return;
+  }
+
+  showAllReviewsButton.addEventListener("click", async () => {
+    const dashboardContent = document.getElementById("admin-dashboard-content");
+
+    if (!dashboardContent) {
+      return;
+    }
+
+    dashboardContent.innerHTML = await renderAdminDashboardAllReviews();
+    renderAdminDashboardAllReviewsEvents();
+    renderAdminDashboardBackEvent();
+  });
 }

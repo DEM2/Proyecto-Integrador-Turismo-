@@ -44,13 +44,6 @@ export async function renderAdminDashboardAllReviews() {
         </p>
       </div>
 
-      <button
-        type="button"
-        data-admin-dashboard-back="true"
-        class="cursor-pointer rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100"
-      >
-        Volver al dashboard
-      </button>
     </header>
 
     <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-5" aria-label="Filtros de resenas">
@@ -249,5 +242,17 @@ export function renderAdminDashboardAllReviewsEvents() {
         alert("No se pudo mostrar la resena. Intenta de nuevo.");
       }
     }
+  });
+}
+
+export function renderAdminDashboardBackEvent() {
+  const backButton = document.querySelector("[data-admin-dashboard-back='true']");
+
+  if (!backButton) {
+    return;
+  }
+
+  backButton.addEventListener("click", () => {
+    window.location.reload();
   });
 }

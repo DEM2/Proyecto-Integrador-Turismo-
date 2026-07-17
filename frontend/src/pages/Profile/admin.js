@@ -1,4 +1,4 @@
-import { renderAdminDashboardMetricCards } from "../../components/cards/adminDashboardMetricCards.js";
+import { renderAdminDashboardMetricCards, renderAdminDashboardMetricCardsEvents } from "../../components/cards/adminDashboardMetricCards.js";
 import { renderAdminDashboardPendingRequests } from "../../components/cards/adminDashboardPendingRequests.js";
 import { renderAdminDashboardQuickActions } from "../../components/cards/adminDashboardQuickActions.js";
 import { renderAdminDashboardRecentReviews, renderAdminDashboardRecentReviewsEvents } from "../../components/cards/adminDashboardRecentReviews.js";
@@ -45,5 +45,6 @@ export async function adminDashboardPage() {
 
 export function adminDashboardPageEvents() {
   renderAdminDashboardSidebarEvents();
+  renderAdminDashboardMetricCardsEvents();
   renderAdminDashboardRecentReviewsEvents();
 }
