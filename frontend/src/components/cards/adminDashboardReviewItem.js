@@ -58,6 +58,20 @@ export function renderAdminDashboardReviewItem(review, showReviewType = false) {
     `;
   }
 
+  if (!isActive) {
+    hideButton = `
+      <button
+        type="button"
+        data-show-review="true"
+        data-review-type="${reviewType}"
+        data-review-id="${reviewId}"
+        class="mt-2 cursor-pointer rounded-lg border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-600 transition hover:bg-emerald-50"
+      >
+        Mostrar
+      </button>
+    `;
+  }
+
   if (showReviewType) {
     reviewBadges = `
       <div class="flex flex-wrap gap-2">

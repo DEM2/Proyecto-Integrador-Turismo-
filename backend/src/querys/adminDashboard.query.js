@@ -184,3 +184,35 @@ export async function hideAdminDashboardPlaceReview(id_review) {
   const result = await pool.query(sql, values);
   return result.rows[0] || null;
 }
+
+export async function showAdminDashboardEventReview(id_review) {
+  const sql = `
+    UPDATE events_reviews
+    SET is_active = true
+    WHERE id = $1
+    RETURNING id;
+  `;
+
+  const values = [
+    id_review
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
+export async function showAdminDashboardPlaceReview(id_review) {
+  const sql = `
+    UPDATE places_reviews
+    SET is_active = true
+    WHERE id = $1
+    RETURNING id;
+  `;
+
+  const values = [
+    id_review
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}

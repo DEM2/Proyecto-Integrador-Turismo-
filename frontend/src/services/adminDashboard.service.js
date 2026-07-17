@@ -42,6 +42,20 @@ export async function hideAdminDashboardReview(reviewType, reviewId) {
   return await response.json();
 }
 
+export async function showAdminDashboardReview(reviewType, reviewId) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/reviews/${reviewType}/${reviewId}/show`), {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al mostrar la resena");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
 export async function getAdminDashboardAllReviews() {
   const response = await fetch(apiUrl("/api/admin-dashboard/reviews"));
 

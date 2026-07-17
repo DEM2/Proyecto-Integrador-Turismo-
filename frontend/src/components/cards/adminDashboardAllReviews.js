@@ -1,6 +1,7 @@
 import {
   getAdminDashboardAllReviews,
   hideAdminDashboardReview,
+  showAdminDashboardReview,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardReviewItem } from "./adminDashboardReviewItem.js";
 
@@ -165,37 +166,88 @@ export function renderAdminDashboardAllReviewsEvents() {
   reviewsSection.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-hide-review='true']");
 
-    if (!button) {
-      return;
+    if (button) {
+      const reviewType = button.dataset.reviewType;
+      const reviewId = button.dataset.reviewId;
+
+      try {
+        button.disabled = true;
+        button.textContent = "Ocultando...";
+
+        await hideAdminDashboardReview(reviewType, reviewId);
+
+        const reviewItem = button.closest("[data-review-item]");
+        if (reviewItem) {
+          const reviewStatusLabel = reviewItem.querySelector("[data-review-status-label='true']");
+
+          reviewItem.dataset.reviewActive = "false";
+          button.outerHTML = `
+            <button
+              type="button"
+              data-show-review="true"
+              data-review-type="${reviewType}"
+              data-review-id="${reviewId}"
+              class="mt-2 cursor-pointer rounded-lg border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-600 transition hover:bg-emerald-50"
+            >
+              Mostrar
+            </button>
+          `;
+
+          if (reviewStatusLabel) {
+            reviewStatusLabel.textContent = "Oculta";
+            reviewStatusLabel.className = "inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500";
+          }
+
+          filterReviews();
+        }
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = "Ocultar";
+        alert("No se pudo ocultar la resena. Intenta de nuevo.");
+      }
     }
 
-    const reviewType = button.dataset.reviewType;
-    const reviewId = button.dataset.reviewId;
+    const showButton = event.target.closest("[data-show-review='true']");
 
-    try {
-      button.disabled = true;
-      button.textContent = "Ocultando...";
+    if (showButton) {
+      const reviewType = showButton.dataset.reviewType;
+      const reviewId = showButton.dataset.reviewId;
 
-      await hideAdminDashboardReview(reviewType, reviewId);
+      try {
+        showButton.disabled = true;
+        showButton.textContent = "Mostrando...";
 
-      const reviewItem = button.closest("[data-review-item]");
-      if (reviewItem) {
-        const reviewStatusLabel = reviewItem.querySelector("[data-review-status-label='true']");
+        await showAdminDashboardReview(reviewType, reviewId);
 
-        reviewItem.dataset.reviewActive = "false";
-        button.remove();
+        const reviewItem = showButton.closest("[data-review-item]");
+        if (reviewItem) {
+          const reviewStatusLabel = reviewItem.querySelector("[data-review-status-label='true']");
 
-        if (reviewStatusLabel) {
-          reviewStatusLabel.textContent = "Oculta";
-          reviewStatusLabel.className = "inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500";
+          reviewItem.dataset.reviewActive = "true";
+          showButton.outerHTML = `
+            <button
+              type="button"
+              data-hide-review="true"
+              data-review-type="${reviewType}"
+              data-review-id="${reviewId}"
+              class="mt-2 cursor-pointer rounded-lg border border-red-200 px-3 py-1 text-xs font-bold text-red-600 transition hover:bg-red-50"
+            >
+              Ocultar
+            </button>
+          `;
+
+          if (reviewStatusLabel) {
+            reviewStatusLabel.textContent = "Visible";
+            reviewStatusLabel.className = "inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700";
+          }
+
+          filterReviews();
         }
-
-        filterReviews();
+      } catch (error) {
+        showButton.disabled = false;
+        showButton.textContent = "Mostrar";
+        alert("No se pudo mostrar la resena. Intenta de nuevo.");
       }
-    } catch (error) {
-      button.disabled = false;
-      button.textContent = "Ocultar";
-      alert("No se pudo ocultar la resena. Intenta de nuevo.");
     }
   });
 }

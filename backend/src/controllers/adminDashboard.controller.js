@@ -9,6 +9,8 @@ import {
   getAdminDashboardRecentReviews,
   hideAdminDashboardEventReview,
   hideAdminDashboardPlaceReview,
+  showAdminDashboardEventReview,
+  showAdminDashboardPlaceReview,
 } from "../querys/adminDashboard.query.js";
 
 export async function getAdminDashboardController(req, res) {
@@ -97,6 +99,41 @@ export async function getAdminDashboardAllReviewsController(req, res) {
       ok: true,
       message: "Resenas consultadas exitosamente",
       data: reviews,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function showAdminDashboardReviewController(req, res) {
+  try {
+    const { reviewType, id } = req.params;
+
+    if (reviewType !== "event" && reviewType !== "place") {
+      return res.status(400).json({
+        ok: false,
+        message: "Tipo de resena invalido",
+      });
+    }
+
+    const visibleReview = reviewType === "event"
+      ? await showAdminDashboardEventReview(id)
+      : await showAdminDashboardPlaceReview(id);
+
+    if (!visibleReview) {
+      return res.status(404).json({
+        ok: false,
+        message: "Resena no encontrada",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Resena mostrada exitosamente",
+      data: visibleReview,
     });
   } catch (error) {
     return res.status(500).json({
