@@ -17,8 +17,17 @@ export async function getDestinations(){
 }
 
 export async function createDestinationByUser(placeData) {
+   const lastIdSql = `
+      SELECT (MAX(id) + 1) AS next_id
+      FROM places;
+   `;
+
+   const lastIdResult = await pool.query(lastIdSql);
+   const nextId = lastIdResult.rows[0].next_id;
+
    const sql =`
    INSERT INTO places(
+      id,
       name,
       description,
       address,
@@ -28,11 +37,12 @@ export async function createDestinationByUser(placeData) {
       id_user,
       is_featured
    ) VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8
+      $1, $2, $3, $4, $5, $6, $7, $8, $9
    ) RETURNING *
    `;
 
    const values = [
+      nextId,
       placeData.name,
       placeData.description,
       placeData.address,
@@ -44,6 +54,5 @@ export async function createDestinationByUser(placeData) {
    ]
 
    const result = await pool.query(sql, values)
-
    return result.rows[0]
 }
