@@ -15,7 +15,7 @@ export async function adminDashboardPage() {
     <main class="min-h-screen bg-slate-50 font-sans text-slate-950 lg:grid lg:h-screen lg:grid-cols-[17rem_1fr] lg:overflow-hidden">
       ${renderAdminDashboardSidebar()}
 
-      <section class="flex flex-col px-6 py-6 lg:h-screen lg:overflow-hidden lg:px-8 lg:py-4" aria-labelledby="admin-dashboard-title">
+      <section id="admin-dashboard-content" class="flex flex-col px-6 py-6 lg:h-screen lg:overflow-hidden lg:px-8 lg:py-4" aria-labelledby="admin-dashboard-title">
         <header class="mb-3 flex flex-col gap-4 border-b border-slate-200 pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 id="admin-dashboard-title" class="text-3xl font-extrabold text-slate-950 lg:text-2xl">Dashboard</h1>

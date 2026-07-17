@@ -4,6 +4,7 @@ import {
   countAdminDashboardPlaces,
   countAdminDashboardReviews,
   countAdminDashboardUsers,
+  getAdminDashboardAllReviews,
   getAdminDashboardPendingOrganizers,
   getAdminDashboardRecentReviews,
   hideAdminDashboardEventReview,
@@ -79,6 +80,23 @@ export async function hideAdminDashboardReviewController(req, res) {
       ok: true,
       message: "Resena ocultada exitosamente",
       data: hiddenReview,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function getAdminDashboardAllReviewsController(req, res) {
+  try {
+    const reviews = await getAdminDashboardAllReviews();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Resenas consultadas exitosamente",
+      data: reviews,
     });
   } catch (error) {
     return res.status(500).json({

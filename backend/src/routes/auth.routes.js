@@ -11,7 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
-import { getAdminDashboardController, hideAdminDashboardReviewController } from "../controllers/adminDashboard.controller.js";
+import { getAdminDashboardAllReviewsController, getAdminDashboardController, hideAdminDashboardReviewController } from "../controllers/adminDashboard.controller.js";
 import { events } from "../controllers/event.controller.js";
 
 const router = Router();
@@ -69,6 +69,11 @@ router.get(
 router.get(
     "/admin-dashboard",
     getAdminDashboardController
+);
+
+router.get(
+    "/admin-dashboard/reviews",
+    getAdminDashboardAllReviewsController
 );
 
 router.patch(
