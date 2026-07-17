@@ -6,6 +6,7 @@ import { renderAdminDashboardReviewItem } from "./adminDashboardReviewItem.js";
 import {
   renderAdminDashboardAllReviews,
   renderAdminDashboardAllReviewsEvents,
+  renderAdminDashboardBackEvent,
 } from "./adminDashboardAllReviews.js";
 
 export async function renderAdminDashboardRecentReviews() {
@@ -92,17 +93,5 @@ export function renderAdminDashboardRecentReviewsEvents() {
       button.textContent = "Ocultar";
       alert("No se pudo ocultar la resena. Intenta de nuevo.");
     }
-  });
-}
-
-function renderAdminDashboardBackEvent() {
-  const backButton = document.querySelector("[data-admin-dashboard-back='true']");
-
-  if (!backButton) {
-    return;
-  }
-
-  backButton.addEventListener("click", () => {
-    window.location.reload();
   });
 }

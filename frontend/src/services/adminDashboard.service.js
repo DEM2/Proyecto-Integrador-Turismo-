@@ -42,6 +42,20 @@ export async function hideAdminDashboardReview(reviewType, reviewId) {
   return await response.json();
 }
 
+export async function showAdminDashboardReview(reviewType, reviewId) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/reviews/${reviewType}/${reviewId}/show`), {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al mostrar la resena");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
 export async function getAdminDashboardAllReviews() {
   const response = await fetch(apiUrl("/api/admin-dashboard/reviews"));
 
@@ -52,6 +66,66 @@ export async function getAdminDashboardAllReviews() {
 
   const payload = await response.json();
   return payload?.data ?? [];
+}
+
+export async function getAdminDashboardAllEvents() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/events"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los eventos");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
+export async function getAdminDashboardAllPlaces() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/places"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los sitios");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
+export async function updateAdminDashboardEvent(eventId, eventData) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/events/${eventId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(eventData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al actualizar el evento");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
+export async function updateAdminDashboardPlace(placeId, placeData) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/places/${placeId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(placeData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al actualizar el sitio");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
 }
 
 async function fetchAdminDashboardData() {
