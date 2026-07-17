@@ -1,5 +1,6 @@
 import {
   getAdminDashboardAllUsers,
+  getAdminDashboardRoles,
   updateAdminDashboardUser,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardUserItem } from "./adminDashboardUserItem.js";
@@ -117,7 +118,7 @@ export function renderAdminDashboardAllUsersEvents() {
   filterUserRole.addEventListener("input", filterUsers);
   filterUserActive.addEventListener("change", filterUsers);
 
-  usersSection.addEventListener("click", (event) => {
+  usersSection.addEventListener("click", async (event) => {
     const editButton = event.target.closest("[data-edit-user='true']");
     const cancelButton = event.target.closest("[data-cancel-user-edit='true']");
 
@@ -135,7 +136,16 @@ export function renderAdminDashboardAllUsersEvents() {
         return;
       }
 
-      userItem.insertAdjacentHTML("beforeend", renderAdminDashboardUserEditForm(userItem));
+      let roles = [];
+
+      try {
+        roles = await getAdminDashboardRoles();
+      } catch (error) {
+        alert("No se pudieron cargar los roles. Intenta de nuevo.");
+        return;
+      }
+
+      userItem.insertAdjacentHTML("beforeend", renderAdminDashboardUserEditForm(userItem, roles));
     }
 
     if (cancelButton) {
@@ -170,6 +180,7 @@ export function renderAdminDashboardAllUsersEvents() {
       name: fields.name.value.trim(),
       last_name: fields.last_name.value.trim(),
       email: fields.email.value.trim(),
+      id_role: fields.id_role.value,
       is_active: fields.is_active.value === "true",
     };
 
@@ -195,7 +206,17 @@ export function renderAdminDashboardAllUsersEvents() {
   });
 }
 
-function renderAdminDashboardUserEditForm(userItem) {
+function renderAdminDashboardUserEditForm(userItem, roles) {
+  let roleOptions = "";
+
+  if (roles.length > 0) {
+    roleOptions = roles.map((role) => renderAdminDashboardRoleOption(role, userItem.dataset.userRoleId)).join("");
+  } else {
+    roleOptions = `
+      <option value="">No hay roles disponibles</option>
+    `;
+  }
+
   return `
     <form data-user-edit-form="true" class="col-span-full mt-4 grid gap-3 border-t border-slate-200 pt-4 md:grid-cols-2 xl:grid-cols-4">
       <label class="text-sm font-bold text-slate-700">
@@ -215,7 +236,9 @@ function renderAdminDashboardUserEditForm(userItem) {
 
       <label class="text-sm font-bold text-slate-700">
         Rol
-        <input type="text" value="${userItem.dataset.userRoleTitle || ""}" disabled class="mt-2 w-full rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500" />
+        <select name="id_role" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+          ${roleOptions}
+        </select>
       </label>
 
       <label class="text-sm font-bold text-slate-700">
@@ -235,5 +258,19 @@ function renderAdminDashboardUserEditForm(userItem) {
         </button>
       </div>
     </form>
+  `;
+}
+
+function renderAdminDashboardRoleOption(role, currentRoleId) {
+  const roleId = role.id || "";
+  const roleName = role.name || "Rol";
+  let selected = "";
+
+  if (String(roleId) === String(currentRoleId)) {
+    selected = "selected";
+  }
+
+  return `
+    <option value="${roleId}" ${selected}>${roleName}</option>
   `;
 }

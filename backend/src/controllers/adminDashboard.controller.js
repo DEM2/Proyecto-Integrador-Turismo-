@@ -10,6 +10,7 @@ import {
   getAdminDashboardAllUsers,
   getAdminDashboardPendingOrganizers,
   getAdminDashboardRecentReviews,
+  getAdminDashboardRoles,
   hideAdminDashboardEventReview,
   hideAdminDashboardPlaceReview,
   showAdminDashboardEventReview,
@@ -156,6 +157,23 @@ export async function getAdminDashboardAllUsersController(req, res) {
       ok: true,
       message: "Usuarios consultados exitosamente",
       data: users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function getAdminDashboardRolesController(req, res) {
+  try {
+    const roles = await getAdminDashboardRoles();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Roles consultados exitosamente",
+      data: roles,
     });
   } catch (error) {
     return res.status(500).json({

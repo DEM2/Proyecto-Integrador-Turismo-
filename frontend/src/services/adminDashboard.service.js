@@ -104,6 +104,18 @@ export async function getAdminDashboardAllUsers() {
   return payload?.data ?? [];
 }
 
+export async function getAdminDashboardRoles() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/roles"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los roles");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
 export async function updateAdminDashboardEvent(eventId, eventData) {
   const response = await fetch(apiUrl(`/api/admin-dashboard/events/${eventId}`), {
     method: "PATCH",

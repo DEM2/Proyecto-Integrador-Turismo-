@@ -10,6 +10,7 @@ export function renderAdminDashboardUserItem(user) {
   const userName = user.name || "Usuario";
   const userLastName = user.last_name || "";
   const userEmail = user.email || "Sin correo";
+  const roleId = user.id_role || "";
   const roleName = user.role_name || "Sin rol";
   const isActive = user.is_active !== false;
 
@@ -40,6 +41,7 @@ export function renderAdminDashboardUserItem(user) {
       data-user-last-name="${userLastName.toLowerCase()}"
       data-user-full-name="${`${userName} ${userLastName}`.toLowerCase()}"
       data-user-email="${userEmail.toLowerCase()}"
+      data-user-role-id="${roleId}"
       data-user-role="${roleName.toLowerCase()}"
       data-user-active="${isActive}"
       data-user-name-title="${formatAttribute(userName)}"
