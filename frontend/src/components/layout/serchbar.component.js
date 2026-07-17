@@ -1,9 +1,9 @@
-export function serchBar() {
+export function serchBar(placeholder = "Buscar lugares turísticos...") {
     return `<div class="relative mt-8 w-full max-w-2xl">
     <input
         id="destination_search"
         type="text"
-        placeholder="Buscar lugares turísticos..."
+        placeholder="${placeholder}"
         class="h-14 w-full rounded-2xl border border-gray-200 bg-white px-6 pr-14 shadow-xl outline-none transition-all duration-300 focus:ring-4 focus:ring-blue-100"
     />
 
@@ -25,4 +25,3 @@ export function serchBar() {
 </div>`
     
 }
-
