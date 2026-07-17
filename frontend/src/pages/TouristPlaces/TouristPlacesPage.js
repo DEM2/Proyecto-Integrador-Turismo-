@@ -4,6 +4,7 @@ import {renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.j
 import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterCard.js";
 import {
     House,
+    MapPinned,
     CalendarDays,
     Music,
     Landmark,
@@ -13,6 +14,7 @@ import {
     Drama,
     Baby
 } from "lucide";
+import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import ventanaMundo from "../../assets/videos/ventana_mundo.mp4";
 import { applyFilters } from "../../components/Filter/filter.component.js";
@@ -86,34 +88,40 @@ export function renderTouristPlacesPage() {
             </svg>
 
         </header>
-        <main class=" px-12 py-8">
-            <!-- Categorías -->
-            <section
-                id="filters_container"
-                class="mt-6 mb-8 flex gap-4 overflow-x-auto pb-2">
-
-            </section>
-
-                <!-- Encabezado -->
-                <section class="mb-8">
-
-                    <h2 class=" font-semibold text-[#0B2E69] text-xl">
-
-                        <span id="destination_count">245</span>
-                        <span class="">
-                            Destinos encontrados
-                        </span>
-
-                    </h2>
-
-                </section>
-
-                <!-- Tarjetas -->
+            <main class=" px-12 py-8">
+                <!-- Categorías -->
                 <section
-                    id="destination_container"
-                    class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                    id="filters_container"
+                    class="mt-6 mb-8 flex gap-4 overflow-x-auto pb-2">
 
                 </section>
+
+                <section class="flex items-center gap-3 mb-6">
+
+        ${renderIconSvg(MapPinned, {
+            class: "size-8 text-blue-500",
+            strokeWidth: 2,
+        })}
+
+        <div>
+
+            <p class="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
+                Explora
+            </p>
+
+            <h2 class="text-4xl font-bold text-[#0B2E69]">
+                Destinos destacados
+            </h2>
+
+        </div>
+
+    </section>
+
+        <!-- Tarjetas -->
+        <section
+            id="destination_container"
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+        </section>
 
         </main>
     `
@@ -128,8 +136,7 @@ export async function initializeTouristPlacesPageEvents() {
     const searchInput = document.getElementById("destination_search");
 
     const destinations = await getDestinations();
-    destination_count.textContent = destinations.length;
-
+    
     let selectedCategory = "Todos";
     let searchText = "";
 
@@ -139,8 +146,6 @@ export async function initializeTouristPlacesPageEvents() {
         destination_container.innerHTML = list
             .map(destination => renderTouristPlaceCard(destination))
             .join("");
-
-        destination_count.textContent = list.length;
 
         initializeItineraryMenus();
     }

@@ -1,7 +1,83 @@
-import { Drama, Clock3, Users } from "lucide";
+
 import { renderIconSvg } from "../../utils/renderIcon.js";
 
+import {
+    Users,
+    Clock3,
+    Drama,
+    CalendarDays,
+    Music,
+    Trophy,
+    UtensilsCrossed,
+    Store,
+    Baby,
+    ListPlus,
+} from "lucide";
+
+import { getSession } from "../../services/authService.js";
+
+const CATEGORY_STYLES = {
+    festival: {
+        bg: "#FEE2E2",
+        text: "#DC2626",
+        icon: CalendarDays,
+    },
+
+    concierto: {
+        bg: "#F3E8FF",
+        text: "#9333EA",
+        icon: Music,
+    },
+
+    cultura: {
+        bg: "#FCE7F3",
+        text: "#DB2777",
+        icon: Drama,
+    },
+
+    deportes: {
+        bg: "#DCFCE7",
+        text: "#16A34A",
+        icon: Trophy,
+    },
+
+    gastronomía: {
+        bg: "#FFEDD5",
+        text: "#EA580C",
+        icon: UtensilsCrossed,
+    },
+
+    feria: {
+        bg: "#E0F2FE",
+        text: "#0284C7",
+        icon: Store,
+    },
+
+    teatro: {
+        bg: "#E0E7FF",
+        text: "#4F46E5",
+        icon: Drama,
+    },
+
+    infantil: {
+        bg: "#FEF3C7",
+        text: "#D97706",
+        icon: Baby,
+    },
+};
+
+function getCategoryStyle(category = "") {
+    return (
+        CATEGORY_STYLES[category.toLowerCase()] ?? {
+            bg: "#F3F4F6",
+            text: "#374151",
+            icon: CalendarDays,
+        }
+    );
+}
+
 export function renderEventCard(event) {
+    const { bg, text, icon } = getCategoryStyle(event.category);
     const eventDate = new Date(event.start_date);
 
     const day = eventDate.getDate();
@@ -17,11 +93,38 @@ export function renderEventCard(event) {
           month: "short",
       })
     : "";
+    const session = getSession();
+
+const isExplorer =
+    session?.user?.role === "explorador" ||
+    session?.role === "explorador";
+
+const eventId = event.id ?? event._id ?? "";
+
+const optionsButton = isExplorer
+    ? `
+        <button
+            type="button"
+            aria-label="Agregar a itinerario"
+            data-item-type="event"
+            data-item-id="${eventId}"
+            data-item-name="${event.name}"
+            class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
+        >
+
+            ${renderIconSvg(ListPlus,{
+                class:"size-5",
+                strokeWidth:2
+            })}
+
+        </button>
+    `
+    : "";
 
     return `
         <article
             data-event-id="${event.id}"
-            class="featured-event-card overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+            class="featured-event-card overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
         >
 
             <!-- Imagen -->
@@ -35,26 +138,24 @@ export function renderEventCard(event) {
 
                 <!-- Categoría -->
                 <div
-                    class="absolute top-3 left-3 bg-pink-500 text-white rounded-full px-3 py-1.5 flex items-center gap-2 shadow-md"
-                >
-
-                    ${renderIconSvg(Drama,{
-                        class:"size-4 text-white",
-                        strokeWidth:2
+                    style="background-color:${bg}; color:${text};"
+                    class="absolute top-3 left-3 flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold shadow-md"
+                  >
+                    ${renderIconSvg(icon, {
+                        class: "size-4",
+                        strokeWidth: 2,
                     })}
 
-                    <span class="text-xs font-semibold">
-                        ${event.category}
-                    </span>
-
+                    <span>${event.category}</span>
                 </div>
+                ${optionsButton}
 
                 <!-- Fecha -->
                 <div
-                    class="absolute -bottom-5 left-4 w-16 h-16 rounded-2xl bg-white shadow-lg flex flex-col items-center justify-center"
+                    class="absolute -bottom-5 left-4 w-13 h-13 rounded-2xl bg-white shadow-lg flex flex-col items-center justify-center"
                 >
 
-                    <span class="text-3xl font-bold leading-none text-slate-900">
+                    <span class="text-2xl font-bold leading-none text-slate-900">
                         ${day}
                     </span>
 
@@ -69,7 +170,7 @@ export function renderEventCard(event) {
             <!-- Contenido -->
             <div class="px-4 pt-8 pb-4">
 
-                <h2 class="text-2xl font-extrabold text-slate-900 leading-tight line-clamp-2">
+                <h2 class="text-1xl font-bold text-slate-900 leading-tight line-clamp-2">
                     ${event.name}
                 </h2>
 
@@ -97,7 +198,7 @@ export function renderEventCard(event) {
                             class:"size-4 text-pink-500",
                             strokeWidth:2
                         })}
-                        
+
                         <span>Finaliza ${endDate}</span>
 
                     </div>
