@@ -18,11 +18,9 @@ export function getCategoryStyle(category = "") {
 export function renderTouristPlaceCard(destination, itemType = "place") {
 
     const { bg, text, icon } = getCategoryStyle(destination.category);
-    console.log(destination)
     const session = getSession();
     const isExplorer = session?.user?.role === "explorador" || session?.role === "explorador";
     const placeId = destination.id ?? destination._id ?? "";
-    console.log(placeId)
 
    const optionsButton = isExplorer
   ? `

@@ -71,7 +71,6 @@ export async function addPlaceToItinerary(itineraryId, placeId) {
  * Agrega un evento a un itinerario
  */
 export async function addEventToItinerary(itineraryId, eventId) {
-  console.log("llegue", eventId)
   const response = await fetch(
     `${API_URL}/${itineraryId}/events`,
     {
@@ -86,7 +85,6 @@ export async function addEventToItinerary(itineraryId, eventId) {
   );
 
   const data = await response.json();
-  console.log(data)
   if (!response.ok) {
     throw new Error(data.message || "No fue posible agregar el evento");
   }
