@@ -4,13 +4,21 @@ import pool from "../config/db.js"
 
 export async function getallevent() {
     const sql = `
-    SELECT
-     e.name,
-     e.address,
-     c.name as category,
-     e.start_date
-    FROM events e
-    INNER JOIN categories c on c.id = e.id_category
+     SELECT
+            e.id,
+            e.name,
+            e.description,
+            e.address,
+            e.start_date,
+            e.start_time,
+            e.end_date,
+            e.image_main,
+            c.name AS category
+        FROM events e
+        INNER JOIN categories c
+            ON c.id = e.id_category
+        WHERE e.is_active = true
+        ORDER BY e.start_date ASC
     `
     const result = await pool.query(sql);
     return result.rows
