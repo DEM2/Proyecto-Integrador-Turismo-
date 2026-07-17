@@ -2,7 +2,7 @@ import { renderIconSvg } from "../../utils/renderIcon.js";
 
 export function renderCategoryFilterCard(category) {
   return `
-    <button data-category="${category.name}" class="destination-filter flex w-3xl items-center gap-3 rounded-3xl
+    <button type="button" data-category="${category.name}" aria-pressed="false" class="destination-filter flex w-3xl cursor-pointer items-center gap-3 rounded-3xl
            border border-gray-200
            bg-white px-3 py-2
            shadow-sm
@@ -22,4 +22,24 @@ export function renderCategoryFilterCard(category) {
       </div>
     </button>
   `;
+}
+
+export function setActiveCategoryFilter(filtersContainer, selectedButton) {
+  const filterButtons = filtersContainer.querySelectorAll("[data-category]");
+
+  filterButtons.forEach((button) => {
+    const isActive = button === selectedButton;
+    const label = button.querySelector("h3");
+
+    button.classList.toggle("border-blue-600", isActive);
+    button.classList.toggle("bg-blue-50", isActive);
+    button.classList.toggle("ring-2", isActive);
+    button.classList.toggle("ring-blue-100", isActive);
+    button.classList.toggle("shadow-md", isActive);
+    button.classList.toggle("border-gray-200", !isActive);
+    button.classList.toggle("bg-white", !isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+
+    label?.classList.toggle("text-blue-900", isActive);
+  });
 }

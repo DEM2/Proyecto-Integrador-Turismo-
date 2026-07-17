@@ -49,7 +49,6 @@ export async function postEvent(event) {
 export async function getAllEvent() {
   
   const response = await fetch(apiUrl("/api/events"));
-  console.log(response);
   
     if (!response.ok) {
     const error = await response.json().catch(() => null);

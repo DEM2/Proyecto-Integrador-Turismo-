@@ -1,12 +1,6 @@
 import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
-import {
-  renderHomeInfoIcon,
-  renderHomeFeatureCard,
-} from "../../components/sections/HomeSections.js";
-import {
-  getEventosDestacados,
-  getSitiosDestacados,
-} from "../../services/featuredContentService.js";
+import { renderHomeInfoIcon, renderHomeFeatureCard} from "../../components/sections/HomeSections.js";
+import { getEventosDestacados, getSitiosDestacados} from "../../services/featuredContentService.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
 import { renderEventCard } from "../../components/cards/EventCard.component.js";
@@ -23,13 +17,7 @@ export function renderHomePage() {
 
     <main class="home-page flex w-full flex-col gap-4 font-sans">
       <section class="HERO relative isolate flex min-h-[38rem] w-full flex-col overflow-hidden bg-blue-950 sm:min-h-[40rem] lg:min-h-[42rem]">
-         <video
-                            class="absolute inset-0 block w-full h-full object-cover"
-                            autoplay
-                            muted
-                            loop
-                            playsinline
-                            >
+         <video class="absolute inset-0 block w-full h-full object-cover" autoplay muted loop playsinline >
                         <source src="${ventanaMundo}" type="video/mp4" />
                         </video>
         
