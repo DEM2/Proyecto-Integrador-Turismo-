@@ -63,7 +63,7 @@ export function renderCreatePlaceView() {
                 class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-5 text-sm font-black text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white hover:text-blue-950 focus:outline-none focus:ring-4 focus:ring-white/20 sm:w-auto"
               >
                 <span aria-hidden="true">←</span>
-                Volver a mis sitios
+                Volver atrás
               </button>
             </div>
           </header>
