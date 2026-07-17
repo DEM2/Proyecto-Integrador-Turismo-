@@ -7,12 +7,20 @@ import { findByEmail } from "../querys/user.query.js";
 export async function register(userData) {
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
+    const idRole = Number(userData.id_role);
+    const isActive = idRole === 1;
+
+    if (idRole !== 1 && idRole !== 2) {
+        const error = new Error("Rol invalido.");
+        error.statusCode = 400;
+        throw error;
+    }
 
     const result = await pool.query(
         `INSERT INTO users (name, last_name, email, password, id_role, is_active)
          VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING id, name, last_name, email, id_role, is_active, created_at`,
-        [userData.name, userData.last_name, userData.email, hashedPassword, 1, true]
+        [userData.name, userData.last_name, userData.email, hashedPassword, idRole, isActive]
     );
 
 
@@ -36,6 +44,12 @@ export async function loginUserService(credentials) {
     if (!isPasswordValid) {
         const error = new Error("Credenciales invalidas.")
         error.statusCode = 401;
+        throw error;
+    }
+
+    if (!user.is_active) {
+        const error = new Error("Tu solicitud de organizador esta pendiente de aprobacion.");
+        error.statusCode = 403;
         throw error;
     }
 

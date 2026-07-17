@@ -165,7 +165,7 @@ export function initializeLoginPageEvents() {
         }
       }
     } catch (error) {
-      alertaError("Error al ingresar. Por favor, verifica tus credenciales e intenta nuevamente.");
+      alertaError(error.message);
     }
 
   })

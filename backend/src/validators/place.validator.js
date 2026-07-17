@@ -28,7 +28,7 @@ export function validateCreateDestination(req, res, next) {
         })
     }
 
-    if (Number.isNaN(id_category) || Number(id_category) <= 0) {
+    if (Number.isNaN(id_category) || id_category <= 0) {
         return res.status(400).json({
             ok: false,
             message: "El id de la categoría no es válido",

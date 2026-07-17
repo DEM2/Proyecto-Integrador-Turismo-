@@ -31,9 +31,9 @@ export async function login(req, res) {
             data: loginResult,
         });
     }catch (error){
-        return res.status(500).json({
+        return res.status(error.statusCode || 500).json({
             ok: false,
-            message: "Error intero del servidor",
+            message: error.message || "Error interno del servidor",
         })
     }
 }
