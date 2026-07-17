@@ -23,7 +23,7 @@ export async function postPlace(place) {
   const result = await response.json()
 
   if(!response.ok){
-    throw new Error("Error al crear el evento")
+    throw new Error(result?.message || "Error al crear el sitio")
   }
 
   return result

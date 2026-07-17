@@ -24,7 +24,7 @@ export async function createDestinationByUser(placeData) {
       address,
       id_category,
       is_active,
-      fk_places_user) VALUES (
+      id_user) VALUES (
       $1, $2, $3, $4, $5, $6 
    ) RETURNING *
    `;

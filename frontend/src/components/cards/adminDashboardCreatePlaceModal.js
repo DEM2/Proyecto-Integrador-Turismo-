@@ -211,7 +211,7 @@ function renderAdminDashboardCreatePlaceModalEvents(onCreated) {
     } catch (error) {
       saveButton.disabled = false;
       saveButton.textContent = "Crear sitio";
-      alert("No se pudo crear el sitio. Intenta de nuevo.");
+      alert(error.message || "No se pudo crear el sitio. Intenta de nuevo.");
     }
   });
 }
