@@ -1,5 +1,4 @@
 import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
-import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
@@ -432,10 +431,7 @@ export function renderCreatePlaceView() {
   `;
 }
 
-export function renderCreatePlaceEvents(params) {
 
-  initializeMainNavigationEvents();
-  const formCreatePlace = document.getElementById("create-place-form");
 export function renderCreatePlaceEvents() {
   initializeMainNavigationEvents();
   renderProfileInfoEvents();
