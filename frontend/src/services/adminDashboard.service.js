@@ -116,6 +116,46 @@ export async function getAdminDashboardRoles() {
   return payload?.data ?? [];
 }
 
+export async function getAdminDashboardOrganizerRequests() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/organizer-requests"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener las solicitudes de organizador");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
+export async function approveAdminDashboardOrganizer(userId) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/organizer-requests/${userId}/approve`), {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al aprobar la solicitud");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
+export async function rejectAdminDashboardOrganizer(userId) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/organizer-requests/${userId}`), {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al rechazar la solicitud");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
 export async function updateAdminDashboardEvent(eventId, eventData) {
   const response = await fetch(apiUrl(`/api/admin-dashboard/events/${eventId}`), {
     method: "PATCH",

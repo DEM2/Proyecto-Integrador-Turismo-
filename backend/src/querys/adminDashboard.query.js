@@ -81,6 +81,57 @@ export async function getAdminDashboardPendingOrganizers() {
   return result.rows || [];
 }
 
+export async function getAdminDashboardAllPendingOrganizers() {
+  const sql = `
+    SELECT
+      u.id,
+      u.name,
+      u.last_name,
+      u.email,
+      TO_CHAR(u.created_at, 'DD/MM/YYYY') AS requested_at
+    FROM users u
+    INNER JOIN roles r
+      ON r.id = u.id_role
+    WHERE LOWER(r.name) = 'organizador'
+      AND u.is_active = false
+    ORDER BY u.created_at DESC;
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
+export async function approveAdminDashboardOrganizer(id_user) {
+  const sql = `
+    UPDATE users
+    SET is_active = true
+    WHERE id = $1
+      AND id_role = (
+        SELECT id FROM roles WHERE LOWER(name) = 'organizador'
+      )
+      AND is_active = false
+    RETURNING id;
+  `;
+
+  const result = await pool.query(sql, [id_user]);
+  return result.rows[0] || null;
+}
+
+export async function rejectAdminDashboardOrganizer(id_user) {
+  const sql = `
+    DELETE FROM users
+    WHERE id = $1
+      AND id_role = (
+        SELECT id FROM roles WHERE LOWER(name) = 'organizador'
+      )
+      AND is_active = false
+    RETURNING id;
+  `;
+
+  const result = await pool.query(sql, [id_user]);
+  return result.rows[0] || null;
+}
+
 export async function getAdminDashboardRecentReviews() {
   const sql = `
     SELECT

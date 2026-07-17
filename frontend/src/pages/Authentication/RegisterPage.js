@@ -149,6 +149,26 @@ export function renderRegisterPage() {
 
       </fieldset>
 
+      <!-- Tipo de cuenta -->
+      <fieldset>
+        <label for="register-role" class="block font-bold text-sm mb-2">
+          Tipo de cuenta
+        </label>
+
+        <select
+          required
+          id="register-role"
+          class="w-full h-12 cursor-pointer border border-slate-200 rounded-xl px-4 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+        >
+          <option value="1">Explorador</option>
+          <option value="2">Organizador</option>
+        </select>
+
+        <p class="mt-2 text-xs text-slate-500">
+          Las cuentas de organizador deben ser aprobadas por un administrador.
+        </p>
+      </fieldset>
+
       <!-- Botón -->
 
       <button
@@ -212,6 +232,7 @@ export function initializeRegisterPageEvents() {
     const lastname = document.getElementById("register-lastname");
     const email = document.getElementById("register-email");
     const password = document.getElementById("register-password");
+    const role = document.getElementById("register-role");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -219,14 +240,19 @@ export function initializeRegisterPageEvents() {
       name: name.value,
       last_name: lastname.value,
       email: email.value,
-      password: password.value
+      password: password.value,
+      id_role: Number(role.value)
     };
 
     try {
       const response = await postUser(user)
       if(response){
-        alertaExitosa("Usuario registrado exitosamente");
-       // navigateTo("/dashboard");
+        const message = user.id_role === 2
+          ? "Solicitud enviada. Debes esperar la aprobacion del administrador."
+          : "Usuario registrado exitosamente";
+
+        alertaExitosa(message);
+        navigateTo("/login");
       }
     } catch (error) {
       alertaError(error.message);

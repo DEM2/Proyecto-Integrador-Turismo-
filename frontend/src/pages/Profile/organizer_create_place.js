@@ -1,4 +1,4 @@
-import { renderMainNavigation } from "../../components/layout/MainNavigation.js";
+import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
@@ -716,6 +716,8 @@ export function renderCreatePlaceView() {
 }
 
 export function renderCreatePlaceEvents(params) {
+
+  initializeMainNavigationEvents();
   const formCreatePlace = document.getElementById("create-place-form");
 
   if (!formCreatePlace) {

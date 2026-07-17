@@ -17,7 +17,7 @@ export async function loginUser(email, password) {
   const data = await response.json();
   
   if(!response.ok){
-    throw new Error("Error al iniciar sección")
+    throw new Error(data?.message || "Error al iniciar sesion")
   }
 
   const sessionData = {
