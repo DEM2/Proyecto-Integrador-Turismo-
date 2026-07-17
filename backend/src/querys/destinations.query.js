@@ -22,10 +22,13 @@ export async function createDestinationByUser(placeData) {
       name,
       description,
       address,
-      id_category,
+      image_main,
       is_active,
-      id_user) VALUES (
-      $1, $2, $3, $4, $5, $6 
+      id_category,
+      id_user,
+      is_featured
+   ) VALUES (
+      $1, $2, $3, $4, $5, $6, $7, $8
    ) RETURNING *
    `;
 
@@ -33,9 +36,11 @@ export async function createDestinationByUser(placeData) {
       placeData.name,
       placeData.description,
       placeData.address,
-      placeData.id_category,
+      placeData.image_main || null,
       placeData.is_active,
-      placeData.fk_places_user
+      placeData.id_category,
+      placeData.fk_places_user,
+      placeData.is_featured || false
    ]
 
    const result = await pool.query(sql, values)
