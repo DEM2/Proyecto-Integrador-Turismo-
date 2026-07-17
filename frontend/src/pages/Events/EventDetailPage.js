@@ -7,6 +7,21 @@ import { RenderCommentary } from "../../components/cards/commentary.card.js";
 import { RenderCommentariesModal } from "../../components/layout/commentaryModal.js";
 import { SaveCommentaries } from "../../components/layout/commentaryModal.js";
 import { getReviews } from "../../services/EventReview.service.js";
+import { renderIconSvg } from "../../utils/renderIcon.js";
+import {
+    CalendarDays,
+    MapPin,
+    Clock,
+    Ticket,
+    Drama,
+    Music,
+    Users,
+    UtensilsCrossed,
+    Camera,
+    Navigation,
+    Heart,
+    Share2,
+} from "lucide";
 
 let currentEvent = null;
 
@@ -82,33 +97,9 @@ export async function renderEventDetailPage() {
         <!-- VISTA DETALLE DE EVENTO -->
 <main class="event-detail-page min-h-screen bg-slate-50 text-blue-950">
   ${renderMainNavigation()}
-    
 
-  <!-- HEADER PRINCIPAL -->
-  
   <!-- CONTENIDO -->
   <section class="mx-auto max-w-7xl px-6 py-8">
-
-    <!-- BREADCRUMB -->
-    <nav class="mb-4 text-sm text-slate-500" aria-label="Ruta de navegación">
-      <ol class="flex flex-wrap items-center gap-2">
-        <li>
-          <a href="/" class="hover:text-blue-600">Inicio</a>
-        </li>
-
-        <li>/</li>
-
-        <li>
-          <a href="/eventos" class="hover:text-blue-600">Eventos</a>
-        </li>
-
-        <li>/</li>
-
-        <li class="font-semibold text-blue-950">
-          ${eventDetail.name}
-        </li>
-      </ol>
-    </nav>
 
     <!-- HERO DEL EVENTO -->
     <header class="relative overflow-hidden rounded-[32px] bg-white shadow-xl">
@@ -126,7 +117,7 @@ export async function renderEventDetailPage() {
         <!-- Fecha flotante -->
         <time
           datetime="2027-02-14"
-          class="absolute bottom-10 left-8 rounded-2xl bg-white px-5 py-4 text-center font-black text-blue-950 shadow-xl"
+          class="absolute bottom-10 left-8 rounded-2xl bg-white px-5 py-4 text-center font-black text-blue-950 shadow-xl z-40"
         >
           <span class="block text-2xl">${startDate} - ${endDate}</span>
           <span class="block text-sm text-slate-500">${textMonth}</span>
@@ -134,24 +125,11 @@ export async function renderEventDetailPage() {
         </time>
 
         <!-- Botones flotantes -->
-        <ul class="absolute right-6 top-6 flex gap-3">
-          <li>
-            <button class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl shadow-lg hover:bg-blue-50">
-              ♡
-            </button>
-          </li>
-
-          <li>
-            <button class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl shadow-lg hover:bg-blue-50">
-              ↗
-            </button>
-          </li>
-        </ul>
-
+        
       </figure>
 
-      <!-- Tarjeta principal superpuesta -->
-      <article class="-mt-20 ml-8 mr-8 mb-6 relative rounded-[24px] bg-white p-6 shadow-2xl">
+      <!-- Tarjeta principal (no superpuesta) -->
+      <article class="mt-6 ml-8 mr-8 mb-6 relative rounded-[24px] bg-white p-6 shadow-2xl z-20">
 
         <h1 class="mb-3 text-4xl font-black text-blue-950">
           ${eventDetail.name}
@@ -170,22 +148,22 @@ export async function renderEventDetailPage() {
         <ul class="grid grid-cols-1 gap-4 text-sm text-slate-600 md:grid-cols-4">
 
           <li class="flex items-center gap-2">
-            <span class="text-blue-600">📅</span>
+            ${renderIconSvg(CalendarDays, { class: "size-5 text-blue-600", strokeWidth: 2 })}
             <span>${startDate} - ${endDate} ${textMonth} ${yearDate}</span>
           </li>
 
           <li class="flex items-center gap-2">
-            <span class="text-blue-600">📍</span>
+            ${renderIconSvg(MapPin, { class: "size-5 text-blue-600", strokeWidth: 2 })}
             <span>${eventDetail.address}</span>
           </li>
 
           <li class="flex items-center gap-2">
-            <span class="text-blue-600">🕘</span>
+            ${renderIconSvg(Clock, { class: "size-5 text-blue-600", strokeWidth: 2 })}
             <span>Desde ${eventDetail.start_time} AM</span>
           </li>
 
           <li class="flex items-center gap-2">
-            <span class="text-blue-600">🎟️</span>
+            ${renderIconSvg(Ticket, { class: "size-5 text-blue-600", strokeWidth: 2 })}
             <span>${
                 Number(eventDetail.price) === 0
                     ? "Evento gratuito"
@@ -218,32 +196,32 @@ export async function renderEventDetailPage() {
           <ul class="grid grid-cols-1 gap-3 text-sm text-slate-600 md:grid-cols-2">
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">🎭</span>
+              ${renderIconSvg(Drama, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Desfiles y comparsas
             </li>
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">🎵</span>
+              ${renderIconSvg(Music, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Conciertos y shows en vivo
             </li>
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">👨‍👩‍👧</span>
+              ${renderIconSvg(Users, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Eventos para toda la familia
             </li>
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">🍲</span>
+              ${renderIconSvg(UtensilsCrossed, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Gastronomía típica
             </li>
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">📸</span>
+              ${renderIconSvg(Camera, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Espacios ideales para fotos
             </li>
 
             <li class="flex items-center gap-2">
-              <span class="text-blue-600">🚌</span>
+              ${renderIconSvg(Navigation, { class: "size-5 text-blue-600", strokeWidth: 2 })}
               Rutas de acceso recomendadas
             </li>
 
@@ -297,31 +275,6 @@ export async function renderEventDetailPage() {
 
         </article>
 
-        <!-- COMENTARIOS -->
-        <article id="comentarios" class="rounded-[24px] bg-white p-7 shadow-sm">
-
-          <header class="mb-5 flex items-center justify-between">
-            <h2 class="text-2xl font-black text-blue-950">
-              Comentarios
-                <span id="rating-count" class="text-slate-500">
-                (0 reseñas)
-                </span>
-             
-            </h2>
-
-            <button id = "read_comentaries" class="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700">
-              Escribir comentario
-            </button>
-          </header>
-
-          <section
-          id="commentaries-container"
-          class="grid grid-cols-1 gap-4 md:grid-cols-2">
-
-          </section>
-
-        </article>
-
       </section>
 
       <!-- COLUMNA DERECHA -->
@@ -337,7 +290,7 @@ export async function renderEventDetailPage() {
           <ul class="space-y-4 text-sm text-slate-600">
 
             <li class="flex items-start gap-3">
-              <span class="text-blue-600">📅</span>
+              ${renderIconSvg(CalendarDays, { class: "size-5 text-blue-600 flex-shrink-0 mt-1", strokeWidth: 2 })}
               <p>
                 <strong class="block text-blue-950">Fecha</strong>
                 ${startDate} - ${endDate} ${textMonth} ${yearDate}
@@ -345,7 +298,7 @@ export async function renderEventDetailPage() {
             </li>
 
             <li class="flex items-start gap-3">
-              <span class="text-blue-600">🕘</span>
+              ${renderIconSvg(Clock, { class: "size-5 text-blue-600 flex-shrink-0 mt-1", strokeWidth: 2 })}
               <p>
                 <strong class="block text-blue-950">Horario</strong>
                 Desde ${formatAgendaTime(eventDetail.start_time)} AM
@@ -353,7 +306,7 @@ export async function renderEventDetailPage() {
             </li>
 
             <li class="flex items-start gap-3">
-              <span class="text-blue-600">📍</span>
+              ${renderIconSvg(MapPin, { class: "size-5 text-blue-600 flex-shrink-0 mt-1", strokeWidth: 2 })}
               <p>
                   <strong class="block text-blue-950">Lugar</strong>
                   ${eventDetail.address}
@@ -361,7 +314,7 @@ export async function renderEventDetailPage() {
             </li>
 
             <li class="flex items-start gap-3">
-              <span class="text-blue-600">🎟️</span>
+              ${renderIconSvg(Ticket, { class: "size-5 text-blue-600 flex-shrink-0 mt-1", strokeWidth: 2 })}
               <p>
                 <strong class="block text-blue-950">Entrada</strong>
                 ${
@@ -373,7 +326,7 @@ export async function renderEventDetailPage() {
             </li>
 
             <li class="flex items-start gap-3">
-              <span class="text-blue-600">💰</span>
+              ${renderIconSvg(Ticket, { class: "size-5 text-green-600 flex-shrink-0 mt-1", strokeWidth: 2 })}
               <p>
                 <strong class="block text-blue-950">Precio</strong>
                 ${
@@ -398,6 +351,32 @@ export async function renderEventDetailPage() {
         </article>
       </aside>
     </section>
+
+    <!-- COMENTARIOS: AL FINAL EN RESPONSIVE -->
+    <article id="comentarios" class="rounded-[24px] bg-white p-7 shadow-sm">
+
+      <header class="mb-5 flex items-center justify-between">
+        <h2 class="text-2xl font-black text-blue-950">
+          Comentarios
+            <span id="rating-count" class="text-slate-500">
+            (0 reseñas)
+            </span>
+         
+        </h2>
+
+        <button id = "read_comentaries" class="rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700">
+          Escribir comentario
+        </button>
+      </header>
+
+      <section
+      id="commentaries-container"
+      class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+      </section>
+
+    </article>
+
   </section>
 </main>
  `;

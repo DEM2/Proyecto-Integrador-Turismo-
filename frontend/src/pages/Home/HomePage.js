@@ -7,6 +7,7 @@ import {
   getEventosDestacados,
   getSitiosDestacados,
 } from "../../services/featuredContentService.js";
+import { navigateTo } from "../../router/AppRouter.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
 import { renderEventCard } from "../../components/cards/EventCard.component.js";
 import { renderIconSvg } from "../../utils/renderIcon.js";
@@ -167,6 +168,15 @@ export async function initializeHomePageEvents() {
       eventosContainer.innerHTML = eventos
         .map(evento => renderEventCard(evento))
         .join("");
+
+      document.querySelectorAll(".featured-event-card")
+        .forEach((card) => {
+          card.addEventListener("click", () => {
+            const id = card.dataset.eventId;
+            localStorage.setItem("selectedEventId", id);
+            navigateTo("/detailEvent");
+          });
+        });
     }
   } catch (error) {
     alertaError(error.message);
