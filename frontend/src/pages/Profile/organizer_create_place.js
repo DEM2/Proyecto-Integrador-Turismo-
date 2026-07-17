@@ -3,6 +3,7 @@ import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
 
 export function renderCreatePlaceView() {
 

@@ -18,7 +18,7 @@ export async function getDestinations(){
 
 export async function createDestinationByUser(placeData) {
    const lastIdSql = `
-      SELECT (MAX(id) + 1) AS next_id
+      SELECT COALESCE(MAX(id), 0) + 1 AS next_id
       FROM places;
    `;
 
@@ -50,13 +50,9 @@ export async function createDestinationByUser(placeData) {
       placeData.address,
       placeData.image_main || null,
       placeData.is_active,
-<<<<<<< HEAD
       placeData.id_category,
-      placeData.fk_places_user,
+      placeData.id_user,
       placeData.is_featured || false
-=======
-      placeData.id_user
->>>>>>> 0abcd33 (feat: complete place creation flow)
    ]
 
    const result = await pool.query(sql, values)
