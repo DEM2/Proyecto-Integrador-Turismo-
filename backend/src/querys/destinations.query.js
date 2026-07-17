@@ -43,3 +43,29 @@ export async function createDestinationByUser(placeData) {
    const result = await pool.query(sql, values)
    return result.rows[0]
 }
+
+export async function getDestinationById(id_place) {
+    const sql = `
+        SELECT
+            p.id,
+            p.name,
+            p.description,
+            p.address,
+            p.image_main,
+            p.is_active,
+            p.is_featured,
+            p.id_category,
+            p.id_user,
+            c.name AS category
+        FROM places p
+        JOIN categories c ON c.id = p.id_category
+        WHERE p.id = $1
+          AND p.is_active = true
+    `;
+
+    const values = [id_place]
+
+    const result = await pool.query(sql, values);
+
+    return result.rows[0] || null;
+}

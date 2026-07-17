@@ -20,6 +20,7 @@ import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import { applyFilters } from "../../components/Filter/filter.component.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
+import { navigateTo } from "../../router/AppRouter.js";
 
 export function renderTouristPlacesPage() {
     return `
@@ -132,7 +133,19 @@ export async function initializeTouristPlacesPageEvents() {
         destination_container.innerHTML = list
             .map(destination => renderTouristPlaceCard(destination))
             .join("");
+            
+        document.querySelectorAll(".tourist-place-card").forEach(function(card){
+            card.addEventListener("click", function(event){
+                if(event.target.closest(".options-toggle-btn")){
+                    return
+                }
 
+                const placeId = card.dataset.placeId
+
+                localStorage.setItem("selectedPlaceId", placeId)
+                navigateTo("/detailPlace")
+            })
+        })
         initializeItineraryMenus();
     }
 

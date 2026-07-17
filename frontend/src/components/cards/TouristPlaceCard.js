@@ -44,7 +44,8 @@ export function renderTouristPlaceCard(destination, itemType = "place") {
 
     return `
        <article
-    class="group overflow-hidden rounded-2xl border border-[#E7E1D6] bg-white shadow-sm transition-shadow hover:shadow-lg">
+       data-place-id="${placeId}"
+    class="tourist-place-card group cursor-pointer overflow-hidden rounded-2xl border border-[#E7E1D6] bg-white shadow-sm transition-shadow hover:shadow-lg">
 
     <!-- Imagen -->
    <figure class="relative h-44 overflow-hidden">
