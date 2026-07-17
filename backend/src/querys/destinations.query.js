@@ -35,9 +35,11 @@ export async function createDestinationByUser(placeData) {
       is_active,
       id_category,
       id_user,
-      is_featured
+      is_featured,
+      created_at,
+      updated_at
    ) VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8, $9
+      $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW()
    ) RETURNING *
    `;
 
