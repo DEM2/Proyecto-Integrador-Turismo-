@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
-=======
 import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
 import { navigateTo } from "../../router/AppRouter.js";
->>>>>>> aea40508eff95351e42e057519cad98d2dccb9a7
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
