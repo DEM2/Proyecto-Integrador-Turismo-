@@ -3,11 +3,11 @@
 
 export function validateCreateDestination(req, res, next) {
     const {
-        name, address, id_category, fk_places_user
+        name, address, id_category, id_user
     } = req.body
 
 
-    if (!name || !address || !id_category || !fk_places_user) {
+    if (!name || !address || !id_category || !id_user) {
         return res.status(400).json({
             ok: false,
             message: "name, address, categoria y id_user son obligatorios"
@@ -28,7 +28,7 @@ export function validateCreateDestination(req, res, next) {
         })
     }
 
-    if (Number.isNaN(id_category) || Number(id_category) <= 0) {
+    if (Number.isNaN(id_category) || id_category <= 0) {
         return res.status(400).json({
             ok: false,
             message: "El id de la categoría no es válido",

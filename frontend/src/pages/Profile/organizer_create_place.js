@@ -1,303 +1,20 @@
+<<<<<<< HEAD
 import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
+=======
+import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
+import { navigateTo } from "../../router/AppRouter.js";
+>>>>>>> aea40508eff95351e42e057519cad98d2dccb9a7
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
 
 export function renderCreatePlaceView() {
 
   return `
     ${renderMainNavigation()}
     <main class="min-h-screen bg-gray-50 font-sans text-blue-950">
-
-      <!-- =====================================================
-           ENCABEZADO DEL PERFIL
-      ====================================================== -->
-      <section class="relative pb-6">
-
-        <!-- Imagen de portada -->
-        <figure
-          class="absolute inset-x-0 top-0 h-128 overflow-hidden sm:h-120 md:h-75"
-        >
-          <img
-            src="/src/assets/img/hero3.png"
-            alt="Barranquilla, su cultura y el Carnaval"
-            class="h-full w-full object-cover"
-          />
-
-          <figcaption
-            class="absolute inset-0 bg-black/45"
-            aria-hidden="true"
-          ></figcaption>
-        </figure>
-
-        <!-- Información principal -->
-        <article
-          class="relative z-10 mx-auto flex min-h-128 max-w-7xl flex-col items-center justify-start gap-4 px-4 pb-8 pt-6 text-center text-white sm:min-h-120 sm:px-6 sm:pt-8 md:min-h-70 md:flex-row md:items-center md:justify-start md:gap-5 md:text-left"
-        >
-
-          <!-- Foto del usuario -->
-          <figure class="relative shrink-0">
-            <img
-              src="/src/assets/img/familias.webp"
-              alt="Foto de perfil de Mateo Mercado"
-              class="size-50 rounded-full border-4 border-white object-cover shadow-xl sm:size-40 md:size-62"
-            />
-
-            <figcaption class="sr-only">
-              Foto de perfil de Mateo Mercado
-            </figcaption>
-
-            <div
-              class="absolute -bottom-2 right-1 flex items-center justify-center rounded-full"
-            >
-              <img
-                src="/src/assets/img/explorer_morado.png"
-                alt=""
-                class="size-15 object-contain"
-                aria-hidden="true"
-              />
-            </div>
-          </figure>
-
-          <!-- Datos del perfil -->
-          <section class="max-w-xl">
-
-            <section
-              class="flex flex-wrap items-center gap-2 sm:gap-3 md:justify-start"
-            >
-              <h2
-                id="profile-name"
-                class="w-full text-2xl font-bold leading-tight sm:w-auto sm:text-3xl md:text-4xl"
-              >
-                Mateo Mercado
-              </h2>
-
-              <button
-                type="button"
-                id="btn-follow"
-                class="cursor-pointer rounded-full bg-purple-500 px-5 py-2 text-sm font-bold text-white transition hover:bg-purple-600"
-              >
-                Seguir
-              </button>
-            </section>
-
-            <p class="mt-1 text-sm font-semibold sm:text-base">
-              @Matero123_sew
-            </p>
-
-            <p
-              class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0"
-            >
-              Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-              archivos de texto...
-            </p>
-
-            <!-- Redes sociales -->
-            <nav
-              class="mt-4 sm:mt-5"
-              aria-label="Redes sociales de Mateo Mercado"
-            >
-              <ul
-                class="flex flex-wrap justify-center gap-2 sm:gap-3 md:justify-start"
-              >
-
-                <li>
-                  <a
-                    href="#"
-                    class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
-                  >
-                    <img
-                      src="/src/assets/img/instagram.svg"
-                      alt=""
-                      class="size-5 sm:size-6"
-                      aria-hidden="true"
-                    />
-
-                    mateo mercado
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
-                  >
-                    <img
-                      src="/src/assets/img/tiktok.svg"
-                      alt=""
-                      class="size-5 sm:size-6"
-                      aria-hidden="true"
-                    />
-
-                    mateo mercado
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
-                  >
-                    <img
-                      src="/src/assets/img/facebook.svg"
-                      alt=""
-                      class="size-5 sm:size-6"
-                      aria-hidden="true"
-                    />
-
-                    mateo mercado
-                  </a>
-                </li>
-
-              </ul>
-            </nav>
-
-          </section>
-        </article>
-
-        <!-- ESTADÍSTICAS -->
-        <nav
-          class="relative z-20 mx-auto -mt-10 w-[calc(100%-2rem)] max-w-7xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg"
-          aria-label="Estadísticas y contenido del perfil"
-        >
-          <ul class="grid grid-cols-2 md:grid-cols-5">
-
-            <!-- Seguidores -->
-            <li class="border-b border-r border-slate-200 md:border-b-0">
-              <button
-                type="button"
-                data-profile-section="followers"
-                class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
-              >
-                <img
-                  src="/src/assets/img/seguidores_morado.svg"
-                  alt=""
-                  class="size-8"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  <strong class="block text-2xl font-black text-blue-950">
-                    1000
-                  </strong>
-
-                  <span class="text-sm text-slate-600">
-                    Seguidores
-                  </span>
-                </span>
-              </button>
-            </li>
-
-            <!-- Seguidos -->
-            <li class="border-b border-slate-200 md:border-b-0 md:border-r">
-              <button
-                type="button"
-                data-profile-section="following"
-                class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
-              >
-                <img
-                  src="/src/assets/img/seguidos_morado.svg"
-                  alt=""
-                  class="size-8"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  <strong class="block text-2xl font-black text-blue-950">
-                    1000
-                  </strong>
-
-                  <span class="text-sm text-slate-600">
-                    Seguidos
-                  </span>
-                </span>
-              </button>
-            </li>
-
-            <!-- Reseñas -->
-            <li class="border-r border-slate-200">
-              <button
-                type="button"
-                data-profile-section="reviews"
-                class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
-              >
-                <img
-                  src="/src/assets/img/reseñas.svg"
-                  alt=""
-                  class="size-10"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  <strong class="block text-2xl font-black text-blue-950">
-                    10
-                  </strong>
-
-                  <span class="text-sm text-slate-600">
-                    Reseñas
-                  </span>
-                </span>
-              </button>
-            </li>
-
-            <!-- Sitios -->
-            <li class="border-t border-slate-200 md:border-r md:border-t-0">
-              <button
-                type="button"
-                data-profile-section="places"
-                class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
-              >
-                <img
-                  src="/src/assets/img/location4.svg"
-                  alt=""
-                  class="size-10"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  <strong class="block text-2xl font-black text-blue-950">
-                    18
-                  </strong>
-
-                  <span class="text-sm text-slate-600">
-                    Sitios
-                  </span>
-                </span>
-              </button>
-            </li>
-
-            <!-- Eventos -->
-            <li
-              class="col-span-2 border-t border-slate-200 md:col-span-1 md:border-t-0"
-            >
-              <button
-                type="button"
-                data-profile-section="events"
-                class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
-              >
-                <img
-                  src="/src/assets/img/calendar2.svg"
-                  alt=""
-                  class="size-10"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  <strong class="block text-2xl font-black text-blue-950">
-                    12
-                  </strong>
-
-                  <span class="text-sm text-slate-600">
-                    Eventos
-                  </span>
-                </span>
-              </button>
-            </li>
-
-          </ul>
-        </nav>
-
-      </section>
+    ${renderProfileInfo()}
 
       <!-- =====================================================
            CONTENIDO DINÁMICO DEL ORGANIZADOR
@@ -341,8 +58,8 @@ export function renderCreatePlaceView() {
             </section>
 
             <button
+              id="btn-back-organizer-profile"
               type="button"
-              data-organizer-view="dashboard"
               class="rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white hover:text-blue-950"
             >
               ← Volver a mis sitios
@@ -506,6 +223,12 @@ export function renderCreatePlaceView() {
                     </small>
                   </label>
                 </section>
+                <button id="save-place-change"
+                    type="button"
+                    class="h-12 w-full rounded-xl bg-blue-950 font-bold text-white shadow-lg shadow-blue-950/20 transition hover:-translate-y-0.5 hover:bg-blue-900"
+                  >
+                    Guardar cambios
+                  </button>
               </fieldset>
 
               <!-- INFORMACIÓN DE PUBLICACIÓN -->
@@ -662,23 +385,20 @@ export function renderCreatePlaceView() {
                 </section>
 
                 <footer class="space-y-3 border-t border-slate-100 p-6">
-
                   <button
-                    id="save-place-button"
                     type="submit"
                     class="h-12 w-full rounded-xl bg-purple-700 font-bold text-white shadow-lg shadow-purple-700/20 transition hover:-translate-y-0.5 hover:bg-purple-800"
                   >
-                    Guardar Cambios
+                    Publicar lugar
                   </button>
 
                   <button
+                    id="cancel-place"
                     type="button"
-                    data-organizer-view="dashboard"
                     class="h-12 w-full rounded-xl border border-purple-600 font-bold text-purple-600 transition hover:bg-purple-50"
                   >
                     Cancelar
                   </button>
-
                 </footer>
               </article>
 
@@ -719,10 +439,45 @@ export function renderCreatePlaceEvents(params) {
 
   initializeMainNavigationEvents();
   const formCreatePlace = document.getElementById("create-place-form");
+export function renderCreatePlaceEvents() {
+  initializeMainNavigationEvents();
+  renderProfileInfoEvents();
 
-  if (!formCreatePlace) {
+  const formCreatePlace = document.getElementById("create-place-form");
+  const savePlaceChangeButton = document.getElementById("save-place-change")
+  const cancelPlaceButton = document.getElementById("cancel-place")
+  const backOrganizerButton = document.getElementById("btn-back-organizer-profile")
+
+  if (!formCreatePlace || !savePlaceChangeButton) {
     return
   }
+
+  if (backOrganizerButton) {
+    backOrganizerButton.addEventListener("click", function () {
+      navigateTo("/perfilorganizador")
+    })
+  }
+
+  if (cancelPlaceButton) {
+    cancelPlaceButton.addEventListener("click", function () {
+      navigateTo("/perfilorganizador")
+    })
+  }
+
+  savePlaceChangeButton.addEventListener("click", function () {
+    const placeCreated = getPlaceData()
+
+    const resultValidation = validatePlaceForm(placeCreated)
+
+    if (resultValidation !== true) {
+      alert(resultValidation)
+      return
+    }
+
+    updatePlacePreview(placeCreated);
+  })
+
+
 
   formCreatePlace.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -736,7 +491,6 @@ export function renderCreatePlaceEvents(params) {
       return
     }
 
-    updatePlacePreview(placeCreated)
 
     try {
       const result = await postPlace(placeCreated)
@@ -746,12 +500,15 @@ export function renderCreatePlaceEvents(params) {
       resetPlacePreview()
       //FUNCION PARA RETROCEDER
     } catch (error) {
-      alertaError("No se pudo crear el lugar")
+      console.error("Error creando lugar:", error);
+      alertaError(
+        error.message || "No se pudo crear el lugar"
+      );
     }
 
     // Después puedes validar y enviar placeCreated al backend.
   });
-  
+
 }
 
 function getPlaceData() {
@@ -771,7 +528,7 @@ function getPlaceData() {
     is_active: isActive.value === "true",//
     description: description.value.trim(),//
     address: address.value.trim(),//
-    fk_places_user: idUser,
+    id_user: idUser,
   };
 }
 
@@ -801,7 +558,7 @@ function validatePlaceForm(placeCreated) {
     name,
     id_category,
     address,
-    fk_places_user
+    id_user
   } = placeCreated
 
   if (!name) {
@@ -823,7 +580,7 @@ function validatePlaceForm(placeCreated) {
     return "La dirección debe tener minimo 5 caracteres y maximo 250"
   }
 
-  if (!fk_places_user) {
+  if (!id_user) {
     return "No se encontró el usuario atenticado"
   }
 

@@ -84,6 +84,38 @@
   color: rgb(37 99 235);
 }
 
+.options-toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.group:hover .options-toggle-btn,
+.group:focus-within .options-toggle-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .options-toggle-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.featured-event-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.featured-event-card > div:last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .NAVEGACION {
     padding-right: 1.5rem;
