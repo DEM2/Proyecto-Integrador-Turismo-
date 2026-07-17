@@ -440,28 +440,28 @@ export function renderCreatePlaceEvents() {
   const cancelPlaceButton = document.getElementById("cancel-place")
   const backOrganizerButton = document.getElementById("btn-back-organizer-profile")
 
-  if (!formCreatePlace || !savePlaceChangeButton ) {
+  if (!formCreatePlace || !savePlaceChangeButton) {
     return
   }
 
-  if(backOrganizerButton){
-    backOrganizerButton.addEventListener("click", function(){
+  if (backOrganizerButton) {
+    backOrganizerButton.addEventListener("click", function () {
       navigateTo("/perfilorganizador")
     })
   }
 
-  if(cancelPlaceButton){
-    cancelPlaceButton.addEventListener("click", function(){
+  if (cancelPlaceButton) {
+    cancelPlaceButton.addEventListener("click", function () {
       navigateTo("/perfilorganizador")
     })
   }
 
-  savePlaceChangeButton.addEventListener("click", function(){
+  savePlaceChangeButton.addEventListener("click", function () {
     const placeCreated = getPlaceData()
 
     const resultValidation = validatePlaceForm(placeCreated)
 
-    if(resultValidation !== true){
+    if (resultValidation !== true) {
       alert(resultValidation)
       return
     }
@@ -492,7 +492,10 @@ export function renderCreatePlaceEvents() {
       resetPlacePreview()
       //FUNCION PARA RETROCEDER
     } catch (error) {
-      alertaError("No se pudo crear el lugar")
+      console.error("Error creando lugar:", error);
+      alertaError(
+        error.message || "No se pudo crear el lugar"
+      );
     }
 
     // Después puedes validar y enviar placeCreated al backend.

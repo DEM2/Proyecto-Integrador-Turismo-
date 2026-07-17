@@ -12,7 +12,7 @@ export async function getDestinations(){
 }
 
 export async function postPlace(place) {
-  const response = await fetch(apiUrl("api/organizer/createDestination"), {
+  const response = await fetch(apiUrl("/api/organizer/createDestination"), {
     method: "POST",
     headers: {
       "content-type": "application/json",
