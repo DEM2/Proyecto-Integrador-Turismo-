@@ -4,8 +4,7 @@ import {
 } from "../../components/layout/MainNavigation.js";
 import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterCard.js";
 import { renderEventCalendar } from "../../components/common/EventCalendar.js";
-import { renderFeaturedEventCard } from "../../components/sections/HomeSections.js";
-import { getEventosDestacados } from "../../services/featuredContentService.js";
+import {renderEventCard} from "../../components/cards/EventCard.component.js"
 import { navigateTo } from "../../router/AppRouter.js";
 import {
     House,
@@ -169,10 +168,10 @@ export function renderEventsPage() {
 
           </section>
 
-         <figure
+        <figure
           id="eventos-destacados"
-          class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          </figure>
+          class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        </figure>
 
       </section>
 
@@ -191,34 +190,27 @@ export async function initializeEventsPageEvents() {
         const searchInput = document.getElementById("destination_search");
         const eventos = await getAllEvent();
 
-        function renderEventCard(event) {
-          console.log(event)
-            eventosContainer.innerHTML = event.map((evento) => renderFeaturedEventCard(evento))
-                .join("");
+        function renderEvents(events) {
+    eventosContainer.innerHTML = events
+        .map((evento) => renderEventCard(evento))
+        .join("");
 
-            document.querySelectorAll(".featured-event-card")
-                .forEach((card) => {
-                    card.addEventListener("click", () => {
-                        console.log("Click");
-                        const id = card.dataset.eventId;
+    document.querySelectorAll(".featured-event-card")
+        .forEach((card) => {
+            card.addEventListener("click", () => {
+                const id = card.dataset.eventId;
 
-                        console.log("ID seleccionado:", id);
+                localStorage.setItem("selectedEventId", id);
 
-                        localStorage.setItem("selectedEventId", id);
+                navigateTo("/detailEvent");
+            });
+        });
 
-                        console.log(
-                            "Guardado:",
-                            localStorage.getItem("selectedEventId"),
-                        );
-
-                        navigateTo("/detailEvent");
-                    });
-                });
-            initializeItineraryMenus();
-        }
-        if (eventos) {
-            renderEventCard(eventos);
-        }
+    initializeItineraryMenus();
+}
+              if (eventos) {
+          renderEvents(eventos);
+      }
 
         function applyEventsFilters() {
             const filtered = applyFilters(
@@ -227,7 +219,7 @@ export async function initializeEventsPageEvents() {
                 searchText,
             );
 
-            renderEventCard(filtered);
+            renderEvents(filtered);
         }
         const categories = [
             {
