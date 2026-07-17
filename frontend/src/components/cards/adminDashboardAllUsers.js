@@ -4,6 +4,7 @@ import {
   updateAdminDashboardUser,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardUserItem } from "./adminDashboardUserItem.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export async function renderAdminDashboardAllUsers() {
   let users = [];
@@ -141,7 +142,7 @@ export function renderAdminDashboardAllUsersEvents() {
       try {
         roles = await getAdminDashboardRoles();
       } catch (error) {
-        alert("No se pudieron cargar los roles. Intenta de nuevo.");
+        alertaError("No se pudieron cargar los roles. Intenta de nuevo.");
         return;
       }
 
@@ -201,7 +202,7 @@ export function renderAdminDashboardAllUsersEvents() {
     } catch (error) {
       saveButton.disabled = false;
       saveButton.textContent = "Guardar cambios";
-      alert("No se pudo actualizar el usuario. Intenta de nuevo.");
+      alertaError("No se pudo actualizar el usuario. Intenta de nuevo.");
     }
   });
 }

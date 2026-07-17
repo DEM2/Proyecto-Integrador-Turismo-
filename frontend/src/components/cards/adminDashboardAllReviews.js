@@ -4,6 +4,7 @@ import {
   showAdminDashboardReview,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardReviewItem } from "./adminDashboardReviewItem.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export async function renderAdminDashboardAllReviews() {
   let reviews = [];
@@ -211,7 +212,7 @@ export function renderAdminDashboardAllReviewsEvents() {
       } catch (error) {
         button.disabled = false;
         button.textContent = "Ocultar";
-        alert("No se pudo ocultar la resena. Intenta de nuevo.");
+        alertaError("No se pudo ocultar la resena. Intenta de nuevo.");
       }
     }
 
@@ -254,7 +255,7 @@ export function renderAdminDashboardAllReviewsEvents() {
       } catch (error) {
         showButton.disabled = false;
         showButton.textContent = "Mostrar";
-        alert("No se pudo mostrar la resena. Intenta de nuevo.");
+        alertaError("No se pudo mostrar la resena. Intenta de nuevo.");
       }
     }
   });

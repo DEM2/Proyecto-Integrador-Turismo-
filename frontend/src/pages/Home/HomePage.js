@@ -9,6 +9,7 @@ import {
 } from "../../services/featuredContentService.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function renderHomePage() {
   return `
@@ -154,7 +155,7 @@ export async function initializeHomePageEvents() {
       sitiosContainer.innerHTML = sitios.map(sitio => renderTouristPlaceCard(sitio)).join("");
     }
   } catch (error) {
-    alert(error.message);
+    alertaError(error.message);
   }
 
   try {
@@ -165,7 +166,7 @@ export async function initializeHomePageEvents() {
         .join("");
     }
   } catch (error) {
-    alert(error.message);
+    alertaError(error.message);
   }
 
   initializeItineraryMenus();

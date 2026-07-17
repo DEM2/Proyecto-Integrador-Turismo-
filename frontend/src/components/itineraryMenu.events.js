@@ -2,6 +2,7 @@ import { renderItineraryOptionsMenu } from "./layout/ItineraryOptionsMenu.js";
 import { getUserItineraries, addPlaceToItinerary, addEventToItinerary } from "../services/itineraries.service.js";
 import { openCreateItineraryModal } from "./layout/IntineraryModal.js";
 import { getSession } from "../services/authService.js";
+import { alertaError, alertaExitosa } from "../utils/alertsss.js";
 
 // Caché en memoria de los itinerarios del usuario.
 // Evita pedirlos a la API cada vez que se abre el menú.
@@ -219,14 +220,19 @@ function initializeMenuEvents(menu, itemType, itemId, itemName) {
 
           removeCurrentMenu();
 
-          alert(`${itemName} agregado correctamente.`);
+          alertaExitosa(`${itemName} agregado correctamente.`);
 
         } catch (error) {
 
           console.error("Error agregando al itinerario:", error);
 
+<<<<<<< HEAD
           alert(error.message || "No fue posible agregar al itinerario.");
           button.disabled = false;
+=======
+          removeCurrentMenu();
+          alertaError(error.message || "No fue posible agregar al itinerario.");
+>>>>>>> 4f8bf992d098f129e490bf3efc73b84e8dff5f96
 
         }
 

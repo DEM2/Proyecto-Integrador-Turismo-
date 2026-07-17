@@ -1,6 +1,7 @@
 import { renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
+import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 
 export function renderCreatePlaceView() {
 
@@ -729,7 +730,7 @@ export function renderCreatePlaceEvents(params) {
     const validationResult = validatePlaceForm(placeCreated)
 
     if (validationResult !== true) {
-      alert(validationResult)
+      alertaError(validationResult)
       return
     }
 
@@ -738,12 +739,12 @@ export function renderCreatePlaceEvents(params) {
     try {
       const result = await postPlace(placeCreated)
 
-      alert("Lugar publicado correctamente")
+      alertaExitosa("Lugar publicado correctamente")
       formCreatePlace.reset()
       resetPlacePreview()
       //FUNCION PARA RETROCEDER
     } catch (error) {
-      alert("No se pudo crear el lugar")
+      alertaError("No se pudo crear el lugar")
     }
 
     // Después puedes validar y enviar placeCreated al backend.

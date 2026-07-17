@@ -1,6 +1,8 @@
+import { alertaError } from "../utils/alertsss.js";
+
 export const authMiddleware = (session, route) => {
   if (route.needAuth && !session) {
-    alert("Debes iniciar sesion para acceder a esta pagina");
+    alertaError("Debes iniciar sesion para acceder a esta pagina");
     return { allowed: false, redirect: "/login" };
   }
 
@@ -9,7 +11,7 @@ export const authMiddleware = (session, route) => {
 
 export const guestMiddleware = (session, route) => {
   if (route.guestOnly && session) {
-    alert("Ya has iniciado sesion");
+    alertaError("Ya has iniciado sesion");
     return { allowed: false, redirect: "/dashboard" };
   }
 
@@ -24,7 +26,7 @@ export const roleMiddleware = (session, route) => {
   const userRole = session?.user?.role || session?.role;
 
   if (!route.allowedRoles.includes(userRole)) {
-    alert("No tienes permisos para acceder a esta pagina");
+    alertaError("No tienes permisos para acceder a esta pagina");
     return { allowed: false, redirect: "/" };
   }
 

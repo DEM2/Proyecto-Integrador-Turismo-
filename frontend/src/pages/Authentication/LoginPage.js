@@ -1,5 +1,6 @@
 import { navigateTo } from "../../router/AppRouter.js";
 import { loginUser,  createSession  } from "../../services/authService.js";
+import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 
 export function renderLoginPage() {
   return `
@@ -152,7 +153,7 @@ export function initializeLoginPageEvents() {
       const responseUser = await loginUser(userLogin.email, userLogin.password)
       if (responseUser) {
         createSession(responseUser);
-        alert("Login exitoso.")
+        alertaExitosa("¡Bienvenido! Has iniciado sesión correctamente.");
 
         const userRole = responseUser?.user?.role || responseUser?.role;
 
@@ -164,7 +165,7 @@ export function initializeLoginPageEvents() {
         }
       }
     } catch (error) {
-      alert("Error al ingresar")
+      alertaError("Error al ingresar. Por favor, verifica tus credenciales e intenta nuevamente.");
     }
 
   })
