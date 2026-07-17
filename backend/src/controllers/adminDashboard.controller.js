@@ -13,6 +13,8 @@ import {
   hideAdminDashboardPlaceReview,
   showAdminDashboardEventReview,
   showAdminDashboardPlaceReview,
+  updateAdminDashboardEvent,
+  updateAdminDashboardPlace,
 } from "../querys/adminDashboard.query.js";
 
 export async function getAdminDashboardController(req, res) {
@@ -135,6 +137,56 @@ export async function getAdminDashboardAllPlacesController(req, res) {
       ok: true,
       message: "Sitios consultados exitosamente",
       data: places,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function updateAdminDashboardEventController(req, res) {
+  try {
+    const { id } = req.params;
+    const eventUpdated = await updateAdminDashboardEvent(id, req.body);
+
+    if (!eventUpdated) {
+      return res.status(404).json({
+        ok: false,
+        message: "Evento no encontrado",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Evento actualizado exitosamente",
+      data: eventUpdated,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function updateAdminDashboardPlaceController(req, res) {
+  try {
+    const { id } = req.params;
+    const placeUpdated = await updateAdminDashboardPlace(id, req.body);
+
+    if (!placeUpdated) {
+      return res.status(404).json({
+        ok: false,
+        message: "Sitio no encontrado",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Sitio actualizado exitosamente",
+      data: placeUpdated,
     });
   } catch (error) {
     return res.status(500).json({

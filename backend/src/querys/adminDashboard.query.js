@@ -208,6 +208,65 @@ inner join users on places.id_user = users.id
   return result.rows || [];
 }
 
+export async function updateAdminDashboardEvent(id_event, eventData) {
+  const sql = `
+    UPDATE events
+    SET
+      name = $1,
+      description = $2,
+      start_date = $3,
+      price = $4,
+      address = $5,
+      image_main = $6,
+      is_featured = $7,
+      is_active = $8,
+      updated_at = NOW()
+    WHERE id = $9
+    RETURNING id;
+  `;
+
+  const values = [
+    eventData.name,
+    eventData.description,
+    eventData.start_date,
+    eventData.price,
+    eventData.address,
+    eventData.image_main,
+    eventData.is_featured,
+    eventData.is_active,
+    id_event
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
+export async function updateAdminDashboardPlace(id_place, placeData) {
+  const sql = `
+    UPDATE places
+    SET
+      name = $1,
+      description = $2,
+      address = $3,
+      is_featured = $4,
+      is_active = $5
+    WHERE id = $6
+    RETURNING id;
+  `;
+
+  const values = [
+    placeData.name,
+    placeData.description,
+    placeData.address,
+    placeData.is_featured,
+    placeData.is_active,
+    id_place
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
 export async function hideAdminDashboardEventReview(id_review) {
   const sql = `
     UPDATE events_reviews

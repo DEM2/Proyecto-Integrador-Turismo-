@@ -11,7 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
-import { getAdminDashboardAllEventsController, getAdminDashboardAllPlacesController, getAdminDashboardAllReviewsController, getAdminDashboardController, hideAdminDashboardReviewController, showAdminDashboardReviewController } from "../controllers/adminDashboard.controller.js";
+import { getAdminDashboardAllEventsController, getAdminDashboardAllPlacesController, getAdminDashboardAllReviewsController, getAdminDashboardController, hideAdminDashboardReviewController, showAdminDashboardReviewController, updateAdminDashboardEventController, updateAdminDashboardPlaceController } from "../controllers/adminDashboard.controller.js";
 import { events } from "../controllers/event.controller.js";
 
 const router = Router();
@@ -84,6 +84,16 @@ router.get(
 router.get(
     "/admin-dashboard/places",
     getAdminDashboardAllPlacesController
+);
+
+router.patch(
+    "/admin-dashboard/events/:id",
+    updateAdminDashboardEventController
+);
+
+router.patch(
+    "/admin-dashboard/places/:id",
+    updateAdminDashboardPlaceController
 );
 
 router.patch(

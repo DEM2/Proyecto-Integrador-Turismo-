@@ -92,6 +92,42 @@ export async function getAdminDashboardAllPlaces() {
   return payload?.data ?? [];
 }
 
+export async function updateAdminDashboardEvent(eventId, eventData) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/events/${eventId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(eventData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al actualizar el evento");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
+export async function updateAdminDashboardPlace(placeId, placeData) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/places/${placeId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(placeData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al actualizar el sitio");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
 async function fetchAdminDashboardData() {
   const response = await fetch(apiUrl("/api/admin-dashboard"));
 

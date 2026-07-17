@@ -1,4 +1,12 @@
 export function renderAdminDashboardPlaceItem(place) {
+  function formatAttribute(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("<", "&lt;");
+  }
+
+  const placeId = place.id || "";
   const placeName = place.place_name || "Sitio";
   const categoryName = place.category_name || "Sin categoria";
   const userName = place.user_name || "Organizador";
@@ -46,11 +54,15 @@ export function renderAdminDashboardPlaceItem(place) {
     <li
       class="rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm"
       data-admin-place-item="true"
+      data-place-id="${placeId}"
       data-place-name="${placeName.toLowerCase()}"
+      data-place-title="${formatAttribute(placeName)}"
       data-place-category="${categoryName.toLowerCase()}"
       data-place-user="${userName.toLowerCase()}"
       data-place-featured="${isFeatured}"
       data-place-active="${isActive}"
+      data-place-description="${formatAttribute(description)}"
+      data-place-address="${formatAttribute(address)}"
     >
       <article>
         <div class="flex flex-wrap gap-2">
@@ -72,6 +84,13 @@ export function renderAdminDashboardPlaceItem(place) {
         <p class="mt-2 text-xs font-semibold text-slate-400">
           Organizador: ${userName}
         </p>
+        <button
+          type="button"
+          data-edit-place="true"
+          class="mt-3 cursor-pointer rounded-lg border border-blue-200 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-50"
+        >
+          Editar
+        </button>
       </article>
     </li>
   `;

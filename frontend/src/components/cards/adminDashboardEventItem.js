@@ -1,8 +1,18 @@
 export function renderAdminDashboardEventItem(event) {
+  function formatAttribute(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("<", "&lt;");
+  }
+
+  const eventId = event.id || "";
   const eventName = event.event_name || "Evento";
+  const description = event.description || "";
   const categoryName = event.category_name || "Sin categoria";
   const userName = event.user_name || "Organizador";
   const address = event.address || "Sin direccion";
+  const imageMain = event.image_main || "";
   const startDate = event.start_date || "";
   const createdAt = event.created_at || "";
   const updatedAt = event.updated_at || "";
@@ -54,7 +64,9 @@ export function renderAdminDashboardEventItem(event) {
     <li
       class="grid gap-4 rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm lg:grid-cols-[1fr_auto]"
       data-admin-event-item="true"
+      data-event-id="${eventId}"
       data-event-name="${eventName.toLowerCase()}"
+      data-event-title="${formatAttribute(eventName)}"
       data-event-category="${categoryName.toLowerCase()}"
       data-event-user="${userName.toLowerCase()}"
       data-event-featured="${isFeatured}"
@@ -62,6 +74,10 @@ export function renderAdminDashboardEventItem(event) {
       data-event-start-date="${startDate}"
       data-event-created="${createdAt}"
       data-event-updated="${updatedAt}"
+      data-event-description="${formatAttribute(description)}"
+      data-event-address="${formatAttribute(address)}"
+      data-event-price="${formatAttribute(price ?? "")}"
+      data-event-image-main="${formatAttribute(imageMain)}"
     >
       <article>
         <div class="flex flex-wrap gap-2">
@@ -87,6 +103,13 @@ export function renderAdminDashboardEventItem(event) {
         <p class="mt-1 text-sm font-medium text-slate-500">Creado: ${createdAt || "Sin fecha"}</p>
         <p class="mt-1 text-sm font-medium text-slate-500">Actualizado: ${updatedAt || "Sin fecha"}</p>
         <p class="mt-2 text-sm font-extrabold text-emerald-600">${priceLabel}</p>
+        <button
+          type="button"
+          data-edit-event="true"
+          class="mt-3 cursor-pointer rounded-lg border border-blue-200 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-50"
+        >
+          Editar
+        </button>
       </div>
     </li>
   `;
