@@ -17,18 +17,20 @@ export function renderMainNavigation() {
         <img id ="logo" class="w-32 max-md:w-28" src="/src/assets/logos/logo.png" alt="Logo">
       </figure>
       <nav class="">
-      <img 
+        <button
           id="boton_menu"
-          class="  size-8 cursor-pointer max-lg:block hidden"
-          src="/src/assets/icons/menu.svg">
-          
+          type="button"
+          aria-label="Abrir menú"
+          aria-controls="mobile-navigation"
+          aria-expanded="false"
+          class="hidden size-8 cursor-pointer items-center justify-center max-md:flex"
+        >
+          <img class="size-8" src="/src/assets/icons/menu.svg" alt="">
+        </button>
+
         <ul 
         id="navegacion"
-        class="flex items-center gap-4 font-medium  max-lg:hidden">
-          <img 
-          id="boton_equis"
-          class="  size-8 cursor-pointer hidden max-lg:block "
-          src="/src/assets/icons/equis.svg">
+        class="flex items-center gap-4 font-medium max-md:hidden">
 
           <li><a id="nav-inicio" class="hover:text-blue-800 cursor-pointer" >Inicio</a></li>
           <li><a id="nav-destinos" class="hover:text-blue-800 cursor-pointer" >Destinos</a></li>
@@ -79,14 +81,36 @@ export function renderMainNavigation() {
         </ul>
       </nav>
     </header>
+
+    <div id="mobile-navigation" class="mobile-navigation hidden" aria-hidden="true">
+      <button id="mobile-menu-backdrop" class="mobile-menu-backdrop" type="button" aria-label="Cerrar menú"></button>
+      <aside class="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+        <div class="mobile-menu-header">
+          <div class="mobile-menu-brand" aria-hidden="true">
+            <span>Barranquilla</span>
+            <img src="/src/assets/logos/logo.png" alt="">
+          </div>
+          <button id="boton_equis" type="button" class="mobile-menu-close" aria-label="Cerrar menú">
+            <img class="size-7" src="/src/assets/icons/equis.svg" alt="">
+          </button>
+        </div>
+        <nav class="mobile-menu-links" aria-label="Navegación móvil">
+          <button id="mobile-nav-inicio" type="button">Inicio</button>
+          <button id="mobile-nav-destinos" type="button">Destinos</button>
+          <button id="mobile-nav-eventos" type="button">Eventos</button>
+          <button id="mobile-nav-perfil" type="button">Mi perfil</button>
+        </nav>
+      </aside>
+    </div>
   `;
 };
 
 export function initializeMainNavigationEvents() {
    //Mostrar menú de navegación en versión móvil
   const boton = document.getElementById("boton_menu");
-  const navegacion = document.getElementById("navegacion");
   const equis = document.getElementById("boton_equis");
+  const mobileNavigation = document.getElementById("mobile-navigation");
+  const mobileBackdrop = document.getElementById("mobile-menu-backdrop");
   const logo = document.getElementById("logo_container")
 
   logo.addEventListener("click", () => {
@@ -94,16 +118,25 @@ export function initializeMainNavigationEvents() {
   });
 
   
-  boton.addEventListener("click", funcionMenu);
-  equis.addEventListener("click", funcionMenu);
+  boton.addEventListener("click", abrirMenuMovil);
+  equis.addEventListener("click", cerrarMenuMovil);
+  mobileBackdrop.addEventListener("click", cerrarMenuMovil);
 
-  function funcionMenu() {
-    navegacion.classList.toggle("active");
+  function abrirMenuMovil() {
+    mobileNavigation.classList.remove("hidden");
+    mobileNavigation.setAttribute("aria-hidden", "false");
+    boton.setAttribute("aria-expanded", "true");
+  }
+
+  function cerrarMenuMovil() {
+    mobileNavigation.classList.add("hidden");
+    mobileNavigation.setAttribute("aria-hidden", "true");
+    boton.setAttribute("aria-expanded", "false");
   }
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      navegacion.classList.remove("active");
+    if (window.innerWidth >= 768) {
+      cerrarMenuMovil();
     }
   });
   // FIN
@@ -124,6 +157,21 @@ export function initializeMainNavigationEvents() {
 
   navDestinos.addEventListener("click", () => {
     navigateTo("/destinos");
+  });
+
+  document.getElementById("mobile-nav-inicio").addEventListener("click", () => {
+    cerrarMenuMovil();
+    navigateTo("/");
+  });
+
+  document.getElementById("mobile-nav-destinos").addEventListener("click", () => {
+    cerrarMenuMovil();
+    navigateTo("/destinos");
+  });
+
+  document.getElementById("mobile-nav-eventos").addEventListener("click", () => {
+    cerrarMenuMovil();
+    navigateTo("/event");
   });
   // FIN
 
@@ -163,7 +211,7 @@ export function initializeMainNavigationEvents() {
       
     });
 
-    document.getElementById("menu_perfil_link").addEventListener("click", () => {
+    const irAPerfil = () => {
       menuPerfil.classList.add("hidden");
 
       const userRole = session?.user?.role || session?.role;
@@ -177,6 +225,12 @@ export function initializeMainNavigationEvents() {
         // para evitar redirigir a una ruta inexistente.
         navigateTo("/");
       }
+    };
+
+    document.getElementById("menu_perfil_link").addEventListener("click", irAPerfil);
+    document.getElementById("mobile-nav-perfil").addEventListener("click", () => {
+      cerrarMenuMovil();
+      irAPerfil();
     });
 
     document.getElementById("menu_cerrar_sesion").addEventListener("click", () => {
@@ -195,6 +249,11 @@ export function initializeMainNavigationEvents() {
 
     botonRegistrarse.addEventListener("click", () => {
       navigateTo("/register");
+    });
+
+    document.getElementById("mobile-nav-perfil").addEventListener("click", () => {
+      cerrarMenuMovil();
+      navigateTo("/login");
     });
   }
 }

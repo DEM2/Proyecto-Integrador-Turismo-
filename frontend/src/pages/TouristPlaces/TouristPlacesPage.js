@@ -23,7 +23,7 @@ import { serchBar } from "../../components/layout/serchbar.component.js";
 export function renderTouristPlacesPage() {
     return `
         ${renderMainNavigation()}
-        <header class="relative h-95 overflow-hidden">
+        <header class="tourist-hero relative h-95 overflow-hidden">
 
             <!-- Imagen de fondo -->
             <figure class="absolute inset-0">
@@ -49,7 +49,7 @@ export function renderTouristPlacesPage() {
             </span>
 
             <!-- Contenido -->
-            <section class="relative z-50 flex-col h-full items-start pt-16 px-12 w-3xl ">
+            <section class="tourist-hero-content relative z-50 flex-col h-full items-start pt-16 px-12 w-3xl ">
 
 
                 <article class="max-w-2xl">
@@ -88,7 +88,7 @@ export function renderTouristPlacesPage() {
             </svg>
 
         </header>
-            <main class=" px-12 py-8">
+            <main class="tourist-main px-12 py-8">
                 <!-- Categorías -->
                 <section
                     id="filters_container"
