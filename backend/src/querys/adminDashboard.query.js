@@ -35,8 +35,10 @@ export async function countAdminDashboardReviews() {
     SELECT COUNT(*) AS total_reviews
     FROM (
       SELECT id FROM events_reviews
+      WHERE is_active = true
       UNION ALL
       SELECT id FROM places_reviews
+      WHERE is_active = true
     ) reviews;
   `;
 
@@ -82,36 +84,103 @@ export async function getAdminDashboardPendingOrganizers() {
 export async function getAdminDashboardRecentReviews() {
   const sql = `
     SELECT
-      comments,
-      TO_CHAR(created_at, 'YYYY-MM-DD') AS created_at,
-      TO_CHAR(updated_at, 'YYYY-MM-DD') AS updated_at,
-      name
-    FROM (
-      SELECT
-        events_reviews.comments,
-        events_reviews.created_at,
-        events_reviews.updated_at,
-        users.name
-      FROM events_reviews
-      INNER JOIN users
-        ON events_reviews.id_user = users.id
+      events_reviews.id AS id_review,
+      'event' AS review_type,
+      events_reviews.comments,
+      TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') AS created_at,
+      TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
+      users.name
+    FROM events_reviews
+    INNER JOIN users
+      ON events_reviews.id_user = users.id
+    WHERE events_reviews.is_active = true
 
-      UNION ALL
+    UNION ALL
 
-      SELECT
-        places_reviews.comments,
-        places_reviews.created_at,
-        places_reviews.updated_at,
-        users.name
-      FROM places_reviews
-      INNER JOIN users
-        ON places_reviews.id_user = users.id
-    ) reviews
+    SELECT
+      places_reviews.id AS id_review,
+      'place' AS review_type,
+      places_reviews.comments,
+      TO_CHAR(places_reviews.created_at, 'YYYY-MM-DD') AS created_at,
+      TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
+      users.name
+    FROM places_reviews
+    INNER JOIN users
+      ON places_reviews.id_user = users.id
+    WHERE places_reviews.is_active = true
+
     ORDER BY created_at DESC
-    LIMIT 3;
+    LIMIT 6;
   `;
   
 
   const result = await pool.query(sql);
   return result.rows || [];
+}
+
+export async function getAdminDashboardAllReviews() {
+  const sql = `
+    SELECT
+      events_reviews.id AS id_review,
+      'event' AS review_type,
+      events_reviews.comments,
+      TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') AS created_at,
+      TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
+      users.name
+    FROM events_reviews
+    INNER JOIN users
+      ON events_reviews.id_user = users.id
+    WHERE events_reviews.is_active = true
+
+    UNION ALL
+
+    SELECT
+      places_reviews.id AS id_review,
+      'place' AS review_type,
+      places_reviews.comments,
+      TO_CHAR(places_reviews.created_at, 'YYYY-MM-DD') AS created_at,
+      TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
+      users.name
+    FROM places_reviews
+    INNER JOIN users
+      ON places_reviews.id_user = users.id
+    WHERE places_reviews.is_active = true
+
+    ORDER BY created_at DESC;
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
+export async function hideAdminDashboardEventReview(id_review) {
+  const sql = `
+    UPDATE events_reviews
+    SET is_active = false
+    WHERE id = $1
+    RETURNING id;
+  `;
+
+  const values = [
+    id_review
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
+}
+
+export async function hideAdminDashboardPlaceReview(id_review) {
+  const sql = `
+    UPDATE places_reviews
+    SET is_active = false
+    WHERE id = $1
+    RETURNING id;
+  `;
+
+  const values = [
+    id_review
+  ];
+
+  const result = await pool.query(sql, values);
+  return result.rows[0] || null;
 }
