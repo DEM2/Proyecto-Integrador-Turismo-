@@ -4,8 +4,8 @@ import {
 } from "../../services/adminDashboard.service.js";
 
 function renderRecentReviewItem(review) {
-  const reviewId = review;
-  const reviewType = review.review_type || review.type || review.type_review || "";
+  const reviewId = review.id_review || "";
+  const reviewType = review.review_type || "";
   const userName = review.name || "Usuario";
   const comments = review.comments || "Sin comentario";
   const createdAt = review.created_at || "Sin fecha";
