@@ -108,7 +108,7 @@ export async function getAdminDashboardRecentReviews() {
         ON places_reviews.id_user = users.id
     ) reviews
     ORDER BY created_at DESC
-    LIMIT 3;
+    LIMIT 6;
   `;
   
 

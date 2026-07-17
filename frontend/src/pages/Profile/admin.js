@@ -2,7 +2,7 @@ import { renderAdminDashboardMetricCards } from "../../components/cards/adminDas
 import { renderAdminDashboardPendingRequests } from "../../components/cards/adminDashboardPendingRequests.js";
 import { renderAdminDashboardQuickActions } from "../../components/cards/adminDashboardQuickActions.js";
 import { renderAdminDashboardRecentReviews } from "../../components/cards/adminDashboardRecentReviews.js";
-import { renderAdminDashboardSidebar } from "../../components/cards/adminDashboardSidebar.js";
+import { renderAdminDashboardSidebar, renderAdminDashboardSidebarEvents } from "../../components/cards/adminDashboardSidebar.js";
 
 export async function adminDashboardPage() {
   const [metricCards, pendingRequests, recentReviews] = await Promise.all([
@@ -41,4 +41,8 @@ export async function adminDashboardPage() {
       </section>
     </main>
   `;
+}
+
+export function adminDashboardPageEvents() {
+  renderAdminDashboardSidebarEvents();
 }

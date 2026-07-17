@@ -29,7 +29,7 @@ import {
 } from "../pages/TouristPlaces/TouristPlacesPage.js";
 import { organizerCreateEvents, organizerCreateView } from "../pages/Profile/organizer_create_event.js";
 import { renderCreatePlaceView } from "../pages/Profile/organizer_create_place.js";
-import { adminDashboardPage } from "../pages/Profile/admin.js";
+import { adminDashboardPage, adminDashboardPageEvents } from "../pages/Profile/admin.js";
 
 
 export const appRoutes = {
@@ -81,6 +81,6 @@ export const appRoutes = {
   },
     "/dashboard":{
     render:adminDashboardPage,
-    events: () => {},
+    events: adminDashboardPageEvents,
   }
 };

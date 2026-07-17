@@ -1,3 +1,6 @@
+import { navigateTo } from "../../router/AppRouter.js";
+import { clearSession } from "../../services/authService.js";
+
 export function renderAdminDashboardSidebar() {
   return `
     <aside class="flex min-h-screen flex-col bg-[#06264a] px-5 py-6 text-white lg:h-screen">
@@ -79,7 +82,7 @@ export function renderAdminDashboardSidebar() {
           </li>
         </ul>
 
-        <a href="/login" class="mt-auto flex cursor-pointer items-center gap-3 rounded-lg bg-white/10 px-4 py-2.5 text-md font-bold text-red-700 transition hover:text-white">
+        <a id="logout-btn" class="mt-auto flex cursor-pointer items-center gap-3 rounded-lg bg-white/10 px-4 py-2.5 text-xl font-bold text-gray-50 transition hover:text-gray-900 hover:bg-white">
           <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <path d="M16 17l5-5-5-5" />
@@ -90,4 +93,13 @@ export function renderAdminDashboardSidebar() {
       </nav>
     </aside>
   `;
+}
+
+
+export function renderAdminDashboardSidebarEvents(){
+    const loginbtn = document.getElementById("logout-btn");
+    loginbtn.addEventListener("click", () => {
+      clearSession();
+      navigateTo("/")
+    });
 }
