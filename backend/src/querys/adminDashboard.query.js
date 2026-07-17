@@ -49,11 +49,11 @@ export async function countAdminDashboardReviews() {
 export async function countAdminDashboardPendingOrganizers() {
   const sql = `
     SELECT COUNT(*) AS total_pending_organizers
-    FROM users u
-    INNER JOIN roles r
-      ON r.id = u.id_role
-    WHERE LOWER(r.name) = 'organizador'
-      AND u.is_active = false;
+    FROM users
+    INNER JOIN roles
+      ON roles.id = users.id_role
+    WHERE LOWER(roles.name) = 'organizador'
+      AND users.is_active = false;
   `;
 
   const result = await pool.query(sql);
@@ -63,18 +63,18 @@ export async function countAdminDashboardPendingOrganizers() {
 export async function getAdminDashboardPendingOrganizers() {
   const sql = `
     SELECT
-      u.id,
-      u.name,
-      u.last_name,
-      u.email,
-      TO_CHAR(u.created_at, 'DD/MM/YYYY') AS requested_at
-    FROM users u
-    INNER JOIN roles r
-      ON r.id = u.id_role
-    WHERE LOWER(r.name) = 'organizador'
-      AND u.is_active = false
-    ORDER BY u.created_at DESC
-    LIMIT 2;
+      users.id,
+      users.name,
+      users.last_name,
+      users.email,
+      TO_CHAR(users.created_at, 'DD/MM/YYYY') AS requested_at
+    FROM users
+    INNER JOIN roles
+      ON roles.id = users.id_role
+    WHERE LOWER(roles.name) = 'organizador'
+      AND users.is_active = false
+    ORDER BY users.created_at DESC
+    LIMIT 6;
   `;
 
   const result = await pool.query(sql);
@@ -84,17 +84,17 @@ export async function getAdminDashboardPendingOrganizers() {
 export async function getAdminDashboardAllPendingOrganizers() {
   const sql = `
     SELECT
-      u.id,
-      u.name,
-      u.last_name,
-      u.email,
-      TO_CHAR(u.created_at, 'DD/MM/YYYY') AS requested_at
-    FROM users u
-    INNER JOIN roles r
-      ON r.id = u.id_role
-    WHERE LOWER(r.name) = 'organizador'
-      AND u.is_active = false
-    ORDER BY u.created_at DESC;
+      users.id,
+      users.name,
+      users.last_name,
+      users.email,
+      TO_CHAR(users.created_at, 'DD/MM/YYYY') AS requested_at
+    FROM users
+    INNER JOIN roles
+      ON roles.id = users.id_role
+    WHERE LOWER(roles.name) = 'organizador'
+      AND users.is_active = false
+    ORDER BY users.created_at DESC;
   `;
 
   const result = await pool.query(sql);
@@ -105,12 +105,12 @@ export async function approveAdminDashboardOrganizer(id_user) {
   const sql = `
     UPDATE users
     SET is_active = true
-    WHERE id = $1
-      AND id_role = (
-        SELECT id FROM roles WHERE LOWER(name) = 'organizador'
-      )
-      AND is_active = false
-    RETURNING id;
+    FROM roles
+    WHERE users.id = $1
+      AND roles.id = users.id_role
+      AND LOWER(roles.name) = 'organizador'
+      AND users.is_active = false
+    RETURNING users.id;
   `;
 
   const result = await pool.query(sql, [id_user]);
@@ -120,12 +120,12 @@ export async function approveAdminDashboardOrganizer(id_user) {
 export async function rejectAdminDashboardOrganizer(id_user) {
   const sql = `
     DELETE FROM users
-    WHERE id = $1
-      AND id_role = (
-        SELECT id FROM roles WHERE LOWER(name) = 'organizador'
-      )
-      AND is_active = false
-    RETURNING id;
+    USING roles
+    WHERE users.id = $1
+      AND roles.id = users.id_role
+      AND LOWER(roles.name) = 'organizador'
+      AND users.is_active = false
+    RETURNING users.id;
   `;
 
   const result = await pool.query(sql, [id_user]);
