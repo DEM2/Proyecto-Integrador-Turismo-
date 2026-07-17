@@ -2,7 +2,7 @@ import { Router } from "express";
 import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
-import { destinations } from "../controllers/destinations.controller.js";
+import { createDestinationController, destinations } from "../controllers/destinations.controller.js";
 import { createEventController, getEventController } from "../controllers/event.controller.js";
 import { validateCreateEvent } from "../validators/event.validator.js";
 import { getOrganizerProfileController, getReviewsController } from "../controllers/reviews.controller.js";
@@ -11,6 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
+import { validateCreateDestination } from "../validators/place.validator.js";
 
 const router = Router();
 
@@ -33,20 +34,25 @@ router.post(
 )
 
 //EVENTS
-
 router.get(
     "/events/:id_event",
     getEventController
 )
 
 //Create events
-
 router.post(
     "/organizer/createEvent",
     validateCreateEvent,
     createEventController
 )
 
+//Create place
+
+router.post(
+    "/organizer/createDestination",
+    validateCreateDestination,
+    createDestinationController
+)
 
 router.get(
     "/destacados/sitios",

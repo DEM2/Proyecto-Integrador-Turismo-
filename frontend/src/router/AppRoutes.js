@@ -76,6 +76,7 @@ export const appRoutes = {
     events: organizerCreateEvents,
   },
   "/perfilorganizador/createPlace":{
-    render: renderCreatePlaceView
+    render: renderCreatePlaceView,
+    events: renderCreatePlaceEvents,
   }
 };

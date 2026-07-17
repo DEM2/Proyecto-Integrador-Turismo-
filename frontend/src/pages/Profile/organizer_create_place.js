@@ -1,6 +1,9 @@
 import { renderMainNavigation } from "../../components/layout/MainNavigation.js";
+import { getSession } from "../../services/authService.js";
+import { postPlace } from "../../services/destinationService.js";
 
 export function renderCreatePlaceView() {
+
   return `
     ${renderMainNavigation()}
     <main class="min-h-screen bg-gray-50 font-sans text-blue-950">
@@ -619,13 +622,6 @@ export function renderCreatePlaceView() {
                   </h3>
 
                   <p
-                    id="place-category-preview"
-                    class="mt-2 inline-flex rounded-full bg-purple-50 px-3 py-1 text-xs font-bold text-purple-600"
-                  >
-                    Categoría por definir
-                  </p>
-
-                  <p
                     id="place-description-preview"
                     class="mt-4 line-clamp-4 text-sm leading-relaxed text-slate-500"
                   >
@@ -667,10 +663,11 @@ export function renderCreatePlaceView() {
                 <footer class="space-y-3 border-t border-slate-100 p-6">
 
                   <button
-                    type="submit"
+                    id="save-place-button"
+                    type="button"
                     class="h-12 w-full rounded-xl bg-purple-700 font-bold text-white shadow-lg shadow-purple-700/20 transition hover:-translate-y-0.5 hover:bg-purple-800"
                   >
-                    Publicar lugar
+                    Guardar Cambios
                   </button>
 
                   <button
@@ -715,4 +712,131 @@ export function renderCreatePlaceView() {
 
     </main>
   `;
+}
+
+export function renderCreatePlaceEvents(params) {
+  const formCreatePlace = document.getElementById("create-place-form");
+
+  if (!formCreatePlace) {
+    return
+  }
+
+  formCreatePlace.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const placeCreated = getPlaceData()
+
+    const validationResult = validatePlaceForm(placeCreated)
+
+    if (validationResult !== true) {
+      alert(validationResult)
+      return
+    }
+
+    updatePlacePreview(placeCreated)
+
+    try {
+      const result = await postPlace(placeCreated)
+
+      alert("Lugar publicado correctamente")
+      formCreatePlace.reset()
+      //FUNCION PARA RETROCEDER
+    } catch (error) {
+      alert("No se pudo crear el lugar")
+    }
+
+    resetPlacePreview()
+
+    // Después puedes validar y enviar placeCreated al backend.
+  });
+}
+
+function getPlaceData() {
+  const name = document.getElementById("place-name");
+  const idCategory = document.getElementById("place-category");
+  const isActive = document.getElementById("place-status");
+  const description = document.getElementById("place-description");
+  const address = document.getElementById("place-address");
+
+  // Obtener el ID del organizador que inició sesión
+  const session = getSession();
+  const idUser = session?.user?.id;
+
+  return {
+    name: name.value.trim(),//
+    id_category: Number(idCategory.value),//
+    is_active: isActive.value === "true",//
+    description: description.value.trim(),//
+    address: address.value.trim(),//
+    fk_places_user: idUser,
+  };
+}
+
+function updatePlacePreview(placeCreated) {
+  const {
+    name,
+    description,
+    address,
+    is_active
+  } = placeCreated;
+
+  const placeNamePreview = document.getElementById("place-name-preview");
+  const placeCategoryPreview = document.getElementById("place-category-preview");
+  const placeDescriptionPreview = document.getElementById("place-description-preview");
+  const placeAddressPreview = document.getElementById("place-address-preview");
+  const placeStatusPreview = document.getElementById("place-status-preview");
+
+
+  placeNamePreview.textContent = name
+  placeDescriptionPreview.textContent = description
+  placeAddressPreview.textContent = address
+  placeStatusPreview.textContent = is_active ? "Lugar activo" : "Lugar inactivo";
+}
+
+function validatePlaceForm(placeCreated) {
+
+  const {
+    name,
+    id_category,
+    address,
+    fk_places_user
+  } = placeCreated
+
+  if (!name) {
+    return "El nombre del lugar es obligatorio"
+  }
+  if (name.length < 3 || name.length > 150) {
+    return "El nombre debe tener mínimo 3 caracteres y maximo 150"
+  }
+
+  if (!id_category || id_category <= 0) {
+    return "Selecciona una categoria"
+  }
+
+  if (!address) {
+    return "La dirección es obligatoria"
+  }
+
+  if (address.length < 5 || address.length > 250) {
+    return "La dirección debe tener minimo 5 caracteres y maximo 250"
+  }
+
+  if (!fk_places_user) {
+    return "No se encontró el usuario atenticado"
+  }
+
+  return true
+
+}
+
+function resetPlacePreview() {
+  const placeNamePreview = document.getElementById("place-name-preview")
+  const placeDescriptionPreview = document.getElementById("place-description-preview")
+  const placeAddressPreview = document.getElementById("place-address-preview")
+  const placeStatusPreview = document.getElementById("place-status-preview")
+
+  placeNamePreview.textContent = "Nombre del lugar"
+  placeDescriptionPreview.textContent = "La descripción del lugar aparecerá en este espacio."
+  placeAddressPreview.textContent = "Dirección por definir"
+  placeStatusPreview.textContent = "Lugar activo"
 }
