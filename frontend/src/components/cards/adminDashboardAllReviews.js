@@ -46,11 +46,21 @@ export async function renderAdminDashboardAllReviews() {
 
     </header>
 
-    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-5" aria-label="Filtros de resenas">
+    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-6" aria-label="Filtros de resenas">
       <label class="text-sm font-bold text-slate-700">
         Persona
         <input
           id="filter-review-user"
+          type="search"
+          placeholder="Nombre"
+          class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
+        />
+      </label>
+
+      <label class="text-sm font-bold text-slate-700">
+        Sitio o evento
+        <input
+          id="filter-review-target"
           type="search"
           placeholder="Nombre"
           class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500"
@@ -112,6 +122,7 @@ export async function renderAdminDashboardAllReviews() {
 export function renderAdminDashboardAllReviewsEvents() {
   const reviewsSection = document.getElementById("admin-all-reviews");
   const filterReviewUser = document.getElementById("filter-review-user");
+  const filterReviewTarget = document.getElementById("filter-review-target");
   const filterReviewType = document.getElementById("filter-review-type");
   const filterReviewStatus = document.getElementById("filter-review-status");
   const filterReviewCreated = document.getElementById("filter-review-created");
@@ -123,6 +134,7 @@ export function renderAdminDashboardAllReviewsEvents() {
 
   function filterReviews() {
     const userValue = filterReviewUser.value.trim().toLowerCase();
+    const targetValue = filterReviewTarget.value.trim().toLowerCase();
     const typeValue = filterReviewType.value;
     const statusValue = filterReviewStatus.value;
     const createdValue = filterReviewCreated.value;
@@ -131,18 +143,20 @@ export function renderAdminDashboardAllReviewsEvents() {
 
     reviewItems.forEach((reviewItem) => {
       const reviewUser = reviewItem.dataset.reviewUser || "";
+      const reviewTarget = reviewItem.dataset.reviewTarget || "";
       const reviewType = reviewItem.dataset.reviewTypeFilter || "";
       const reviewActive = reviewItem.dataset.reviewActive || "";
       const reviewCreated = reviewItem.dataset.reviewCreated || "";
       const reviewUpdated = reviewItem.dataset.reviewUpdated || "";
 
       const matchUser = !userValue || reviewUser.includes(userValue);
+      const matchTarget = !targetValue || reviewTarget.includes(targetValue);
       const matchType = !typeValue || reviewType === typeValue;
       const matchStatus = !statusValue || reviewActive === statusValue;
       const matchCreated = !createdValue || reviewCreated === createdValue;
       const matchUpdated = !updatedValue || reviewUpdated === updatedValue;
 
-      if (matchUser && matchType && matchStatus && matchCreated && matchUpdated) {
+      if (matchUser && matchTarget && matchType && matchStatus && matchCreated && matchUpdated) {
         reviewItem.classList.remove("hidden");
       } else {
         reviewItem.classList.add("hidden");
@@ -151,6 +165,7 @@ export function renderAdminDashboardAllReviewsEvents() {
   }
 
   filterReviewUser.addEventListener("input", filterReviews);
+  filterReviewTarget.addEventListener("input", filterReviews);
   filterReviewType.addEventListener("change", filterReviews);
   filterReviewStatus.addEventListener("change", filterReviews);
   filterReviewCreated.addEventListener("change", filterReviews);

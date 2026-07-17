@@ -89,8 +89,11 @@ export async function getAdminDashboardRecentReviews() {
       events_reviews.comments,
       TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
-      users.name
+      users.name AS user_name,
+      events.name AS reviewed_item_name
     FROM events_reviews
+    INNER JOIN events
+      ON events_reviews.id_event = events.id
     INNER JOIN users
       ON events_reviews.id_user = users.id
     WHERE events_reviews.is_active = true
@@ -103,8 +106,11 @@ export async function getAdminDashboardRecentReviews() {
       places_reviews.comments,
       TO_CHAR(places_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
-      users.name
+      users.name AS user_name,
+      places.name AS reviewed_item_name
     FROM places_reviews
+    INNER JOIN places
+      ON places.id = places_reviews.id_place
     INNER JOIN users
       ON places_reviews.id_user = users.id
     WHERE places_reviews.is_active = true
@@ -127,8 +133,11 @@ export async function getAdminDashboardAllReviews() {
       events_reviews.is_active,
       TO_CHAR(events_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(events_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
-      users.name
+      users.name AS user_name,
+      events.name AS reviewed_item_name
     FROM events_reviews
+    INNER JOIN events
+      ON events_reviews.id_event = events.id
     INNER JOIN users
       ON events_reviews.id_user = users.id
 
@@ -141,8 +150,11 @@ export async function getAdminDashboardAllReviews() {
       places_reviews.is_active,
       TO_CHAR(places_reviews.created_at, 'YYYY-MM-DD') AS created_at,
       TO_CHAR(places_reviews.updated_at, 'YYYY-MM-DD') AS updated_at,
-      users.name
+      users.name AS user_name,
+      places.name AS reviewed_item_name
     FROM places_reviews
+    INNER JOIN places
+      ON places.id = places_reviews.id_place
     INNER JOIN users
       ON places_reviews.id_user = users.id
 

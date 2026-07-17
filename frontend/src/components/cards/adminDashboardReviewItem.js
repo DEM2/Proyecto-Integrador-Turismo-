@@ -1,7 +1,8 @@
 export function renderAdminDashboardReviewItem(review, showReviewType = false) {
   const reviewId = review.id_review || "";
   const reviewType = review.review_type || "";
-  const userName = review.name || "Usuario";
+  const userName = review.user_name || review.name || "Usuario";
+  const reviewedItemName = review.reviewed_item_name || "Sin nombre";
   const comments = review.comments || "Sin comentario";
   const createdAt = review.created_at || "Sin fecha";
   const updatedAt = review.updated_at || "";
@@ -86,6 +87,7 @@ export function renderAdminDashboardReviewItem(review, showReviewType = false) {
       class="grid grid-cols-[1fr_auto] gap-4 px-5 py-3"
       data-review-item="${reviewType}-${reviewId}"
       data-review-user="${userName.toLowerCase()}"
+      data-review-target="${reviewedItemName.toLowerCase()}"
       data-review-type-filter="${reviewType}"
       data-review-active="${isActive}"
       data-review-created="${createdAt}"
@@ -96,6 +98,9 @@ export function renderAdminDashboardReviewItem(review, showReviewType = false) {
         <h3 class="font-extrabold text-slate-800 lg:text-sm ${showReviewType ? "mt-3" : ""}">
           ${userName}
         </h3>
+        <p class="mt-1 text-xs font-bold text-blue-600">
+          ${reviewType === "event" ? "Evento" : "Sitio"}: ${reviewedItemName}
+        </p>
         <p class="mt-1 line-clamp-2 text-sm font-medium text-slate-600">
           ${comments}
         </p>

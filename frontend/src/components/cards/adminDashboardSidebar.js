@@ -5,7 +5,7 @@ export function renderAdminDashboardSidebar() {
   return `
     <aside class="flex min-h-screen flex-col bg-[#06264a] px-5 py-6 text-white lg:h-screen">
       <a href="/" class="mb-8 flex cursor-pointer items-center gap-3" aria-label="Ir al inicio de Barranquilla Explora">
-        <img src="/images/Logo2.png" alt="" class="h-11 w-11 object-contain" />
+        
         <span class="text-lg font-extrabold leading-tight tracking-wide">
           BARRANQUILLA<br />
           EXPLORA
