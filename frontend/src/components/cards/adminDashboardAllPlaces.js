@@ -2,6 +2,7 @@ import {
   getAdminDashboardAllPlaces,
   updateAdminDashboardPlace,
 } from "../../services/adminDashboard.service.js";
+import { openAdminDashboardCreatePlaceModal } from "./adminDashboardCreatePlaceModal.js";
 import { renderAdminDashboardPlaceItem } from "./adminDashboardPlaceItem.js";
 
 export async function renderAdminDashboardAllPlaces() {
@@ -33,11 +34,21 @@ export async function renderAdminDashboardAllPlaces() {
   }
 
   return `
-    <header class="mb-4 border-b border-slate-200 pb-4">
-      <h1 class="text-3xl font-extrabold text-slate-950 lg:text-2xl">Sitios</h1>
-      <p class="mt-1 text-base font-medium text-slate-500 lg:text-sm">
-        Todos los sitios registrados en la pagina
-      </p>
+    <header class="mb-4 flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-extrabold text-slate-950 lg:text-2xl">Sitios</h1>
+        <p class="mt-1 text-base font-medium text-slate-500 lg:text-sm">
+          Todos los sitios registrados en la pagina
+        </p>
+      </div>
+
+      <button
+        type="button"
+        data-create-place-modal="true"
+        class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-blue-700"
+      >
+        Crear sitio
+      </button>
     </header>
 
     <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-5" aria-label="Filtros de sitios">
@@ -91,6 +102,7 @@ export function renderAdminDashboardAllPlacesEvents() {
   const filterPlaceUser = document.getElementById("filter-place-user");
   const filterPlaceActive = document.getElementById("filter-place-active");
   const filterPlaceFeatured = document.getElementById("filter-place-featured");
+  const createPlaceButton = document.querySelector("[data-create-place-modal='true']");
 
   if (!placesSection) {
     return;
@@ -130,6 +142,21 @@ export function renderAdminDashboardAllPlacesEvents() {
   filterPlaceUser.addEventListener("input", filterPlaces);
   filterPlaceActive.addEventListener("change", filterPlaces);
   filterPlaceFeatured.addEventListener("change", filterPlaces);
+
+  if (createPlaceButton) {
+    createPlaceButton.addEventListener("click", () => {
+      openAdminDashboardCreatePlaceModal(async () => {
+        const dashboardContent = document.getElementById("admin-dashboard-content");
+
+        if (!dashboardContent) {
+          return;
+        }
+
+        dashboardContent.innerHTML = await renderAdminDashboardAllPlaces();
+        renderAdminDashboardAllPlacesEvents();
+      });
+    });
+  }
 
   placesSection.addEventListener("click", (event) => {
     const editButton = event.target.closest("[data-edit-place='true']");
