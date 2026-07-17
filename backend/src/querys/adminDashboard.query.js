@@ -165,6 +165,49 @@ export async function getAdminDashboardAllReviews() {
   return result.rows || [];
 }
 
+export async function getAdminDashboardAllEvents() {
+  const sql = `
+   select events.id,
+       events.name AS event_name,
+       events.description,
+       TO_CHAR(events.start_date, 'YYYY-MM-DD') as start_date,
+       TO_CHAR(events.created_at, 'YYYY-MM-DD') as created_at,
+       TO_CHAR(events.updated_at, 'YYYY-MM-DD') as updated_at,
+       events.price,
+       events.address,
+       events.image_main,
+       events.is_featured,
+       events.is_active,
+
+       categories.name AS category_name,
+       users.name AS user_name
+from events
+inner join categories on events.id_category = categories.id
+inner join users on events.id_user = users.id
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
+export async function getAdminDashboardAllPlaces() {
+  const sql = `
+    select places.id,
+places.name AS place_name,
+places.description,
+places.address,
+places.is_featured, places.is_active,
+categories.name AS category_name,
+users.name AS user_name
+from places
+inner join categories on places.id_category = categories.id
+inner join users on places.id_user = users.id
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows || [];
+}
+
 export async function hideAdminDashboardEventReview(id_review) {
   const sql = `
     UPDATE events_reviews

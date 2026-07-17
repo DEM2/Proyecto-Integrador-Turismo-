@@ -4,6 +4,8 @@ import {
   countAdminDashboardPlaces,
   countAdminDashboardReviews,
   countAdminDashboardUsers,
+  getAdminDashboardAllEvents,
+  getAdminDashboardAllPlaces,
   getAdminDashboardAllReviews,
   getAdminDashboardPendingOrganizers,
   getAdminDashboardRecentReviews,
@@ -99,6 +101,40 @@ export async function getAdminDashboardAllReviewsController(req, res) {
       ok: true,
       message: "Resenas consultadas exitosamente",
       data: reviews,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function getAdminDashboardAllEventsController(req, res) {
+  try {
+    const events = await getAdminDashboardAllEvents();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Eventos consultados exitosamente",
+      data: events,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function getAdminDashboardAllPlacesController(req, res) {
+  try {
+    const places = await getAdminDashboardAllPlaces();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Sitios consultados exitosamente",
+      data: places,
     });
   } catch (error) {
     return res.status(500).json({

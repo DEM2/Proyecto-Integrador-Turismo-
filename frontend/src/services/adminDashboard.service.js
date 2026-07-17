@@ -68,6 +68,30 @@ export async function getAdminDashboardAllReviews() {
   return payload?.data ?? [];
 }
 
+export async function getAdminDashboardAllEvents() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/events"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los eventos");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
+export async function getAdminDashboardAllPlaces() {
+  const response = await fetch(apiUrl("/api/admin-dashboard/places"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener los sitios");
+  }
+
+  const payload = await response.json();
+  return payload?.data ?? [];
+}
+
 async function fetchAdminDashboardData() {
   const response = await fetch(apiUrl("/api/admin-dashboard"));
 

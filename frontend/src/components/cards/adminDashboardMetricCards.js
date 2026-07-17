@@ -1,5 +1,13 @@
 import { getAdminDashboardData } from "../../services/adminDashboard.service.js";
 import {
+  renderAdminDashboardAllEvents,
+  renderAdminDashboardAllEventsEvents,
+} from "./adminDashboardAllEvents.js";
+import {
+  renderAdminDashboardAllPlaces,
+  renderAdminDashboardAllPlacesEvents,
+} from "./adminDashboardAllPlaces.js";
+import {
   renderAdminDashboardAllReviews,
   renderAdminDashboardAllReviewsEvents,
   renderAdminDashboardBackEvent,
@@ -40,9 +48,9 @@ export async function renderAdminDashboardMetricCards() {
         <h2 class="text-sm font-bold text-slate-800">Eventos</h2>
         <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalEvents)}</p>
         <p class="mt-1 text-sm font-medium text-slate-500">Total eventos</p>
-        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-emerald-600 transition hover:bg-emerald-100 lg:mt-3 lg:py-1.5">
+        <button type="button" data-show-all-events="true" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-emerald-600 transition hover:bg-emerald-100 lg:mt-3 lg:py-1.5">
           Ver eventos <span aria-hidden="true">&rarr;</span>
-        </a>
+        </button>
       </article>
 
       <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
@@ -53,9 +61,9 @@ export async function renderAdminDashboardMetricCards() {
         <h2 class="text-sm font-bold text-slate-800">Sitios</h2>
         <p class="mt-2 text-3xl font-extrabold lg:text-2xl">${formatCount(totalPlaces)}</p>
         <p class="mt-1 text-sm font-medium text-slate-500">Total sitios</p>
-        <a href="#" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-violet-600 transition hover:bg-violet-100 lg:mt-3 lg:py-1.5">
+        <button type="button" data-show-all-places="true" class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg p-1 text-sm font-bold text-violet-600 transition hover:bg-violet-100 lg:mt-3 lg:py-1.5">
           Ver sitios <span aria-hidden="true">&rarr;</span>
-        </a>
+        </button>
       </article>
 
       <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md lg:p-4">
@@ -89,7 +97,35 @@ export async function renderAdminDashboardMetricCards() {
 }
 
 export function renderAdminDashboardMetricCardsEvents() {
+  const showAllEventsButton = document.querySelector("[data-show-all-events='true']");
+  const showAllPlacesButton = document.querySelector("[data-show-all-places='true']");
   const showAllReviewsButton = document.querySelector("[data-show-all-reviews='true']");
+
+  if (showAllEventsButton) {
+    showAllEventsButton.addEventListener("click", async () => {
+      const dashboardContent = document.getElementById("admin-dashboard-content");
+
+      if (!dashboardContent) {
+        return;
+      }
+
+      dashboardContent.innerHTML = await renderAdminDashboardAllEvents();
+      renderAdminDashboardAllEventsEvents();
+    });
+  }
+
+  if (showAllPlacesButton) {
+    showAllPlacesButton.addEventListener("click", async () => {
+      const dashboardContent = document.getElementById("admin-dashboard-content");
+
+      if (!dashboardContent) {
+        return;
+      }
+
+      dashboardContent.innerHTML = await renderAdminDashboardAllPlaces();
+      renderAdminDashboardAllPlacesEvents();
+    });
+  }
 
   if (!showAllReviewsButton) {
     return;
