@@ -3,6 +3,7 @@ import {
   updateAdminDashboardEvent,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardEventItem } from "./adminDashboardEventItem.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export async function renderAdminDashboardAllEvents() {
   let events = [];
@@ -238,7 +239,7 @@ export function renderAdminDashboardAllEventsEvents() {
     } catch (error) {
       saveButton.disabled = false;
       saveButton.textContent = "Guardar cambios";
-      alert("No se pudo actualizar el evento. Intenta de nuevo.");
+      alertaError("No se pudo actualizar el evento. Intenta de nuevo.");
     }
   });
 }

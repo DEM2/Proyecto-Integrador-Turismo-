@@ -4,6 +4,7 @@ import {
 } from "../../services/adminDashboard.service.js";
 import { openAdminDashboardCreatePlaceModal } from "./adminDashboardCreatePlaceModal.js";
 import { renderAdminDashboardPlaceItem } from "./adminDashboardPlaceItem.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export async function renderAdminDashboardAllPlaces() {
   let places = [];
@@ -232,7 +233,7 @@ export function renderAdminDashboardAllPlacesEvents() {
     } catch (error) {
       saveButton.disabled = false;
       saveButton.textContent = "Guardar cambios";
-      alert("No se pudo actualizar el sitio. Intenta de nuevo.");
+      alertaError("No se pudo actualizar el sitio. Intenta de nuevo.");
     }
   });
 }

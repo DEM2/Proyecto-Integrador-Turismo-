@@ -2,6 +2,7 @@ import { MessageSquareText } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon";
 import { getSession } from "../../services/authService.js";
 import { createReview } from "../../services/EventReview.service.js";
+import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 
 
 export function RenderCommentariesModal() {
@@ -208,19 +209,19 @@ export function SaveCommentaries(id_event, reloadComments) {
     const comment = document.getElementById("comment").value.trim();
 
     if (score === 0) {
-        alert("Selecciona una calificación.");
+        alertaError("Selecciona una calificación.");
         return;
     }
 
     if (comment === "") {
-        alert("Escribe un comentario.");
+        alertaError("Escribe un comentario.");
         return;
     }
 
     const session = getSession();
 
     if (!session) {
-        alert("Debes iniciar sesión.");
+        alertaError("Debes iniciar sesión.");
         return;
     }
 
@@ -242,11 +243,11 @@ export function SaveCommentaries(id_event, reloadComments) {
 
         closeModal();
 
-        alert("Comentario guardado.");
+        alertaExitosa("Comentario guardado.");
 
     } catch (error) {
 
-        alert(error.message);
+        alertaError(error.message || "No fue posible guardar el comentario.");
 
     }
 

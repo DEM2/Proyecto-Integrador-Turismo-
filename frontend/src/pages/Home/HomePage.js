@@ -10,6 +10,7 @@ import {
 } from "../../services/featuredContentService.js";
 import { renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function renderHomePage() {
   return `
@@ -156,7 +157,7 @@ export async function initializeHomePageEvents() {
       initializeItineraryMenus();
     }
   } catch (error) {
-    alert(error.message);
+    alertaError(error.message);
   }
 
   try {
@@ -165,7 +166,7 @@ export async function initializeHomePageEvents() {
       eventosContainer.innerHTML = eventos.map(evento => renderFeaturedEventCard(evento)).join("");
     }
   } catch (error) {
-    alert(error.message);
+    alertaError(error.message);
   }
 
   // FIN

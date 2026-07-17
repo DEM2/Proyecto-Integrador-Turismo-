@@ -22,6 +22,7 @@ import { initializeItineraryMenus } from "../../components/itineraryMenu.events.
 import { serchBar } from "../../components/layout/serchbar.component.js";
 import { getAllEvent } from "../../services/eventService.js";
 import { applyFilters } from "../../components/Filter/filter.component.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function renderEventsPage() {
     return `
@@ -312,6 +313,6 @@ export async function initializeEventsPageEvents() {
             applyEventsFilters();
         });
     } catch (error) {
-        alert(error.message);
+        alertaError(error.message);
     }
 }

@@ -1,5 +1,6 @@
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function openAdminDashboardCreatePlaceModal(onCreated) {
   const currentModal = document.getElementById("admin-create-place-modal");
@@ -191,7 +192,7 @@ function renderAdminDashboardCreatePlaceModalEvents(onCreated) {
     const validationResult = validateAdminDashboardPlaceForm(placeCreated);
 
     if (validationResult !== true) {
-      alert(validationResult);
+      alertaError(validationResult);
       return;
     }
 
@@ -211,7 +212,7 @@ function renderAdminDashboardCreatePlaceModalEvents(onCreated) {
     } catch (error) {
       saveButton.disabled = false;
       saveButton.textContent = "Crear sitio";
-      alert(error.message || "No se pudo crear el sitio. Intenta de nuevo.");
+      alertaError(error.message || "No se pudo crear el sitio. Intenta de nuevo.");
     }
   });
 }

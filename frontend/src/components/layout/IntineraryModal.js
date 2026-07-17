@@ -2,6 +2,7 @@ import { Route, X, Info, CalendarDays } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import { createItinerary } from "../../services/itineraries.service.js";
 import { getSession } from "../../services/authService.js";
+import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 
 export function renderCreateItineraryModal() {
   return `
@@ -312,17 +313,17 @@ async function handleCreateItinerary(onCreated) {
   // Validaciones
 
   if (!name) {
-    alert("Ingrese un nombre");
+    alertaError("Ingrese un nombre");
     return;
   }
 
   if (!start_date) {
-    alert("Seleccione la fecha de inicio");
+    alertaError("Seleccione la fecha de inicio");
     return;
   }
 
   if (!closing_date) {
-    alert("Seleccione la fecha de finalización");
+    alertaError("Seleccione la fecha de finalización");
     return;
   }
   const is_public = visibility === "public";
@@ -337,7 +338,7 @@ async function handleCreateItinerary(onCreated) {
     id_user: session.user.id
 });
 
-    alert("Itinerario creado");
+    alertaExitosa("Itinerario creado");
 
     closeCreateItineraryModal();
 
@@ -345,7 +346,7 @@ async function handleCreateItinerary(onCreated) {
 
   } catch (error) {
 
-    alert(error.message);
+    alertaError(error.message || "No fue posible crear el itinerario.");
 
   }
 

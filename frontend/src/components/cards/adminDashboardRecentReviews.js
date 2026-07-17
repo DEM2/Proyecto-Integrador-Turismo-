@@ -8,6 +8,7 @@ import {
   renderAdminDashboardAllReviewsEvents,
   renderAdminDashboardBackEvent,
 } from "./adminDashboardAllReviews.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export async function renderAdminDashboardRecentReviews() {
   let recentReviews = [];
@@ -91,7 +92,7 @@ export function renderAdminDashboardRecentReviewsEvents() {
       console.error(error);
       button.disabled = false;
       button.textContent = "Ocultar";
-      alert("No se pudo ocultar la resena. Intenta de nuevo.");
+      alertaError("No se pudo ocultar la resena. Intenta de nuevo.");
     }
   });
 }

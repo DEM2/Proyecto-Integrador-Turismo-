@@ -14,6 +14,7 @@ import {
 import { getItineraryDetail, getUserItineraries, deleteItinerary} from "../../services/itineraries.service.js";
 import { renderItineraryCard } from "../../components/cards/renderItineraryCard.js";
 import { openItineraryDetailModal } from "../../components/layout/itineraryDetailModal.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function renderExplorerProfilePage() {
   const session = getSession();
@@ -431,7 +432,7 @@ function initializeItineraryCards() {
                 } catch (error) {
 
                     console.error(error);
-                    alert(error.message || "No fue posible eliminar el itinerario");
+                    alertaError(error.message || "No fue posible eliminar el itinerario");
                     deleteButton.disabled = false;
 
                 }

@@ -3,6 +3,7 @@ import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postEvent } from "../../services/eventService.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
+import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 
 export function organizerCreateView() {
   return `
@@ -720,12 +721,12 @@ export function organizerCreateEvents() {
     }
 
     if (!activity.title) {
-      alert("El titulo de la actividad es obligatorio")
+      alertaError("El titulo de la actividad es obligatorio")
       return
     }
 
     if (!activity.activity_date) {
-      alert("La fecha de la actividad es obligatoria")
+      alertaError("La fecha de la actividad es obligatoria")
       return
     }
 
@@ -777,7 +778,7 @@ export function organizerCreateEvents() {
     const validationResult = validateEventForm(eventCreated)
 
     if (validationResult !== true) {
-      alert(validationResult)
+      alertaError(validationResult)
       return
     }
 
@@ -793,18 +794,18 @@ export function organizerCreateEvents() {
     const validationResult = validateEventForm(eventCreated);
 
     if (validationResult !== true) {
-      alert(validationResult);
+      alertaError(validationResult);
       return;
     }
 
     try {
       const result = await postEvent(eventCreated)
-      alert(result?.message || "Evento publicado correctamente.")
+      alertaExitosa(result?.message || "Evento publicado correctamente.")
       formCreateEvent.reset()
       agendaActivities = []
       renderAgendaActivities(agendaActivities)
     } catch (error) {
-      alert(error.message || "No se pudo crear el evento")
+      alertaError(error.message || "No se pudo crear el evento")
     }
 
 
@@ -978,4 +979,3 @@ function renderAgendaActivities(agendaActivities) {
 
 
 }
-

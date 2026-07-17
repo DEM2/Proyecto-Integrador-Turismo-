@@ -7,6 +7,7 @@ import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorgan
 import { getOrganizerAllEvents } from "../../services/reviews.service.js";
 import { getSession } from "../../services/authService.js";
 import { navigateTo } from "../../router/AppRouter.js";
+import { alertaError } from "../../utils/alertsss.js";
 
 export function renderOrganizerProfilePage() {
   return `
@@ -127,7 +128,7 @@ export async function initializeOrganizerProfilePageEvents() {
         const userId = session?.user?.id;
 
         if (!userId) {
-          alert("No se pudo cargar los eventos. Inicia sesión de nuevo.");
+          alertaError("No se pudo cargar los eventos. Inicia sesión de nuevo.");
           return;
         }
 
@@ -143,7 +144,7 @@ export async function initializeOrganizerProfilePageEvents() {
           btnShowAllEvents.classList.add("opacity-50", "pointer-events-none");
         } catch (error) {
           console.error(error);
-          alert("Error al cargar todos los eventos. Intenta de nuevo.");
+          alertaError("Error al cargar todos los eventos. Intenta de nuevo.");
         }
       });
 
