@@ -110,7 +110,7 @@ export function renderTouristPlacesPage() {
             </p>
 
             <h2 class="text-4xl font-bold text-[#0B2E69]">
-                Destinos destacados
+                Destinos Activos
             </h2>
 
         </div>

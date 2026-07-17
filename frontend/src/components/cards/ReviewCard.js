@@ -25,11 +25,11 @@ export function renderReviewCard(review) {
 
   return `
     <article
-      class="flex gap-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-md transition hover:shadow-lg"
+      class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-md transition hover:shadow-lg sm:flex-row sm:gap-5"
     >
 
       <!-- Imagen del lugar -->
-      <figure class="h-40 w-52 shrink-0 overflow-hidden rounded-xl">
+      <figure class="h-44 w-full shrink-0 overflow-hidden rounded-xl sm:h-40 sm:w-52">
         <img
           src="${image}"
           alt="${target_name}"
@@ -38,10 +38,10 @@ export function renderReviewCard(review) {
       </figure>
 
       <!-- Contenido -->
-      <section class="flex flex-1 flex-col">
+      <section class="flex min-w-0 flex-1 flex-col">
 
         <!-- Calificación -->
-        <header class="flex items-center gap-3">
+        <header class="flex flex-wrap items-center gap-2 sm:gap-3">
 
           <div class="flex">
             ${stars}
@@ -51,14 +51,14 @@ export function renderReviewCard(review) {
             ${score}
           </span>
 
-          <span class="text-sm text-slate-500">
+          <span class="w-full text-sm text-slate-500 sm:w-auto">
             • ${created_at}
           </span>
 
         </header>
 
         <!-- Usuario -->
-        <section class="mt-3 flex items-center gap-3">
+        <section class="mt-3 flex min-w-0 items-center gap-3">
 
           ${ userPhoto
             ? `
@@ -76,12 +76,12 @@ export function renderReviewCard(review) {
               </div>
             `
         }
-          <div>
+          <div class="min-w-0">
             <h3 class="font-bold text-blue-950">
               ${user.name}
             </h3>
 
-            <p class="text-sm font-medium text-slate-500">
+            <p class="text-sm font-medium text-slate-500 break-words">
               ${target_name}
             </p>
           </div>

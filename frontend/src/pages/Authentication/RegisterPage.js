@@ -5,9 +5,9 @@ export function renderRegisterPage() {
   return `
 
         <!-- LADO DERECHO / REGISTER -->
-<main class="relative z-10 flex items-center justify-center px-8 py-12 min-h-screen ">
+<main class="auth-register-page relative z-10 flex min-h-screen items-center justify-center px-4 py-6 md:px-8 md:py-12">
 
-  <section class="w-full max-w-180 bg-white/95 rounded-4xl shadow-2xl px-10 py-10 backdrop-blur-sm">
+  <section class="w-full max-w-180 bg-white/95 rounded-4xl shadow-2xl px-5 py-7 backdrop-blur-sm md:px-10 md:py-10">
 
     <!-- Marca superior -->
     <header id="title-register" class="mb-6 flex items-center justify-center gap-3 cursor-pointer hover:border-b border-blue-200 rounded-xl">

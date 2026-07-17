@@ -153,6 +153,44 @@
   #destination_container {
     gap: 1.25rem;
   }
+
+  .home-page .SITIOSYEVENTOSDESTACADOS {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .home-page #sitios-destacados,
+  .home-page #eventos-destacados {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .events-hero-frame {
+    height: 360px;
+  }
+
+  .events-hero-content {
+    left: 2rem;
+    max-width: 32rem;
+  }
+
+  .events-hero-content h1 {
+    font-size: 2.75rem;
+  }
+
+  .events-hero-content p {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .events-main {
+    padding: 1.5rem 2rem;
+  }
+
+  .events-page #eventos-destacados {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -280,5 +318,173 @@
 
   #destination_container {
     gap: 1rem;
+  }
+
+  .home-page {
+    gap: 1.25rem;
+  }
+
+  .home-page .HERO {
+    height: 260px;
+  }
+
+  .home-page .HERO p {
+    bottom: auto;
+    top: 50%;
+    left: 1.25rem;
+    transform: translateY(-50%);
+  }
+
+  .home-page .HERO p > span:first-child {
+    font-size: 2rem;
+  }
+
+  .home-page .HERO p > span:last-child {
+    font-size: 0.875rem;
+  }
+
+  .home-page .SITIOSYEVENTOSDESTACADOS {
+    gap: 1.5rem;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .home-page .SITIOSYEVENTOSDESTACADOS h2 {
+    font-size: 1.5rem;
+  }
+
+  .home-page .INFOICONS,
+  .home-page .INFOICONS2 {
+    margin-right: 14px;
+    margin-left: 14px;
+  }
+
+  .home-page .INFOICONS h2 {
+    padding-left: 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .home-page > section:last-of-type {
+    margin-right: 14px;
+    margin-left: 14px;
+    text-align: center;
+  }
+
+  .home-page > section:last-of-type img {
+    display: none;
+  }
+
+  .events-hero {
+    overflow: hidden;
+  }
+
+  .events-hero-frame {
+    height: auto !important;
+    min-height: 0;
+    padding-bottom: 14px;
+  }
+
+  .events-hero-frame > div:first-child {
+    position: relative !important;
+    height: 205px !important;
+  }
+
+  .events-hero-frame > div:first-child > div:last-child {
+    top: 115px;
+    bottom: auto;
+    height: 110px;
+    background: linear-gradient(to bottom, transparent, white);
+  }
+
+  .events-hero-frame > div:nth-child(2) {
+    display: none;
+  }
+
+  .events-hero-frame > div:nth-child(3) {
+    top: 160px;
+    bottom: auto;
+    height: 65px;
+  }
+
+  .events-hero-content {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100%;
+    max-width: none;
+    transform: none !important;
+    padding: 0 20px 12px;
+  }
+
+  .events-hero-content > div:first-child {
+    width: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .events-hero-content h1 {
+    font-size: 1.875rem;
+    line-height: 1.12;
+  }
+
+  .events-hero-content p {
+    margin-top: 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .events-hero-content > .relative {
+    width: 100%;
+    max-width: none;
+    margin-top: 1.25rem;
+  }
+
+  .events-main {
+    padding: 0.25rem 14px 1.5rem;
+  }
+
+  .events-page #filters_container {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .events-page #eventos-destacados {
+    gap: 1rem;
+  }
+
+  .events-main > section:first-child {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .events-main > section:first-child h2 {
+    font-size: 1.5rem;
+  }
+
+  .event-detail-page > section {
+    padding: 1rem 14px 1.5rem;
+  }
+
+  .event-detail-page > section > header figure {
+    height: 255px;
+  }
+
+  .event-detail-page > section > header time {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .event-detail-page > section > header article {
+    margin-right: 14px;
+    margin-left: 14px;
+    padding: 1.25rem;
+  }
+
+  .event-detail-page > section > header article h1 {
+    font-size: 1.875rem;
+  }
+
+  #itinerary {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }

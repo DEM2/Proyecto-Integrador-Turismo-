@@ -27,15 +27,15 @@ export function renderEventsPage() {
     return `
     ${renderMainNavigation()}
 
-    <main class="w-full flex flex-col font-sans bg-slate-50">
+    <main class="events-page w-full flex flex-col font-sans bg-slate-50">
 
     <!-- HERO -->
-  <section class="relative overflow-hidden bg-white" aria-labelledby="hero-title ">
+  <section class="events-hero relative overflow-hidden bg-white" aria-labelledby="hero-title ">
 
-    <div class="relative h-[420px]">
+    <div class="events-hero-frame relative h-[420px] max-md:h-auto max-md:pb-4">
 
     <!-- Capa de fondo: imagen + degradado -->
-  <div class="absolute inset-0 z-0" aria-hidden="true">
+  <div class="absolute inset-0 z-0 max-md:relative max-md:h-[205px]" aria-hidden="true">
     <img
       src="/src/assets/images/ff.jpg"
       alt=""
@@ -46,13 +46,15 @@ export function renderEventsPage() {
       from-white
       via-white/95
       via-30%
-      to-70%">
+      to-70%
+      max-md:inset-x-0 max-md:bottom-0 max-md:h-28
+      max-md:bg-gradient-to-b max-md:from-transparent max-md:to-white">
     </div>
   </div>
 
     <!-- Círculo decorativo -->
     <div
-      class="absolute right-32 top-16
+      class="absolute right-32 top-16 max-md:hidden
       w-72 h-72
       rounded-full
       bg-blue-600/15
@@ -62,7 +64,7 @@ export function renderEventsPage() {
     </div>
 
     <!-- Olas decorativas (fondo, detrás del texto) -->
-    <div class="absolute inset-0 z-10" aria-hidden="true">
+    <div class="absolute inset-0 z-10 max-md:inset-x-0 max-md:bottom-0 max-md:h-16" aria-hidden="true">
 
       <!-- Ola amarilla transparente (solo lado derecho) -->
       <svg
@@ -104,19 +106,21 @@ export function renderEventsPage() {
 
     <!-- Contenido: texto principal (siempre por encima de olas) -->
     <div
-      class="absolute
+      class="events-hero-content absolute
       left-12
       top-1/2
       -translate-y-1/2
       z-20
-      max-w-xl">
+      max-w-xl
+      max-md:relative max-md:top-auto max-md:left-auto max-md:w-full
+      max-md:max-w-none max-md:translate-y-0 max-md:px-5 max-md:pb-3">
 
       <div class="w-14 h-1 bg-yellow-400 rounded-full mb-8" aria-hidden="true"></div>
 
       <h1
         id="hero-title"
         class="text-5xl
-        font-bold
+        font-bold max-md:text-3xl
         leading-tight
         text-[#0B2E69]">
         Eventos que
@@ -127,7 +131,9 @@ export function renderEventsPage() {
       <p
         class="mt-6
         text-2xl
-        leading-8
+        leading-8 max-md:mt-4
+        max-md:text-sm
+        max-md:leading-6
         text-slate-600">
         Conciertos, festivales, ferias y actividades
         para disfrutar lo mejor de nuestra ciudad.
@@ -148,7 +154,7 @@ export function renderEventsPage() {
 
       <!-- CONTENIDO -->
   <section
-      class="px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-1">
+      class="events-main px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-1">
        
 
           <section class="flex items-center gap-3 mb-6">

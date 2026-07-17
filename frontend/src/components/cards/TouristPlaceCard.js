@@ -11,11 +11,11 @@ const CATEGORY_STYLES = {
     "vida nocturna": { bg: "#FBEAF0", text: "#4B1528", icon: Moon },
 };
 
-function getCategoryStyle(category = "") {
+export function getCategoryStyle(category = "") {
     return CATEGORY_STYLES[category.toLowerCase()] ?? { bg: "#FBEAF0", text: "#DD4E86", icon: MapPin };
 }
 
-export function renderTouristPlaceCard(destination) {
+export function renderTouristPlaceCard(destination, itemType = "place") {
 
     const { bg, text, icon } = getCategoryStyle(destination.category);
     console.log(destination)
@@ -29,7 +29,7 @@ export function renderTouristPlaceCard(destination) {
        <button
         type="button"
         aria-label="Agregar a itinerario"
-        data-item-type="place"
+        data-item-type="${itemType}"
         data-item-id="${placeId}"
         data-item-name="${destination.place}"
         class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"

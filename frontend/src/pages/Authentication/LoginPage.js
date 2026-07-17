@@ -5,22 +5,22 @@ export function renderLoginPage() {
   return `
     
   <!-- CONTENIDO PRINCIPAL -->
-  <main class="hero-bg min-h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
+  <main class="auth-login-page hero-bg min-h-screen bg-[url('/images/login-hero.png')] bg-cover bg-center bg-no-repeat">
 
     <section class="relative grid grid-cols-1 lg:grid-cols-[58%_42%]  overflow-hidden">
 
 
       <!-- LADO IZQUIERDO -->
-      <aside class="relative z-10 flex items-center px-16 py-12 overflow-hidden">
+      <aside class="relative z-10 hidden items-center overflow-hidden px-16 py-12 lg:flex">
 
           <!-- Tarjeta flotante -->
           
           </aside>
 
       <!-- LADO DERECHO / LOGIN -->
-      <section class="relative z-10 flex items-center justify-center px-8 py-12">
+      <section class="relative z-10 flex items-center justify-center px-4 py-6 md:px-8 md:py-12">
 
-        <article class="w-full max-w-110 bg-white/95 rounded-4xl shadow-2xl px-10 py-12 backdrop-blur-sm">
+        <article class="w-full max-w-110 bg-white/95 rounded-4xl shadow-2xl px-5 py-8 backdrop-blur-sm md:px-10 md:py-12">
 
           <!-- Marca superior -->
           <header id="title-login" class="mb-8 flex items-center justify-center gap-3 cursor-pointer hover:border-b border-blue-200 rounded-xl">

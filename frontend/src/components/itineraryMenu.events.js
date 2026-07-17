@@ -197,6 +197,12 @@ function initializeMenuEvents(menu, itemType, itemId, itemName) {
 
       button.addEventListener("click", async () => {
 
+        if (button.disabled) {
+          return;
+        }
+
+        button.disabled = true;
+
         const itineraryId = button.dataset.itineraryId;
 
         try {
@@ -220,6 +226,7 @@ function initializeMenuEvents(menu, itemType, itemId, itemName) {
           console.error("Error agregando al itinerario:", error);
 
           alert(error.message || "No fue posible agregar al itinerario.");
+          button.disabled = false;
 
         }
 

@@ -1,6 +1,5 @@
 import { renderMainNavigation, initializeMainNavigationEvents } from "../../components/layout/MainNavigation.js";
 import {
-  renderFeaturedEventCard,
   renderHomeInfoIcon,
   renderHomeFeatureCard,
 } from "../../components/sections/HomeSections.js";
@@ -17,7 +16,7 @@ export function renderHomePage() {
     
 
 
-        <main class="w-full flex flex-col gap-4 font-sans">
+        <main class="home-page w-full flex flex-col gap-4 font-sans">
       <section class="HERO w-full h-120 relative">
         <img
           class="w-full h-full object-cover"
@@ -153,7 +152,6 @@ export async function initializeHomePageEvents() {
     const sitios = await getSitiosDestacados();
     if (sitios) {
       sitiosContainer.innerHTML = sitios.map(sitio => renderTouristPlaceCard(sitio)).join("");
-      initializeItineraryMenus();
     }
   } catch (error) {
     alert(error.message);
@@ -162,11 +160,15 @@ export async function initializeHomePageEvents() {
   try {
     const eventos = await getEventosDestacados();
     if (eventos) {
-      eventosContainer.innerHTML = eventos.map(evento => renderFeaturedEventCard(evento)).join("");
+      eventosContainer.innerHTML = eventos
+        .map(evento => renderTouristPlaceCard({ ...evento, place: evento.name }, "event"))
+        .join("");
     }
   } catch (error) {
     alert(error.message);
   }
+
+  initializeItineraryMenus();
 
   // FIN
 }

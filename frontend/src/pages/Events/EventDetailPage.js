@@ -80,7 +80,7 @@ export async function renderEventDetailPage() {
 
         return `
         <!-- VISTA DETALLE DE EVENTO -->
-<main class="min-h-screen bg-slate-50 text-blue-950">
+<main class="event-detail-page min-h-screen bg-slate-50 text-blue-950">
   ${renderMainNavigation()}
     
 

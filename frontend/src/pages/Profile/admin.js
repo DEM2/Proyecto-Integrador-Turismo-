@@ -12,7 +12,7 @@ export async function adminDashboardPage() {
   ]);
 
   return `
-    <main class="min-h-screen bg-slate-50 font-sans text-slate-950 lg:grid lg:h-screen lg:grid-cols-[17rem_1fr] lg:overflow-hidden">
+    <main class="admin-page min-h-screen bg-slate-50 font-sans text-slate-950 lg:grid lg:h-screen lg:grid-cols-[17rem_1fr] lg:overflow-hidden">
       ${renderAdminDashboardSidebar()}
 
       <section id="admin-dashboard-content" class="flex flex-col px-6 py-6 lg:h-screen lg:overflow-hidden lg:px-8 lg:py-4" aria-labelledby="admin-dashboard-title">
