@@ -1,23 +1,20 @@
 import pool from "../config/db.js";
 
-// Busca lugares registrados en Barranquilla Explora
+// Busca lugares activos registrados en Barranquilla Explora.
 export async function searchPlaces({
     search = null,
     category = null,
     limit = 5
 }) {
-
     const conditions = [
         "p.is_active = true"
     ];
 
     const values = [];
 
-    // Buscar por nombre, descripción o dirección
+    // Busca coincidencias en nombre, descripción y dirección.
     if (search) {
-
-        values.push(`%${search}%`);
-
+        values.push(`%${search.trim()}%`);
         const position = values.length;
 
         conditions.push(`
@@ -29,11 +26,9 @@ export async function searchPlaces({
         `);
     }
 
-    // Filtrar por categoría
+    // Filtra por el nombre exacto de una categoría.
     if (category) {
-
         values.push(category);
-
         const position = values.length;
 
         conditions.push(`
@@ -41,14 +36,13 @@ export async function searchPlaces({
         `);
     }
 
-    // Evitamos que la IA solicite demasiados registros
+    // Evita que la IA solicite demasiados registros.
     const safeLimit = Math.min(
         Math.max(Number(limit) || 5, 1),
         10
     );
 
     values.push(safeLimit);
-
     const limitPosition = values.length;
 
     const sql = `
@@ -62,7 +56,7 @@ export async function searchPlaces({
             c.name AS category_name
         FROM places p
         INNER JOIN categories c
-            ON p.id_category = c.id
+            ON c.id = p.id_category
         WHERE ${conditions.join(" AND ")}
         ORDER BY
             p.is_featured DESC,

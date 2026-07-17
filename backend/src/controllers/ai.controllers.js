@@ -4,7 +4,7 @@ import { askDeepSeek } from "../services/deepseek.service.js";
 // POST /api/ai/chat
 export async function chatWithAI(req, res) {
     try {
-        const { message } = req.body;
+        const { message, history = [] } = req.body;
 
         // Validamos que el mensaje exista.
         if (!message || message.trim() === "") {
@@ -28,18 +28,30 @@ export async function chatWithAI(req, res) {
                 }
             });
         }
-
+        if (!Array.isArray(history)) {
+            return res.status(400).json({
+                ok: false,
+                error: {
+                    code: "INVALID_HISTORY",
+                    message:
+                        "El historial debe ser un arreglo."
+                }
+            });
+        }
         // Aquí llamamos al servicio de DeepSeek.
-        const aiResponse = await askDeepSeek(message.trim());
+        const aiResponse = await askDeepSeek(message.trim(), history);
 
-        // Respondemos al frontend/Postman.
+        // Respondemos al frontend.
         return res.status(200).json({
             ok: true,
             data: {
                 reply: aiResponse.reply
             },
             usage: aiResponse.usage,
-            model: aiResponse.model
+            model: aiResponse.model,
+            debug: {
+                usedTools: aiResponse.usedTools
+            }
         });
 
     } catch (error) {

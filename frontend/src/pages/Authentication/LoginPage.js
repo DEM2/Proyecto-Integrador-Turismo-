@@ -1,4 +1,5 @@
-import { chatbot, chatbotEvents } from "../../components/chatbot/chatbot.js";
+import { chatbotEvents } from "../../components/chatbot/chatbot.events.js";
+import { chatbot } from "../../components/chatbot/chatbot.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { loginUser,  createSession  } from "../../services/authService.js";
 
