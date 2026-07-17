@@ -122,7 +122,6 @@ export function renderLoginPage() {
   </main>
     `;
 }
-
 export function initializeLoginPageEvents() {
   const title = document.getElementById("title-login")
   const register = document.getElementById("boton-registrarse")
@@ -154,7 +153,15 @@ export function initializeLoginPageEvents() {
       if (responseUser) {
         createSession(responseUser);
         alert("Login exitoso.")
-        navigateTo("/event")
+
+        const userRole = responseUser?.user?.role || responseUser?.role;
+
+        if (userRole === "administrador") {
+          navigateTo("/dashboard");
+        } else {
+          // explorador, organizador, o cualquier otro rol -> inicio
+          navigateTo("/");
+        }
       }
     } catch (error) {
       alert("Error al ingresar")

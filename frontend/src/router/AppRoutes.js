@@ -80,8 +80,10 @@ export const appRoutes = {
     render: renderCreatePlaceView,
     events: renderCreatePlaceEvents
   },
-    "/dashboard":{
-    render:adminDashboardPage,
+    "/dashboard": {
+    render: adminDashboardPage,
     events: adminDashboardPageEvents,
+    needAuth: true,
+    allowedRoles: ["administrador"],
   }
 };
