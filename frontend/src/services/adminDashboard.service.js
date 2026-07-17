@@ -28,6 +28,20 @@ export async function getAdminDashboardData() {
   return adminDashboardDataPromise;
 }
 
+export async function hideAdminDashboardReview(reviewType, reviewId) {
+  const response = await fetch(apiUrl(`/api/admin-dashboard/reviews/${reviewType}/${reviewId}`), {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al ocultar la resena");
+  }
+
+  adminDashboardDataPromise = null;
+  return await response.json();
+}
+
 async function fetchAdminDashboardData() {
   const response = await fetch(apiUrl("/api/admin-dashboard"));
 
