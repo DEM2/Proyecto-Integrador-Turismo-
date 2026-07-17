@@ -17,6 +17,7 @@ import {
     Drama,
     Baby,
 } from "lucide";
+import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
 import { getAllEvent } from "../../services/eventService.js";
@@ -29,25 +30,25 @@ export function renderEventsPage() {
     <main class="w-full flex flex-col font-sans bg-slate-50">
 
     <!-- HERO -->
-<section class="relative overflow-hidden bg-white" aria-labelledby="hero-title">
+  <section class="relative overflow-hidden bg-white" aria-labelledby="hero-title ">
 
-  <div class="relative h-[420px]">
+    <div class="relative h-[420px]">
 
-   <!-- Capa de fondo: imagen + degradado -->
-<div class="absolute inset-0 z-0" aria-hidden="true">
-  <img
-    src="/src/assets/images/ff.jpg"
-    alt=""
-    class="absolute inset-0 h-full w-full object-cover"
-  />
-  <div
-    class="absolute inset-0 bg-gradient-to-r
-    from-white
-    via-white/95
-    via-30%
-    to-70%">
+    <!-- Capa de fondo: imagen + degradado -->
+  <div class="absolute inset-0 z-0" aria-hidden="true">
+    <img
+      src="/src/assets/images/ff.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r
+      from-white
+      via-white/95
+      via-30%
+      to-70%">
+    </div>
   </div>
-</div>
 
     <!-- Círculo decorativo -->
     <div
@@ -115,9 +116,9 @@ export function renderEventsPage() {
       <h1
         id="hero-title"
         class="text-5xl
-        font-extrabold
+        font-bold
         leading-tight
-        text-blue-950">
+        text-[#0B2E69]">
         Eventos que
         hacen vibrar 
         Barranquilla
@@ -146,31 +147,36 @@ export function renderEventsPage() {
 
 
       <!-- CONTENIDO -->
-      <section
-        class="px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-1">
+  <section
+      class="px-10 pt-8 pb-10 grid grid-cols-1 xl:grid-cols-1">
        
 
           <section class="flex items-center gap-3 mb-6">
 
-            <div
-              class="w-8 h-8 rounded-full bg-blue-700 flex justify-center items-center">
+           
 
-              <img
-                src="/src/assets/icons/location.svg"
-                class="w-5 h-5"
-              />
+        ${renderIconSvg(CalendarDays, {
+            class: "size-8 text-pink-500",
+            strokeWidth: 2,
+        })}
+    </div>
 
-            </div>
+    <div>
+        <p class="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
+            Explora
+        </p>
 
-            <h2 class="text-3xl font-bold text-blue-700">
-              Eventos activos 
-            </h2>
+        <h2 class="text-4xl font-bold text-blue-950">
+            Eventos activos
+        </h2>
 
-          </section>
+    </div>
+
+  </section>
 
         <figure
           id="eventos-destacados"
-          class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+          class="grid grid-cols-1 xl:grid-cols-5 gap-6">
         </figure>
 
       </section>
