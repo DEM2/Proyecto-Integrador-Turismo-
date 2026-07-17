@@ -298,24 +298,15 @@ export async function updateAdminDashboardPlace(id_place, placeData) {
 
 export async function updateAdminDashboardUser(id_user, userData) {
   const sql = `
-    /*
-      Reemplaza esta consulta por el UPDATE real de tu tabla de usuarios.
-
-      Parametros disponibles:
-        $1 -> name
-        $2 -> last_name
-        $3 -> email
-        $4 -> is_active
-        $5 -> id_role
-        $6 -> id_user
-    */
-    SELECT NULL AS id
-    WHERE $1::text IS NULL
-      AND $2::text IS NULL
-      AND $3::text IS NULL
-      AND $4::boolean IS NULL
-      AND $5::text IS NULL
-      AND $6::text IS NULL;
+    UPDATE users
+    SET
+      name = $1,
+      last_name = $2,
+      email = $3,
+      is_active = $4,
+      id_role = $5
+    WHERE id = $6
+    RETURNING id;
   `;
 
   const values = [
