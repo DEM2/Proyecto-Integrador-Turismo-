@@ -9,10 +9,10 @@ export function applyFilters(
             selectedCategory === "Todos" ||
             destination.category === selectedCategory;
 
-        const matchesSearch =
-            (destination.place || "" || destination.name)
-                .toLowerCase()
-                .includes(searchText.toLowerCase());
+        const searchableName = destination.place || destination.name || "";
+        const matchesSearch = searchableName
+            .toLowerCase()
+            .includes(searchText.toLowerCase());
 
         return matchesCategory && matchesSearch;
     });

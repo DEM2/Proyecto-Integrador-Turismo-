@@ -1,121 +1,145 @@
-export function chatbot() {
-    // Icono SVG utilizado en el botón flotante.
-    const BOT_ICON = `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3v2.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <rect x="5" y="7" width="14" height="11" rx="4" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 12h.01M15 12h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            <path d="M9.5 15c1.3 1 3.7 1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M4 12H2.5M21.5 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    `;
+import {
+    CalendarDays,
+    Info,
+    Lightbulb,
+    Map,
+    MapPin,
+    Minus,
+    Send,
+    X,
+} from "lucide";
+import { renderIconSvg } from "../../utils/renderIcon.js";
 
+const BOT_ICON = `
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v2.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <rect x="5" y="7" width="14" height="11" rx="4" stroke="currentColor" stroke-width="2"/>
+        <path d="M9 12h.01M15 12h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <path d="M9.5 15c1.3 1 3.7 1 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M4 12H2.5M21.5 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+`;
+
+export function renderBotAvatar(sizeClass = "size-10") {
     return `
-        <!-- Contenedor principal -->
-        <div id="chatbot-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+        <span class="relative flex ${sizeClass} shrink-0 items-center justify-center rounded-full bg-[conic-gradient(from_45deg,#1456d9,#1cbc55,#f6c400,#e52329,#1456d9)] p-[2px] shadow-sm" aria-hidden="true">
+            <span class="flex size-full items-center justify-center rounded-full bg-white text-[#0b3ea8]">
+                <span class="size-[68%]">${BOT_ICON}</span>
+            </span>
+        </span>
+    `;
+}
 
-            <!-- Modal del chatbot -->
-            <section id="chatbot-modal" class="hidden w-[390px] h-[580px] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+export function chatbot() {
+    return `
+        <div id="chatbot-container" class="fixed bottom-4 right-4 z-[70] flex flex-col items-end">
+            <section
+                id="chatbot-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-hidden="true"
+                aria-labelledby="chatbot-title"
+                class="hidden h-[min(680px,calc(100dvh-32px))] w-[min(420px,calc(100vw-24px))] flex-col overflow-hidden rounded-[26px] border border-slate-200/80 bg-white shadow-[0_24px_70px_rgba(15,35,85,0.25)] max-sm:fixed max-sm:inset-x-2 max-sm:bottom-2 max-sm:h-[calc(100dvh-16px)] max-sm:w-auto max-sm:rounded-[22px]"
+            >
+                <div class="h-1 shrink-0 bg-[linear-gradient(90deg,#1456d9_0%,#1456d9_25%,#1cbc55_25%,#1cbc55_50%,#f6c400_50%,#f6c400_75%,#e52329_75%,#e52329_100%)]" aria-hidden="true"></div>
 
-                <!-- Header -->
-                <header class="h-18 bg-blue-950 text-white flex items-center justify-between px-5">
+                <header class="flex shrink-0 items-center justify-between bg-[#071d49] px-5 py-4 text-white">
+                    <div class="flex min-w-0 items-center gap-3">
+                        ${renderBotAvatar("size-12")}
 
-                    <!-- Información del chatbot -->
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-blue-800 flex items-center justify-center">🤖</div>
-
-                        <div>
-                            <h3 class="font-bold">Asistente Explora</h3>
-                            <p class="text-xs text-blue-200">En línea</p>
+                        <div class="min-w-0">
+                            <h2 id="chatbot-title" class="truncate text-base font-bold">ExploraBot</h2>
+                            <p class="truncate text-xs text-blue-100/85">Tu guía de Barranquilla</p>
+                            <p class="mt-0.5 flex items-center gap-1.5 text-[11px] text-blue-100/80">
+                                <span class="size-2 rounded-full bg-[#1cbc55] shadow-[0_0_8px_rgba(28,188,85,0.7)]" aria-hidden="true"></span>
+                                En línea
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Botones para minimizar y cerrar -->
-                    <div class="flex items-center gap-2">
-                        <button id="chatbot-minimize" class="w-9 h-9 rounded-xl hover:bg-blue-800 transition cursor-pointer">—</button>
-                        <button id="chatbot-close" class="w-9 h-9 rounded-xl hover:bg-red-500 transition cursor-pointer">✕</button>
+                    <div class="ml-3 flex shrink-0 items-center gap-1">
+                        <button id="chatbot-minimize" type="button" aria-label="Minimizar chatbot" class="flex size-10 cursor-pointer items-center justify-center rounded-xl text-blue-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none">
+                            ${renderIconSvg(Minus, { class: "size-5", strokeWidth: 2 })}
+                        </button>
+                        <button id="chatbot-close" type="button" aria-label="Cerrar chatbot" class="flex size-10 cursor-pointer items-center justify-center rounded-xl text-blue-100 transition-colors hover:bg-red-500/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none">
+                            ${renderIconSvg(X, { class: "size-5", strokeWidth: 2 })}
+                        </button>
                     </div>
                 </header>
 
-                <!-- Cuerpo del chatbot -->
-                <div id="chatbot-body" class="h-[420px] bg-slate-50 overflow-y-auto px-5 py-5">
-                    <div id="chatbot-messages" class="flex flex-col gap-4">
+                <div id="chatbot-body" class="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-gradient-to-b from-white to-slate-50/70 px-5 py-5 max-sm:px-4" tabindex="0">
+                    <div id="chatbot-messages" aria-live="polite" aria-relevant="additions" class="flex min-w-0 flex-col gap-5">
                         ${initialChatContent()}
                     </div>
                 </div>
 
-                <!-- Área para escribir mensajes -->
-                <footer class="border-t border-slate-200 bg-white p-4">
-                    <form id="chatbot-form" class="flex items-end gap-3">
+                <footer class="shrink-0 border-t border-slate-200/80 bg-white px-4 py-4">
+                    <form id="chatbot-form" class="flex items-end gap-2 rounded-[24px] border border-slate-300 bg-white p-1.5 pl-2 transition focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 motion-reduce:transition-none">
+                        <textarea
+                            id="chatbot-input"
+                            rows="1"
+                            placeholder="Escribe tu mensaje..."
+                            aria-label="Mensaje para ExploraBot"
+                            class="min-h-11 max-h-28 min-w-0 flex-1 resize-none overflow-y-auto border-0 bg-transparent px-3 py-3 text-sm leading-5 text-[#102653] outline-none placeholder:text-slate-400 disabled:cursor-wait disabled:text-slate-400"
+                        ></textarea>
 
-                        <!-- Campo de texto -->
-                        <textarea id="chatbot-input" rows="1" placeholder="Escribe un mensaje..." class="text-[13px] flex-1 resize-none border border-slate-300 rounded-2xl px-4 py-3 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 overflow-y-auto max-h-24"></textarea>
-
-                        <!-- Botón para enviar -->
-                        <button id="chatbot-send" type="submit" disabled class="w-12 h-12 rounded-2xl bg-gray-300 text-white transition cursor-pointer flex items-center justify-center">➤</button>
+                        <button id="chatbot-send" type="submit" disabled aria-label="Enviar mensaje" class="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#1456d9] text-white shadow-[0_8px_20px_rgba(20,86,217,0.28)] transition-all hover:-translate-y-0.5 hover:bg-[#0b3ea8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:hover:translate-y-0 motion-reduce:transition-none">
+                            ${renderIconSvg(Send, { class: "size-5", strokeWidth: 2 })}
+                        </button>
                     </form>
+
+                    <p id="chatbot-initial-hint" class="mt-3 flex items-center gap-2 px-2 text-xs text-slate-500 max-[380px]:hidden">
+                        ${renderIconSvg(Info, { class: "size-4 shrink-0 text-blue-500", strokeWidth: 2 })}
+                        Puedes escribir tu pregunta en cualquier momento.
+                    </p>
                 </footer>
             </section>
         </div>
 
-        <!-- Botón flotante que abre el chatbot -->
-        <button id="chatbot-button" type="button" class="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-[24px] bg-gradient-to-br from-[#061747] via-[#071E63] to-[#0B2E8A] text-white shadow-[0_18px_38px_rgba(7,30,99,0.35)] transition hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(7,30,99,0.42)] active:scale-95" aria-label="Abrir asistente Explora" aria-expanded="false">
-            <span class="h-9 w-9">${BOT_ICON}</span>
+        <button
+            id="chatbot-button"
+            type="button"
+            aria-label="Abrir ExploraBot"
+            aria-expanded="false"
+            aria-controls="chatbot-modal"
+            class="fixed bottom-5 right-5 z-[70] flex size-16 items-center justify-center rounded-full border border-white/15 bg-[#071d49] text-white shadow-[0_16px_40px_rgba(7,29,73,0.35)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(7,29,73,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30 active:scale-95 motion-reduce:transition-none"
+        >
+            ${renderBotAvatar("size-12")}
+            <span class="pointer-events-none absolute bottom-0.5 right-0.5 size-3.5 rounded-full border-2 border-white bg-[#1cbc55] shadow-[0_0_10px_rgba(28,188,85,0.65)]" aria-hidden="true"></span>
         </button>
     `;
 }
 
-// Genera el contenido inicial del chatbot.
-// También se utiliza cuando el usuario cierra y reinicia la conversación.
 export function initialChatContent() {
     return `
-        <div class="flex flex-col gap-3">
+        <div class="flex items-start gap-3">
+            ${renderBotAvatar("size-9")}
 
-            <!-- Mensaje inicial -->
-            <div class="flex items-start gap-3">
-
-                <!-- Avatar del chatbot -->
-                <div class="w-10 h-10 rounded-full bg-blue-900 text-white flex items-center justify-center shrink-0">🤖</div>
-
-                <!-- Burbuja del mensaje inicial -->
-                <div class="bg-white rounded-2xl rounded-tl-sm shadow-sm border border-slate-200 px-4 py-3 max-w-[260px]">
-                    <p class="text-sm text-slate-700 leading-relaxed">
-                        ¡Hola! 👋
-                        <br><br>
-                        Soy el asistente de <strong>Barranquilla Explora</strong>.
-                        <br><br>
-                        Estoy aquí para ayudarte a descubrir lugares turísticos, restaurantes, itinerarios y eventos.
-                    </p>
-                </div>
+            <div class="max-w-[84%] rounded-2xl rounded-tl-md bg-slate-100 px-4 py-3 text-sm leading-6 text-[#102653] shadow-sm">
+                <p>¡Hola! 👋</p>
+                <p class="mt-1.5">Soy <strong>ExploraBot</strong>, tu asistente personal.</p>
+                <p class="mt-1.5">Puedo ayudarte a descubrir lugares, eventos, itinerarios y mucho más sobre Barranquilla.</p>
             </div>
+        </div>
 
-            <!-- Tarjetas de preguntas rápidas -->
-            <div class="grid grid-cols-2 gap-3 mt-2 ml-13 max-w-[260px]">
-                ${quickCard("card-lugares", "🏛", "Lugares", "Sitios turísticos.")}
-                ${quickCard("card-restaurantes", "🍽", "Restaurantes", "Dónde comer.")}
-                ${quickCard("card-itinerarios", "🗺", "Itinerarios", "Planifica tu viaje.")}
-                ${quickCard("card-eventos", "🎉", "Eventos", "Qué hacer hoy.")}
+        <div id="chatbot-initial-guidance" class="ml-12 flex flex-col gap-4 max-sm:ml-0">
+            <p class="text-sm font-semibold text-[#102653]">¿Sobre qué te gustaría saber hoy?</p>
+
+            <div class="flex flex-wrap gap-2.5">
+                ${quickAction("card-lugares", MapPin, "Lugares", "text-rose-500")}
+                ${quickAction("card-eventos", CalendarDays, "Eventos", "text-amber-500")}
+                ${quickAction("card-itinerarios", Map, "Itinerarios", "text-emerald-600")}
+                ${quickAction("card-consejos", Lightbulb, "Consejos", "text-blue-600")}
             </div>
         </div>
     `;
 }
 
-// Genera cada tarjeta rápida para evitar repetir el mismo HTML cuatro veces.
-function quickCard(id, icon, title, description) {
+function quickAction(id, icon, label, iconClass) {
     return `
-        <button id="${id}" class="bg-white border border-slate-200 rounded-2xl p-3 text-left shadow-[0_8px_20px_rgba(7,30,99,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(7,30,99,0.25)] active:scale-95 cursor-pointer">
-            <div class="text-2xl mb-1">${icon}</div>
-            <h4 class="font-semibold text-xs text-blue-950">${title}</h4>
-            <p class="text-[10px] text-slate-500 mt-0.5 leading-tight">${description}</p>
+        <button id="${id}" type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-[#102653] shadow-sm transition hover:border-blue-400 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 active:scale-95 motion-reduce:transition-none sm:text-sm">
+            ${renderIconSvg(icon, { class: `size-4 ${iconClass}`, strokeWidth: 2 })}
+            ${label}
         </button>
     `;
 }
-
-
-/* <span class="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-[#F5B400] shadow-[0_0_12px_rgba(245,180,0,0.9)]"></span>  */
-
-/* <button id="chatbot-button"class=" w-16 h-16 rounded-full bg-blue-950 shadow-xl shadow-blue-900/40 flex items-center justify-center cursor-pointer hover:scale-110 hover:bg-blue-900 active:scale-95 transition duration-300">
-
-            <img src="/images/chatbot.png" alt="Chatbot" class="w-9 h-9 object-contain">
-
-        </button> */

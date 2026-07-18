@@ -7,10 +7,53 @@ export function renderMainNavigation() {
   const session = getSession();
   const user = session?.user;
   const inicial = user?.name ? user.name.trim().charAt(0).toUpperCase() : "U";
+  const currentPath = window.location.pathname;
+  const navigationItems = [
+    { id: "inicio", label: "Inicio", path: "/" },
+    { id: "destinos", label: "Destinos", path: "/destinos" },
+    { id: "eventos", label: "Eventos", path: "/event" },
+  ];
+
+  const isActiveRoute = (path) => currentPath === path;
+  const renderDesktopNavigationItem = ({ id, label, path }) => {
+    const isActive = isActiveRoute(path);
+
+    return `
+      <li>
+        <a
+          id="nav-${id}"
+          href="${path}"
+          class="relative cursor-pointer py-2 transition-colors duration-200 ${
+            isActive
+              ? "text-blue-600 after:absolute after:left-1/2 after:-bottom-0.5 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-600"
+              : "text-blue-950 hover:text-blue-600"
+          }"
+          ${isActive ? 'aria-current="page"' : ""}
+        >${label}</a>
+      </li>
+    `;
+  };
+
+  const renderMobileNavigationItem = ({ id, label, path }) => {
+    const isActive = isActiveRoute(path);
+
+    return `
+      <button
+        id="mobile-nav-${id}"
+        type="button"
+        class="${
+          isActive
+            ? "!bg-blue-50 !text-blue-600"
+            : "!bg-transparent !text-blue-950 hover:!bg-slate-50 hover:!text-blue-600"
+        } transition-colors duration-200"
+        ${isActive ? 'aria-current="page"' : ""}
+      >${label}</button>
+    `;
+  };
 
   return `
     <header
-      class=" NAVEGACION  font-sans text-blue-950 flex items-center justify-between h-20 pl-4 sm:pl-6 md:pl-10 pr-2 sm:pr-4 md:pr-8 bg-gray-50"
+      class="NAVEGACION relative z-50 flex h-20 items-center justify-between bg-white pl-4 pr-2 font-sans text-blue-950 shadow-[0_8px_30px_rgba(15,23,42,0.06)] sm:h-[5.5rem] sm:pl-6 sm:pr-4 md:pl-10 md:pr-8"
     >
       <figure id= "logo_container" class="w-60 flex items-center gap-4">
         <h1 class="text-3xl font-bold max-md:text-2xl">Barranquilla</h1>
@@ -30,11 +73,9 @@ export function renderMainNavigation() {
 
         <ul 
         id="navegacion"
-        class="flex items-center gap-4 font-medium max-md:hidden">
+        class="flex items-center gap-6 font-medium max-md:hidden lg:gap-9">
 
-          <li><a id="nav-inicio" class="hover:text-blue-800 cursor-pointer" >Inicio</a></li>
-          <li><a id="nav-destinos" class="hover:text-blue-800 cursor-pointer" >Destinos</a></li>
-          <li><a id="nav-eventos" class="hover:text-blue-800 cursor-pointer" >Eventos</a></li>
+          ${navigationItems.map(renderDesktopNavigationItem).join("")}
 
           ${
             session
@@ -71,10 +112,10 @@ export function renderMainNavigation() {
           `
               : `
           <li>
-             <a id="boton_iniciarsesion" class="hover:text-blue-800 cursor-pointer" >Iniciar Sesión</a>
+             <a id="boton_iniciarsesion" class="cursor-pointer transition-colors duration-200 hover:text-blue-600" >Iniciar Sesión</a>
           </li>
           <li >
-             <a id="boton_registrarse" class="border-2 border-blue-900  rounded-lg p-1.5 pl-4 pr-4 cursor-pointer hover:bg-blue-900 hover:text-white " >Registrarse</a>
+             <a id="boton_registrarse" class="cursor-pointer rounded-lg border-2 border-blue-900 px-4 py-1.5 transition-colors duration-200 hover:bg-blue-900 hover:text-white" >Registrarse</a>
           </li>
           `
           }
@@ -95,9 +136,7 @@ export function renderMainNavigation() {
           </button>
         </div>
         <nav class="mobile-menu-links" aria-label="Navegación móvil">
-          <button id="mobile-nav-inicio" type="button">Inicio</button>
-          <button id="mobile-nav-destinos" type="button">Destinos</button>
-          <button id="mobile-nav-eventos" type="button">Eventos</button>
+          ${navigationItems.map(renderMobileNavigationItem).join("")}
           <button id="mobile-nav-perfil" type="button">Mi perfil</button>
           ${
             session?.user?.role === "explorador" || session?.role === "explorador"
@@ -157,15 +196,18 @@ export function initializeMainNavigationEvents() {
   const navEventos = document.getElementById("nav-eventos");
   const navDestinos = document.getElementById("nav-destinos");
 
-  navInicio.addEventListener("click", () => {
+  navInicio.addEventListener("click", (event) => {
+    event.preventDefault();
     navigateTo("/");
   });
 
-  navEventos.addEventListener("click", () => {
+  navEventos.addEventListener("click", (event) => {
+    event.preventDefault();
     navigateTo("/event");
   });
 
-  navDestinos.addEventListener("click", () => {
+  navDestinos.addEventListener("click", (event) => {
+    event.preventDefault();
     navigateTo("/destinos");
   });
 

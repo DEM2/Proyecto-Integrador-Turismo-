@@ -1,7 +1,16 @@
 // Servicio encargado de enviar mensajes al backend.
 import { getMessageFromAi } from "../../services/chat.service.js";
 // Funciones que modifican la interfaz del chatbot.
-import { addBotMessage,addUserMessage, removeTypingIndicator, resetChatUI, scrollToBottom, showTypingIndicator, updateSendButton } from "./chatbot.ui.js";
+import {
+    addBotMessage,
+    addUserMessage,
+    removeTypingIndicator,
+    resetChatUI,
+    resizeChatInput,
+    scrollToBottom,
+    showTypingIndicator,
+    updateSendButton,
+} from "./chatbot.ui.js";
 
 
 // Guarda temporalmente la conversación mientras la página esté abierta.
@@ -21,8 +30,14 @@ function openChat() {
 
     button.addEventListener("click", () => {
         modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        modal.setAttribute("aria-hidden", "false");
         button.classList.add("hidden");
         button.setAttribute("aria-expanded", "true");
+
+        requestAnimationFrame(() => {
+            document.getElementById("chatbot-input")?.focus();
+        });
     });
 }
 
@@ -37,6 +52,8 @@ function closeChat() {
         if (isChatbotLocked) return;
 
         modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        modal.setAttribute("aria-hidden", "true");
         button.classList.remove("hidden");
         button.setAttribute("aria-expanded", "false");
 
@@ -48,6 +65,7 @@ function closeChat() {
 
         // Activa nuevamente los eventos de las tarjetas creadas al reiniciar.
         setupQuickCards();
+        button.focus();
     });
 }
 
@@ -60,8 +78,11 @@ function minimizeChat() {
 
     minimizeButton.addEventListener("click", () => {
         modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        modal.setAttribute("aria-hidden", "true");
         button.classList.remove("hidden");
         button.setAttribute("aria-expanded", "false");
+        button.focus();
     });
 }
 
@@ -71,6 +92,7 @@ function toggleSendButton() {
 
     input.addEventListener("input", () => {
         updateSendButton(input.value.trim().length > 0);
+        resizeChatInput();
     });
 }
 
@@ -116,6 +138,7 @@ function sendMessage() {
         input.value = "";
         input.disabled = true;
         input.placeholder = "Espera unos segundos...";
+        resizeChatInput();
 
         updateSendButton(false);
         showTypingIndicator();
@@ -177,9 +200,9 @@ function setupQuickCards() {
     // Mensaje asociado a cada tarjeta.
     const quickMessages = {
         "card-lugares": "¿Qué lugares turísticos me recomiendas conocer en Barranquilla?",
-        "card-restaurantes": "¿Qué restaurantes me recomiendas en Barranquilla?",
+        "card-eventos": "¿Qué eventos hay disponibles en Barranquilla?",
         "card-itinerarios": "Ayúdame a encontrar un itinerario disponible en Barranquilla.",
-        "card-eventos": "¿Qué eventos hay disponibles en Barranquilla?"
+        "card-consejos": "Dame consejos para disfrutar mejor mi visita a Barranquilla."
     };
 
     Object.entries(quickMessages).forEach(([cardId, message]) => {
@@ -202,6 +225,11 @@ function setupQuickCards() {
 
 // Inicializa todos los eventos cuando el chatbot ya está renderizado.
 export function chatbotEvents() {
+    const modal = document.getElementById("chatbot-modal");
+
+    if (!modal || modal.dataset.eventsInitialized === "true") return;
+
+    modal.dataset.eventsInitialized = "true";
     openChat();
     closeChat();
     minimizeChat();
