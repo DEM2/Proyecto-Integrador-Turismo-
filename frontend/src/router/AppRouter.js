@@ -29,6 +29,9 @@ export async function renderCurrentRoute() {
   }
 
   app.innerHTML = await route.render();
+  app.classList.remove("page-transition");
+  void app.offsetWidth;
+  app.classList.add("page-transition");
   route.events();
 }
 

@@ -82,7 +82,7 @@ export function renderMainNavigation() {
       </nav>
     </header>
 
-    <div id="mobile-navigation" class="mobile-navigation hidden" aria-hidden="true">
+    <div id="mobile-navigation" class="mobile-navigation" aria-hidden="true">
       <button id="mobile-menu-backdrop" class="mobile-menu-backdrop" type="button" aria-label="Cerrar menú"></button>
       <aside class="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación">
         <div class="mobile-menu-header">
@@ -133,13 +133,13 @@ export function initializeMainNavigationEvents() {
   mobileBackdrop.addEventListener("click", cerrarMenuMovil);
 
   function abrirMenuMovil() {
-    mobileNavigation.classList.remove("hidden");
+    mobileNavigation.classList.add("is-open");
     mobileNavigation.setAttribute("aria-hidden", "false");
     boton.setAttribute("aria-expanded", "true");
   }
 
   function cerrarMenuMovil() {
-    mobileNavigation.classList.add("hidden");
+    mobileNavigation.classList.remove("is-open");
     mobileNavigation.setAttribute("aria-hidden", "true");
     boton.setAttribute("aria-expanded", "false");
   }

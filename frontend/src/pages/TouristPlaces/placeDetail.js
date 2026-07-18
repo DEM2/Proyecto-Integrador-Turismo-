@@ -1,5 +1,7 @@
 import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { getPlaceById } from "../../services/destinationService.js";
+import { Check, Compass, Heart, MapPin, Share2, Star, X } from "lucide";
+import { renderIconSvg } from "../../utils/renderIcon.js";
 
 let currentPlace = null;
 
@@ -106,7 +108,7 @@ export async function renderPlaceDetailView() {
                   aria-label="Agregar lugar a favoritos"
                   class="flex size-11 cursor-pointer items-center justify-center rounded-full bg-white text-xl shadow-lg transition hover:scale-105 hover:bg-purple-50 hover:text-purple-700"
                 >
-                  ♡
+                  ${renderIconSvg(Heart, { class: "size-5", strokeWidth: 2 })}
                 </button>
               </li>
 
@@ -117,7 +119,7 @@ export async function renderPlaceDetailView() {
                   aria-label="Compartir lugar"
                   class="flex size-11 cursor-pointer items-center justify-center rounded-full bg-white text-xl shadow-lg transition hover:scale-105 hover:bg-purple-50 hover:text-purple-700"
                 >
-                  ↗
+                  ${renderIconSvg(Share2, { class: "size-5", strokeWidth: 2 })}
                 </button>
               </li>
 
@@ -146,10 +148,14 @@ export async function renderPlaceDetailView() {
                 <p class="mt-3 flex flex-wrap items-center gap-2 text-sm">
 
                   <span
-                    class="text-lg tracking-wide text-yellow-400"
+                    class="flex items-center gap-0.5 text-yellow-400"
                     aria-label="Calificación de cinco estrellas"
                   >
-                    ★★★★★
+                    ${renderIconSvg(Star, { class: "size-4 fill-current", strokeWidth: 2 })}
+                    ${renderIconSvg(Star, { class: "size-4 fill-current", strokeWidth: 2 })}
+                    ${renderIconSvg(Star, { class: "size-4 fill-current", strokeWidth: 2 })}
+                    ${renderIconSvg(Star, { class: "size-4 fill-current", strokeWidth: 2 })}
+                    ${renderIconSvg(Star, { class: "size-4 fill-current", strokeWidth: 2 })}
                   </span>
 
                   <strong class="text-blue-950">
@@ -187,7 +193,7 @@ export async function renderPlaceDetailView() {
                   class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-purple-600 shadow-sm"
                   aria-hidden="true"
                 >
-                  📍
+                  ${renderIconSvg(MapPin, { class: "size-5", strokeWidth: 2 })}
                 </span>
 
                 <span class="min-w-0">
@@ -208,7 +214,7 @@ export async function renderPlaceDetailView() {
                   class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-blue-600 shadow-sm"
                   aria-hidden="true"
                 >
-                  🧭
+                  ${renderIconSvg(Compass, { class: "size-5", strokeWidth: 2 })}
                 </span>
 
                 <span>
@@ -227,7 +233,7 @@ export async function renderPlaceDetailView() {
                   class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-emerald-600 shadow-sm"
                   aria-hidden="true"
                 >
-                  ${placeDetail.is_active ? "✓" : "✕"}
+                  ${renderIconSvg(placeDetail.is_active ? Check : X, { class: "size-5", strokeWidth: 2 })}
                 </span>
 
                 <span>
@@ -336,7 +342,7 @@ export async function renderPlaceDetailView() {
                   class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600"
                   aria-hidden="true"
                 >
-                  📍
+                  ${renderIconSvg(MapPin, { class: "size-5", strokeWidth: 2 })}
                 </span>
 
                 <span class="pt-2">
@@ -458,7 +464,7 @@ export async function renderPlaceDetailView() {
                       class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600"
                       aria-hidden="true"
                     >
-                      📍
+                      ${renderIconSvg(MapPin, { class: "size-5", strokeWidth: 2 })}
                     </span>
 
                     <p class="pt-1">
@@ -477,7 +483,7 @@ export async function renderPlaceDetailView() {
                       class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600"
                       aria-hidden="true"
                     >
-                      🧭
+                      ${renderIconSvg(Compass, { class: "size-5", strokeWidth: 2 })}
                     </span>
 
                     <p class="pt-1">
@@ -496,7 +502,7 @@ export async function renderPlaceDetailView() {
                       class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600"
                       aria-hidden="true"
                     >
-                      ${placeDetail.is_active ? "✓" : "✕"}
+                      ${renderIconSvg(placeDetail.is_active ? Check : X, { class: "size-5", strokeWidth: 2 })}
                     </span>
 
                     <p class="pt-1">
@@ -533,13 +539,7 @@ export async function renderPlaceDetailView() {
                   Ver ubicación
                 </button>
 
-                <button
-                  id="btn-save-place-favorite"
-                  type="button"
-                  class="h-12 w-full rounded-xl border border-slate-200 font-bold text-slate-600 transition hover:border-purple-300 hover:bg-purple-50 hover:text-purple-700"
-                >
-                  ♡ Guardar en favoritos
-                </button>
+              
 
               </footer>
 

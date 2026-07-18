@@ -185,7 +185,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const usersContent = await renderAdminDashboardAllUsers();
-      dashboardContent.innerHTML = usersContent;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${usersContent}</div>`;
       selectAdminSidebarItem(usersLink);
       renderAdminDashboardAllUsersEvents();
     });
@@ -199,7 +199,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const eventsContent = await renderAdminDashboardAllEvents();
-      dashboardContent.innerHTML = eventsContent;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${eventsContent}</div>`;
       selectAdminSidebarItem(eventsLink);
       renderAdminDashboardAllEventsEvents();
     });
@@ -213,7 +213,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const placesContent = await renderAdminDashboardAllPlaces();
-      dashboardContent.innerHTML = placesContent;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${placesContent}</div>`;
       selectAdminSidebarItem(placesLink);
       renderAdminDashboardAllPlacesEvents();
     });
@@ -233,7 +233,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const reviewsContent = await renderAdminDashboardAllReviews();
-      dashboardContent.innerHTML = reviewsContent;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${reviewsContent}</div>`;
       selectAdminSidebarItem(reviewsLink);
       renderAdminDashboardAllReviewsEvents();
     });
@@ -247,7 +247,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const requestsContent = await renderAdminDashboardAllOrganizerRequests();
-      dashboardContent.innerHTML = requestsContent;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${requestsContent}</div>`;
       selectAdminSidebarItem(requestsLink);
       renderAdminDashboardAllOrganizerRequestsEvents();
     });
