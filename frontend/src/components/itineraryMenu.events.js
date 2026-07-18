@@ -226,13 +226,8 @@ function initializeMenuEvents(menu, itemType, itemId, itemName) {
 
           console.error("Error agregando al itinerario:", error);
 
-<<<<<<< HEAD
-          alert(error.message || "No fue posible agregar al itinerario.");
-          button.disabled = false;
-=======
           removeCurrentMenu();
           alertaError(error.message || "No fue posible agregar al itinerario.");
->>>>>>> 4f8bf992d098f129e490bf3efc73b84e8dff5f96
 
         }
 
