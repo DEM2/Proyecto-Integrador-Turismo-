@@ -84,7 +84,7 @@ export function renderTouristPlacesPage() {
           </div>
 
          <section
-   class="relative z-50 mx-auto w-full max-w-[80rem] px-4 pb-5 sm:px-8 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 lg:px-10 lg:pb-0"
+   class="relative z-50 mx-auto w-full max-w-[80rem] px-4 pb-5 max-lg:order-3 max-lg:mt-4 sm:px-8 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 lg:px-10 lg:pb-0"
   aria-label="Filtrar destinos por categoría"
 >
   <div class="category-filters-panel rounded-[1.75rem] border border-slate-200 bg-white shadow-xl">
@@ -110,19 +110,14 @@ export function renderTouristPlacesPage() {
       </button>
     </div>
 
-<<<<<<< HEAD
     <div class="filters-pagination" id="filters_pagination" aria-hidden="true"></div>
     </div>
-=======
-    <div class="filters-pagination hidden" id="filters_pagination" aria-hidden="true"></div>
->>>>>>> 793e0191ba7d0b7adc49747b403abc5c34092069
   </div>
+          </section>
         </header>
 
-=======
         <main class="relative z-10 tourist-main mx-auto w-full max-w-[96rem] px-[14px] pb-6 pt-15 sm:px-8 sm:pb-12 md:max-lg:px-8 md:max-lg:py-6 lg:px-10 lg:pt-20">
           <header class="mb-7 flex items-center gap-3 max-md:mb-4 max-md:gap-2">
->>>>>>> 793e0191ba7d0b7adc49747b403abc5c34092069
             ${renderIconSvg(MapPinned, {
               class: "size-8 text-emerald-400 max-md:size-7",
               strokeWidth: 2,
