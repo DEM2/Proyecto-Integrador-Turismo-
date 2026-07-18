@@ -11,6 +11,18 @@ export async function getDestinations(){
   return await response.json()
 }
 
+export async function getCategories() {
+  const response = await fetch(apiUrl("/api/categories"));
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message || "Error al obtener las categorías");
+  }
+
+  const result = await response.json();
+  return result?.data ?? [];
+}
+
 export async function postPlace(place) {
   const response = await fetch(apiUrl("/api/organizer/createDestination"), {
     method: "POST",
