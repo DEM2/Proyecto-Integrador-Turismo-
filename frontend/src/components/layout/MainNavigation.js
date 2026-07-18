@@ -23,11 +23,10 @@ export function renderMainNavigation() {
         <a
           id="nav-${id}"
           href="${path}"
-          class="relative cursor-pointer py-2 transition-colors duration-200 ${
-            isActive
-              ? "text-blue-600 after:absolute after:left-1/2 after:-bottom-0.5 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-600"
-              : "text-blue-950 hover:text-blue-600"
-          }"
+          class="relative cursor-pointer py-2 transition-colors duration-200 ${isActive
+        ? "text-blue-600 after:absolute after:left-1/2 after:-bottom-0.5 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-600"
+        : "text-blue-950 hover:text-blue-600"
+      }"
           ${isActive ? 'aria-current="page"' : ""}
         >${label}</a>
       </li>
@@ -41,11 +40,10 @@ export function renderMainNavigation() {
       <button
         id="mobile-nav-${id}"
         type="button"
-        class="${
-          isActive
-            ? "!bg-blue-50 !text-blue-600"
-            : "!bg-transparent !text-blue-950 hover:!bg-slate-50 hover:!text-blue-600"
-        } transition-colors duration-200"
+        class="${isActive
+        ? "!bg-blue-50 !text-blue-600"
+        : "!bg-transparent !text-blue-950 hover:!bg-slate-50 hover:!text-blue-600"
+      } transition-colors duration-200"
         ${isActive ? 'aria-current="page"' : ""}
       >${label}</button>
     `;
@@ -77,9 +75,8 @@ export function renderMainNavigation() {
 
           ${navigationItems.map(renderDesktopNavigationItem).join("")}
 
-          ${
-            session
-              ? `
+          ${session
+      ? `
           <li class="relative">
             <button
               id="boton_perfil"
@@ -98,11 +95,22 @@ export function renderMainNavigation() {
                 <p class="text-sm text-gray-500 truncate">${user?.email ?? ""}</p>
               </div>
 
-              <a id="menu_itinerario" class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer">
-                Crear itinerario
-              </a>
+              ${(session?.user?.role || session?.role) === "explorador"
+                  ? `
+                    <a
+                      id="menu_itinerario"
+                      class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer"
+                    >
+                      Crear itinerario
+                    </a>
+                  `
+                  : ""
+              }
               <a id="menu_perfil_link" class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer">
-                Perfil
+                ${(session?.user?.role || session?.role) === "administrador"
+                      ? "Dashboard"
+                      : "Perfil"
+                    }
               </a>
               <a id="menu_cerrar_sesion" class="block px-5 py-3 text-base text-red-600 hover:bg-red-50 cursor-pointer">
                 Cerrar sesión
@@ -110,7 +118,7 @@ export function renderMainNavigation() {
             </div>
           </li>
           `
-              : `
+      : `
           <li>
              <a id="boton_iniciarsesion" class="cursor-pointer transition-colors duration-200 hover:text-blue-600" >Iniciar Sesión</a>
           </li>
@@ -118,7 +126,7 @@ export function renderMainNavigation() {
              <a id="boton_registrarse" class="cursor-pointer rounded-lg border-2 border-blue-900 px-4 py-1.5 transition-colors duration-200 hover:bg-blue-900 hover:text-white" >Registrarse</a>
           </li>
           `
-          }
+    }
         </ul>
       </nav>
     </header>
@@ -137,17 +145,21 @@ export function renderMainNavigation() {
         </div>
         <nav class="mobile-menu-links" aria-label="Navegación móvil">
           ${navigationItems.map(renderMobileNavigationItem).join("")}
-          <button id="mobile-nav-perfil" type="button">Mi perfil</button>
-          ${
-            session?.user?.role === "explorador" || session?.role === "explorador"
-              ? `<button id="mobile-nav-itinerario" type="button" class="text-left hover:text-blue-800">Crear itinerario</button>`
-              : ""
-          }
-          ${
-            session
-              ? `<button id="mobile-nav-logout" type="button" class="text-left text-red-600 hover:text-red-800">Cerrar sesión</button>`
-              : ""
-          }
+          <button id="mobile-nav-perfil" type="button">
+              ${
+                (session?.user?.role || session?.role) === "administrador"
+                  ? "Dashboard"
+                  : "Mi perfil"
+              }
+            </button>
+          ${session?.user?.role === "explorador" || session?.role === "explorador"
+      ? `<button id="mobile-nav-itinerario" type="button" class="text-left hover:text-blue-800">Crear itinerario</button>`
+      : ""
+    }
+          ${session
+      ? `<button id="mobile-nav-logout" type="button" class="text-left text-red-600 hover:text-red-800">Cerrar sesión</button>`
+      : ""
+    }
         </nav>
       </aside>
     </div>
@@ -155,7 +167,7 @@ export function renderMainNavigation() {
 };
 
 export function initializeMainNavigationEvents() {
-   //Mostrar menú de navegación en versión móvil
+  //Mostrar menú de navegación en versión móvil
   const boton = document.getElementById("boton_menu");
   const equis = document.getElementById("boton_equis");
   const mobileNavigation = document.getElementById("mobile-navigation");
@@ -166,7 +178,7 @@ export function initializeMainNavigationEvents() {
     navigateTo("/");
   });
 
-  
+
   boton.addEventListener("click", abrirMenuMovil);
   equis.addEventListener("click", cerrarMenuMovil);
   mobileBackdrop.addEventListener("click", cerrarMenuMovil);
@@ -256,12 +268,14 @@ export function initializeMainNavigationEvents() {
     };
     document.addEventListener("click", window.__cerrarMenuPerfilHandler);
 
-    document.getElementById("menu_itinerario").addEventListener("click", () => {
-      menuPerfil.classList.add("hidden");
- 
-     openCreateItineraryModal()
-      
-    });
+   const menuItinerario = document.getElementById("menu_itinerario");
+
+if (menuItinerario) {
+  menuItinerario.addEventListener("click", () => {
+    menuPerfil.classList.add("hidden");
+    openCreateItineraryModal();
+  });
+}
 
     const irAPerfil = () => {
       menuPerfil.classList.add("hidden");
@@ -272,6 +286,8 @@ export function initializeMainNavigationEvents() {
         navigateTo("/perfilexplorador");
       } else if (userRole === "organizador") {
         navigateTo("/perfilorganizador");
+      } else if (userRole === "administrador") {
+        navigateTo("/dashboard");
       } else {
         // Si el rol no está definido o no coincide, se envía a inicio
         // para evitar redirigir a una ruta inexistente.

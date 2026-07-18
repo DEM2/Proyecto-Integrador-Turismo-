@@ -10,14 +10,17 @@ import {
 } from "../../components/cards/CategoryFilterCard.js";
 import {
     House,
+    ChevronRight,
     MapPinned,
-    Landmark,
-    UtensilsCrossed,
-    Trees,
-    ShoppingBag,
-    Moon,
+    MapPinPen,
+     Grid2x2,
+  CalendarDays,
+  Music2,
+  Landmark,
+  Trophy,
+  UtensilsCrossed,
+  Tent,
     Compass,
-    Navigation,
 } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
@@ -25,12 +28,13 @@ import { applyFilters } from "../../components/Filter/filter.component.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { alertaError } from "../../utils/alertsss.js";
+import { initFiltersScroll } from "../../controller/category.controller.js";
 
 export function renderTouristPlacesPage() {
     return `
         ${renderMainNavigation()}
 
-        <header class="tourist-hero relative isolate !h-auto !min-h-0 overflow-hidden !pb-0 bg-[#06152f]" aria-labelledby="destinations-hero-title">
+        <header class="tourist-hero relative isolate !h-auto !min-h-0  !pb-0 bg-[#06152f]" aria-labelledby="destinations-hero-title">
           <div class="absolute inset-0">
             <img
               src="/images/mallorquin.png"
@@ -39,10 +43,7 @@ export function renderTouristPlacesPage() {
             />
             <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(3,43,55,0.97)_0%,rgba(3,32,50,0.92)_100%),linear-gradient(0deg,rgba(2,14,30,0.45),rgba(2,14,30,0.1))] lg:bg-[linear-gradient(90deg,rgba(3,43,55,0.98)_0%,rgba(3,37,53,0.94)_25%,rgba(4,31,48,0.72)_45%,rgba(4,25,43,0.24)_66%,rgba(4,25,43,0.04)_100%),linear-gradient(0deg,rgba(2,14,30,0.35),transparent_45%)]" aria-hidden="true"></div>
 
-            <p class="absolute bottom-[6.25rem] left-5 inline-flex max-w-[calc(100%-2.5rem)] items-center gap-2 rounded-full border border-cyan-200/30 bg-slate-950/65 px-4 py-2.5 text-sm font-semibold text-white shadow-lg backdrop-blur-md sm:left-8 lg:bottom-[7.25rem] lg:left-[46%]">
-              ${renderIconSvg(MapPinned, { class: "size-5 shrink-0 text-cyan-300", strokeWidth: 2 })}
-              Ciénaga de Mallorquín
-            </p>
+           
           </div>
 
           <div class="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" aria-hidden="true"></div>
@@ -71,34 +72,48 @@ export function renderTouristPlacesPage() {
                 ${serchBar("Buscar museos, parques y lugares...")}
               </div>
 
-              <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-3 text-sm font-semibold">
-                <span class="inline-flex items-center gap-2 text-cyan-300 transition-colors hover:text-cyan-200">
-                  ${renderIconSvg(Navigation, { class: "size-5", strokeWidth: 2 })}
-                  Explora por categoría
-                </span>
-                <span class="hidden h-6 w-px bg-white/20 sm:block" aria-hidden="true"></span>
-                <span class="inline-flex items-center gap-2 text-amber-300 transition-colors hover:text-amber-200">
-                  ${renderIconSvg(MapPinned, { class: "size-5", strokeWidth: 2 })}
-                  Crea tu propia ruta
-                </span>
-              </div>
+             <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-3 text-sm font-semibold">
+  <span class="inline-flex items-center gap-2 text-amber-300 transition-colors hover:text-amber-200">
+    ${renderIconSvg(MapPinPen, { class: "size-5", strokeWidth: 2 })}
+    Crea tu propia ruta
+  </span>
+</div>
+
             </section>
           </div>
 
-          <section class="relative mx-auto w-full max-w-[96rem] px-4 pb-7 sm:px-8 lg:px-10" aria-label="Filtrar destinos por categoría">
-            <div class="rounded-[1.75rem] border border-white/15 bg-[rgba(7,31,54,0.78)] p-2.5 shadow-[0_18px_55px_rgba(2,8,23,0.28)] backdrop-blur-md">
-              <div
-                id="filters_container"
-                class="!m-0 !flex !w-full !grid-cols-none !justify-start !gap-3 !overflow-x-auto !p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:!justify-center">
-              </div>
-            </div>
-          </section>
+         <section
+   class="absolute left-1/2 bottom-0 z-50 w-full max-w-[80rem] -translate-x-1/2 translate-y-1/2 px-4 sm:px-8 lg:px-10"
+  aria-label="Filtrar destinos por categoría"
+>
+  <div
+    class="rounded-[1.75rem] bg-white px-5 py-3 shadow-xl border border-slate-200"
+  >
+    <div class="filters-scroll-wrapper" id="filters_scroll_wrapper">
+      <div
+        id="filters_container"
+        class="flex w-full items-center justify-between gap-3"
+      ></div>
+
+      <button
+        type="button"
+        id="filters_scroll_next"
+        class="filters-scroll-chevron"
+        aria-label="Ver más categorías"
+      >
+        ${renderIconSvg(ChevronRight, { class: "size-4 text-slate-500", strokeWidth: 2.5 })}
+      </button>
+    </div>
+
+    <div class="filters-pagination" id="filters_pagination" aria-hidden="true"></div>
+  </div>
+</section>
         </header>
 
-        <main class="tourist-main mx-auto w-full max-w-[96rem] !px-5 !pb-12 !pt-6 sm:!px-8 lg:!px-10 lg:!pt-7">
+        <main class="relative z-10 tourist-main mx-auto w-full max-w-[96rem] !px-5 !pb-12 !pt-28 sm:!px-8 lg:!px-10 lg:!pt-32">
           <header class="mb-7 flex items-center gap-3">
             ${renderIconSvg(MapPinned, {
-              class: "size-8 text-cyan-600",
+              class: "size-8 text-emerald-400",
               strokeWidth: 2,
             })}
 
@@ -126,15 +141,57 @@ export async function initializeTouristPlacesPageEvents() {
     let selectedCategory = "Todos";
     let searchText = "";
 
-    const categories = [
-        { name: "Todos", icon: House, color: "bg-blue-600", activeColor: "#2563eb", activeGlow: "rgba(37, 99, 235, 0.28)" },
-        { name: "Lugares turísticos", icon: MapPinned, color: "bg-cyan-500", activeColor: "#0891b2", activeGlow: "rgba(8, 145, 178, 0.28)" },
-        { name: "Restaurantes", icon: UtensilsCrossed, color: "bg-orange-500", activeColor: "#ea580c", activeGlow: "rgba(234, 88, 12, 0.28)" },
-        { name: "Cultura", icon: Landmark, color: "bg-fuchsia-500", activeColor: "#c026d3", activeGlow: "rgba(192, 38, 211, 0.28)" },
-        { name: "Naturaleza", icon: Trees, color: "bg-emerald-500", activeColor: "#059669", activeGlow: "rgba(5, 150, 105, 0.28)" },
-        { name: "Compras", icon: ShoppingBag, color: "bg-amber-500", activeColor: "#d97706", activeGlow: "rgba(217, 119, 6, 0.28)" },
-        { name: "Vida nocturna", icon: Moon, color: "bg-indigo-500", activeColor: "#4f46e5", activeGlow: "rgba(79, 70, 229, 0.28)" },
-    ];
+  const categories = [
+  {
+    name: "Todos",
+    icon: Grid2x2,
+    color: "bg-blue-600",
+    activeColor: "#2563eb",
+    activeGlow: "rgba(37, 99, 235, 0.28)",
+  },
+  {
+    name: "Festival",
+    icon: Tent,
+    color: "bg-pink-500",
+    activeColor: "#ec4899",
+    activeGlow: "rgba(236,72,153,.28)",
+  },
+  {
+    name: "Concierto",
+    icon: Music2,
+    color: "bg-violet-500",
+    activeColor: "#8b5cf6",
+    activeGlow: "rgba(139,92,246,.28)",
+  },
+  {
+    name: "Cultura",
+    icon: Landmark,
+    color: "bg-fuchsia-500",
+    activeColor: "#c026d3",
+    activeGlow: "rgba(192,38,211,.28)",
+  },
+  {
+    name: "Deportes",
+    icon: Trophy,
+    color: "bg-green-500",
+    activeColor: "#22c55e",
+    activeGlow: "rgba(34,197,94,.28)",
+  },
+  {
+    name: "Gastronomía",
+    icon: UtensilsCrossed,
+    color: "bg-orange-500",
+    activeColor: "#ea580c",
+    activeGlow: "rgba(234,88,12,.28)",
+  },
+  {
+    name: "Feria",
+    icon: CalendarDays,
+    color: "bg-amber-500",
+    activeColor: "#f59e0b",
+    activeGlow: "rgba(245,158,11,.28)",
+  },
+];
 
     function renderDestinations(list) {
         destinationContainer.innerHTML = list
@@ -160,7 +217,7 @@ export async function initializeTouristPlacesPageEvents() {
     filtersContainer.innerHTML = categories
         .map((category) => renderCategoryFilterCard(category))
         .join("");
-
+    initFiltersScroll();
     const filterButtons = filtersContainer.querySelectorAll("[data-category]");
     setActiveCategoryFilter(filtersContainer, filterButtons[0]);
 

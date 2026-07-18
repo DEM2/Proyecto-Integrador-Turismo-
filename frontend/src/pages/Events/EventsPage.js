@@ -8,14 +8,13 @@ import {renderEventCard} from "../../components/cards/EventCard.component.js"
 import { navigateTo } from "../../router/AppRouter.js";
 import {
     House,
+    ChevronRight,
     CalendarDays,
-    Music,
+    Grid2x2,
     Landmark,
     Trophy,
     UtensilsCrossed,
-    Store,
-    Drama,
-    Baby,
+    Tent, 
     Ticket,
     Music2,
 } from "lucide";
@@ -25,7 +24,7 @@ import { serchBar } from "../../components/layout/serchbar.component.js";
 import { getAllEvent } from "../../services/eventService.js";
 import { applyFilters } from "../../components/Filter/filter.component.js";
 import { alertaError } from "../../utils/alertsss.js";
-
+import { initFiltersScroll } from "../../controller/category.controller.js"
 export function renderEventsPage() {
     return `
     ${renderMainNavigation()}
@@ -33,7 +32,7 @@ export function renderEventsPage() {
     <main class="events-page flex w-full flex-col bg-slate-50 font-sans">
 
     <!-- HERO -->
-    <section class="events-hero relative isolate overflow-hidden bg-[#061a37]" aria-labelledby="hero-title">
+    <section class="events-hero relative isolate  bg-[#061a37]" aria-labelledby="hero-title">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_35%,rgba(126,34,206,0.24),transparent_27%),radial-gradient(circle_at_68%_62%,rgba(249,115,22,0.12),transparent_24%)]" aria-hidden="true"></div>
       <div class="absolute inset-0 opacity-[0.09] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" aria-hidden="true"></div>
       <div class="absolute -left-44 top-8 size-[30rem] rounded-full border border-violet-300/10" aria-hidden="true"></div>
@@ -76,18 +75,36 @@ export function renderEventsPage() {
       </div>
 
       <!-- Categorías -->
-      <section class="relative mx-auto w-full max-w-[96rem] px-4 pb-12 sm:px-8 lg:px-10" aria-label="Filtrar eventos por categoría">
-        <div class="rounded-[1.75rem] border border-white/15 bg-white/[0.035] p-3 shadow-[0_18px_55px_rgba(2,8,23,0.18)] backdrop-blur-md">
-          <div
-            id="filters_container"
-            class="!m-0 !flex !w-full !grid-cols-none !justify-start !gap-3 !overflow-x-auto !p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:!justify-center">
-          </div>
-        </div>
-      </section>
+         <section
+   class="absolute left-1/2 bottom-0 z-50 w-full max-w-[80rem] -translate-x-1/2 translate-y-1/2 px-4 sm:px-8 lg:px-10"
+  aria-label="Filtrar destinos por categoría"
+>
+  <div
+    class="rounded-[1.75rem] bg-white px-5 py-3 shadow-xl border border-slate-200"
+  >
+    <div class="filters-scroll-wrapper" id="filters_scroll_wrapper">
+      <div
+        id="filters_container"
+        class="flex w-full items-center justify-between gap-3"
+      ></div>
+
+      <button
+        type="button"
+        id="filters_scroll_next"
+        class="filters-scroll-chevron"
+        aria-label="Ver más categorías"
+      >
+        ${renderIconSvg(ChevronRight, { class: "size-4 text-slate-500", strokeWidth: 2.5 })}
+      </button>
+    </div>
+
+    <div class="filters-pagination" id="filters_pagination" aria-hidden="true"></div>
+  </div>
+</section>
     </section>
 
     <!-- CONTENIDO -->
-    <section class="events-main mx-auto grid w-full max-w-[96rem] grid-cols-1 px-5 pb-12 pt-10 sm:px-8 lg:px-10 lg:pt-12">
+    <section class="events-main  mx-auto grid w-full max-w-[96rem] grid-cols-1 px-5 pb-12 pt-10 sm:px-8 lg:px-10 lg:pt-12">
       <header class="mb-7 flex items-center gap-3">
         ${renderIconSvg(CalendarDays, {
           class: "size-8 text-pink-500",
@@ -118,17 +135,57 @@ export async function initializeEventsPageEvents() {
     const eventosContainer = document.getElementById("eventos-destacados");
     const searchInput = document.getElementById("destination_search");
     const filtersContainer = document.getElementById("filters_container");
-    const categories = [
-        { name: "Todos", description: "Explora todos los eventos", icon: House, color: "bg-blue-600", activeColor: "#2563eb", activeGlow: "rgba(37, 99, 235, 0.28)" },
-        { name: "Festival", description: "Celebraciones y festivales", icon: CalendarDays, color: "bg-red-500", activeColor: "#ef4444", activeGlow: "rgba(239, 68, 68, 0.28)" },
-        { name: "Concierto", description: "Música en vivo", icon: Music, color: "bg-purple-500", activeColor: "#9333ea", activeGlow: "rgba(147, 51, 234, 0.28)" },
-        { name: "Cultura", description: "Arte y patrimonio", icon: Landmark, color: "bg-pink-500", activeColor: "#db2777", activeGlow: "rgba(219, 39, 119, 0.28)" },
-        { name: "Deportes", description: "Eventos deportivos", icon: Trophy, color: "bg-green-600", activeColor: "#16a34a", activeGlow: "rgba(22, 163, 74, 0.28)" },
-        { name: "Gastronomía", description: "Sabores del Caribe", icon: UtensilsCrossed, color: "bg-orange-500", activeColor: "#ea580c", activeGlow: "rgba(234, 88, 12, 0.28)" },
-        { name: "Feria", description: "Exposiciones y negocios", icon: Store, color: "bg-cyan-500", activeColor: "#0891b2", activeGlow: "rgba(8, 145, 178, 0.28)" },
-        { name: "Teatro", description: "Obras y espectáculos", icon: Drama, color: "bg-indigo-500", activeColor: "#4f46e5", activeGlow: "rgba(79, 70, 229, 0.28)" },
-        { name: "Infantil", description: "Diversión para niños", icon: Baby, color: "bg-yellow-500", activeColor: "#d97706", activeGlow: "rgba(217, 119, 6, 0.28)" },
-    ];
+    const categories =  [
+  {
+    name: "Todos",
+    icon: Grid2x2,
+    color: "bg-blue-600",
+    activeColor: "#2563eb",
+    activeGlow: "rgba(37, 99, 235, 0.28)",
+  },
+  {
+    name: "Festival",
+    icon: Tent,
+    color: "bg-pink-500",
+    activeColor: "#ec4899",
+    activeGlow: "rgba(236,72,153,.28)",
+  },
+  {
+    name: "Concierto",
+    icon: Music2,
+    color: "bg-violet-500",
+    activeColor: "#8b5cf6",
+    activeGlow: "rgba(139,92,246,.28)",
+  },
+  {
+    name: "Cultura",
+    icon: Landmark,
+    color: "bg-fuchsia-500",
+    activeColor: "#c026d3",
+    activeGlow: "rgba(192,38,211,.28)",
+  },
+  {
+    name: "Deportes",
+    icon: Trophy,
+    color: "bg-green-500",
+    activeColor: "#22c55e",
+    activeGlow: "rgba(34,197,94,.28)",
+  },
+  {
+    name: "Gastronomía",
+    icon: UtensilsCrossed,
+    color: "bg-orange-500",
+    activeColor: "#ea580c",
+    activeGlow: "rgba(234,88,12,.28)",
+  },
+  {
+    name: "Feria",
+    icon: CalendarDays,
+    color: "bg-amber-500",
+    activeColor: "#f59e0b",
+    activeGlow: "rgba(245,158,11,.28)",
+  },
+];
 
     function renderEvents(events) {
         eventosContainer.innerHTML = events
@@ -152,7 +209,7 @@ export async function initializeEventsPageEvents() {
     filtersContainer.innerHTML = categories
         .map((category) => renderCategoryFilterCard(category))
         .join("");
-
+     initFiltersScroll();
     const filterButtons = filtersContainer.querySelectorAll("[data-category]");
     setActiveCategoryFilter(filtersContainer, filterButtons[0]);
 
