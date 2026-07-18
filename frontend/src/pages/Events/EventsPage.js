@@ -23,7 +23,7 @@ import { initializeItineraryMenus } from "../../components/itineraryMenu.events.
 import { serchBar } from "../../components/layout/serchbar.component.js";
 import { getAllEvent } from "../../services/eventService.js";
 import { applyFilters } from "../../components/Filter/filter.component.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 import { initFiltersScroll } from "../../controller/category.controller.js"
 export function renderEventsPage() {
     return `
@@ -77,7 +77,7 @@ export function renderEventsPage() {
       <!-- Categorías -->
          <section
    class="relative z-50 mx-auto w-full max-w-[80rem] px-4 pb-5 max-lg:order-3 max-lg:mt-4 sm:px-8 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 lg:px-10 lg:pb-0"
-  aria-label="Filtrar destinos por categoría"
+  aria-label="Filtrar eventos por categoría"
 >
   <div class="category-filters-panel rounded-[1.75rem] border border-slate-200 bg-white shadow-xl">
     <button type="button" data-category-filters-toggle="true" class="flex w-full cursor-pointer items-center justify-between gap-3 px-5 py-4 text-left text-sm font-black text-blue-950 lg:hidden">

@@ -8,7 +8,7 @@ import {
   renderAdminDashboardAllReviewsEvents,
   renderAdminDashboardBackEvent,
 } from "./adminDashboardAllReviews.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export async function renderAdminDashboardRecentReviews() {
   let recentReviews = [];

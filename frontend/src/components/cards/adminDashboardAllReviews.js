@@ -4,7 +4,7 @@ import {
   showAdminDashboardReview,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardReviewItem } from "./adminDashboardReviewItem.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export async function renderAdminDashboardAllReviews() {
   let reviews = [];

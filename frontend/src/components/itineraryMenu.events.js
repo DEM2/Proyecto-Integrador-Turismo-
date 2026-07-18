@@ -2,7 +2,7 @@ import { renderItineraryOptionsMenu } from "./layout/ItineraryOptionsMenu.js";
 import { getUserItineraries, addPlaceToItinerary, addEventToItinerary } from "../services/itineraries.service.js";
 import { openCreateItineraryModal } from "./layout/IntineraryModal.js";
 import { getSession } from "../services/authService.js";
-import { alertaError, alertaExitosa } from "../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../utils/alerts.js";
 
 // Caché en memoria de los itinerarios del usuario.
 // Evita pedirlos a la API cada vez que se abre el menú.

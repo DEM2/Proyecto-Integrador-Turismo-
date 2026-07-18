@@ -3,7 +3,7 @@ import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { postEvent } from "../../services/eventService.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 export function organizerCreateView() {
   return `

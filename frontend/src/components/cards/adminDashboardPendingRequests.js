@@ -3,7 +3,7 @@ import {
   getAdminDashboardData,
   rejectAdminDashboardOrganizer,
 } from "../../services/adminDashboard.service.js";
-import { alertaConfirmacion, alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaConfirmacion, alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 export function renderPendingRequestItem(request) {
   const fullName = [request.name, request.last_name].filter(Boolean).join(" ");

@@ -2,7 +2,7 @@ import { MessageSquareText } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon";
 import { getSession } from "../../services/authService.js";
 import { createReview } from "../../services/EventReview.service.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 
 export function RenderCommentariesModal() {

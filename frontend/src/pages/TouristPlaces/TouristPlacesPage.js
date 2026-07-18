@@ -27,7 +27,7 @@ import { initializeItineraryMenus } from "../../components/itineraryMenu.events.
 import { applyFilters } from "../../components/Filter/filter.component.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
 import { navigateTo } from "../../router/AppRouter.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 import { initFiltersScroll } from "../../controller/category.controller.js";
 
 export function renderTouristPlacesPage() {
@@ -85,11 +85,11 @@ export function renderTouristPlacesPage() {
 
          <section
    class="relative z-50 mx-auto w-full max-w-[80rem] px-4 pb-5 max-lg:order-3 max-lg:mt-4 sm:px-8 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 lg:px-10 lg:pb-0"
-  aria-label="Filtrar destinos por categoría"
+  aria-label="Filtrar lugares por categoría"
 >
   <div class="category-filters-panel rounded-[1.75rem] border border-slate-200 bg-white shadow-xl">
     <button type="button" data-category-filters-toggle="true" class="flex w-full cursor-pointer items-center justify-between gap-3 px-5 py-4 text-left text-sm font-black text-blue-950 lg:hidden">
-      Filtrar destinos
+      Filtrar lugares
       <span aria-hidden="true" class="text-xl leading-none text-blue-600">+</span>
     </button>
 
@@ -125,7 +125,7 @@ export function renderTouristPlacesPage() {
 
             <div>
               <p class="text-sm font-medium uppercase tracking-[0.2em] text-slate-500 max-md:text-[0.625rem]">Explora</p>
-              <h2 class="text-3xl font-bold text-[#0B2E69] max-md:text-2xl sm:text-4xl">Destinos Activos</h2>
+              <h2 class="text-3xl font-bold text-[#0B2E69] max-md:text-2xl sm:text-4xl">Lugares activos</h2>
             </div>
           </header>
 
@@ -244,7 +244,7 @@ export async function initializeTouristPlacesPageEvents() {
         });
     });
 
-    searchInput.setAttribute("aria-label", "Buscar destinos por nombre");
+    searchInput.setAttribute("aria-label", "Buscar lugares por nombre");
     searchInput.addEventListener("input", (event) => {
         searchText = event.target.value.toLowerCase().trim();
         applyDestinationFilters();

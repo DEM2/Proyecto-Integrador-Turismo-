@@ -8,7 +8,7 @@ import { renderIconSvg } from "../../utils/renderIcon.js";
 import { ArrowRight, CalendarDays, MapPin, MapPinned, Sparkles,Signpost, Music4, ShieldCheck, HeartPlus, Users, Store } from "lucide";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
 import ventanaMundo from "../../assets/videos/ventana_mundo.mp4";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 
 export function renderHomePage() {
@@ -112,7 +112,7 @@ export function renderHomePage() {
               <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
                 Explora
               </p>
-              <h2 class="text-2xl font-bold text-blue-700 max-md:text-2xl">Sitios Destacado</h2>
+              <h2 class="text-2xl font-bold text-blue-700 max-md:text-2xl">Lugares destacados</h2>
             </div>
           </section>
 
@@ -133,7 +133,7 @@ export function renderHomePage() {
               <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
                 Explora
               </p>
-              <h2 class="text-2xl font-bold text-red-500 max-md:text-2xl">Eventos Destacado</h2>
+              <h2 class="text-2xl font-bold text-red-500 max-md:text-2xl">Eventos destacados</h2>
             </div>
           </section>
 
@@ -230,6 +230,22 @@ export async function initializeHomePageEvents() {
     const sitios = await getSitiosDestacados();
     if (sitios) {
       sitiosContainer.innerHTML = sitios.map(sitio => renderTouristPlaceCard(sitio)).join("");
+
+      sitiosContainer.querySelectorAll(".tourist-place-card").forEach((card) => {
+        card.addEventListener("click", (event) => {
+          if (event.target.closest(".options-toggle-btn")) return;
+
+          const placeId = card.dataset.placeId;
+
+          if (!placeId) {
+            alertaError("No se pudo abrir la información del lugar");
+            return;
+          }
+
+          localStorage.setItem("selectedPlaceId", placeId);
+          navigateTo("/detailPlace");
+        });
+      });
     }
   } catch (error) {
     alertaError(error.message);

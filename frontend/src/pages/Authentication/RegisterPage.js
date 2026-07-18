@@ -1,6 +1,6 @@
 import { navigateTo } from "../../router/AppRouter.js";
 import { postUser } from "../../services/registrationService.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 export function renderRegisterPage() {
   return `

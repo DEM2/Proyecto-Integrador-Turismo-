@@ -2,6 +2,7 @@ import { initializeMainNavigationEvents, renderMainNavigation } from "../../comp
 import { getPlaceById } from "../../services/destinationService.js";
 import { Check, Compass, Heart, MapPin, Share2, Star, X } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
+import { alertaError } from "../../utils/alerts.js";
 
 let currentPlace = null;
 
@@ -52,7 +53,7 @@ export async function renderPlaceDetailView() {
 
             <li>
               <a
-                href="/lugares"
+                href="/destinos"
                 class="transition hover:text-purple-600"
               >
                 Lugares
@@ -554,7 +555,7 @@ export async function renderPlaceDetailView() {
     </main>
   `;
     } catch (error) {
-        alert("No se pudo cargar el lugar")
+        alertaError("No se pudo cargar el lugar")
         return `
         ${renderMainNavigation()}
 

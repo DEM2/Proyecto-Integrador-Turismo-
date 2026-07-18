@@ -1,6 +1,6 @@
 import { getSession } from "../../services/authService.js";
 import { postPlace } from "../../services/destinationService.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export function openAdminDashboardCreatePlaceModal(onCreated) {
   const currentModal = document.getElementById("admin-create-place-modal");

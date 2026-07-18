@@ -1,4 +1,4 @@
-import { alertaError } from "../utils/alertsss.js";
+import { alertaError } from "../utils/alerts.js";
 
 export const authMiddleware = (session, route) => {
   if (route.needAuth && !session) {

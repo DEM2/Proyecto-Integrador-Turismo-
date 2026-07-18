@@ -7,7 +7,7 @@ import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorgan
 import { getOrganizerAllEvents } from "../../services/reviews.service.js";
 import { getSession } from "../../services/authService.js";
 import { navigateTo } from "../../router/AppRouter.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export function renderOrganizerProfilePage() {
   return `

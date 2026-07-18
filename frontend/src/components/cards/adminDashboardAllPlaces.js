@@ -4,7 +4,7 @@ import {
 } from "../../services/adminDashboard.service.js";
 import { openAdminDashboardCreatePlaceModal } from "./adminDashboardCreatePlaceModal.js";
 import { renderAdminDashboardPlaceItem } from "./adminDashboardPlaceItem.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export async function renderAdminDashboardAllPlaces() {
   let places = [];

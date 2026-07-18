@@ -1,6 +1,6 @@
 import { navigateTo } from "../../router/AppRouter.js";
 import { loginUser,  createSession  } from "../../services/authService.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 export function renderLoginPage() {
   return `

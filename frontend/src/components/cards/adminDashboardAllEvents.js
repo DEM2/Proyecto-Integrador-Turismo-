@@ -3,7 +3,7 @@ import {
   updateAdminDashboardEvent,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardEventItem } from "./adminDashboardEventItem.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export async function renderAdminDashboardAllEvents() {
   let events = [];

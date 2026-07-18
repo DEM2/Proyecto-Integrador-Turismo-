@@ -2,7 +2,7 @@ import { initializeMainNavigationEvents, renderMainNavigation } from "../../comp
 import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
 import { getCategories, postPlace } from "../../services/destinationService.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
 
 export function renderCreatePlaceView() {

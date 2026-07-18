@@ -4,7 +4,7 @@ import {
   updateAdminDashboardUser,
 } from "../../services/adminDashboard.service.js";
 import { renderAdminDashboardUserItem } from "./adminDashboardUserItem.js";
-import { alertaError } from "../../utils/alertsss.js";
+import { alertaError } from "../../utils/alerts.js";
 
 export async function renderAdminDashboardAllUsers() {
   let users = [];

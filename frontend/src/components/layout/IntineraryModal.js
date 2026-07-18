@@ -2,7 +2,7 @@ import { Route, X, Info, CalendarDays } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import { createItinerary } from "../../services/itineraries.service.js";
 import { getSession } from "../../services/authService.js";
-import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
+import { alertaError, alertaExitosa } from "../../utils/alerts.js";
 
 export function renderCreateItineraryModal() {
   return `
@@ -207,7 +207,7 @@ export function renderCreateItineraryModal() {
             </span>
 
             <p class="text-sm leading-6 text-slate-600">
-              Después de crear el itinerario podrás agregar destinos y eventos
+              Después de crear el itinerario podrás agregar lugares y eventos
               desde sus respectivas tarjetas utilizando el botón
               <strong>"Añadir al itinerario"</strong>.
             </p>

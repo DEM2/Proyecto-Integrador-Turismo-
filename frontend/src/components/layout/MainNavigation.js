@@ -10,7 +10,7 @@ export function renderMainNavigation() {
   const currentPath = window.location.pathname;
   const navigationItems = [
     { id: "inicio", label: "Inicio", path: "/" },
-    { id: "destinos", label: "Destinos", path: "/destinos" },
+    { id: "destinos", label: "Lugares", path: "/destinos" },
     { id: "eventos", label: "Eventos", path: "/event" },
   ];
 
