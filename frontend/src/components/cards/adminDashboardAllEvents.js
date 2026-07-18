@@ -41,55 +41,62 @@ export async function renderAdminDashboardAllEvents() {
       </p>
     </header>
 
-    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-7" aria-label="Filtros de eventos">
-      <label class="text-sm font-bold text-slate-700">
-        Evento
-        <input id="filter-event-name" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+    <details class="mb-4 rounded-xl border border-slate-200 bg-white shadow-sm" aria-label="Filtros de eventos">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-extrabold text-slate-800 transition hover:bg-slate-50">
+        <span>Filtros de eventos</span>
+        <span aria-hidden="true" class="text-blue-600">+</span>
+      </summary>
 
-      <label class="text-sm font-bold text-slate-700">
-        Categoria
-        <input id="filter-event-category" type="search" placeholder="Categoria" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+      <section class="grid gap-3 border-t border-slate-200 p-4 sm:grid-cols-2 xl:grid-cols-4">
+        <label class="text-sm font-bold text-slate-700">
+          Evento
+          <input id="filter-event-name" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Organizador
-        <input id="filter-event-user" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Categoria
+          <input id="filter-event-category" type="search" placeholder="Categoria" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Estado
-        <select id="filter-event-active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
-          <option value="">Todos</option>
-          <option value="true">Visibles</option>
-          <option value="false">Ocultos</option>
-        </select>
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Organizador
+          <input id="filter-event-user" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Destacado
-        <select id="filter-event-featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
-          <option value="">Todos</option>
-          <option value="true">Destacados</option>
-          <option value="false">No destacados</option>
-        </select>
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Estado
+          <select id="filter-event-active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+            <option value="">Todos</option>
+            <option value="true">Visibles</option>
+            <option value="false">Ocultos</option>
+          </select>
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Fecha inicio
-        <input id="filter-event-start-date" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Destacado
+          <select id="filter-event-featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+            <option value="">Todos</option>
+            <option value="true">Destacados</option>
+            <option value="false">No destacados</option>
+          </select>
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Fecha creacion
-        <input id="filter-event-created" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Fecha inicio
+          <input id="filter-event-start-date" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Fecha actualizacion
-        <input id="filter-event-updated" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
-    </section>
+        <label class="text-sm font-bold text-slate-700">
+          Fecha creacion
+          <input id="filter-event-created" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
+
+        <label class="text-sm font-bold text-slate-700">
+          Fecha actualizacion
+          <input id="filter-event-updated" type="date" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
+      </section>
+    </details>
 
     <section id="admin-all-events" class="min-h-0 flex-1 overflow-y-auto" aria-labelledby="admin-all-events-title">
       <h2 id="admin-all-events-title" class="sr-only">Todos los eventos</h2>

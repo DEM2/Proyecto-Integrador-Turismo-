@@ -52,40 +52,47 @@ export async function renderAdminDashboardAllPlaces() {
       </button>
     </header>
 
-    <section class="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-2 xl:grid-cols-5" aria-label="Filtros de sitios">
-      <label class="text-sm font-bold text-slate-700">
-        Sitio
-        <input id="filter-place-name" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+    <details class="mb-4 rounded-xl border border-slate-200 bg-white shadow-sm" aria-label="Filtros de sitios">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-extrabold text-slate-800 transition hover:bg-slate-50">
+        <span>Filtros de sitios</span>
+        <span aria-hidden="true" class="text-blue-600">+</span>
+      </summary>
 
-      <label class="text-sm font-bold text-slate-700">
-        Categoria
-        <input id="filter-place-category" type="search" placeholder="Categoria" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+      <section class="grid gap-3 border-t border-slate-200 p-4 sm:grid-cols-2 xl:grid-cols-5">
+        <label class="text-sm font-bold text-slate-700">
+          Sitio
+          <input id="filter-place-name" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Organizador
-        <input id="filter-place-user" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Categoria
+          <input id="filter-place-category" type="search" placeholder="Categoria" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Estado
-        <select id="filter-place-active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
-          <option value="">Todos</option>
-          <option value="true">Visibles</option>
-          <option value="false">Ocultos</option>
-        </select>
-      </label>
+        <label class="text-sm font-bold text-slate-700">
+          Organizador
+          <input id="filter-place-user" type="search" placeholder="Nombre" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500" />
+        </label>
 
-      <label class="text-sm font-bold text-slate-700">
-        Destacado
-        <select id="filter-place-featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
-          <option value="">Todos</option>
-          <option value="true">Destacados</option>
-          <option value="false">No destacados</option>
-        </select>
-      </label>
-    </section>
+        <label class="text-sm font-bold text-slate-700">
+          Estado
+          <select id="filter-place-active" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+            <option value="">Todos</option>
+            <option value="true">Visibles</option>
+            <option value="false">Ocultos</option>
+          </select>
+        </label>
+
+        <label class="text-sm font-bold text-slate-700">
+          Destacado
+          <select id="filter-place-featured" class="mt-2 w-full cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-500">
+            <option value="">Todos</option>
+            <option value="true">Destacados</option>
+            <option value="false">No destacados</option>
+          </select>
+        </label>
+      </section>
+    </details>
 
     <section id="admin-all-places" class="min-h-0 flex-1 overflow-y-auto" aria-labelledby="admin-all-places-title">
       <h2 id="admin-all-places-title" class="sr-only">Todos los sitios</h2>
