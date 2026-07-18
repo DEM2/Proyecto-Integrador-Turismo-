@@ -2,7 +2,7 @@ import {
     renderMainNavigation,
     initializeMainNavigationEvents,
 } from "../../components/layout/MainNavigation.js";
-import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterCard.js";
+import { renderCategoryFilterCard, setActiveCategoryFilter } from "../../components/cards/CategoryFilterCard.js";
 import { renderEventCalendar } from "../../components/common/EventCalendar.js";
 import {renderEventCard} from "../../components/cards/EventCard.component.js"
 import { navigateTo } from "../../router/AppRouter.js";
@@ -16,6 +16,8 @@ import {
     Store,
     Drama,
     Baby,
+    Ticket,
+    Music2,
 } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
@@ -31,120 +33,47 @@ export function renderEventsPage() {
     <main class="events-page w-full flex flex-col font-sans bg-slate-50">
 
     <!-- HERO -->
-  <section class="events-hero relative overflow-hidden bg-white" aria-labelledby="hero-title ">
+    <section class="events-hero relative isolate overflow-hidden bg-[#071a36]" aria-labelledby="hero-title">
+      <div class="absolute -left-24 top-16 size-72 rounded-full bg-fuchsia-600/20 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute bottom-0 right-1/3 size-80 rounded-full bg-orange-500/15 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 24px 24px;"></div>
 
-    <div class="events-hero-frame relative h-[420px] max-md:h-auto max-md:pb-4">
+      <div class="relative mx-auto grid min-h-[34rem] max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-12 lg:py-16">
+        <div class="max-w-xl">
+          <p class="inline-flex items-center gap-2 rounded-full border border-rose-300/25 bg-rose-400/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-200">
+            ${renderIconSvg(Ticket, { class: "size-4", strokeWidth: 2.2 })}
+            La agenda de la ciudad
+          </p>
 
-    <!-- Capa de fondo: imagen + degradado -->
-  <div class="absolute inset-0 z-0 max-md:relative max-md:h-[205px]" aria-hidden="true">
-    <img
-      src="/src/assets/images/ff.jpg"
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover"
-    />
-    <div
-      class="absolute inset-0 bg-gradient-to-r
-      from-white
-      via-white/95
-      via-30%
-      to-70%
-      max-md:inset-x-0 max-md:bottom-0 max-md:h-28
-      max-md:bg-gradient-to-b max-md:from-transparent max-md:to-white">
-    </div>
-  </div>
+          <h1 id="hero-title" class="mt-6 text-4xl font-black leading-[1.03] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Siempre hay algo
+            <span class="block bg-gradient-to-r from-rose-400 to-orange-300 bg-clip-text text-transparent">por celebrar.</span>
+          </h1>
 
-    <!-- Círculo decorativo -->
-    <div
-      class="absolute right-32 top-16 max-md:hidden
-      w-72 h-72
-      rounded-full
-      bg-blue-600/15
-      blur-3xl
-      z-10"
-      aria-hidden="true">
-    </div>
+          <p class="mt-5 max-w-lg text-base leading-7 text-slate-300 sm:text-lg">
+            Conciertos, festivales, ferias y planes que convierten cada semana en una nueva historia para vivir en Barranquilla.
+          </p>
 
-    <!-- Olas decorativas (fondo, detrás del texto) -->
-    <div class="absolute inset-0 z-10 max-md:inset-x-0 max-md:bottom-0 max-md:h-16" aria-hidden="true">
+          ${serchBar("Buscar conciertos, festivales y eventos...")}
+        </div>
 
-      <!-- Ola amarilla transparente (solo lado derecho) -->
-      <svg
-        class="absolute bottom-0 left-0 w-full"
-        viewBox="0 0 1440 220"
-        preserveAspectRatio="none">
-        <path
-          fill="#fa2c15"
-          fill-opacity="0.35"
-          d="M850,220
-             C1000,40
-             1250,220
-             1440,30
-             L1440,220
-             L850,220
-             Z"/>
-      </svg>
+        <figure class="relative mx-auto w-full max-w-2xl lg:ml-auto">
+          <div class="absolute -inset-3 rotate-2 rounded-[2.2rem] border border-rose-300/20 bg-gradient-to-br from-rose-500/20 to-orange-400/10"></div>
+          <div class="relative h-72 overflow-hidden rounded-[1.8rem] border border-white/15 shadow-2xl shadow-black/30 sm:h-96">
+            <img src="/src/assets/images/ff.jpg" alt="Evento cultural en Barranquilla" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#071a36]/80 via-transparent to-transparent"></div>
+          </div>
 
-      <!-- Ola blanca -->
-      <svg
-        class="absolute bottom-0 left-0 w-full"
-        viewBox="0 0 1440 170"
-        preserveAspectRatio="none">
-        <path
-          fill="white"
-          d="M0,140
-             C250,20
-             450,240
-             720,130
-             C980,20
-             1190,170
-             1440,90
-             L1440,170
-             L0,170
-             Z"/>
-      </svg>
-
-    </div>
-
-    <!-- Contenido: texto principal (siempre por encima de olas) -->
-    <div
-      class="events-hero-content absolute
-      left-12
-      top-1/2
-      -translate-y-1/2
-      z-20
-      max-w-xl
-      max-md:relative max-md:top-auto max-md:left-auto max-md:w-full
-      max-md:max-w-none max-md:translate-y-0 max-md:px-5 max-md:pb-3">
-
-      <div class="w-14 h-1 bg-yellow-400 rounded-full mb-8" aria-hidden="true"></div>
-
-      <h1
-        id="hero-title"
-        class="text-5xl
-        font-bold max-md:text-3xl
-        leading-tight
-        text-[#0B2E69]">
-        Eventos que
-        hacen vibrar 
-        Barranquilla
-      </h1>
-
-      <p
-        class="mt-6
-        text-2xl
-        leading-8 max-md:mt-4
-        max-md:text-sm
-        max-md:leading-6
-        text-slate-600">
-        Conciertos, festivales, ferias y actividades
-        para disfrutar lo mejor de nuestra ciudad.
-      </p>
-      ${serchBar()}
-    </div>
-
-  </div>
-
-</section>
+          <figcaption class="absolute -bottom-5 left-4 right-4 flex items-center justify-between gap-4 rounded-2xl border border-white/20 bg-white/95 px-4 py-3 text-blue-950 shadow-xl backdrop-blur sm:left-8 sm:right-auto sm:min-w-72">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-rose-600">
+              ${renderIconSvg(Music2, { class: "size-5", strokeWidth: 2.2 })}
+            </span>
+            <p class="flex-1 text-sm"><strong class="block font-black">Ritmo todo el año</strong>Encuentra tu próximo plan</p>
+            ${renderIconSvg(CalendarDays, { class: "size-5 text-orange-500", strokeWidth: 2 })}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
          <!-- Categorías -->
             <section
@@ -305,9 +234,13 @@ export async function initializeEventsPageEvents() {
             .map((category) => renderCategoryFilterCard(category))
             .join("");
 
-        document.querySelectorAll("[data-category]").forEach((button) => {
+        const filterButtons = filtersContainer.querySelectorAll("[data-category]");
+        setActiveCategoryFilter(filtersContainer, filterButtons[0]);
+
+        filterButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 selectedCategory = button.dataset.category;
+                setActiveCategoryFilter(filtersContainer, button);
 
                 applyEventsFilters();
             });

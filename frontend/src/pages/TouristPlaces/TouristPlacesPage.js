@@ -1,7 +1,7 @@
 import { renderMainNavigation,initializeMainNavigationEvents} from "../../components/layout/MainNavigation.js";
 import { getDestinations } from "../../services/destinationService.js";
 import {renderTouristPlaceCard } from "../../components/cards/TouristPlaceCard.js";
-import { renderCategoryFilterCard } from "../../components/cards/CategoryFilterCard.js";
+import { renderCategoryFilterCard, setActiveCategoryFilter } from "../../components/cards/CategoryFilterCard.js";
 import {
     House,
     MapPinned,
@@ -12,81 +12,68 @@ import {
     UtensilsCrossed,
     Store,
     Drama,
-    Baby
+    Baby,
+    Compass,
+    Navigation
 } from "lucide";
 import { renderIconSvg } from "../../utils/renderIcon.js";
 import { initializeItineraryMenus } from "../../components/itineraryMenu.events.js";
-import ventanaMundo from "../../assets/videos/ventana_mundo.mp4";
 import { applyFilters } from "../../components/Filter/filter.component.js";
 import { serchBar } from "../../components/layout/serchbar.component.js";
+import { navigateTo } from "../../router/AppRouter.js";
 
 export function renderTouristPlacesPage() {
     return `
         ${renderMainNavigation()}
-        <header class="tourist-hero relative h-95 overflow-hidden">
+        <header class="tourist-hero overflow-hidden bg-[#f6f2e9]">
+          <div class="grid min-h-[36rem] lg:grid-cols-[0.9fr_1.1fr]">
+            <section class="order-2 flex items-center px-6 py-10 sm:px-10 lg:order-1 lg:px-12 xl:pl-[max(3rem,calc((100vw-80rem)/2))]">
+              <article class="w-full max-w-2xl">
+                <p class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                  ${renderIconSvg(Compass, { class: "size-5 text-amber-500", strokeWidth: 2.2 })}
+                  Tu próxima parada
+                </p>
 
-            <!-- Imagen de fondo -->
-            <figure class="absolute inset-0">
-                 <video
-                    class="absolute inset-0 block w-full h-full object-cover"
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    >
-                <source src="${ventanaMundo}" type="video/mp4" />
-                </video>
-            </figure>
+                <h1 class="mt-5 text-4xl font-black leading-[1.05] tracking-tight text-blue-950 sm:text-5xl lg:text-6xl">
+                  Encuentra lugares que
+                  <span class="block text-blue-600">merecen ser descubiertos.</span>
+                </h1>
 
-            <!-- Degradado -->
-            <span
-                aria-hidden="true"
-                class="absolute inset-0 z-10 bg-linear-to-r
-                    from-white
-                    via-white
-                    via-40%
-                    to-65%">
-            </span>
+                <p class="mt-5 max-w-xl text-sm leading-6 text-slate-600 sm:text-lg sm:leading-7">
+                  Historia, gastronomía, naturaleza y cultura local reunidas para ayudarte a explorar Barranquilla a tu manera.
+                </p>
 
-            <!-- Contenido -->
-            <section class="tourist-hero-content relative z-50 flex-col h-full items-start pt-16 px-12 w-3xl ">
+                ${serchBar("Buscar museos, parques y lugares...")}
 
-
-                <article class="max-w-2xl">
-
-                    <h1 class="text-5xl font-bold leading-tight text-[#0B2E69]">
-                        Descubre los mejores
-                        <br>
-                        lugares de Barranquilla
-                    </h1>
-
-                    <p class="mt-5 text-xl leading-8  text-gray-700 max-w-xl">
-                        Explora la historia, la cultura, la naturaleza y los rincones
-                        únicos que hacen de Barranquilla una ciudad inolvidable.
-                    </p>
-
-                </article>
-
-                ${serchBar()}
+                <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-bold text-slate-500">
+                  <span class="inline-flex items-center gap-1.5">${renderIconSvg(Navigation, { class: "size-4 text-blue-600", strokeWidth: 2 })} Explora por categoría</span>
+                  <span class="inline-flex items-center gap-1.5">${renderIconSvg(MapPinned, { class: "size-4 text-amber-500", strokeWidth: 2 })} Crea tu propia ruta</span>
+                </div>
+              </article>
             </section>
 
-            <!-- Ola -->
-            <svg class="absolute -bottom-1 left-0 z-30 w-full" viewBox="0 0 1440 140" preserveAspectRatio="none"
-                aria-hidden="true">
+            <figure class="relative order-1 min-h-72 overflow-hidden lg:order-2 lg:min-h-[36rem] lg:rounded-bl-[6rem]">
+              <img
+                src="/src/assets/images/aduana.jpg"
+                alt="Edificio de la Aduana de Barranquilla"
+                class="absolute inset-0 h-full w-full object-cover object-center"
+              />
 
-                <path fill="white" d="M0,120
-                            C180,20
-                            420,20
-                            720,110
-                            C980,180
-                            1180,40
-                            1440,100
-                            L1440,140
-                            L0,140
-                            Z" />
+              <div class="absolute right-8 top-8 hidden size-40 rounded-full border border-white/60 sm:block" aria-hidden="true">
+                <div class="absolute inset-5 rounded-full border border-white/50"></div>
+                <div class="absolute inset-12 rounded-full border border-white/40"></div>
+                <span class="absolute left-1/2 top-0 h-full w-px bg-white/50"></span>
+                <span class="absolute left-0 top-1/2 h-px w-full bg-white/50"></span>
+                <span class="absolute inset-0 flex items-center justify-center text-white drop-shadow-lg">
+                  ${renderIconSvg(Compass, { class: "size-7", strokeWidth: 1.8 })}
+                </span>
+              </div>
 
-            </svg>
-
+              <p class="absolute bottom-8 right-8 hidden text-right text-sm font-bold uppercase tracking-[0.22em] text-white drop-shadow-lg sm:block">
+                Barranquilla<br />Colombia
+              </p>
+            </figure>
+          </div>
         </header>
             <main class="tourist-main px-12 py-8">
                 <!-- Categorías -->
@@ -146,7 +133,19 @@ export async function initializeTouristPlacesPageEvents() {
         destination_container.innerHTML = list
             .map(destination => renderTouristPlaceCard(destination))
             .join("");
+            
+        document.querySelectorAll(".tourist-place-card").forEach(function(card){
+            card.addEventListener("click", function(event){
+                if(event.target.closest(".options-toggle-btn")){
+                    return
+                }
 
+                const placeId = card.dataset.placeId
+
+                localStorage.setItem("selectedPlaceId", placeId)
+                navigateTo("/detailPlace")
+            })
+        })
         initializeItineraryMenus();
     }
 
@@ -230,11 +229,15 @@ export async function initializeTouristPlacesPageEvents() {
         .map(category => renderCategoryFilterCard(category))
         .join("");
 
-    document.querySelectorAll("[data-category]").forEach(button => {
+    const filterButtons = filters_container.querySelectorAll("[data-category]");
+    setActiveCategoryFilter(filters_container, filterButtons[0]);
+
+    filterButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
         selectedCategory = button.dataset.category;
+        setActiveCategoryFilter(filters_container, button);
 
         applyDestinationFilters();
 

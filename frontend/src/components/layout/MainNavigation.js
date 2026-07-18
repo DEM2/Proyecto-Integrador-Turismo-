@@ -99,6 +99,16 @@ export function renderMainNavigation() {
           <button id="mobile-nav-destinos" type="button">Destinos</button>
           <button id="mobile-nav-eventos" type="button">Eventos</button>
           <button id="mobile-nav-perfil" type="button">Mi perfil</button>
+          ${
+            session?.user?.role === "explorador" || session?.role === "explorador"
+              ? `<button id="mobile-nav-itinerario" type="button" class="text-left hover:text-blue-800">Crear itinerario</button>`
+              : ""
+          }
+          ${
+            session
+              ? `<button id="mobile-nav-logout" type="button" class="text-left text-red-600 hover:text-red-800">Cerrar sesión</button>`
+              : ""
+          }
         </nav>
       </aside>
     </div>
@@ -232,6 +242,23 @@ export function initializeMainNavigationEvents() {
       cerrarMenuMovil();
       irAPerfil();
     });
+
+    const mobileItineraryButton = document.getElementById("mobile-nav-itinerario");
+    if (mobileItineraryButton) {
+      mobileItineraryButton.addEventListener("click", () => {
+        cerrarMenuMovil();
+        openCreateItineraryModal();
+      });
+    }
+
+    const mobileLogoutButton = document.getElementById("mobile-nav-logout");
+    if (mobileLogoutButton) {
+      mobileLogoutButton.addEventListener("click", () => {
+        cerrarMenuMovil();
+        clearSession();
+        navigateTo("/");
+      });
+    }
 
     document.getElementById("menu_cerrar_sesion").addEventListener("click", () => {
       clearSession();

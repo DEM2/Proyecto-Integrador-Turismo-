@@ -3,7 +3,7 @@ import pool from "../config/db.js";
 export async function findByEmail(email){
 
     const sql = `
-        SELECT u.id, u.name, u.email, u.password, r.name as role
+        SELECT u.id, u.name, u.email, u.password, u.is_active, r.name as role
         FROM users u 
         JOIN roles r on u.id_role = r.id
         WHERE email = $1

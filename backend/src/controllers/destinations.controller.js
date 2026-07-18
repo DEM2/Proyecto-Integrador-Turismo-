@@ -1,5 +1,5 @@
 import { getDestinations } from "../querys/destinations.query.js";
-import { createDestinationService } from "../services/place.service.js";
+import { createDestinationService, getDestinationService } from "../services/place.service.js";
 
 export async function destinations(req, res) {
     
@@ -26,6 +26,25 @@ export async function createDestinationController(req, res) {
             data: newPlace
         })
     }catch(error){
+        return res.status(error.statusCode || 500).json({
+            ok: false,
+            message: error.message || "Error interno del servidor"
+        })
+    }
+}
+
+export async function getDestinationController(req, res) {
+    try{
+        const {id_place} = req.params
+
+        const getDestination = await getDestinationService(id_place)
+
+        return res.status(200).json({
+            ok: true,
+            message: "Consulta del lugar exitosa",
+            data: getDestination
+        })
+    } catch (error){
         return res.status(error.statusCode || 500).json({
             ok: false,
             message: error.message || "Error interno del servidor"

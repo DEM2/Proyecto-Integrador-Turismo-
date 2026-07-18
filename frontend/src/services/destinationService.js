@@ -12,7 +12,7 @@ export async function getDestinations(){
 }
 
 export async function postPlace(place) {
-  const response = await fetch(apiUrl("api/organizer/createDestination"), {
+  const response = await fetch(apiUrl("/api/organizer/createDestination"), {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -27,4 +27,20 @@ export async function postPlace(place) {
   }
 
   return result
+}
+
+export async function getPlaceById(id_place) {
+  if(!id_place){
+    throw new Error("No se encontro el ID del lugar")
+  }
+
+  const response = await fetch(apiUrl(`/api/destinations/${id_place}`))
+
+  const result = await response.json()
+
+  if(!response.ok){
+    throw new Error(result?.message || "Error al obtener el lugar")
+  }
+
+  return result.data;
 }

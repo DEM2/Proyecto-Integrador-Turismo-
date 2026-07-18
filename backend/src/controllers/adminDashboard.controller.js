@@ -4,21 +4,89 @@ import {
   countAdminDashboardPlaces,
   countAdminDashboardReviews,
   countAdminDashboardUsers,
+  approveAdminDashboardOrganizer,
   getAdminDashboardAllEvents,
   getAdminDashboardAllPlaces,
   getAdminDashboardAllReviews,
   getAdminDashboardAllUsers,
+  getAdminDashboardAllPendingOrganizers,
   getAdminDashboardPendingOrganizers,
   getAdminDashboardRecentReviews,
   getAdminDashboardRoles,
   hideAdminDashboardEventReview,
   hideAdminDashboardPlaceReview,
+  rejectAdminDashboardOrganizer,
   showAdminDashboardEventReview,
   showAdminDashboardPlaceReview,
   updateAdminDashboardEvent,
   updateAdminDashboardPlace,
   updateAdminDashboardUser,
 } from "../querys/adminDashboard.query.js";
+
+export async function getAdminDashboardOrganizerRequestsController(req, res) {
+  try {
+    const pendingOrganizers = await getAdminDashboardAllPendingOrganizers();
+
+    return res.status(200).json({
+      ok: true,
+      message: "Solicitudes de organizador consultadas exitosamente",
+      data: pendingOrganizers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function approveAdminDashboardOrganizerController(req, res) {
+  try {
+    const organizerApproved = await approveAdminDashboardOrganizer(req.params.id);
+
+    if (!organizerApproved) {
+      return res.status(404).json({
+        ok: false,
+        message: "Solicitud de organizador no encontrada",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Solicitud de organizador aprobada exitosamente",
+      data: organizerApproved,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
+
+export async function rejectAdminDashboardOrganizerController(req, res) {
+  try {
+    const organizerRejected = await rejectAdminDashboardOrganizer(req.params.id);
+
+    if (!organizerRejected) {
+      return res.status(404).json({
+        ok: false,
+        message: "Solicitud de organizador no encontrada",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "Solicitud y cuenta eliminadas exitosamente",
+      data: organizerRejected,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error interno del servidor",
+    });
+  }
+}
 
 export async function getAdminDashboardController(req, res) {
   try {

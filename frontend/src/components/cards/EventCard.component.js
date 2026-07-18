@@ -36,7 +36,7 @@ const optionsButton = isExplorer
             data-item-type="event"
             data-item-id="${eventId}"
             data-item-name="${event.name}"
-            class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
+            class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 pointer-events-none group-hover:pointer-events-auto hover:pointer-events-auto focus:pointer-events-auto active:pointer-events-auto hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
         >
 
             ${renderIconSvg(ListPlus,{
@@ -51,7 +51,7 @@ const optionsButton = isExplorer
     return `
         <article
             data-event-id="${event.id}"
-            class="featured-event-card overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+            class="group featured-event-card overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
         >
 
             <!-- Imagen -->

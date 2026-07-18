@@ -17,44 +17,55 @@ export async function getDestinations(){
 }
 
 export async function createDestinationByUser(placeData) {
-   const lastIdSql = `
-      SELECT (MAX(id) + 1) AS next_id
-      FROM places;
-   `;
 
-   const lastIdResult = await pool.query(lastIdSql);
-   const nextId = lastIdResult.rows[0].next_id;
-
-   const sql =`
-   INSERT INTO places(
-      id,
+   const sql = `
+    INSERT INTO places (
       name,
       description,
       address,
-      image_main,
-      is_active,
       id_category,
       id_user,
-      is_featured,
-      created_at,
-      updated_at
-   ) VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW()
-   ) RETURNING *
-   `;
+      is_active
+    )
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *
+  `;
 
    const values = [
-      nextId,
       placeData.name,
-      placeData.description,
+      placeData.description || null,
       placeData.address,
-      placeData.image_main || null,
-      placeData.is_active,
       placeData.id_category,
-      placeData.fk_places_user,
-      placeData.is_featured || false
+      placeData.id_user,
+      placeData.is_active
    ]
 
    const result = await pool.query(sql, values)
    return result.rows[0]
+}
+
+export async function getDestinationById(id_place) {
+    const sql = `
+        SELECT
+            p.id,
+            p.name,
+            p.description,
+            p.address,
+            p.image_main,
+            p.is_active,
+            p.is_featured,
+            p.id_category,
+            p.id_user,
+            c.name AS category
+        FROM places p
+        JOIN categories c ON c.id = p.id_category
+        WHERE p.id = $1
+          AND p.is_active = true
+    `;
+
+    const values = [id_place]
+
+    const result = await pool.query(sql, values);
+
+    return result.rows[0] || null;
 }

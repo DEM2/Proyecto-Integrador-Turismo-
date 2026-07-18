@@ -2,7 +2,7 @@ import { Router } from "express";
 import { login, register } from "../controllers/auth.controller.js";
 import {validateLogin, validateRegister} from "../validators/auth.validator.js";
 import { obtenerEventosDestacados, obtenerSitiosDestacados } from "../controllers/destacados.controller.js";
-import { createDestinationController, destinations } from "../controllers/destinations.controller.js";
+import { createDestinationController, destinations, getDestinationController } from "../controllers/destinations.controller.js";
 import { createEventController, getEventController } from "../controllers/event.controller.js";
 import { validateCreateEvent } from "../validators/event.validator.js";
 import { getOrganizerProfileController, getReviewsController } from "../controllers/reviews.controller.js";
@@ -11,7 +11,7 @@ import {
     saveEventReviewController,
     getEventReviewsController
 } from "../controllers/eventReview.controller.js";
-import { getAdminDashboardAllEventsController, getAdminDashboardAllPlacesController, getAdminDashboardAllReviewsController, getAdminDashboardAllUsersController, getAdminDashboardController, getAdminDashboardRolesController, hideAdminDashboardReviewController, showAdminDashboardReviewController, updateAdminDashboardEventController, updateAdminDashboardPlaceController, updateAdminDashboardUserController } from "../controllers/adminDashboard.controller.js";
+import { approveAdminDashboardOrganizerController, getAdminDashboardAllEventsController, getAdminDashboardAllPlacesController, getAdminDashboardAllReviewsController, getAdminDashboardAllUsersController, getAdminDashboardController, getAdminDashboardOrganizerRequestsController, getAdminDashboardRolesController, hideAdminDashboardReviewController, rejectAdminDashboardOrganizerController, showAdminDashboardReviewController, updateAdminDashboardEventController, updateAdminDashboardPlaceController, updateAdminDashboardUserController } from "../controllers/adminDashboard.controller.js";
 import { events } from "../controllers/event.controller.js";
 import { validateCreateDestination } from "../validators/place.validator.js";
 
@@ -54,6 +54,10 @@ router.post(
     "/organizer/createDestination",
     validateCreateDestination,
     createDestinationController
+)
+
+router.get("/destinations/:id_place",
+    getDestinationController
 )
 
 router.get(
@@ -100,6 +104,21 @@ router.get(
 router.get(
     "/admin-dashboard/roles",
     getAdminDashboardRolesController
+);
+
+router.get(
+    "/admin-dashboard/organizer-requests",
+    getAdminDashboardOrganizerRequestsController
+);
+
+router.patch(
+    "/admin-dashboard/organizer-requests/:id/approve",
+    approveAdminDashboardOrganizerController
+);
+
+router.delete(
+    "/admin-dashboard/organizer-requests/:id",
+    rejectAdminDashboardOrganizerController
 );
 
 router.patch(

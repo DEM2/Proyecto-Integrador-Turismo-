@@ -2,8 +2,14 @@ import { createFollowButton } from "../../components/buttons/FollowButton.js";
 import { getSession } from "../../services/authService.js";
 
 import { getOrganizerProfileSummary } from "../../services/reviews.service.js";
-
-
+import { renderIconSvg } from "../../utils/renderIcon.js";
+import {
+  CalendarDays,
+  MapPin,
+  Star,
+  UserRoundPlus,
+  UsersRound,
+} from "lucide";
 
 export function renderProfileInfo() {
   return `
@@ -150,12 +156,11 @@ export function renderProfileInfo() {
             data-profile-section="followers"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/seguidores_morado.svg"
-              alt=""
-              class="size-8"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(UsersRound, {
+              class: "size-9 text-purple-700",
+              "stroke-width": 1.8,
+              "aria-hidden": "true",
+            })}
 
             <span>
               <strong class="block text-2xl font-black text-blue-950">
@@ -176,12 +181,11 @@ export function renderProfileInfo() {
             data-profile-section="following"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/seguidos_morado.svg"
-              alt=""
-              class="size-8"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(UserRoundPlus, {
+              class: "size-9 text-purple-700",
+              "stroke-width": 1.8,
+              "aria-hidden": "true",
+            })}
 
             <span>
               <strong class="block text-2xl font-black text-blue-950">
@@ -202,12 +206,11 @@ export function renderProfileInfo() {
             data-profile-section="reviews"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/reseñas.svg"
-              alt=""
-              class="size-10"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(Star, {
+              class: "size-9 text-amber-500",
+              "stroke-width": 1.8,
+              "aria-hidden": "true",
+            })}
 
             <span>
               <strong id="treview" class="block text-2xl font-black text-blue-950">
@@ -228,12 +231,11 @@ export function renderProfileInfo() {
             data-profile-section="places"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/location4.svg"
-              alt=""
-              class="size-10"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(MapPin, {
+              class: "size-9 text-purple-700",
+              "stroke-width": 1.8,
+              "aria-hidden": "true",
+            })}
 
             <span>
               <strong id="container-sites" class="block text-2xl font-black text-blue-950">
@@ -254,12 +256,11 @@ export function renderProfileInfo() {
             data-profile-section="events"
             class="flex min-h-28 w-full cursor-pointer items-center justify-center gap-4 p-4 transition hover:bg-slate-50"
           >
-            <img
-              src="/src/assets/icons/calendar2.svg"
-              alt=""
-              class="size-10"
-              aria-hidden="true"
-            />
+            ${renderIconSvg(CalendarDays, {
+              class: "size-9 text-blue-700",
+              "stroke-width": 1.8,
+              "aria-hidden": "true",
+            })}
 
             <span>
               <strong id="container-events" class="block text-2xl font-black text-blue-950">

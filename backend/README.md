@@ -372,3 +372,35 @@ Each layer has one responsibility:
 * **Querys**→ Execute SQL queries.
 * **Config** → Configure the application.
 * **Database** → Store and manage application data.
+
+# Ai integration 
+
+#### `routes/ai.routes.js`
+Define las rutas relacionadas con el chatbot y conecta el endpoint `/api/ai/chat` con su controlador.
+
+#### `controllers/ai.controllers.js`
+Recibe el mensaje y el historial conversacional enviados desde el frontend, valida los datos y devuelve la respuesta de la IA.
+
+#### `services/deepseek.service.js`
+Se comunica con la API de DeepSeek, administra el historial de mensajes y controla las llamadas a herramientas.
+
+#### `prompts/tourism.prompt.js`
+Contiene el prompt principal que define la identidad, el comportamiento y el contexto turístico del asistente.
+
+#### `utils/deepseek.error.js`
+Convierte los errores técnicos de la API de DeepSeek en mensajes y códigos más claros para la aplicación.
+
+#### `queries/places.query.js`
+Contiene las consultas SQL relacionadas con lugares turísticos y restaurantes.
+
+#### `queries/events.query.js`
+Contiene las consultas SQL utilizadas para buscar y filtrar eventos.
+
+#### `queries/itineraries.query.js`
+Contiene las consultas SQL relacionadas con los itinerarios disponibles.
+
+#### `tools/ai.tools.js`
+Define las herramientas que DeepSeek puede seleccionar, incluyendo sus nombres, descripciones y parámetros.
+
+#### `services/ai.tools.service.js`
+Recibe la herramienta solicitada por la IA, ejecuta la función correspondiente y devuelve los datos reales obtenidos desde la base de datos.

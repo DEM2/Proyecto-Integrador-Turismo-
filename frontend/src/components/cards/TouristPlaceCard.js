@@ -18,11 +18,9 @@ export function getCategoryStyle(category = "") {
 export function renderTouristPlaceCard(destination, itemType = "place") {
 
     const { bg, text, icon } = getCategoryStyle(destination.category);
-    console.log(destination)
     const session = getSession();
     const isExplorer = session?.user?.role === "explorador" || session?.role === "explorador";
     const placeId = destination.id ?? destination._id ?? "";
-    console.log(placeId)
 
    const optionsButton = isExplorer
   ? `
@@ -32,7 +30,7 @@ export function renderTouristPlaceCard(destination, itemType = "place") {
         data-item-type="${itemType}"
         data-item-id="${placeId}"
         data-item-name="${destination.place}"
-        class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
+        class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 pointer-events-none group-hover:pointer-events-auto hover:pointer-events-auto focus:pointer-events-auto active:pointer-events-auto hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
       >
 
         ${renderIconSvg(ListPlus,{
@@ -46,7 +44,8 @@ export function renderTouristPlaceCard(destination, itemType = "place") {
 
     return `
        <article
-    class="group overflow-hidden rounded-2xl border border-[#E7E1D6] bg-white shadow-sm transition-shadow hover:shadow-lg">
+       data-place-id="${placeId}"
+    class="tourist-place-card group cursor-pointer overflow-hidden rounded-2xl border border-[#E7E1D6] bg-white shadow-sm transition-shadow hover:shadow-lg">
 
     <!-- Imagen -->
    <figure class="relative h-44 overflow-hidden">

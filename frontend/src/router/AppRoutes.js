@@ -30,7 +30,7 @@ import {
 import { organizerCreateEvents, organizerCreateView } from "../pages/Profile/organizer_create_event.js";
 import { renderCreatePlaceEvents, renderCreatePlaceView } from "../pages/Profile/organizer_create_place.js";
 import { adminDashboardPage, adminDashboardPageEvents } from "../pages/Profile/admin.js";
-
+import { placeDetailEvents, renderPlaceDetailView } from "../pages/TouristPlaces/placeDetail.js";
 
 export const appRoutes = {
   "/": {
@@ -70,6 +70,10 @@ export const appRoutes = {
   "/detailEvent": {
     render: renderEventDetailPage,
     events: initializeEventDetailPageEvents,
+  },
+  "/detailPlace": {
+    render: renderPlaceDetailView,
+    events: placeDetailEvents
   },
   //Sección crear evento por el organizador
   "/perfilorganizador/createEvent": {
