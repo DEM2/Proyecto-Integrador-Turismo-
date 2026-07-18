@@ -30,7 +30,7 @@ export function renderTouristPlaceCard(destination, itemType = "place") {
         data-item-type="${itemType}"
         data-item-id="${placeId}"
         data-item-name="${destination.place}"
-        class="options-toggle-btn absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-3xl bg-white shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 pointer-events-none group-hover:pointer-events-auto hover:pointer-events-auto focus:pointer-events-auto active:pointer-events-auto hover:bg-violet-50 hover:text-violet-600 cursor-pointer z-20"
+        class="options-toggle-btn absolute top-2.5 right-2.5 z-20 flex h-9 w-9 cursor-pointer items-center justify-center rounded-3xl bg-white opacity-0 shadow-md pointer-events-none transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100 hover:pointer-events-auto hover:bg-violet-50 hover:text-violet-600 hover:opacity-100 focus:pointer-events-auto focus:opacity-100 active:pointer-events-auto active:opacity-100 [@media(hover:none)]:!pointer-events-auto [@media(hover:none)]:!opacity-100"
       >
 
         ${renderIconSvg(ListPlus,{

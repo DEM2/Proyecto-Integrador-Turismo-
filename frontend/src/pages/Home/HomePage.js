@@ -15,8 +15,8 @@ export function renderHomePage() {
   return `
     ${renderMainNavigation()}
 
-    <main class="home-page flex w-full flex-col gap-4 font-sans">
-      <section class="HERO relative isolate flex min-h-[38rem] w-full flex-col overflow-hidden bg-blue-950 sm:min-h-[40rem] lg:min-h-[42rem]">
+    <main class="home-page flex w-full flex-col gap-4 font-sans max-md:gap-5">
+      <section class="HERO relative isolate flex min-h-[38rem] w-full flex-col overflow-hidden bg-blue-950 max-md:h-[260px] sm:min-h-[40rem] lg:min-h-[42rem]">
          <video class="absolute inset-0 block w-full h-full object-cover" autoplay muted loop playsinline >
                         <source src="${ventanaMundo}" type="video/mp4" />
                         </video>
@@ -100,7 +100,7 @@ export function renderHomePage() {
       </section>
 
       <section
-        class="SITIOSYEVENTOSDESTACADOS mt-6 pl-10 pr-10 items-stretch grid grid-cols-1 xl:grid-cols-2 gap-4"
+        class="SITIOSYEVENTOSDESTACADOS mt-6 grid grid-cols-1 items-stretch gap-4 px-10 max-md:gap-6 max-md:px-[14px] md:max-lg:px-8 xl:grid-cols-2"
       >
         <aside class="IZQUIERDO-SITIOSDESTACADOS">
           <section  class="flex items-center  gap-2 mb-5 ">
@@ -112,7 +112,7 @@ export function renderHomePage() {
               <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
                 Explora
               </p>
-              <h2 class="text-2xl font-bold text-blue-700">Sitios Destacado</h2>
+              <h2 class="text-2xl font-bold text-blue-700 max-md:text-2xl">Sitios Destacado</h2>
             </div>
           </section>
 
@@ -133,7 +133,7 @@ export function renderHomePage() {
               <p class="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
                 Explora
               </p>
-              <h2 class="text-2xl font-bold text-red-500">Eventos Destacado</h2>
+              <h2 class="text-2xl font-bold text-red-500 max-md:text-2xl">Eventos Destacado</h2>
             </div>
           </section>
 
@@ -146,9 +146,9 @@ export function renderHomePage() {
       </section>
 
       <section
-        class="INFOICONS max-w-full p-2 ml-10 mr-10 bg-gray-50 border border-gray-200 rounded-3xl text-blue-900 font-medium text-sm"
+        class="INFOICONS mx-10 max-w-full rounded-3xl border border-gray-200 bg-gray-50 p-2 text-sm font-medium text-blue-900 max-md:mx-[14px]"
       >
-        <h2 class="font-medium text-2xl text-blue-900 pl-5">
+        <h2 class="pl-5 text-2xl font-medium text-blue-900 max-md:pl-3 max-md:text-xl">
           ¿Por qué usar Barranquilla explora?
         </h2>
 
@@ -165,7 +165,7 @@ export function renderHomePage() {
       </section>
 
       <section
-        class="INFOICONS2 max-w-full ml-8 mr-8 text-blue-900 font-medium text-sm"
+        class="INFOICONS2 mx-8 max-w-full text-sm font-medium text-blue-900 max-md:mx-[14px]"
       >
         <figure
           class="items-stretch grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-2"
@@ -179,10 +179,10 @@ export function renderHomePage() {
       </section>
 
       <section
-        class="text-blue-900 font-medium xl:text-2xl p-2 ml-10 mr-10 flex justify-center"
+        class="mx-10 flex justify-center p-2 font-medium text-blue-900 max-md:mx-[14px] max-md:text-center xl:text-2xl"
       >
         <img
-          class="w-16 mb-4"
+          class="mb-4 w-16 max-md:hidden"
           src="/src/assets/images/chispitas2.png"
           alt="Icono de corazón"
         />
@@ -192,7 +192,7 @@ export function renderHomePage() {
           lo mejor de nuestra ciudad.
         </p>
         <img
-          class="w-16 mb-4"
+          class="mb-4 w-16 max-md:hidden"
           src="/src/assets/images/chispitas_derecho.png"
           alt="Icono de corazón"
         />

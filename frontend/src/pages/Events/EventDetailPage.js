@@ -99,12 +99,12 @@ export async function renderEventDetailPage() {
   ${renderMainNavigation()}
 
   <!-- CONTENIDO -->
-  <section class="mx-auto max-w-7xl px-6 py-8">
+  <section class="mx-auto max-w-7xl px-6 py-8 max-md:px-[14px] max-md:py-4 max-md:pb-6">
 
     <!-- HERO DEL EVENTO -->
     <header class="relative overflow-hidden rounded-[32px] bg-white shadow-xl">
 
-      <figure class="relative h-[360px] w-full">
+      <figure class="relative h-[360px] w-full max-md:h-[255px]">
 
         <img
           src="${eventDetail.image_main}"
@@ -117,7 +117,7 @@ export async function renderEventDetailPage() {
         <!-- Fecha flotante -->
         <time
           datetime="2027-02-14"
-          class="absolute bottom-10 left-8 rounded-2xl bg-white px-5 py-4 text-center font-black text-blue-950 shadow-xl z-40"
+          class="absolute bottom-10 left-8 z-40 rounded-2xl bg-white px-5 py-4 text-center font-black text-blue-950 shadow-xl max-md:bottom-4 max-md:left-4 max-md:px-4 max-md:py-3"
         >
           <span class="block text-2xl">${startDate} - ${endDate}</span>
           <span class="block text-sm text-slate-500">${textMonth}</span>
@@ -129,9 +129,9 @@ export async function renderEventDetailPage() {
       </figure>
 
       <!-- Tarjeta principal (no superpuesta) -->
-      <article class="mt-6 ml-8 mr-8 mb-6 relative rounded-[24px] bg-white p-6 shadow-2xl z-20">
+      <article class="relative z-20 mt-6 mb-6 ml-8 mr-8 rounded-[24px] bg-white p-6 shadow-2xl max-md:mx-[14px] max-md:p-5">
 
-        <h1 class="mb-3 text-4xl font-black text-blue-950">
+        <h1 class="mb-3 text-4xl font-black text-blue-950 max-md:text-[1.875rem]">
           ${eventDetail.name}
         </h1>
 

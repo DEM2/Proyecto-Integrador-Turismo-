@@ -317,7 +317,7 @@ export function renderExplorerProfilePage() {
 
 <section
   id="itinerary"
-  class="grid gap-6"
+  class="grid gap-6 max-md:!grid-cols-[minmax(0,1fr)]"
   style="grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));"
 >
 </section>

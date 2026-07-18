@@ -5,26 +5,28 @@ export function renderCategoryFilterCard(category) {
   const activeGlow = category.activeGlow ?? "rgba(37, 99, 235, 0.28)";
 
   return `
-    <button
-      type="button"
-      data-category="${category.name}"
-      data-active-color="${activeColor}"
-      data-active-glow="${activeGlow}"
-      aria-pressed="false"
-      class="destination-filter flex shrink-0 cursor-pointer !min-h-0 !w-auto !flex-row !items-center !justify-start !gap-3 !rounded-full !border-white/25 !bg-white/[0.04] !px-4 !py-2.5 text-white shadow-none backdrop-blur-md transition-all duration-300 hover:!border-white/45 hover:!bg-white/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none">
-      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${category.color} text-white shadow-sm">
-        ${renderIconSvg(category.icon, {
-          width: 18,
-          height: 18,
-        })}
-      </span>
+   <button
+  type="button"
+  data-category="${category.name}"
+  data-active-color="${activeColor}"
+  data-active-glow="${activeGlow}"
+  aria-pressed="false"
+  class="group destination-filter flex shrink-0 snap-start cursor-pointer whitespace-nowrap !min-h-0 !w-auto !flex-row !items-center !justify-start !gap-3 !rounded-full !border-white/25 !bg-white/[0.04] !px-4 !py-2.5 text-white shadow-none backdrop-blur-md transition-all duration-300 hover:!border-white/45 hover:!bg-white/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none max-md:!min-h-0 max-md:!px-4 max-md:!py-2.5 md:max-lg:flex-none md:max-lg:!w-auto md:max-lg:!gap-2 md:max-lg:!px-[0.65rem] md:max-lg:!py-[0.45rem] md:max-lg:text-[0.8125rem]">
+  
+  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${category.color} text-white shadow-sm">
+    ${renderIconSvg(category.icon, {
+      width: 18,
+      height: 18,
+    })}
+  </span>
 
-      <span class="!text-left">
-        <span class="block !text-sm font-semibold text-white sm:!text-base">
-          ${category.name}
-        </span>
-      </span>
-    </button>
+  <span class="!text-left">
+    <span class="block !text-sm font-semibold text-gray-600 sm:!text-base group-focus:text-white group-aria-pressed:text-white">
+      ${category.name}
+    </span>
+  </span>
+</button>
+
   `;
 }
 

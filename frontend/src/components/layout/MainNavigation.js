@@ -23,11 +23,10 @@ export function renderMainNavigation() {
         <a
           id="nav-${id}"
           href="${path}"
-          class="relative cursor-pointer py-2 transition-colors duration-200 ${
-            isActive
-              ? "text-blue-600 after:absolute after:left-1/2 after:-bottom-0.5 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-600"
-              : "text-blue-950 hover:text-blue-600"
-          }"
+          class="relative cursor-pointer py-2 transition-colors duration-200 ${isActive
+        ? "text-blue-600 after:absolute after:left-1/2 after:-bottom-0.5 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-600"
+        : "text-blue-950 hover:text-blue-600"
+      }"
           ${isActive ? 'aria-current="page"' : ""}
         >${label}</a>
       </li>
@@ -41,11 +40,10 @@ export function renderMainNavigation() {
       <button
         id="mobile-nav-${id}"
         type="button"
-        class="${
-          isActive
-            ? "!bg-blue-50 !text-blue-600"
-            : "!bg-transparent !text-blue-950 hover:!bg-slate-50 hover:!text-blue-600"
-        } transition-colors duration-200"
+        class="${isActive
+        ? "!bg-blue-50 !text-blue-600"
+        : "!bg-transparent !text-blue-950 hover:!bg-slate-50 hover:!text-blue-600"
+      } transition-colors duration-200"
         ${isActive ? 'aria-current="page"' : ""}
       >${label}</button>
     `;
@@ -53,11 +51,11 @@ export function renderMainNavigation() {
 
   return `
     <header
-      class="NAVEGACION relative z-50 flex h-20 items-center justify-between bg-white pl-4 pr-2 font-sans text-blue-950 shadow-[0_8px_30px_rgba(15,23,42,0.06)] sm:h-[5.5rem] sm:pl-6 sm:pr-4 md:pl-10 md:pr-8"
+      class="NAVEGACION relative z-50 flex h-20 items-center justify-between bg-white pl-4 pr-2 font-sans text-blue-950 shadow-[0_8px_30px_rgba(15,23,42,0.06)] max-md:h-[76px] max-md:px-[18px] sm:h-[5.5rem] sm:pl-6 sm:pr-4 md:px-10 md:max-lg:px-6"
     >
-      <figure id= "logo_container" class="w-60 flex items-center gap-4">
-        <h1 class="text-3xl font-bold max-md:text-2xl">Barranquilla</h1>
-        <img id ="logo" class="w-32 max-md:w-28" src="/src/assets/logos/logo.png" alt="Logo">
+      <figure id= "logo_container" class="flex w-60 items-center gap-4 max-md:w-auto max-md:gap-2 md:max-lg:w-auto md:max-lg:gap-3">
+        <h1 class="text-3xl font-bold max-md:text-xl md:max-lg:text-2xl">Barranquilla</h1>
+        <img id ="logo" class="w-32 max-md:w-22 md:max-lg:w-24" src="/src/assets/logos/logo.png" alt="Logo">
       </figure>
       <nav class="">
         <button
@@ -73,13 +71,12 @@ export function renderMainNavigation() {
 
         <ul 
         id="navegacion"
-        class="flex items-center gap-6 font-medium max-md:hidden lg:gap-9">
+        class="flex items-center gap-6 font-medium max-md:hidden md:max-lg:gap-[0.85rem] md:max-lg:text-sm lg:gap-9">
 
           ${navigationItems.map(renderDesktopNavigationItem).join("")}
 
-          ${
-            session
-              ? `
+          ${session
+      ? `
           <li class="relative">
             <button
               id="boton_perfil"
@@ -98,11 +95,22 @@ export function renderMainNavigation() {
                 <p class="text-sm text-gray-500 truncate">${user?.email ?? ""}</p>
               </div>
 
-              <a id="menu_itinerario" class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer">
-                Crear itinerario
-              </a>
+              ${(session?.user?.role || session?.role) === "explorador"
+                  ? `
+                    <a
+                      id="menu_itinerario"
+                      class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer"
+                    >
+                      Crear itinerario
+                    </a>
+                  `
+                  : ""
+              }
               <a id="menu_perfil_link" class="block px-5 py-3 text-base hover:bg-gray-100 cursor-pointer">
-                Perfil
+                ${(session?.user?.role || session?.role) === "administrador"
+                      ? "Dashboard"
+                      : "Perfil"
+                    }
               </a>
               <a id="menu_cerrar_sesion" class="block px-5 py-3 text-base text-red-600 hover:bg-red-50 cursor-pointer">
                 Cerrar sesión
@@ -110,7 +118,7 @@ export function renderMainNavigation() {
             </div>
           </li>
           `
-              : `
+      : `
           <li>
              <a id="boton_iniciarsesion" class="cursor-pointer transition-colors duration-200 hover:text-blue-600" >Iniciar Sesión</a>
           </li>
@@ -118,36 +126,40 @@ export function renderMainNavigation() {
              <a id="boton_registrarse" class="cursor-pointer rounded-lg border-2 border-blue-900 px-4 py-1.5 transition-colors duration-200 hover:bg-blue-900 hover:text-white" >Registrarse</a>
           </li>
           `
-          }
+    }
         </ul>
       </nav>
     </header>
 
-    <div id="mobile-navigation" class="mobile-navigation" aria-hidden="true">
-      <button id="mobile-menu-backdrop" class="mobile-menu-backdrop" type="button" aria-label="Cerrar menú"></button>
-      <aside class="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación">
-        <div class="mobile-menu-header">
-          <div class="mobile-menu-brand" aria-hidden="true">
+    <div id="mobile-navigation" class="mobile-navigation fixed inset-0 z-60 invisible pointer-events-none transition-[visibility] delay-[280ms] [&.is-open]:visible [&.is-open]:pointer-events-auto [&.is-open]:delay-0 motion-reduce:transition-none" aria-hidden="true">
+      <button id="mobile-menu-backdrop" class="mobile-menu-backdrop absolute inset-0 w-full border-0 bg-slate-900/45 opacity-0 transition-opacity duration-[220ms] ease-out [.mobile-navigation.is-open_&]:opacity-100 motion-reduce:transition-none" type="button" aria-label="Cerrar menú"></button>
+      <aside class="mobile-menu-drawer absolute top-0 right-0 flex h-full w-4/5 max-w-[420px] flex-col bg-[#fcfcfc] shadow-[-12px_0_32px_rgb(15_23_42_/_20%)] translate-x-full transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] [.mobile-navigation.is-open_&]:translate-x-0 motion-reduce:transition-none" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+        <div class="mobile-menu-header flex h-[88px] items-center justify-between border-b border-gray-200 px-5">
+          <div class="mobile-menu-brand flex items-center gap-2 text-[18px] font-bold text-[#17316f]" aria-hidden="true">
             <span>Barranquilla</span>
-            <img src="/src/assets/logos/logo.png" alt="">
+            <img class="w-[82px]" src="/src/assets/logos/logo.png" alt="">
           </div>
-          <button id="boton_equis" type="button" class="mobile-menu-close" aria-label="Cerrar menú">
+          <button id="boton_equis" type="button" class="mobile-menu-close flex cursor-pointer border-0 bg-transparent p-0" aria-label="Cerrar menú">
             <img class="size-7" src="/src/assets/icons/equis.svg" alt="">
           </button>
         </div>
-        <nav class="mobile-menu-links" aria-label="Navegación móvil">
+        <nav class="mobile-menu-links flex flex-col gap-1 px-3 py-4 [&_button]:min-h-[52px] [&_button]:cursor-pointer [&_button]:rounded-[10px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-4 [&_button]:text-left [&_button]:font-inherit [&_button]:font-medium [&_button]:text-[#08214d] [&_button:first-child]:bg-[#f3f7ff] [&_button:first-child]:text-blue-600" aria-label="Navegación móvil">
           ${navigationItems.map(renderMobileNavigationItem).join("")}
-          <button id="mobile-nav-perfil" type="button">Mi perfil</button>
-          ${
-            session?.user?.role === "explorador" || session?.role === "explorador"
-              ? `<button id="mobile-nav-itinerario" type="button" class="text-left hover:text-blue-800">Crear itinerario</button>`
-              : ""
-          }
-          ${
-            session
-              ? `<button id="mobile-nav-logout" type="button" class="text-left text-red-600 hover:text-red-800">Cerrar sesión</button>`
-              : ""
-          }
+          <button id="mobile-nav-perfil" type="button">
+              ${
+                (session?.user?.role || session?.role) === "administrador"
+                  ? "Dashboard"
+                  : "Mi perfil"
+              }
+            </button>
+          ${session?.user?.role === "explorador" || session?.role === "explorador"
+      ? `<button id="mobile-nav-itinerario" type="button" class="text-left hover:text-blue-800">Crear itinerario</button>`
+      : ""
+    }
+          ${session
+      ? `<button id="mobile-nav-logout" type="button" class="text-left text-red-600 hover:text-red-800">Cerrar sesión</button>`
+      : ""
+    }
         </nav>
       </aside>
     </div>
@@ -155,7 +167,7 @@ export function renderMainNavigation() {
 };
 
 export function initializeMainNavigationEvents() {
-   //Mostrar menú de navegación en versión móvil
+  //Mostrar menú de navegación en versión móvil
   const boton = document.getElementById("boton_menu");
   const equis = document.getElementById("boton_equis");
   const mobileNavigation = document.getElementById("mobile-navigation");
@@ -166,7 +178,7 @@ export function initializeMainNavigationEvents() {
     navigateTo("/");
   });
 
-  
+
   boton.addEventListener("click", abrirMenuMovil);
   equis.addEventListener("click", cerrarMenuMovil);
   mobileBackdrop.addEventListener("click", cerrarMenuMovil);
@@ -256,12 +268,14 @@ export function initializeMainNavigationEvents() {
     };
     document.addEventListener("click", window.__cerrarMenuPerfilHandler);
 
-    document.getElementById("menu_itinerario").addEventListener("click", () => {
-      menuPerfil.classList.add("hidden");
- 
-     openCreateItineraryModal()
-      
-    });
+   const menuItinerario = document.getElementById("menu_itinerario");
+
+if (menuItinerario) {
+  menuItinerario.addEventListener("click", () => {
+    menuPerfil.classList.add("hidden");
+    openCreateItineraryModal();
+  });
+}
 
     const irAPerfil = () => {
       menuPerfil.classList.add("hidden");
@@ -272,6 +286,8 @@ export function initializeMainNavigationEvents() {
         navigateTo("/perfilexplorador");
       } else if (userRole === "organizador") {
         navigateTo("/perfilorganizador");
+      } else if (userRole === "administrador") {
+        navigateTo("/dashboard");
       } else {
         // Si el rol no está definido o no coincide, se envía a inicio
         // para evitar redirigir a una ruta inexistente.
