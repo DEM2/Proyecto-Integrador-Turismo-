@@ -83,12 +83,16 @@ export function renderTouristPlacesPage() {
           </div>
 
          <section
-   class="absolute left-1/2 bottom-0 z-50 w-full max-w-[80rem] -translate-x-1/2 translate-y-1/2 px-4 sm:px-8 lg:px-10"
+   class="relative z-50 mx-auto w-full max-w-[80rem] px-4 pb-5 sm:px-8 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 lg:px-10 lg:pb-0"
   aria-label="Filtrar destinos por categoría"
 >
-  <div
-    class="rounded-[1.75rem] bg-white px-5 py-3 shadow-xl border border-slate-200"
-  >
+  <div class="category-filters-panel rounded-[1.75rem] border border-slate-200 bg-white shadow-xl">
+    <button type="button" data-category-filters-toggle="true" class="flex w-full cursor-pointer items-center justify-between gap-3 px-5 py-4 text-left text-sm font-black text-blue-950 lg:hidden">
+      Filtrar destinos
+      <span aria-hidden="true" class="text-xl leading-none text-blue-600">+</span>
+    </button>
+
+    <div data-category-filters-content="true" class="hidden px-5 py-3 lg:block">
     <div class="filters-scroll-wrapper" id="filters_scroll_wrapper">
       <div
         id="filters_container"
@@ -106,11 +110,12 @@ export function renderTouristPlacesPage() {
     </div>
 
     <div class="filters-pagination" id="filters_pagination" aria-hidden="true"></div>
+    </div>
   </div>
 </section>
         </header>
 
-        <main class="relative z-10 tourist-main mx-auto w-full max-w-[96rem] !px-5 !pb-12 !pt-28 sm:!px-8 lg:!px-10 lg:!pt-32">
+        <main class="relative z-10 tourist-main mx-auto w-full max-w-[96rem] !px-5 !pb-12 !pt-10 sm:!px-8 lg:!px-10 lg:!pt-32">
           <header class="mb-7 flex items-center gap-3">
             ${renderIconSvg(MapPinned, {
               class: "size-8 text-emerald-400",
@@ -136,6 +141,8 @@ export async function initializeTouristPlacesPageEvents() {
 
     const destinationContainer = document.getElementById("destination_container");
     const filtersContainer = document.getElementById("filters_container");
+    const filtersToggle = document.querySelector("[data-category-filters-toggle='true']");
+    const filtersContent = document.querySelector("[data-category-filters-content='true']");
     const searchInput = document.getElementById("destination_search");
     let destinations = [];
     let selectedCategory = "Todos";
@@ -218,6 +225,13 @@ export async function initializeTouristPlacesPageEvents() {
         .map((category) => renderCategoryFilterCard(category))
         .join("");
     initFiltersScroll();
+
+    if (filtersToggle && filtersContent) {
+        filtersToggle.addEventListener("click", () => {
+            filtersContent.classList.toggle("hidden");
+        });
+    }
+
     const filterButtons = filtersContainer.querySelectorAll("[data-category]");
     setActiveCategoryFilter(filtersContainer, filterButtons[0]);
 
