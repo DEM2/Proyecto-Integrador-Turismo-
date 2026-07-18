@@ -36,6 +36,7 @@ export const appRoutes = {
   "/": {
     render: renderHomePage,
     events: initializeHomePageEvents,
+    authenticatedChatbot: true,
   },
   "/register": {
     render: renderRegisterPage,
@@ -50,10 +51,12 @@ export const appRoutes = {
   "/destinos": {
     render: renderTouristPlacesPage,
     events: initializeTouristPlacesPageEvents,
+    authenticatedChatbot: true,
   },
   "/event": {
     render: renderEventsPage,
     events: initializeEventsPageEvents,
+    authenticatedChatbot: true,
   },
   "/perfilorganizador": {
     render: renderOrganizerProfilePage,

@@ -1,5 +1,3 @@
-import { chatbotEvents } from "../../components/chatbot/chatbot.events.js";
-import { chatbot } from "../../components/chatbot/chatbot.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { loginUser,  createSession  } from "../../services/authService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
@@ -121,7 +119,6 @@ export function renderLoginPage() {
     </section>
     
     </main>
-    ${chatbot()}
 
     `;
 }
@@ -134,8 +131,6 @@ export function initializeLoginPageEvents() {
   register.addEventListener("click", () => {
     navigateTo("/register")
   });
-
-  chatbotEvents();
 
   const form = document.getElementById("login-form");
   const email = document.getElementById("login-email");

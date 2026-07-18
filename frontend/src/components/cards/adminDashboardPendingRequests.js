@@ -53,7 +53,7 @@ export async function renderAdminDashboardPendingRequests() {
   }
 
   return `
-    <section aria-labelledby="pending-organizers-title" class="rounded-xl border border-slate-200 bg-white shadow-sm">
+    <section aria-labelledby="pending-organizers-title" class="min-h-0 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-sm">
       <header class="flex items-center justify-between px-5 py-3">
         <h2 id="pending-organizers-title" class="text-xl font-extrabold lg:text-base">Solicitudes de organizador pendientes</h2>
         <button type="button" data-show-all-organizer-requests="true" class="cursor-pointer text-sm font-bold text-blue-600 transition hover:text-blue-700 hover:underline">Ver todas</button>

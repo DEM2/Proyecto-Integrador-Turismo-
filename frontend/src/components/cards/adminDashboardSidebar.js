@@ -51,7 +51,7 @@ function selectAdminSidebarItem(selectedItem) {
 
 export function renderAdminDashboardSidebar() {
   return `
-    <aside class="flex min-h-screen flex-col bg-[#06264a] px-5 py-6 text-white lg:h-screen">
+    <aside class="flex min-h-screen flex-col bg-[#06264a] px-5 py-6 text-white lg:h-screen lg:overflow-y-auto">
       <a href="/" class="mb-8 flex cursor-pointer items-center gap-3" aria-label="Ir al inicio de Barranquilla Explora">
         
         <span class="text-lg font-extrabold leading-tight tracking-wide">
@@ -125,7 +125,7 @@ export function renderAdminDashboardSidebar() {
               <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" />
               </svg>
-              Resenas
+              Reseñas
             </a>
           </li>
 
@@ -185,7 +185,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const usersContent = await renderAdminDashboardAllUsers();
-      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${usersContent}</div>`;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition flex min-h-0 flex-1 flex-col">${usersContent}</div>`;
       selectAdminSidebarItem(usersLink);
       renderAdminDashboardAllUsersEvents();
     });
@@ -199,7 +199,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const eventsContent = await renderAdminDashboardAllEvents();
-      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${eventsContent}</div>`;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition flex min-h-0 flex-1 flex-col">${eventsContent}</div>`;
       selectAdminSidebarItem(eventsLink);
       renderAdminDashboardAllEventsEvents();
     });
@@ -213,7 +213,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const placesContent = await renderAdminDashboardAllPlaces();
-      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${placesContent}</div>`;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition flex min-h-0 flex-1 flex-col">${placesContent}</div>`;
       selectAdminSidebarItem(placesLink);
       renderAdminDashboardAllPlacesEvents();
     });
@@ -233,7 +233,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const reviewsContent = await renderAdminDashboardAllReviews();
-      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${reviewsContent}</div>`;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition flex min-h-0 flex-1 flex-col">${reviewsContent}</div>`;
       selectAdminSidebarItem(reviewsLink);
       renderAdminDashboardAllReviewsEvents();
     });
@@ -247,7 +247,7 @@ export function renderAdminDashboardSidebarEvents(){
       }
 
       const requestsContent = await renderAdminDashboardAllOrganizerRequests();
-      dashboardContent.innerHTML = `<div class="dashboard-content-transition">${requestsContent}</div>`;
+      dashboardContent.innerHTML = `<div class="dashboard-content-transition flex min-h-0 flex-1 flex-col">${requestsContent}</div>`;
       selectAdminSidebarItem(requestsLink);
       renderAdminDashboardAllOrganizerRequestsEvents();
     });

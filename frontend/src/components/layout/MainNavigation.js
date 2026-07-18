@@ -131,7 +131,7 @@ export function renderMainNavigation() {
       </nav>
     </header>
 
-    <div id="mobile-navigation" class="mobile-navigation fixed inset-0 z-60 invisible pointer-events-none transition-[visibility] delay-[280ms] [&.is-open]:visible [&.is-open]:pointer-events-auto [&.is-open]:delay-0 motion-reduce:transition-none" aria-hidden="true">
+    <div id="mobile-navigation" class="mobile-navigation fixed inset-0 z-60 invisible overflow-hidden pointer-events-none transition-[visibility] delay-[280ms] [&.is-open]:visible [&.is-open]:pointer-events-auto [&.is-open]:delay-0 motion-reduce:transition-none" aria-hidden="true">
       <button id="mobile-menu-backdrop" class="mobile-menu-backdrop absolute inset-0 w-full border-0 bg-slate-900/45 opacity-0 transition-opacity duration-[220ms] ease-out [.mobile-navigation.is-open_&]:opacity-100 motion-reduce:transition-none" type="button" aria-label="Cerrar menú"></button>
       <aside class="mobile-menu-drawer absolute top-0 right-0 flex h-full w-4/5 max-w-[420px] flex-col bg-[#fcfcfc] shadow-[-12px_0_32px_rgb(15_23_42_/_20%)] translate-x-full transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] [.mobile-navigation.is-open_&]:translate-x-0 motion-reduce:transition-none" role="dialog" aria-modal="true" aria-label="Menú de navegación">
         <div class="mobile-menu-header flex h-[88px] items-center justify-between border-b border-gray-200 px-5">
@@ -314,13 +314,13 @@ if (menuItinerario) {
       mobileLogoutButton.addEventListener("click", () => {
         cerrarMenuMovil();
         clearSession();
-        navigateTo("/");
+        navigateTo("/", { force: true });
       });
     }
 
     document.getElementById("menu_cerrar_sesion").addEventListener("click", () => {
       clearSession();
-      navigateTo("/");
+      navigateTo("/", { force: true });
     });
 
   } else {
