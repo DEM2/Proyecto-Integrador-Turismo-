@@ -475,14 +475,14 @@ body {
   }
 
   .events-hero-frame {
-    height: auto !important;
+    height: auto ;
     min-height: 0;
     padding-bottom: 14px;
   }
 
   .events-hero-frame > div:first-child {
-    position: relative !important;
-    height: 205px !important;
+    position: relative ;
+    height: 205px ;
   }
 
   .events-hero-frame > div:first-child > div:last-child {
@@ -503,12 +503,12 @@ body {
   }
 
   .events-hero-content {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
+    position: relative ;
+    top: auto ;
+    left: auto ;
     width: 100%;
     max-width: none;
-    transform: none !important;
+    transform: none ;
     padding: 0 20px 12px;
   }
 
@@ -539,8 +539,8 @@ body {
   }
 
   .events-page #filters_container {
-    margin-top: 1.5rem !important;
-    margin-bottom: 2rem !important;
+    margin-top: 1.5rem ;
+    margin-bottom: 2rem ;
   }
 
   .events-page #eventos-destacados {
@@ -581,6 +581,6 @@ body {
   }
 
   #itinerary {
-    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr) ;
   }
 }
