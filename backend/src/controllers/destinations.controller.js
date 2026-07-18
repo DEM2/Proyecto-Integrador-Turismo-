@@ -1,4 +1,4 @@
-import { getDestinations } from "../querys/destinations.query.js";
+import { getCategories, getDestinations } from "../querys/destinations.query.js";
 import { createDestinationService, getDestinationService } from "../services/place.service.js";
 
 export async function destinations(req, res) {
@@ -12,6 +12,23 @@ export async function destinations(req, res) {
         res.status(500).json({ error: "Error al obtener los destinos" });
     }
 
+}
+
+export async function getCategoriesController(req, res) {
+    try {
+        const categories = await getCategories();
+
+        return res.status(200).json({
+            ok: true,
+            message: "Categorías obtenidas correctamente",
+            data: categories,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            message: error.message || "Error interno del servidor",
+        });
+    }
 }
 
 export async function createDestinationController(req, res) {

@@ -1,5 +1,16 @@
 import pool from "../config/db.js";
 
+export async function getCategories() {
+   const sql = `
+      SELECT id, name
+      FROM categories
+      ORDER BY name ASC
+   `;
+
+   const result = await pool.query(sql);
+   return result.rows;
+}
+
 export async function getDestinations(){
 
    const sql = 

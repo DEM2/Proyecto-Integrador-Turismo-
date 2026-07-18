@@ -1,7 +1,7 @@
 import { initializeMainNavigationEvents, renderMainNavigation } from "../../components/layout/MainNavigation.js";
 import { navigateTo } from "../../router/AppRouter.js";
 import { getSession } from "../../services/authService.js";
-import { postPlace } from "../../services/destinationService.js";
+import { getCategories, postPlace } from "../../services/destinationService.js";
 import { alertaError, alertaExitosa } from "../../utils/alertsss.js";
 import { renderProfileInfo, renderProfileInfoEvents } from "./renderprofileorganizador.js";
 
@@ -130,14 +130,6 @@ export function renderCreatePlaceView() {
                       class="h-[52px] w-full rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-slate-700 outline-none transition hover:border-slate-300 focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100"
                     >
                       <option value="">Selecciona una categoría</option>
-                      <option value="1">Cultura</option>
-                      <option value="2">Historia</option>
-                      <option value="3">Gastronomía</option>
-                      <option value="4">Naturaleza</option>
-                      <option value="5">Entretenimiento</option>
-                      <option value="6">Restaurante</option>
-                      <option value="7">Museo</option>
-                      <option value="8">Aire libre</option>
                     </select>
                   </label>
 
@@ -385,10 +377,13 @@ export function renderCreatePlaceEvents() {
   const savePlaceChangeButton = document.getElementById("save-place-change")
   const cancelPlaceButton = document.getElementById("cancel-place")
   const backOrganizerButton = document.getElementById("btn-back-organizer-profile")
+  const placeCategorySelect = document.getElementById("place-category")
 
   if (!formCreatePlace || !savePlaceChangeButton) {
     return
   }
+
+  void populatePlaceCategorySelect(placeCategorySelect);
 
   if (backOrganizerButton) {
     backOrganizerButton.addEventListener("click", function () {
@@ -447,6 +442,56 @@ export function renderCreatePlaceEvents() {
     // Después puedes validar y enviar placeCreated al backend.
   });
 
+}
+
+async function populatePlaceCategorySelect(selectElement) {
+  if (!selectElement) {
+    return;
+  }
+
+  try {
+    const categories = await getCategories();
+    const safeCategories = Array.isArray(categories) ? categories : [];
+
+    if (safeCategories.length === 0) {
+      selectElement.innerHTML = '<option value="">No hay categorías disponibles</option>';
+      selectElement.disabled = true;
+      return;
+    }
+
+    const currentValue = selectElement.value || "";
+    const previousSelection = typeof currentValue === "string" ? currentValue : "";
+
+    selectElement.innerHTML = "";
+    selectElement.disabled = false;
+
+    const placeholderOption = document.createElement("option");
+    placeholderOption.value = "";
+    placeholderOption.textContent = "Selecciona una categoría";
+    selectElement.appendChild(placeholderOption);
+
+    safeCategories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category?.id ?? "";
+      option.textContent = category?.name ?? "Sin nombre";
+      if (category?.id !== undefined && category?.id !== null && category?.id !== "") {
+        option.value = String(category.id);
+      }
+      selectElement.appendChild(option);
+    });
+
+    if (previousSelection) {
+      selectElement.value = previousSelection;
+    }
+
+    if (!selectElement.value && !selectElement.querySelector('option[value=""]')) {
+      selectElement.selectedIndex = 0;
+    }
+  } catch (error) {
+    console.error("No se pudieron cargar las categorías", error);
+    selectElement.innerHTML = '<option value="">No hay categorías disponibles</option>';
+    selectElement.disabled = true;
+  }
 }
 
 function getPlaceData() {
