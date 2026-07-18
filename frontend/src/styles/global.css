@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* Evita que elementos con contenido ancho generen desplazamiento horizontal. */
+html,
+body,
+#app {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
 
 
 .mobile-navigation {
