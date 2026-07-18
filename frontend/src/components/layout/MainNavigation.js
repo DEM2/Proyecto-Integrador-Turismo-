@@ -51,11 +51,11 @@ export function renderMainNavigation() {
 
   return `
     <header
-      class="NAVEGACION relative z-50 flex h-20 items-center justify-between bg-white pl-4 pr-2 font-sans text-blue-950 shadow-[0_8px_30px_rgba(15,23,42,0.06)] sm:h-[5.5rem] sm:pl-6 sm:pr-4 md:pl-10 md:pr-8"
+      class="NAVEGACION relative z-50 flex h-20 items-center justify-between bg-white pl-4 pr-2 font-sans text-blue-950 shadow-[0_8px_30px_rgba(15,23,42,0.06)] max-md:h-[76px] max-md:px-[18px] sm:h-[5.5rem] sm:pl-6 sm:pr-4 md:px-10 md:max-lg:px-6"
     >
-      <figure id= "logo_container" class="w-60 flex items-center gap-4">
-        <h1 class="text-3xl font-bold max-md:text-2xl">Barranquilla</h1>
-        <img id ="logo" class="w-32 max-md:w-28" src="/src/assets/logos/logo.png" alt="Logo">
+      <figure id= "logo_container" class="flex w-60 items-center gap-4 max-md:w-auto max-md:gap-2 md:max-lg:w-auto md:max-lg:gap-3">
+        <h1 class="text-3xl font-bold max-md:text-xl md:max-lg:text-2xl">Barranquilla</h1>
+        <img id ="logo" class="w-32 max-md:w-22 md:max-lg:w-24" src="/src/assets/logos/logo.png" alt="Logo">
       </figure>
       <nav class="">
         <button
@@ -71,7 +71,7 @@ export function renderMainNavigation() {
 
         <ul 
         id="navegacion"
-        class="flex items-center gap-6 font-medium max-md:hidden lg:gap-9">
+        class="flex items-center gap-6 font-medium max-md:hidden md:max-lg:gap-[0.85rem] md:max-lg:text-sm lg:gap-9">
 
           ${navigationItems.map(renderDesktopNavigationItem).join("")}
 
@@ -131,19 +131,19 @@ export function renderMainNavigation() {
       </nav>
     </header>
 
-    <div id="mobile-navigation" class="mobile-navigation" aria-hidden="true">
-      <button id="mobile-menu-backdrop" class="mobile-menu-backdrop" type="button" aria-label="Cerrar menú"></button>
-      <aside class="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación">
-        <div class="mobile-menu-header">
-          <div class="mobile-menu-brand" aria-hidden="true">
+    <div id="mobile-navigation" class="mobile-navigation fixed inset-0 z-60 invisible pointer-events-none transition-[visibility] delay-[280ms] [&.is-open]:visible [&.is-open]:pointer-events-auto [&.is-open]:delay-0 motion-reduce:transition-none" aria-hidden="true">
+      <button id="mobile-menu-backdrop" class="mobile-menu-backdrop absolute inset-0 w-full border-0 bg-slate-900/45 opacity-0 transition-opacity duration-[220ms] ease-out [.mobile-navigation.is-open_&]:opacity-100 motion-reduce:transition-none" type="button" aria-label="Cerrar menú"></button>
+      <aside class="mobile-menu-drawer absolute top-0 right-0 flex h-full w-4/5 max-w-[420px] flex-col bg-[#fcfcfc] shadow-[-12px_0_32px_rgb(15_23_42_/_20%)] translate-x-full transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] [.mobile-navigation.is-open_&]:translate-x-0 motion-reduce:transition-none" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+        <div class="mobile-menu-header flex h-[88px] items-center justify-between border-b border-gray-200 px-5">
+          <div class="mobile-menu-brand flex items-center gap-2 text-[18px] font-bold text-[#17316f]" aria-hidden="true">
             <span>Barranquilla</span>
-            <img src="/src/assets/logos/logo.png" alt="">
+            <img class="w-[82px]" src="/src/assets/logos/logo.png" alt="">
           </div>
-          <button id="boton_equis" type="button" class="mobile-menu-close" aria-label="Cerrar menú">
+          <button id="boton_equis" type="button" class="mobile-menu-close flex cursor-pointer border-0 bg-transparent p-0" aria-label="Cerrar menú">
             <img class="size-7" src="/src/assets/icons/equis.svg" alt="">
           </button>
         </div>
-        <nav class="mobile-menu-links" aria-label="Navegación móvil">
+        <nav class="mobile-menu-links flex flex-col gap-1 px-3 py-4 [&_button]:min-h-[52px] [&_button]:cursor-pointer [&_button]:rounded-[10px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-4 [&_button]:text-left [&_button]:font-inherit [&_button]:font-medium [&_button]:text-[#08214d] [&_button:first-child]:bg-[#f3f7ff] [&_button:first-child]:text-blue-600" aria-label="Navegación móvil">
           ${navigationItems.map(renderMobileNavigationItem).join("")}
           <button id="mobile-nav-perfil" type="button">
               ${

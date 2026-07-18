@@ -13,7 +13,7 @@ export function initFiltersScroll() {
     items.forEach((_, index) => {
       const dot = document.createElement("span");
       dot.className =
-        "filters-pagination-dot" + (index === 0 ? " is-active" : "");
+        "filters-pagination-dot size-1.5 rounded-full bg-slate-300 transition-all duration-200 [&.is-active]:w-4 [&.is-active]:bg-blue-600" + (index === 0 ? " is-active" : "");
       pagination.appendChild(dot);
     });
   };
