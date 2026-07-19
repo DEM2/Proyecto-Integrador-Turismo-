@@ -88,7 +88,7 @@ export function renderMainNavigation() {
 
             <div
               id="menu_perfil"
-              class="hidden absolute right-0 top-16 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 z-50 text-left"
+              class="hidden absolute right-0 top-17 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 z-50 text-left"
             >
               <div class="px-5 py-3 border-b border-gray-100">
                 <p class="text-base font-semibold truncate">${user?.name ?? ""} ${user?.last_name ?? ""}</p>

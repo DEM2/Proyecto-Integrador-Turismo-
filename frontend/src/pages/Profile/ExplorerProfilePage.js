@@ -100,8 +100,7 @@ export function renderExplorerProfilePage() {
         </p>
 
         <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-white/90 sm:mt-4 sm:text-sm md:mx-0">
-          Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-          archivos de texto...
+          no hay descripción de perfil...
         </p>
 
         <!-- Redes sociales -->
@@ -119,7 +118,7 @@ export function renderExplorerProfilePage() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @ ${user.name}
               </a>
             </li>
 
@@ -134,7 +133,7 @@ export function renderExplorerProfilePage() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @...
               </a>
             </li>
 
@@ -149,7 +148,7 @@ export function renderExplorerProfilePage() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @...
               </a>
             </li>
 
@@ -179,10 +178,10 @@ export function renderExplorerProfilePage() {
 
             <span>
               <strong class="block text-2xl font-bold text-blue-950">
-                1000
+                0
               </strong>
 
-              <span class="text-sm text-slate-600">
+              <span class="text-lg  text-slate-600">
                 Seguidores
               </span>
             </span>
@@ -202,10 +201,10 @@ export function renderExplorerProfilePage() {
 
             <span>
               <strong class="block text-2xl font-bold text-blue-950">
-                1000
+                0
               </strong>
 
-              <span class="text-sm text-slate-600">
+              <span class="text-lg  text-slate-600">
                 Seguidos
               </span>
             </span>
@@ -228,7 +227,7 @@ export function renderExplorerProfilePage() {
                 0
               </strong>
 
-              <span class="text-sm text-slate-600">
+              <span class="text-lg  text-slate-600">
                 Reseñas
               </span>
             </span>
@@ -248,11 +247,11 @@ export function renderExplorerProfilePage() {
             })}
 
             <span>
-              <strong class="block text-2xl font-bold text-blue-950">
-                18
+              <strong id="itineraries-count" class="block text-2xl font-bold text-blue-950">
+                0
               </strong>
 
-              <span class="text-sm text-slate-600">
+              <span class="text-lg text-slate-600">
                 Itinerarios
               </span>
             </span>
@@ -275,7 +274,7 @@ export function renderExplorerProfilePage() {
     <header class="mb-6 flex items-center justify-between">
       <h2
         id="reviews-title"
-        class="text-2xl font-black text-blue-950"
+        class="text-2xl  font-bold text-blue-950"
       >
         Reseñas
       </h2>
@@ -301,7 +300,7 @@ export function renderExplorerProfilePage() {
       <header class="mb-6 flex items-center justify-between">
         <h2
           id="received-reviews-title"
-          class="text-2xl font-black text-blue-950"
+          class="text-2xl  font-bold text-blue-950"
         >
           Itinerarios públicos
         </h2>
@@ -346,9 +345,13 @@ export async function initializeExplorerProfilePageEvents() {
   document.getElementById("reviews-count").textContent =
   reviews.data.length;
   // Mostrar inicialmente solo 4
-  container.innerHTML = reviews.data.slice(0, 4)
+  if (reviews.data.length > 0) {
+    container.innerHTML = reviews.data.slice(0, 4)
     .map(review => renderReviewCard(review))
     .join("");
+  } else{
+    container.innerHTML = "<p class='col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600'>Aún no tienes reseñas.</p>";
+    }
 
   // Mostrar el botón solo si hay más de 4 reseñas
   if (reviews.data.length > 4) {
@@ -375,8 +378,14 @@ async function getMyIntineraries() {
    const session = getSession()
    const intineraries = await getUserItineraries(session.user.id)
    const container = document.getElementById("itinerary");
-   container.innerHTML = intineraries.data.map(itinerary => renderItineraryCard(itinerary)).join("");
+   if (intineraries.data.length === 0) {
+    container.innerHTML = "<p class='col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600'>Aún no tienes itinerarios públicos.</p>";
+   }else{
+      container.innerHTML = intineraries.data.map(itinerary => renderItineraryCard(itinerary)).join("");
+   }
    initializeItineraryCards();  
+   document.getElementById("itineraries-count").textContent = intineraries.data.length;
+
 }
 
 function initializeItineraryCards() {

@@ -89,7 +89,7 @@ export function renderEventsPage() {
     <div class="filters-scroll-wrapper" id="filters_scroll_wrapper">
       <div
         id="filters_container"
-        class="flex w-full flex-nowrap items-center justify-start gap-3 overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-md:gap-2 max-md:p-0.5 max-md:snap-x max-md:snap-mandatory md:max-lg:mt-4 md:max-lg:mb-6 md:max-lg:gap-3 lg:justify-center lg:overflow-x-visible"
+        class="flex w-full flex-nowrap items-center justify-start gap-3 overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-md:gap-2 max-md:p-0.5 max-md:snap-x max-md:snap-mandatory md:max-lg:mt-4 md:max-lg:mb-6 md:max-lg:gap-3 lg:justify-between lg:overflow-x-visible"
       ></div>
 
       <button

@@ -102,7 +102,7 @@ export function renderProfileInfo() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @ 
               </a>
             </li>
 
@@ -117,7 +117,7 @@ export function renderProfileInfo() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @ ...
               </a>
             </li>
 
@@ -132,7 +132,7 @@ export function renderProfileInfo() {
                   class="size-5 sm:size-6"
                   aria-hidden="true"
                 />
-                mateo mercado
+                @ ...
               </a>
             </li>
 
@@ -164,7 +164,7 @@ export function renderProfileInfo() {
 
             <span>
               <strong class="block text-2xl font-black text-blue-950">
-                1000
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -189,7 +189,7 @@ export function renderProfileInfo() {
 
             <span>
               <strong class="block text-2xl font-black text-blue-950">
-                1000
+                0
               </strong>
 
               <span class="text-sm text-slate-600">
@@ -296,11 +296,11 @@ export async function renderProfileInfoEvents(){
       const sesion = getSession();
       if (sesion?.user) {
         if (nombreUsuario) {
-          nombreUsuario.innerText = sesion.user.name || "Usuario";
+          nombreUsuario.innerText = sesion.user.name.toUpperCase() || "Usuario";
         }
     
         if (username) {
-          username.innerText = `@${sesion.user.username || ""}`;
+          username.innerText = `@${sesion.user.name || ""}`;
         }
     
         if (description) {
