@@ -267,7 +267,7 @@ export async function renderEventDetailPage() {
 
           <figure class="h-64 overflow-hidden rounded-2xl border border-slate-200 bg-blue-50">
             <img
-              src="/src/assets/images/hero.png"
+              src="/images/hero.png"
               alt="Mapa de ubicación del ${eventDetail.name}"
               class="h-full w-full object-cover"
             />

@@ -183,7 +183,7 @@ export function renderHomePage() {
       >
         <img
           class="mb-4 w-16 max-md:hidden"
-          src="/src/assets/images/chispitas2.png"
+          src="/images/chispitas2.png"
           alt="Icono de corazón"
         />
         <p>
@@ -193,7 +193,7 @@ export function renderHomePage() {
         </p>
         <img
           class="mb-4 w-16 max-md:hidden"
-          src="/src/assets/images/chispitas_derecho.png"
+          src="/images/chispitas_derecho.png"
           alt="Icono de corazón"
         />
       </section>

@@ -58,7 +58,7 @@ const optionsButton = isExplorer
             <div class="relative h-44">
 
                 <img
-                    src="/src/assets/images/hero.png"
+                    src="/images/hero.png"
                     alt="${event.name}"
                     class="w-full h-full object-cover"
                 >
@@ -87,7 +87,7 @@ const optionsButton = isExplorer
 
                 <div class="mt-4 flex gap-2">
                     <img
-                        src="/src/assets/icons/location3.svg"
+                        src="/images/icons/location3.svg"
                         alt="Ubicación"
                         class="w-4 h-4 mt-1 shrink-0"
                     >

@@ -55,7 +55,7 @@ export function renderMainNavigation() {
     >
       <figure id= "logo_container" class="flex w-60 items-center gap-4 max-md:w-auto max-md:gap-2 md:max-lg:w-auto md:max-lg:gap-3">
         <h1 class="text-3xl font-bold max-md:text-xl md:max-lg:text-2xl">Barranquilla</h1>
-        <img id ="logo" class="w-32 max-md:w-22 md:max-lg:w-24" src="/src/assets/logos/logo.png" alt="Logo">
+        <img id ="logo" class="w-32 max-md:w-22 md:max-lg:w-24" src="/images/logos/logo.png" alt="Logo">
       </figure>
       <nav class="">
         <button
@@ -66,7 +66,7 @@ export function renderMainNavigation() {
           aria-expanded="false"
           class="hidden size-8 cursor-pointer items-center justify-center max-md:flex"
         >
-          <img class="size-8" src="/src/assets/icons/menu.svg" alt="">
+          <img class="size-8" src="/images/icons/menu.svg" alt="">
         </button>
 
         <ul 
@@ -137,10 +137,10 @@ export function renderMainNavigation() {
         <div class="mobile-menu-header flex h-[88px] items-center justify-between border-b border-gray-200 px-5">
           <div class="mobile-menu-brand flex items-center gap-2 text-[18px] font-bold text-[#17316f]" aria-hidden="true">
             <span>Barranquilla</span>
-            <img class="w-[82px]" src="/src/assets/logos/logo.png" alt="">
+            <img class="w-[82px]" src="/images/logos/logo.png" alt="">
           </div>
           <button id="boton_equis" type="button" class="mobile-menu-close flex cursor-pointer border-0 bg-transparent p-0" aria-label="Cerrar menú">
-            <img class="size-7" src="/src/assets/icons/equis.svg" alt="">
+            <img class="size-7" src="/images/icons/equis.svg" alt="">
           </button>
         </div>
         <nav class="mobile-menu-links flex flex-col gap-1 px-3 py-4 [&_button]:min-h-[52px] [&_button]:cursor-pointer [&_button]:rounded-[10px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-4 [&_button]:text-left [&_button]:font-inherit [&_button]:font-medium [&_button]:text-[#08214d] [&_button:first-child]:bg-[#f3f7ff] [&_button:first-child]:text-blue-600" aria-label="Navegación móvil">

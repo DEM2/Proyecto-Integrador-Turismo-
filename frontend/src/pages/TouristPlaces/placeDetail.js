@@ -19,7 +19,7 @@ export async function renderPlaceDetailView() {
 
         const placeDetail = currentPlace
 
-        const placeImage = placeDetail.image_main || "/src/assets/images/hero.png"
+        const placeImage = placeDetail.image_main || "/images/hero.png"
 
 
 
@@ -355,7 +355,7 @@ export async function renderPlaceDetailView() {
                 class="relative h-64 overflow-hidden rounded-2xl border border-slate-200 bg-blue-50"
               >
                 <img
-                  src="/src/assets/images/hero.png"
+                  src="/images/hero.png"
                   alt="Mapa de ubicación de ${placeDetail.name}"
                   class="h-full w-full object-cover"
                 />

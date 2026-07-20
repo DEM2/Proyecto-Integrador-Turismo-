@@ -39,7 +39,7 @@ export function renderItineraryCard(itinerary) {
       >
 
         <img
-          src="${itinerary.image || "/src/assets/images/hero.png"}"
+          src="${itinerary.image || "/images/hero.png"}"
           alt="${itinerary.name}"
           class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         >

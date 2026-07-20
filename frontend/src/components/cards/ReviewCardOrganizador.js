@@ -10,7 +10,7 @@ export function renderReviewCardOrganizador(review) {
 
   const stars = Array.from({ length: 5 }, (_, index) => `
     <img
-      src="/src/assets/icons/star.svg"
+      src="/images/icons/star.svg"
       alt="Estrella"
       class="size-5 ${index < score ? "opacity-100" : "opacity-25"}"
     />
@@ -22,7 +22,7 @@ export function renderReviewCardOrganizador(review) {
 
           <figure class="shrink-0">
             <img
-              src="/src/assets/images/familias.webp"
+              src="/images/familias.webp"
               alt="Foto de Laura Gómez"
               class="size-16 rounded-full object-cover"
             />

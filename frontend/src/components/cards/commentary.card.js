@@ -5,7 +5,7 @@ export function RenderCommentary(commentary) {
             <header class="mb-3 flex items-center gap-3">
 
                 <img
-                    src="/src/assets/images/default-user.png"
+                    src="/images/default-user.png"
                     alt="${commentary.name}"
                     class="h-11 w-11 rounded-full object-cover"
                 />

@@ -56,7 +56,7 @@ export function renderEventCard(event) {
     >
       <figure class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
         <img
-          src="/src/assets/images/hero.png"
+          src="/images/hero.png"
           alt="${name}"
           class="h-full w-full object-cover transition duration-500 group-hover:scale-105 group-hover:saturate-110"
         />

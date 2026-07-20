@@ -35,7 +35,7 @@ export function renderExplorerProfilePage() {
     <!-- Imagen de portada -->
     <figure class="absolute inset-x-0 top-0 h-128 overflow-hidden sm:h-120 md:h-75">
       <img
-        src="/src/assets/images/hero3.png"
+        src="/images/hero3.png"
         alt="Barranquilla, su cultura y el Carnaval"
         class="h-full w-full object-cover"
       />
@@ -55,7 +55,7 @@ export function renderExplorerProfilePage() {
       <!-- Foto del usuario -->
       <figure class="relative shrink-0">
         <img
-          src="/src/assets/images/familias.webp"
+          src="/images/familias.webp"
           alt="Foto de perfil de Mateo Mercado"
           class="size-50 rounded-full border-4 border-white object-cover shadow-xl sm:size-40 md:size-62"
         />
@@ -68,7 +68,7 @@ export function renderExplorerProfilePage() {
           class="absolute -bottom-2 right-1 flex items-center justify-center rounded-full "
         >
           <img
-            src="/src/assets/images/explore2.png"
+            src="/images/explore2.png"
             alt=""
             class="size-15 object-contain "
           />
@@ -113,7 +113,7 @@ export function renderExplorerProfilePage() {
                 class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
               >
                 <img
-                  src="/src/assets/icons/instagram.svg"
+                  src="/images/icons/instagram.svg"
                   alt=""
                   class="size-5 sm:size-6"
                   aria-hidden="true"
@@ -128,7 +128,7 @@ export function renderExplorerProfilePage() {
                 class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
               >
                 <img
-                  src="/src/assets/icons/tiktok.svg"
+                  src="/images/icons/tiktok.svg"
                   alt=""
                   class="size-5 sm:size-6"
                   aria-hidden="true"
@@ -143,7 +143,7 @@ export function renderExplorerProfilePage() {
                 class="flex cursor-pointer items-center gap-1.5 rounded-full bg-black/15 px-2 py-1 text-xs font-semibold transition hover:bg-black/25 sm:gap-2 sm:text-sm md:bg-transparent md:hover:bg-black/20"
               >
                 <img
-                  src="/src/assets/icons/facebook.svg"
+                  src="/images/icons/facebook.svg"
                   alt=""
                   class="size-5 sm:size-6"
                   aria-hidden="true"

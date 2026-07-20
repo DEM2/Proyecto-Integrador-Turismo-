@@ -30,7 +30,7 @@ export function renderHomeFeatureCard(iconFileName, title, description, backgrou
               class="flex items-center justify-center w-15 h-17 shrink-0 rounded-full ${backgroundColor}"
             >
               <img
-                src="/src/assets/icons/${iconFileName}"
+                src="/images/icons/${iconFileName}"
                 alt="Sitios destacados"
                 class="w-8 h-8"
               />
@@ -42,7 +42,7 @@ export function renderHomeFeatureCard(iconFileName, title, description, backgrou
             </p>
             </div>
             <img
-                src="/src/assets/images/${imageFileName}"
+              src="/images/${imageFileName}"
                 alt="Sitios destacados"
                 class="size-26 ${imageObjectFit} rounded-xl"
               />
@@ -62,7 +62,7 @@ export function renderFeaturedPlaceCard(site) {
     >
       <div class="group/mostraropcionesyopacidad">
         <img
-          src="/src/assets/images/hero.png"
+          src="/images/hero.png"
           alt="Sitios destacados"
           class="w-full h-full object-cover group-hover/mostraropcionesyopacidad:opacity-60"
         />
@@ -71,7 +71,7 @@ export function renderFeaturedPlaceCard(site) {
         >
           <button class="flex cursor-pointer items-center justify-center hover:scale-110 peer">
             <img
-              src="/src/assets/icons/3puntos.svg"
+              src="/images/icons/3puntos.svg"
               alt="Opciones"
               class="w-5 h-5"
             />
@@ -94,7 +94,7 @@ export function renderFeaturedPlaceCard(site) {
 
       <div class="flex items-center pl-2 text-xs text-gray-700">
         <img
-          src="/src/assets/icons/location3.svg"
+          src="/images/icons/location3.svg"
           alt="location_icon"
           class="w-5 h-5"
         />

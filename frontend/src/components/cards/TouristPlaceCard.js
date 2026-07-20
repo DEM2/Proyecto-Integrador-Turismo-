@@ -52,7 +52,7 @@ export function renderTouristPlaceCard(destination, itemType = "place") {
 
         <!-- Imagen -->
         <img
-            src="/src/assets/images/hero.png"
+            src="/images/hero.png"
             alt="${destination.place}"
             class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
 

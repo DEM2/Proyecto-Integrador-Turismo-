@@ -60,7 +60,7 @@ export function renderEventsPage() {
         <figure class="relative mx-auto w-full max-w-3xl pb-6 max-md:max-w-none max-md:pb-0 lg:ml-auto">
           <div class="absolute -inset-x-3 -inset-y-2 bottom-4 rotate-2 rounded-[2.2rem] border border-rose-300/35 bg-gradient-to-br from-fuchsia-500/25 to-orange-400/10"></div>
           <div class="relative h-72 overflow-hidden rounded-[1.8rem] border border-white/15 shadow-[0_30px_80px_rgba(2,8,23,0.5)] max-md:h-[200px] sm:h-[25rem] xl:h-[27rem]">
-            <img src="/src/assets/images/ff.jpg" alt="Artista del Carnaval de Barranquilla realizando un espectáculo de fuego" class="h-full w-full object-cover object-center transition duration-700 hover:scale-105" />
+            <img src="/images/ff.jpg" alt="Artista del Carnaval de Barranquilla realizando un espectáculo de fuego" class="h-full w-full object-cover object-center transition duration-700 hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#071a36]/80 via-transparent to-transparent"></div>
           </div>
 

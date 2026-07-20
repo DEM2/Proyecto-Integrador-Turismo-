@@ -4,7 +4,7 @@ export function renderPublicItineraryCard() {
       class="flex flex-col bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden hover:-translate-y-0.5 transition-transform duration-200 ease-out cursor-pointer"
     >
       <img
-        src="/src/assets/images/hero.png"
+        src="/images/hero.png"
         alt="Ruta cultural por el centro"
         class="w-full h-40 object-cover"
       />

@@ -17,7 +17,7 @@ export function renderReviewCard(review) {
 
   const stars = Array.from({ length: 5 }, (_, index) => `
     <img
-      src="/src/assets/icons/star.svg"
+      src="/images/icons/star.svg"
       alt="Estrella"
       class="size-5 ${index < score ? "opacity-100" : "opacity-25"}"
     />
