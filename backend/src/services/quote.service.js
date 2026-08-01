@@ -19,15 +19,11 @@ export async function createQuote(
             accessToken: grant.access_token.value
         },
         {
+            method: 'ilp',
+
             walletAddress: wallet.id,
 
-            receiver: incomingPaymentId,
-
-            receiveAmount: {
-                assetCode: wallet.assetCode,
-                assetScale: wallet.assetScale,
-                value: amount.toString()
-            }
+            receiver: incomingPaymentId
         }
     )
 
