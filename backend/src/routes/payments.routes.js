@@ -1,20 +1,17 @@
 import { Router } from 'express'
 
 import {
-    createIncomingPayment,
-    createQuote,
-    getInteractLink,
-    createOutgoingPayment
+    startPayment,
+    authorizePayment,
+    paymentCallback,
+    getPaymentStatus
 } from '../controllers/payment.controller.js'
 
 const router = Router()
 
-router.post('/incoming', createIncomingPayment)
-
-router.post('/quote', createQuote)
-
-router.post('/interact', getInteractLink)
-
-router.post('/outgoing', createOutgoingPayment)
+router.post('/start', startPayment)
+router.get('/:transactionId/authorize', authorizePayment)
+router.get('/callback', paymentCallback)
+router.get('/:transactionId/status', getPaymentStatus)
 
 export default router
