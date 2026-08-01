@@ -37,7 +37,7 @@ export async function createSenderOutgoingGrant(quoteId) {
                 ],
                 finish: {
                     method: 'redirect',
-                    uri: 'http://localhost:3000',
+                    uri: 'https://proyecto-integrador-turismo.onrender.com',
                     nonce: uuidv4()
                 }
             }

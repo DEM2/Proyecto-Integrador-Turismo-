@@ -24,15 +24,6 @@ export const OPEN_PAYMENTS = {
         keyId:
             process.env.RECEIVER_KEY_ID
 
-    },
-
-    authServer:
-        process.env.OPEN_PAYMENTS_AUTH_SERVER,
-
-    resourceServer:
-        process.env.OPEN_PAYMENTS_RESOURCE_SERVER,
-
-    callbackUrl:
-        process.env.OPEN_PAYMENTS_CALLBACK
+    }
 
 }

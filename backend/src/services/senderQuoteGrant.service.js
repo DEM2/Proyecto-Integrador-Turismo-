@@ -1,18 +1,21 @@
 import { getSenderClient } from './openPaymentsClient.service.js'
-import { OPEN_PAYMENTS } from '../config/openPayments.config.js'
+import { getSenderWallet } from './wallet.service.js'
 
 export async function createSenderQuoteGrant() {
 
     const client = await getSenderClient()
 
+    const wallet = await getSenderWallet()
+
     const grant = await client.grant.request(
         {
-            url: OPEN_PAYMENTS.authServer
+            url: wallet.authServer
         },
         {
             access_token: {
                 access: [
                     {
+                        identifier: wallet.id,
                         type: 'quote',
                         actions: [
                             'create',

@@ -1,7 +1,6 @@
 import { getSenderClient } from './openPaymentsClient.service.js'
 import { getSenderWallet } from './wallet.service.js'
 import { createSenderQuoteGrant } from './senderQuoteGrant.service.js'
-import { OPEN_PAYMENTS } from '../config/openPayments.config.js'
 
 export async function createQuote(
     incomingPaymentId,
@@ -16,7 +15,7 @@ export async function createQuote(
 
     const quote = await client.quote.create(
         {
-            url: OPEN_PAYMENTS.resourceServer,
+            url: wallet.resourceServer,
             accessToken: grant.access_token.value
         },
         {

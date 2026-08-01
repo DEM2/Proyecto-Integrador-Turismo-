@@ -1,7 +1,6 @@
 import { getReceiverClient } from './openPaymentsClient.service.js'
 import { createReceivingGrant } from './receivingGrant.service.js'
 import { getReceiverWallet } from './wallet.service.js'
-import { OPEN_PAYMENTS } from '../config/openPayments.config.js'
 
 export async function createIncomingPayment(amount) {
 
@@ -13,7 +12,7 @@ export async function createIncomingPayment(amount) {
 
     const incomingPayment = await client.incomingPayment.create(
         {
-            url: OPEN_PAYMENTS.resourceServer,
+            url: wallet.resourceServer,
             accessToken: grant.access_token.value
         },
         {

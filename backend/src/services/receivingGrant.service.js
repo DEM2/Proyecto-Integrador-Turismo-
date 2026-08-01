@@ -1,13 +1,15 @@
 import { getReceiverClient } from './openPaymentsClient.service.js'
-import { OPEN_PAYMENTS } from '../config/openPayments.config.js'
+import { getReceiverWallet } from './wallet.service.js'
 
 export async function createReceivingGrant() {
 
     const client = await getReceiverClient()
 
+    const wallet = await getReceiverWallet()
+
     const grant = await client.grant.request(
         {
-            url: OPEN_PAYMENTS.authServer
+            url: wallet.authServer
         },
         {
             access_token: {
